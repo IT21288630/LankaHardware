@@ -7,6 +7,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
+    <!--Search css Styles -->
+	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
+	<link rel="stylesheet" href="ashion-master/css/style.css" type="text/css">
+    
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
@@ -72,8 +77,10 @@
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          <li class="nav-item active"><a href="blog.html" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
+	          <li class="nav-item"><a href="#" class="nav-link"><i class="icon_search search-switch"></i></a></li>
+			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="#"
+							class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	    	  <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -281,6 +288,74 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
+	<!-- Mini cart -->
+	<div class="mini-cart" id="mini-cart">
+		<div class="mini-cart-header">
+			<div class="mini-cart-header-title">Mini cart</div>
+			<button data-close-button class="mini-cart-close">&times;</button>
+		</div>
+		<div class="mini-cart-body mini-cart-no-scroll-bar">
+			<section class="ftco-section ftco-cart mini-cart-no-scroll-bar"
+				style="padding: 0px; height: 100%; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody>
+										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
+									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
+											<td class="image-prod" style="border: none; padding: 0px;">
+												<div class="img"
+													style="background-image:url(images/product-3.jpg); margin: 0px;">
+												</div>
+											</td>
+											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
+												<h3>Nike Free RN 2019 iD</h3>
+												<p>Far far away, behind the word mountains, far from the countries</p>
+											</td>
+										</tr><!-- END TR-->
+										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
+									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
+											<td class="image-prod" style="border: none;  padding: 0px;">
+												<div class="img"
+													style="background-image:url(images/product-3.jpg); margin: 0px;">
+												</div>
+											</td>
+											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
+												<h3>Nike Free RN 2019 iD</h3>
+												<p>Far far away, behind the word mountains, far from the countries</p>
+											</td>
+										</tr><!-- END TR-->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
+		</div>
+	</div>
+
+	<div id="mini-cart-overlay"></div>
+
+	<!-- Search Begin -->
+	<div class="search-model">
+	    <div class="h-100 d-flex align-items-center justify-content-center">
+	        <div class="search-close-switch">+</div>
+	        <form class="search-model-form">
+	            <input type="text" id="search-input" placeholder="Search here.....">
+	        </form>
+	    </div>
+	</div>
+	<!-- Search End -->
+
+	<!--Search Js Plugins -->
+	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
+	<script src="ashion-master/js/main.js"></script>
+
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -297,6 +372,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
     
   </body>
 </html>

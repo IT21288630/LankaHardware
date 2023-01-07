@@ -8,6 +8,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<!--Search css Styles -->
+	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
+	<link rel="stylesheet" href="ashion-master/css/style.css" type="text/css">
+
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
 	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
@@ -78,9 +83,10 @@
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+					<li class="nav-item"><a href="#" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="#"
 							class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
+					<li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 				</ul>
 			</div>
 		</div>
@@ -340,6 +346,21 @@
 
 	<div id="mini-cart-overlay"></div>
 
+	<!-- Search Begin -->
+	<div class="search-model">
+	    <div class="h-100 d-flex align-items-center justify-content-center">
+	        <div class="search-close-switch">+</div>
+	        <form class="search-model-form">
+	            <input type="text" id="search-input" placeholder="Search here.....">
+	        </form>
+	    </div>
+	</div>
+	<!-- Search End -->
+
+	<!--Search Js Plugins -->
+	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
+	<script src="ashion-master/js/main.js"></script>
+
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
@@ -357,6 +378,7 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
+	<script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
 
 	<script>
 		$(document).ready(function () {
