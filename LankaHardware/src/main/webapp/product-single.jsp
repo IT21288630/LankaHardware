@@ -306,10 +306,76 @@
 							</div>
 
 							<div class="row p-4">
-								<div class="col-md-7">
+								<div class="col-md-7 mini-cart-no-scroll-bar" style="max-height: 715px; overflow-y: scroll;">
 									<h3 class="mb-4">23 Reviews</h3>
 									<div class="review">
 										<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+										<div class="desc">
+											<h4>
+												<span class="text-left">Jacob Webb</span>
+												<span class="text-right">14 March 2018</span>
+											</h4>
+											<p class="star">
+												<span>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+												</span>
+												<span class="text-right"><a href="#" class="reply"><i
+															class="icon-reply"></i></a></span>
+											</p>
+											<p>When she reached the first hills of the Italic Mountains, she had a last
+												view back on the skyline of her hometown Bookmarksgrov</p>
+										</div>
+									</div>
+									<div class="review">
+										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+										<div class="desc">
+											<h4>
+												<span class="text-left">Jacob Webb</span>
+												<span class="text-right">14 March 2018</span>
+											</h4>
+											<p class="star">
+												<span>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+												</span>
+												<span class="text-right"><a href="#" class="reply"><i
+															class="icon-reply"></i></a></span>
+											</p>
+											<p>When she reached the first hills of the Italic Mountains, she had a last
+												view back on the skyline of her hometown Bookmarksgrov</p>
+										</div>
+									</div>
+									<div class="review">
+										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+										<div class="desc">
+											<h4>
+												<span class="text-left">Jacob Webb</span>
+												<span class="text-right">14 March 2018</span>
+											</h4>
+											<p class="star">
+												<span>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+													<i class="ion-ios-star-outline"></i>
+												</span>
+												<span class="text-right"><a href="#" class="reply"><i
+															class="icon-reply"></i></a></span>
+											</p>
+											<p>When she reached the first hills of the Italic Mountains, she had a last
+												view back on the skyline of her hometown Bookmarksgrov</p>
+										</div>
+									</div>
+									<div class="review">
+										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
 										<div class="desc">
 											<h4>
 												<span class="text-left">Jacob Webb</span>
