@@ -23,6 +23,15 @@ public class CommonConstants {
 	/** Constant for driver name key of MySQL database in config.properties */
 	public static final String DRIVER_NAME = "driverName";
 	
+	/** Constant for cart id prefix */
+	public static final String CART_ID_PREFIX = "C300";
+	
+	/** Constant for select cart id's */
+	public static final String QUERY_ID_SELECT_CART_IDS = "select cid from cart;";
+	
+	/** Constant for create a cart */
+	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 

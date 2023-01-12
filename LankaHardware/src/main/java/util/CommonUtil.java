@@ -1,16 +1,17 @@
 package util;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import model.test;
+import model.Cart;
 
 public class CommonUtil {
 
 	/** Initialize logger */
-	public static final Logger log = Logger.getLogger(test.class.getName());
+	public static final Logger log = Logger.getLogger(Cart.class.getName());
 	
 	public static final Properties properties = new Properties();
 	
@@ -23,5 +24,29 @@ public class CommonUtil {
 		} catch (IOException e) {
 			log.log(Level.SEVERE, e.getMessage());
 		}
+	}
+	
+	/**
+	 * Generate a new ID
+	 * 
+	 * @param arrayList
+	 * @param idType
+	 * @return
+	 */
+	public static String generateIDs(ArrayList<String> arrayList, String idType) {
+
+		String id = null;
+		int next = arrayList.size();
+		next++;
+		
+		if (idType.equals("cart")) {
+			id = CommonConstants.CART_ID_PREFIX + next;
+			if (arrayList.contains(id)) {
+				next++;
+				id = CommonConstants.CART_ID_PREFIX + next;
+			} 
+		}
+		
+		return id;
 	}
 }
