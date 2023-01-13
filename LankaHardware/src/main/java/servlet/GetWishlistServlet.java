@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.IWishlistService;
+import service.WishlistServiceImpl;
+
 /**
- * Servlet implementation class test
+ * Servlet implementation class GetWishlistServlet
  */
-@WebServlet("/test")
-public class test extends HttpServlet {
+@WebServlet("/GetWishlistServlet")
+public class GetWishlistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public test() {
+    public GetWishlistServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,6 +31,9 @@ public class test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		IWishlistService iWishlistService = new WishlistServiceImpl();
+		System.out.println(iWishlistService.getWishlist("a@g.m"));
 	}
 
 	/**
