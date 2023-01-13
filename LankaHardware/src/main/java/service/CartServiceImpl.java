@@ -2,7 +2,6 @@ package service;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,18 +26,18 @@ public class CartServiceImpl implements ICartService {
 	@Override
 	public String getCartIdByEmail(String email) {
 		// TODO Auto-generated method stub
-	
+
 		con = DBConnectionUtil.getDBConnection();
 		Cart cart = new Cart();
-	
+
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SPECIFIC_CART_ID);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, email);
 			rs = pst.executeQuery();
 			rs.next();
-	
+
 			cart.setCartID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
-	
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -46,7 +45,7 @@ public class CartServiceImpl implements ICartService {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
 			 */
-	
+
 			try {
 				if (pst != null) {
 					pst.close();
@@ -61,7 +60,7 @@ public class CartServiceImpl implements ICartService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-	
+
 		return cart.getCartID();
 	}
 
@@ -156,19 +155,21 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public void clearCart(String email) {
+	public void changeQuantity(String email, String itemID, int quantity) {
 		// TODO Auto-generated method stub
 
 		Cart cart = new Cart();
 		cart.setCartID(getCartIdByEmail(email));
-		
+
 		con = DBConnectionUtil.getDBConnection();
-		
+
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_CART);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_QUANTITY);
+			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, quantity);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, cart.getCartID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, itemID);
 			pst.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -181,8 +182,41 @@ public class CartServiceImpl implements ICartService {
 				if (pst != null) {
 					pst.close();
 				}
-				if (rs != null) {
-					rs.close();
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+	}
+
+	@Override
+	public void clearCart(String email) {
+		// TODO Auto-generated method stub
+
+		Cart cart = new Cart();
+		cart.setCartID(getCartIdByEmail(email));
+
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_CART);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
 				}
 				if (con != null) {
 					con.close();
@@ -197,6 +231,6 @@ public class CartServiceImpl implements ICartService {
 	public static void main(String[] args) {
 		ICartService iCartService = new CartServiceImpl();
 
-		iCartService.clearCart("a@g.m");
+		iCartService.changeQuantity("a@g.m", "i200", -78);
 	}
 }

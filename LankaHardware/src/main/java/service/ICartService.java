@@ -10,6 +10,12 @@ public interface ICartService {
 	public static final Logger log = Logger.getLogger(ICartService.class.getName());
 	
 	/**
+	 * get cart id by email
+	 * @param email
+	 */
+	public String getCartIdByEmail(String email);
+	
+	/**
 	 * Create a cart
 	 * @param email
 	 */
@@ -17,9 +23,19 @@ public interface ICartService {
 	
 	/**
 	 * add to cart
-	 * @param cart
+	 * @param email
+	 * @param itemID
+	 * @param quantity
 	 */
 	public void addToCart(String email, String itemID, int quantity);
+	
+	/**
+	 * Change quantity
+	 * @param email
+	 * @param itemID
+	 * @param quantity
+	 */
+	public void changeQuantity(String email, String itemID, int quantity);
 	
 	/**
 	 * clear cart
@@ -27,9 +43,5 @@ public interface ICartService {
 	 */
 	public void clearCart(String email);
 	
-	/**
-	 * get cart id by email
-	 * @param email
-	 */
-	public String getCartIdByEmail(String email);
+	
 }

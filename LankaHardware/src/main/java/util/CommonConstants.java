@@ -38,6 +38,9 @@ public class CommonConstants {
 	/** Constant for get specific cart id */
 	public static final String QUERY_ID_GET_SPECIFIC_CART_ID = "SELECT cid FROM cart WHERE email = ?;";
 	
+	/** Constant for update cart quantity */
+	public static final String QUERY_ID_UPDATE_QUANTITY = "UPDATE cart_item SET qty = ? WHERE cid = ? AND itId = ?;";
+	
 	/** Constant for clear cart */
 	public static final String QUERY_ID_CLEAR_CART = "DELETE FROM cart_item WHERE cid = ?;";
 	
