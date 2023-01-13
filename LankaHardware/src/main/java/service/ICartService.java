@@ -19,5 +19,5 @@ public interface ICartService {
 	 * add to cart
 	 * @param cart
 	 */
-	public void addToCart(String email);
+	public void addToCart(String email, String itemID, int quantity);
 }

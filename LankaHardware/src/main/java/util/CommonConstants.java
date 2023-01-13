@@ -32,6 +32,12 @@ public class CommonConstants {
 	/** Constant for create a cart */
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	
+	/** Constant for add to cart */
+	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty) VALUES(?, ?, ?);";
+	
+	/** Constant for get specific cart id */
+	public static final String QUERY_ID_GET_SPECIFIC_CART_ID = "SELECT cid FROM cart WHERE email = ?;";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 
