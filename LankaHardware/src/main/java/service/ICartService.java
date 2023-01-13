@@ -20,4 +20,16 @@ public interface ICartService {
 	 * @param cart
 	 */
 	public void addToCart(String email, String itemID, int quantity);
+	
+	/**
+	 * clear cart
+	 * @param email
+	 */
+	public void clearCart(String email);
+	
+	/**
+	 * get cart id by email
+	 * @param email
+	 */
+	public String getCartIdByEmail(String email);
 }
