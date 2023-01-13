@@ -309,7 +309,7 @@ public class CartServiceImpl implements ICartService {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		} finally {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
@@ -338,6 +338,6 @@ public class CartServiceImpl implements ICartService {
 	public static void main(String[] args) {
 		ICartService iCartService = new CartServiceImpl();
 
-		iCartService.addToCart("a@g.m", "i200", 20);
+		iCartService.addToCart("a@g.m", "i100", 1);
 	}
 }

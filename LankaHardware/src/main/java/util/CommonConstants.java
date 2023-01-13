@@ -53,11 +53,23 @@ public class CommonConstants {
 	/** Constant for get items in cart */
 	public static final String QUERY_ID_GET_CART = "SELECT * FROM cart_item WHERE cid = ?;";
 	
+	/** Constant for select wishlist id's */
+	public static final String QUERY_ID_SELECT_WISHLIST_IDS = "select wid from wishlist;";
+	
 	/** Constant for get specific wishlist id */
 	public static final String QUERY_ID_GET_SPECIFIC_WISHLIST_ID = "SELECT wid FROM wishlist WHERE email = ?;";
 	
 	/** Constant for create a wishlist */
 	public static final String QUERY_ID_CREATE_WISHLIST = "INSERT INTO wishlist(wid, email) VALUES(?, ?);";
+	
+	/** Constant for add to wishlist */
+	public static final String QUERY_ID_ADD_TO_WISHLIST = "INSERT INTO wishlist_item(wid, itId) VALUES(?, ?);";
+	
+	/** Constant for clear specific item from wishlist */
+	public static final String QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_WISHLIST = "DELETE FROM wishlist_item WHERE wid = ? and itId = ?;";
+	
+	/** Constant for get items in wishlist */
+	public static final String QUERY_ID_GET_WISHLIST = "SELECT * FROM wishlist_item WHERE wid = ?;";
 	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;

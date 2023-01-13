@@ -1,6 +1,9 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
+
+import model.Item;
 
 public interface IWishlistService {
 	/** Initialize logger */
@@ -19,4 +22,27 @@ public interface IWishlistService {
 	 * @param email
 	 */
 	public void createWishlist(String email);
+	
+	/**
+	 * add to wishlist
+	 * 
+	 * @param email
+	 * @param itemID
+	 */
+	public void addToWishlist(String email, String itemID);
+	
+	/**
+	 * remove from wishlist
+	 * 
+	 * @param email
+	 * @param itemID
+	 */
+	public void removeFromWishlist(String email, String itemID);
+	
+	/**
+	 * get wishlist items
+	 * 
+	 * @param email
+	 */
+	public ArrayList<Item> getWishlist(String email);
 }

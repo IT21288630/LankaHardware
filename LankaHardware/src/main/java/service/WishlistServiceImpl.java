@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.Cart;
+import model.Item;
 import model.Wishlist;
 import util.CommonConstants;
 import util.CommonUtil;
@@ -27,11 +28,11 @@ public class WishlistServiceImpl implements IWishlistService {
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(WishlistServiceImpl.class.getName());
-	
+
 	@Override
 	public String getWishlistIdByEmail(String email) {
 		// TODO Auto-generated method stub
-		
+
 		con = DBConnectionUtil.getDBConnection();
 		Wishlist wishlist = new Wishlist();
 
@@ -72,7 +73,7 @@ public class WishlistServiceImpl implements IWishlistService {
 	@Override
 	public void createWishlist(String email) {
 		// TODO Auto-generated method stub
-		
+
 		con = DBConnectionUtil.getDBConnection();
 		ArrayList<String> ids = new ArrayList<>();
 		Wishlist wishlist = new Wishlist();
@@ -80,7 +81,7 @@ public class WishlistServiceImpl implements IWishlistService {
 		try {
 			st = con.createStatement();
 
-			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_CART_IDS);
+			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_WISHLIST_IDS);
 
 			while (rs.next()) {
 				ids.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
@@ -88,7 +89,7 @@ public class WishlistServiceImpl implements IWishlistService {
 
 			wishlist.setWishlistID(CommonUtil.generateIDs(ids, "wishlist"));
 
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_CREATE_CART);
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CREATE_WISHLIST);
 
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
@@ -121,4 +122,145 @@ public class WishlistServiceImpl implements IWishlistService {
 		}
 	}
 
+	@Override
+	public void addToWishlist(String email, String itemID) {
+		// TODO Auto-generated method stub
+
+		Wishlist wishlist = new Wishlist();
+		wishlist.setWishlistID(getWishlistIdByEmail(email));
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_WISHLIST);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+	}
+
+	@Override
+	public void removeFromWishlist(String email, String itemID) {
+		// TODO Auto-generated method stub
+
+		Wishlist wishlist = new Wishlist();
+		wishlist.setWishlistID(getWishlistIdByEmail(email));
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_WISHLIST);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+	}
+
+	@Override
+	public ArrayList<Item> getWishlist(String email) {
+		// TODO Auto-generated method stub
+
+		Wishlist wishlist = new Wishlist();
+		wishlist.setWishlistID(getWishlistIdByEmail(email));
+		
+		con = DBConnectionUtil.getDBConnection();
+		ArrayList<Item> items = new ArrayList<>();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_WISHLIST);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				Item item = new Item();
+				
+				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
+				
+				items.add(item);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		wishlist.setItems(items);
+		
+		return wishlist.getItems();
+	}
+
+	public static void main(String[] args) {
+		IWishlistService iWishlistService = new WishlistServiceImpl();
+
+		System.out.println(iWishlistService.getWishlist("a@g.m"));
+	}
 }
