@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.Cart;
+import model.Item;
 import util.CommonConstants;
 import util.CommonUtil;
 import util.DBConnectionUtil;
@@ -193,6 +194,43 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
+	public void clearOneItemFromCart(String email, String itemID) {
+		// TODO Auto-generated method stub
+
+		Cart cart = new Cart();
+		cart.setCartID(getCartIdByEmail(email));
+
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_CART);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+	}
+
+	@Override
 	public void clearCart(String email) {
 		// TODO Auto-generated method stub
 
@@ -228,9 +266,60 @@ public class CartServiceImpl implements ICartService {
 
 	}
 
+	@Override
+	public ArrayList<Item> getCart(String email) {
+		// TODO Auto-generated method stub
+
+		Cart cart = new Cart();
+		cart.setCartID(getCartIdByEmail(email));
+
+		con = DBConnectionUtil.getDBConnection();
+		ArrayList<Item> items = new ArrayList<>();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CART);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Item item = new Item();
+
+				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
+				
+				items.add(item);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		cart.setItems(items);
+
+		return null;
+	}
+
 	public static void main(String[] args) {
 		ICartService iCartService = new CartServiceImpl();
 
-		iCartService.changeQuantity("a@g.m", "i200", -78);
+		iCartService.getCart("a@g.m");
 	}
 }

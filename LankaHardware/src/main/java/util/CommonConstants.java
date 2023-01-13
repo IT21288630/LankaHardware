@@ -41,8 +41,14 @@ public class CommonConstants {
 	/** Constant for update cart quantity */
 	public static final String QUERY_ID_UPDATE_QUANTITY = "UPDATE cart_item SET qty = ? WHERE cid = ? AND itId = ?;";
 	
+	/** Constant for clear specific item cart */
+	public static final String QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_CART = "DELETE FROM cart_item WHERE cid = ? and itId = ?;";
+	
 	/** Constant for clear cart */
 	public static final String QUERY_ID_CLEAR_CART = "DELETE FROM cart_item WHERE cid = ?;";
+
+	/** Constant for get items in cart */
+	public static final String QUERY_ID_GET_CART = "SELECT * FROM cart_item WHERE cid = ?;";
 	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
