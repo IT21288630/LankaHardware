@@ -3,7 +3,6 @@ package service;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import model.Cart;
 import model.Item;
 
 public interface ICartService {

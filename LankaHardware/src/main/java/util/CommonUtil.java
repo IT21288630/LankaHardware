@@ -46,6 +46,13 @@ public class CommonUtil {
 				id = CommonConstants.CART_ID_PREFIX + next;
 			} 
 		}
+		else if (idType.equals("wishlist")) {
+			id = CommonConstants.WISHLIST_ID_PREFIX + next;
+			if (arrayList.contains(id)) {
+				next++;
+				id = CommonConstants.WISHLIST_ID_PREFIX + next;
+			} 
+		}
 		
 		return id;
 	}

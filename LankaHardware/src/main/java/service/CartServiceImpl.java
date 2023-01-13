@@ -121,18 +121,35 @@ public class CartServiceImpl implements ICartService {
 	public void addToCart(String email, String itemID, int quantity) {
 		// TODO Auto-generated method stub
 
+		Cart cart = new Cart();
+		cart.setCartID(getCartIdByEmail(email));
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_CART);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, getCartIdByEmail(email));
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
 			pst.setInt(CommonConstants.COLUMN_INDEX_THREE, quantity);
 			pst.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO: handle exception
+			ArrayList<Item> items = getCart(email);
+
+			for (Item item : items) {
+				if (item.getItemID().equals(itemID)) {
+					quantity += item.getQuantity();
+
+					break;
+				}
+			}
+
+			changeQuantity(email, itemID, quantity);
+		}
+
+		catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
 		} finally {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
@@ -285,13 +302,14 @@ public class CartServiceImpl implements ICartService {
 				Item item = new Item();
 
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
-				
+				item.setQuantity(rs.getInt(CommonConstants.COLUMN_INDEX_THREE));
+
 				items.add(item);
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
 		} finally {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
@@ -314,12 +332,12 @@ public class CartServiceImpl implements ICartService {
 
 		cart.setItems(items);
 
-		return null;
+		return cart.getItems();
 	}
 
 	public static void main(String[] args) {
 		ICartService iCartService = new CartServiceImpl();
 
-		iCartService.getCart("a@g.m");
+		iCartService.addToCart("a@g.m", "i200", 20);
 	}
 }
