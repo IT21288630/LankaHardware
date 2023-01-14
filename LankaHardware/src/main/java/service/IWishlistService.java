@@ -45,4 +45,5 @@ public interface IWishlistService {
 	 * @param email
 	 */
 	public ArrayList<Item> getWishlist(String email);
+	
 }

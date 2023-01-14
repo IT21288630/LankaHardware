@@ -12,7 +12,7 @@
 	<!--Search css Styles -->
 	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
-	<link rel="stylesheet" href="ashion-master/css/style.css" type="text/css">
+	
 
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -108,258 +108,7 @@
 
 	<section class="ftco-section bg-light">
     	<div class="container">
-    		<div class="row">
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product d-flex flex-column">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.png" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-    						<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Remove<span><i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product d-flex flex-column">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.png" alt="Colorlib Template">
-    						<span class="status">50% Off</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-  							<div class="pricing">
-	    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.png" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-  							<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.png" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-  							<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
-
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product d-flex flex-column">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.png" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-    						<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product d-flex flex-column">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-6.png" alt="Colorlib Template">
-    						<span class="status">50% Off</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-  							<div class="pricing">
-	    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-7.png" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-  							<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-8.png" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>Lifestyle</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
-	    					</div>
-    						<h3><a href="#">Nike Free RN 2019 iD</a></h3>
-  							<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
-	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
+    		<div class="row" id="itemList">
     		</div>
     	</div>
     </section>
@@ -542,39 +291,16 @@
     <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
 
 	<script>
+	//Call wishlist servlet
+		var wishlistItems = []
+	
 		$(document).ready(function () {
-
-			var quantitiy = 0;
-			$('.quantity-right-plus').click(function (e) {
-
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				$('#quantity').val(quantity + 1);
-
-
-				// Increment
-
-			});
-
-			$('.quantity-left-minus').click(function (e) {
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				// Increment
-				if (quantity > 0) {
-					$('#quantity').val(quantity - 1);
-				}
-			});
-
+			$.get("http://localhost:8080/LankaHardware/GetWishlistServlet", function(response) {
+				
+				wishlistItems = response
+				
+				buildWishlist(wishlistItems)
+			})
 		});
 	</script>
 

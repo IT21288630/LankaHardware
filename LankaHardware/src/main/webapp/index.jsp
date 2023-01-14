@@ -72,7 +72,7 @@
                 <a class="dropdown-item" href="product-single.html">Single Product</a>
                 <a class="dropdown-item" href="cart.html">Cart</a>
                 <a class="dropdown-item" href="checkout.html">Checkout</a>
-                <a class="dropdown-item" href="GetWishlistServlet">Wishlist</a>
+                <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
               </div>
             </li>
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
