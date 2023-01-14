@@ -386,7 +386,10 @@ function closeModal(modal) {
   if (modal == null) return
   modal.classList.remove('active')
   overlay.classList.remove('active')
-  cart_itemList.innerHTML="";
+  
+  setTimeout(function() {
+    cart_itemList.innerHTML="";
+  }, 300);
 }
 
 //Call wishlist servlet

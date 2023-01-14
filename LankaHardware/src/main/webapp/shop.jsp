@@ -652,31 +652,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody>
-										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
-									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
-											<td class="image-prod" style="border: none; padding: 0px;">
-												<div class="img"
-													style="background-image:url(images/product-3.jpg); margin: 0px;">
-												</div>
-											</td>
-											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-												<h3>Nike Free RN 2019 iD</h3>
-												<p>Far far away, behind the word mountains, far from the countries</p>
-											</td>
-										</tr><!-- END TR-->
-										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
-									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
-											<td class="image-prod" style="border: none;  padding: 0px;">
-												<div class="img"
-													style="background-image:url(images/product-3.jpg); margin: 0px;">
-												</div>
-											</td>
-											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-												<h3>Nike Free RN 2019 iD</h3>
-												<p>Far far away, behind the word mountains, far from the countries</p>
-											</td>
-										</tr><!-- END TR-->
+									<tbody id="cart_itemList">
 									</tbody>
 								</table>
 							</div>
