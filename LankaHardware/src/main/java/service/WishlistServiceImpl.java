@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -122,7 +123,7 @@ public class WishlistServiceImpl implements IWishlistService {
 	}
 
 	@Override
-	public void addToWishlist(String email, String itemID) {
+	public String addToWishlist(String email, String itemID) {
 		// TODO Auto-generated method stub
 
 		Wishlist wishlist = new Wishlist();
@@ -135,7 +136,13 @@ public class WishlistServiceImpl implements IWishlistService {
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
 			pst.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO: handle exception
+
+			return "Item is already in whislist";
+		}
+
+		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
 		} finally {
@@ -160,6 +167,7 @@ public class WishlistServiceImpl implements IWishlistService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
+		return "Added to wishlist successfully";
 	}
 
 	@Override
@@ -209,7 +217,7 @@ public class WishlistServiceImpl implements IWishlistService {
 
 		Wishlist wishlist = new Wishlist();
 		wishlist.setWishlistID(getWishlistIdByEmail(email));
-		
+
 		con = DBConnectionUtil.getDBConnection();
 		ArrayList<Item> items = new ArrayList<>();
 
@@ -217,15 +225,15 @@ public class WishlistServiceImpl implements IWishlistService {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_WISHLIST);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
 			rs = pst.executeQuery();
-			
+
 			while (rs.next()) {
 				Item item = new Item();
-				
+
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
-				
+
 				items.add(item);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -253,7 +261,7 @@ public class WishlistServiceImpl implements IWishlistService {
 		}
 
 		wishlist.setItems(items);
-		
+
 		return wishlist.getItems();
 	}
 

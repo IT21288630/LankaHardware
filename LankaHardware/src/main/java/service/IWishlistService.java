@@ -29,7 +29,7 @@ public interface IWishlistService {
 	 * @param email
 	 * @param itemID
 	 */
-	public void addToWishlist(String email, String itemID);
+	public String addToWishlist(String email, String itemID);
 	
 	/**
 	 * remove from wishlist

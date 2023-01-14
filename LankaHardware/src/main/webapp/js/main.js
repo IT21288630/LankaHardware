@@ -350,6 +350,7 @@ var mainCart_itemList = document.getElementById('mainCart_itemList')
 var newArrival_itemList = document.getElementById('newArrival_itemList')
 var wishlist_itemList = document.getElementById('wishlist_itemList')
 var cartQuantity = document.getElementById('cartQuantity')
+var added_msg = document.getElementById('added_msg')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -484,7 +485,7 @@ function buildNewArrivalslist(newArrivals){
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
     							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="return false;"><span onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1)">Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Remove<span><i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
+    							<a href="#" class="buy-now text-center py-2" onclick="return false;"><span onclick="callAddToWishlistServlet('${newArrivals[i].itemID}')">Wishlist<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
     				</div>
@@ -585,3 +586,16 @@ function callRemoveFromCartServlet(itemID, operation){
 	   callCartServlet()
 	})
 }
+
+//Add to wishlist
+function callAddToWishlistServlet(itemID){
+	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID}, function(response){
+	    
+	    added_msg.innerHTML = response
+	    added_msg.classList.add('active')
+	    setTimeout(function() {
+	    	added_msg.classList.remove('active')
+	  	}, 3000);
+	})
+}
+
