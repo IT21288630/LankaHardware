@@ -348,6 +348,7 @@ setInterval(function() { makeTimer(); }, 1000);
 var cart_itemList = document.getElementById('cart_itemList')
 var newArrival_itemList = document.getElementById('newArrival_itemList')
 var wishlist_itemList = document.getElementById('wishlist_itemList')
+var cartQuantity = document.getElementById('cartQuantity')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -494,13 +495,17 @@ function buildNewArrivalslist(newArrivals){
 
 //call cart servlet
 var cartItems = []
+var firstTime = true
 
 function callCartServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
 				
 		cartItems = response
-						
-		buildCart(cartItems)
+		getCartQuantity()
+		
+		if(firstTime == false) buildCart(cartItems)
+		
+		firstTime = false
 	})
 }
 
@@ -521,4 +526,10 @@ function buildCart(cartItems){
     			
     	cart_itemList.innerHTML += item
 	}
+}
+
+function getCartQuantity(){
+	var no_of_Items = `[${cartItems.length}]`
+	
+	cartQuantity.innerHTML = no_of_Items
 }

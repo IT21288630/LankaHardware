@@ -85,7 +85,7 @@
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 					<li class="nav-item"><a href="#" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="#"
-							class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+							class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
 					<li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 				</ul>
 			</div>
@@ -390,6 +390,7 @@
 				}
 			});
 
+			callCartServlet()
 		});
 	</script>
 
