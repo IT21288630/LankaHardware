@@ -496,7 +496,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody id="cart_itemList">
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>
@@ -504,7 +504,7 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.jsp" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>

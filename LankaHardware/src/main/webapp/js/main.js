@@ -345,7 +345,8 @@ setInterval(function() { makeTimer(); }, 1000);
 })(jQuery);
 
 //Item lists
-var cart_itemList = document.getElementById('cart_itemList')
+var miniCart_itemList = document.getElementById('miniCart_itemList')
+var mainCart_itemList = document.getElementById('mainCart_itemList')
 var newArrival_itemList = document.getElementById('newArrival_itemList')
 var wishlist_itemList = document.getElementById('wishlist_itemList')
 var cartQuantity = document.getElementById('cartQuantity')
@@ -389,7 +390,7 @@ function closeModal(modal) {
   overlay.classList.remove('active')
   
   setTimeout(function() {
-    cart_itemList.innerHTML="";
+    miniCart_itemList.innerHTML="";
   }, 300);
 }
 
@@ -499,17 +500,17 @@ var firstTime = true
 
 function callCartServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
-				
-		cartItems = response
-		getCartQuantity()
 		
-		if(firstTime == false) buildCart(cartItems)
+		cartItems = response[0]
+		getCartQuantity()
+
+		if(firstTime == false) buildMiniCart(cartItems)
 		
 		firstTime = false
 	})
 }
 
-function buildCart(cartItems){
+function buildMiniCart(cartItems){
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
 						<td class="image-prod" style="border: none; padding: 0px;">
@@ -524,7 +525,7 @@ function buildCart(cartItems){
 					</tr>
 					<!-- END TR-->`
     			
-    	cart_itemList.innerHTML += item
+    	miniCart_itemList.innerHTML += item
 	}
 }
 
@@ -532,4 +533,33 @@ function getCartQuantity(){
 	var no_of_Items = `[${cartItems.length}]`
 	
 	cartQuantity.innerHTML = no_of_Items
+}
+
+function buildMainCart(){
+	for(var i = 0; i < cartItems.length; i++){
+		var item = `<tr class="text-center">
+						<td class="image-prod">
+							<div class="img" style="background-image:url(images/product-3.jpg);"></div>
+						</td>
+
+						<td class="product-name">
+							<h3>${cartItems[i].itemID}</h3>
+							<p>Far far away, behind the word mountains, far from the countries</p>
+						</td>
+
+						<td class="price">$4.90</td>
+
+						<td class="quantity">
+							<div class="input-group mb-3">
+								<input type="text" name="quantity"
+									class="quantity form-control input-number" value="${cartItems[i].quantity}" min="1" max="100">
+							</div>
+
+						<td class="total">$4.90</td>
+
+						<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+					</tr><!-- END TR-->`
+    			
+    	mainCart_itemList.innerHTML += item
+	}
 }

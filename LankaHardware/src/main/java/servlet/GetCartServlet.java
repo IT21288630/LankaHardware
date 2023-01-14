@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +44,9 @@ public class GetCartServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String resp = new Gson().toJson(iCartService.getCart(email));
-
-		out.print(resp);
+		String resp2 = new Gson().toJson(2000);
+		String bothJson = "["+resp+","+resp2+"]";
+		
+		out.print(bothJson);
 	}
 }

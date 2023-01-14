@@ -120,55 +120,8 @@
 									<th>&nbsp;</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr class="text-center">
-									<td class="image-prod">
-										<div class="img" style="background-image:url(images/product-3.jpg);"></div>
-									</td>
-
-									<td class="product-name">
-										<h3>Nike Free RN 2019 iD</h3>
-										<p>Far far away, behind the word mountains, far from the countries</p>
-									</td>
-
-									<td class="price">$4.90</td>
-
-									<td class="quantity">
-										<div class="input-group mb-3">
-											<input type="text" name="quantity"
-												class="quantity form-control input-number" value="1" min="1" max="100">
-										</div>
-
-									<td class="total">$4.90</td>
-
-									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-								</tr><!-- END TR-->
-
-								<tr class="text-center">
-									<td class="image-prod">
-										<div class="img" style="background-image:url(images/product-4.jpg);"></div>
-									</td>
-
-									<td class="product-name">
-										<h3>Nike Free RN 2019 iD</h3>
-										<p>Far far away, behind the word mountains, far from the countries</p>
-									</td>
-
-									<td class="price">$15.70</td>
-
-									<td class="quantity">
-										<div class="input-group mb-3">
-											<input type="text" name="quantity"
-												class="quantity form-control input-number" value="1" min="1" max="100">
-										</div>
-									</td>
-
-									<td class="total">$15.70</td>
-
-
-									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-								</tr><!-- END TR-->
+							<tbody id="mainCart_itemList">
+								
 							</tbody>
 						</table>
 					</div>
@@ -307,7 +260,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody id="cart_itemList">
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>
@@ -389,8 +342,18 @@
 					$('#quantity').val(quantity - 1);
 				}
 			});
-
-			callCartServlet()
+			
+			$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
+				
+				cartItems = response[0]
+				getCartQuantity()
+				
+				if(firstTime == false) buildMiniCart(cartItems)
+				
+				firstTime = false
+				
+				buildMainCart()
+			})
 		});
 	</script>
 
