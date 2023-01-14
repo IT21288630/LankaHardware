@@ -15,30 +15,27 @@ import service.CartServiceImpl;
 import service.ICartService;
 
 /**
- * Servlet implementation class AddToCartServlet
+ * Servlet implementation class RemoveFromCartServlet
  */
-@WebServlet("/AddToCartServlet")
-public class AddToCartServlet extends HttpServlet {
+@WebServlet("/RemoveFromCartServlet")
+public class RemoveFromCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddToCartServlet() {
+    public RemoveFromCartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    /**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 	}
-    
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -47,19 +44,28 @@ public class AddToCartServlet extends HttpServlet {
 		doGet(request, response);
 		
 		String email = "a@g.m";
-		String itemID = request.getParameter("itemID");
-		int quantity = Integer.parseInt(request.getParameter("quantity")) ;
-		ICartService iCartService = new CartServiceImpl();
+		String operation = request.getParameter("operation");
 		
-		iCartService.addToCart(email, itemID, quantity);
+		ICartService iCartService = new CartServiceImpl();
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
+		
+		if (operation.equals("one")) {
+			String itemID = request.getParameter("itemID");
+			iCartService.clearOneItemFromCart(email, itemID);
+			
+			String resp = new Gson().toJson("Removes from cart");
 
-		String resp = new Gson().toJson("Added to cart successfully");
+			out.print(resp);
+		}
+		else if (operation.equals("all")) {
+			iCartService.clearCart(email);
+			
+			String resp = new Gson().toJson("Cleared the cart");
 
-		out.print(resp);
+			out.print(resp);
+		}
 	}
-
 }

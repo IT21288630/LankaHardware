@@ -497,6 +497,7 @@ function buildNewArrivalslist(newArrivals){
 //call cart servlet
 var cartItems = []
 var firstTime = true
+var itemRemoved = false
 
 function callCartServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
@@ -505,6 +506,7 @@ function callCartServlet(){
 		getCartQuantity()
 
 		if(firstTime == false) buildMiniCart(cartItems)
+		if(itemRemoved == true) buildMainCart(cartItems)
 		
 		firstTime = false
 	})
@@ -535,7 +537,7 @@ function getCartQuantity(){
 	cartQuantity.innerHTML = no_of_Items
 }
 
-function buildMainCart(){
+function buildMainCart(cartItems){
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center">
 						<td class="image-prod">
@@ -557,7 +559,7 @@ function buildMainCart(){
 
 						<td class="total">$4.90</td>
 
-						<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						<td class="product-remove"><a href="#" onclick="return false;"><span class="ion-ios-close" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one')"></span></a></td>
 					</tr><!-- END TR-->`
     			
     	mainCart_itemList.innerHTML += item
@@ -565,6 +567,21 @@ function buildMainCart(){
 }
 
 //Add to cart
-function callAddToCartServlet(itemID, qty){
-	alert(itemID)
+function callAddToCartServlet(itemID, quantity){
+	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity}, function(response){
+	    
+	    firstTime = true
+	    callCartServlet()
+	})
+}
+
+//Clear cart
+function callRemoveFromCartServlet(itemID, operation){
+	$.post("http://localhost:8080/LankaHardware/RemoveFromCartServlet", {itemID : itemID, operation : operation}, function(response){
+	   
+	   firstTime = true
+	   itemRemoved = true
+	   mainCart_itemList.innerHTML="";
+	   callCartServlet()
+	})
 }
