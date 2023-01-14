@@ -344,14 +344,19 @@ setInterval(function() { makeTimer(); }, 1000);
 
 })(jQuery);
 
-//Mini cart
+//Item lists
+var cart_itemList = document.getElementById('cart_itemList')
+var newArrival_itemList = document.getElementById('newArrival_itemList')
+var wishlist_itemList = document.getElementById('wishlist_itemList')
 
+//Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('mini-cart-overlay')
 
 openModalButtons.forEach(button => {
   button.addEventListener('click', () => {
+	callCartServlet()
     const modal = document.querySelector(button.dataset.modalTarget)
     openModal(modal)
   })
@@ -381,6 +386,7 @@ function closeModal(modal) {
   if (modal == null) return
   modal.classList.remove('active')
   overlay.classList.remove('active')
+  cart_itemList.innerHTML="";
 }
 
 //Call wishlist servlet
@@ -396,8 +402,6 @@ function callWishlistServlet(){
 }
 
 function buildWishlist(wishlistItems){
-	var itemList = document.getElementById('wishlist_itemList')
-	
 	for(var i = 0; i < wishlistItems.length; i++){
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
@@ -431,7 +435,7 @@ function buildWishlist(wishlistItems){
     				</div>
     			</div>`
     			
-    	itemList.innerHTML += item
+    	wishlist_itemList.innerHTML += item
 	}
 }
 
@@ -448,8 +452,6 @@ function callIndexServlet(){
 }
 
 function buildNewArrivalslist(newArrivals){
-	var itemList = document.getElementById('newArrival_itemList')
-	
 	for(var i = 0; i < newArrivals.length; i++){
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
@@ -483,6 +485,37 @@ function buildNewArrivalslist(newArrivals){
     				</div>
     			</div>`
     			
-    	itemList.innerHTML += item
+    	newArrival_itemList.innerHTML += item
+	}
+}
+
+//call cart servlet
+var cartItems = []
+
+function callCartServlet(){
+	$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
+				
+		cartItems = response
+						
+		buildCart(cartItems)
+	})
+}
+
+function buildCart(cartItems){
+	for(var i = 0; i < cartItems.length; i++){
+		var item = `<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
+						<td class="image-prod" style="border: none; padding: 0px;">
+							<div class="img"
+								style="background-image:url(images/product-3.jpg); margin: 0px;">
+							</div>
+						</td>
+						<td class="product-name" style="width: auto; border: none;  padding: 0px;">
+							<h3>${cartItems[i].itemID}</h3>
+							<p>Far far away, behind the word mountains, far from the countries</p>
+						</td>
+					</tr>
+					<!-- END TR-->`
+    			
+    	cart_itemList.innerHTML += item
 	}
 }
