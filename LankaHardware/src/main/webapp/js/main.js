@@ -457,7 +457,7 @@ function callIndexServlet(){
 }
 
 function buildNewArrivalslist(newArrivals){
-	for(var i = 0; i < newArrivals.length; i++){
+	for(var i = 0; i < newArrivals.length; i++){	
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
     					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.png" alt="Colorlib Template">
@@ -483,7 +483,7 @@ function buildNewArrivalslist(newArrivals){
 	    						<p class="price"><span>$120.00</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="return false;"><span onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1)">Add to cart <i class="ion-ios-add ml-1"></i></span></a>
     							<a href="#" class="buy-now text-center py-2">Remove<span><i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
@@ -562,4 +562,9 @@ function buildMainCart(){
     			
     	mainCart_itemList.innerHTML += item
 	}
+}
+
+//Add to cart
+function callAddToCartServlet(itemID, qty){
+	alert(itemID)
 }
