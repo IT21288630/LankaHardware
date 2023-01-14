@@ -12,7 +12,7 @@
 	<!--Search css Styles -->
 	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
-	
+	<link rel="stylesheet" href="css/search.css" type="text/css">
 
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -295,12 +295,7 @@
 		var wishlistItems = []
 	
 		$(document).ready(function () {
-			$.get("http://localhost:8080/LankaHardware/GetWishlistServlet", function(response) {
-				
-				wishlistItems = response
-				
-				buildWishlist(wishlistItems)
-			})
+			callWishlistServlet()
 		});
 	</script>
 

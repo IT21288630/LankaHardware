@@ -386,6 +386,15 @@ function closeModal(modal) {
 //Call wishlist servlet
 const cards = document.querySelectorAll('.col-sm-12.col-md-6.col-lg-3.ftco-animate.d-flex')
 
+function callWishlistServlet(){
+	$.get("http://localhost:8080/LankaHardware/GetWishlistServlet", function(response) {
+				
+		wishlistItems = response
+						
+		buildWishlist(wishlistItems)
+	})
+}
+
 function buildWishlist(wishlistItems){
 	var itemList = document.getElementById('itemList')
 	
