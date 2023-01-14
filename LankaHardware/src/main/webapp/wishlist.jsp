@@ -108,7 +108,7 @@
 
 	<section class="ftco-section bg-light">
     	<div class="container">
-    		<div class="row" id="itemList">
+    		<div class="row" id="wishlist_itemList">
     		</div>
     	</div>
     </section>
@@ -292,8 +292,6 @@
 
 	<script>
 	//Call wishlist servlet
-		var wishlistItems = []
-	
 		$(document).ready(function () {
 			callWishlistServlet()
 		});

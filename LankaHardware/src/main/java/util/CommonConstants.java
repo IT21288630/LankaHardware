@@ -71,6 +71,9 @@ public class CommonConstants {
 	/** Constant for get items in wishlist */
 	public static final String QUERY_ID_GET_WISHLIST = "SELECT * FROM wishlist_item WHERE wid = ?;";
 	
+	/** Constant for get new arrivals */
+	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT * FROM item ORDER BY id limit 8;";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 

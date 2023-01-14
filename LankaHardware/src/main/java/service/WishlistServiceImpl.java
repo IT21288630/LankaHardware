@@ -80,7 +80,6 @@ public class WishlistServiceImpl implements IWishlistService {
 
 		try {
 			st = con.createStatement();
-
 			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_WISHLIST_IDS);
 
 			while (rs.next()) {
