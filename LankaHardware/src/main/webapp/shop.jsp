@@ -64,7 +64,7 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
 	          <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -501,63 +501,6 @@
     		</div>
     	</div>
     </section>
-		
-		<section class="ftco-gallery">
-    	<div class="container">
-    		<div class="row justify-content-center">
-    			<div class="col-md-8 heading-section text-center mb-4 ftco-animate">
-            <h2 class="mb-4">Follow Us On Instagram</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
-          </div>
-    		</div>
-    	</div>
-    	<div class="container-fluid px-0">
-    		<div class="row no-gutters">
-					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-1.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-1.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-2.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-2.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-3.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-3.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-4.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-4.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-5.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-5.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-6.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-6.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-        </div>
-    	</div>
-    </section>
 
     <footer class="ftco-footer ftco-section">
       <div class="container">
@@ -652,7 +595,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody id="cart_itemList">
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>
@@ -660,7 +603,7 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.jsp" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>
@@ -670,9 +613,24 @@
 	<!-- Search Begin -->
 	<div class="search-model">
 	    <div class="h-100 d-flex align-items-center justify-content-center">
-	        <div class="search-close-switch">+</div>
+	        <div class="search-close-switch" id="mainSearchClose">+</div>
 	        <form class="search-model-form">
-	            <input type="text" id="search-input" placeholder="Search here.....">
+	            <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	            
+	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody id="result">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 	        </form>
 	    </div>
 	</div>

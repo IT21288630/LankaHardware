@@ -77,6 +77,9 @@ public class CommonConstants {
 	/** Constant for get new arrivals */
 	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT * FROM item ORDER BY id DESC limit 8;";
 	
+	/** Constant for get main search results */
+	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id FROM item WHERE name LIKE ?;";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 

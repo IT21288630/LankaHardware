@@ -320,9 +320,24 @@
 	<!-- Search Begin -->
 	<div class="search-model">
 	    <div class="h-100 d-flex align-items-center justify-content-center">
-	        <div class="search-close-switch">+</div>
+	        <div class="search-close-switch" id="mainSearchClose">+</div>
 	        <form class="search-model-form">
-	            <input type="text" id="search-input" placeholder="Search here.....">
+	            <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	            
+	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody id="result">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 	        </form>
 	    </div>
 	</div>

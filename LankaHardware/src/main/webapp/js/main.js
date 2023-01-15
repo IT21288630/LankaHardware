@@ -344,7 +344,7 @@ setInterval(function() { makeTimer(); }, 1000);
 
 })(jQuery);
 
-//Item lists
+//Important elements
 var miniCart_itemList = document.getElementById('miniCart_itemList')
 var mainCart_itemList = document.getElementById('mainCart_itemList')
 var newArrival_itemList = document.getElementById('newArrival_itemList')
@@ -353,6 +353,8 @@ var cartQuantity = document.getElementById('cartQuantity')
 var added_msg = document.getElementById('added_msg')
 var cartTotals = document.getElementById('cartTotals')
 var productDetails = document.getElementById('productDetails')
+var ProductSearchResult = document.getElementById('result')
+var mainSearchClose = document.getElementById('mainSearchClose')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -615,6 +617,11 @@ function cartTotal(Total){
 
 //Add to cart
 function callAddToCartServlet(itemID, quantity){
+	if(quantity != 1){
+		var productSingleQuantity = document.getElementById('productSingleQuantity').value
+		quantity = productSingleQuantity
+	}
+	
 	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity}, function(response){
 	    
 	    firstTime = true
@@ -663,8 +670,6 @@ function callGetProductSingleServlet(itemID){
 }
 
 function buildProductSingle(product){
-	console.log(product)
-	
 	var details = `<div class="col-lg-5 mt-5">
                     <div class="card mb-3">
                         <img class="card-img img-fluid" src="images/product-1.png" alt="Card image cap" id="product-detail">
@@ -763,7 +768,7 @@ function buildProductSingle(product){
                     </div>
                 </div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
-					<h3>Nike Free RN 2019 iD</h3>
+					<h3>${product.itemID}</h3>
 					<div class="rating d-flex">
 						<p class="text-left mr-4">
 							<a href="#" class="mr-2">5.0</a>
@@ -808,27 +813,71 @@ function buildProductSingle(product){
 						</div>
 						<div class="w-100"></div>
 						<div class="input-group col-md-6 d-flex mb-3">
-							<span class="input-group-btn mr-2">
-								<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-									<i class="ion-ios-remove"></i>
-								</button>
-							</span>
-							<input type="text" id="quantity" name="quantity" class="quantity form-control input-number"
-								value="1" min="1" max="100">
-							<span class="input-group-btn ml-2">
-								<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-									<i class="ion-ios-add"></i>
-								</button>
-							</span>
+							<div class="quantity buttons_added">
+								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
+							</div>
 						</div>
 						<div class="w-100"></div>
 						<div class="col-md-12">
 							<p style="color: #000;">80 piece available</p>
 						</div>
 					</div>
-					<p><a href="cart.html" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
+					<p><a href="javascript:callAddToCartServlet('${product.itemID}', 0);" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
 				</div>`
     			
     	productDetails.innerHTML += details
 }
 
+//call main product search servlet
+var mainProductSearchResults = []
+
+function mainSearch(){
+	var itemName = document.getElementById('search-input').value	
+	if(itemName == '') return
+	
+	callMainProductSearch(itemName)
+}
+
+function callMainProductSearch(itemName){
+	var forNoResults = itemName
+	itemName = '%' + itemName + '%'
+	
+	$.get("http://localhost:8080/LankaHardware/GetMainProductSearch", {itemName : itemName}, function(response) {
+		
+		mainProductSearchResults = response
+		console.log(mainProductSearchResults)
+		builtResults(mainProductSearchResults, forNoResults)
+	})
+}
+
+function builtResults(mainProductSearchResults, forNoResults){
+	ProductSearchResult.innerHTML = ""
+	
+	if(mainProductSearchResults.length == 0){
+		ProductSearchResult.innerHTML = `<div style='display: flex; flex-direction: column; justify-content: center; font-size: medium; margin-top: 50px;'>
+											<span style='font-size: x-large'><i class="fa-solid fa-circle-exclamation"></i> We're Sorry</span>
+											<span>We didn't find any results for '${forNoResults}'</span>
+										</div>`
+		return
+	}
+	
+	for(var i = 0; i < mainProductSearchResults.length; i++){
+		var item = `<tr class="text-center clickable" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;" onclick="toProductSinglePage('${mainProductSearchResults[i].itemID}');">
+						<td class="image-prod" style="border: none; padding: 0px;">
+							<div class="img"
+								style="background-image:url(images/product-3.jpg); margin: 0px;">
+							</div>
+						</td>
+						<td class="product-name" style="width: auto; border: none;  padding: 0px;">
+							<h3>${mainProductSearchResults[i].itemID}</h3>
+							<p>Far far away, behind the word mountains, far from the countries</p>
+						</td>
+					</tr><!-- END TR-->`
+    			
+    	ProductSearchResult.innerHTML += item
+	}
+}
+
+mainSearchClose.addEventListener('click', () => {
+  ProductSearchResult.innerHTML = ""
+})

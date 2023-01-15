@@ -15431,3 +15431,8 @@ textarea.form-control {
 .added_msg.active{
 	transform: scale(1);
 }
+
+/* clickable */
+.clickable:hover {
+	cursor: pointer;
+}

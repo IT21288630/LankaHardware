@@ -36,6 +36,7 @@
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="quantity/style.css">
 </head>
 
 <body class="goto-here">
@@ -110,12 +111,6 @@
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row" id="productDetails">
-				<!-- <div class="col-lg-6 mb-5 ftco-animate">
-					<a href="images/product-1.png" class="image-popup prod-img-bg"><img src="images/product-1.png"
-							class="img-fluid" alt="Colorlib Template"></a>
-				</div> -->
-				
-				
 			</div>
 
 
@@ -461,7 +456,7 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.jsp" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>
@@ -473,9 +468,24 @@
 	<!-- Search Begin -->
 	<div class="search-model">
 	    <div class="h-100 d-flex align-items-center justify-content-center">
-	        <div class="search-close-switch">+</div>
+	        <div class="search-close-switch" id="mainSearchClose">+</div>
 	        <form class="search-model-form">
-	            <input type="text" id="search-input" placeholder="Search here.....">
+	            <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	            
+	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody id="result">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 	        </form>
 	    </div>
 	</div>
@@ -503,6 +513,7 @@
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
 	<script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
+	<script src="quantity/script.js"></script>
 
 	<script>
 		$(document).ready(function () {
