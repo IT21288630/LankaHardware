@@ -593,11 +593,11 @@ function buildMainCart(cartItems, Total){
 
 						<td class="price">$4.90</td>
 
-						<td class="quantity">
-							<div class="input-group mb-3">
-								<input type="text" name="quantity"
-									class="quantity form-control input-number" value="${cartItems[i].quantity}" min="1" max="100">
+						<td>
+						    <div class="quantity buttons_added">
+								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
 							</div>
+					    </td>
 
 						<td class="total">$4.90</td>
 
@@ -763,7 +763,7 @@ function buildProductSingle(product){
                     </div>
                 </div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
-					<h3>${product.itemID}</h3>
+					<h3>Nike Free RN 2019 iD</h3>
 					<div class="rating d-flex">
 						<p class="text-left mr-4">
 							<a href="#" class="mr-2">5.0</a>
@@ -788,7 +788,7 @@ function buildProductSingle(product){
 					<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
 						would have been rewritten a thousand times and everything that was left from its origin would be
 						the word "and" and the Little Blind Text should turn around and return to its own, safe country.
-						But nothing the copy said could convince her and so it didn't take long until a few insidious
+						But nothing the copy said could convince her and so it didn’t take long until a few insidious
 						Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
 						agency, where they abused her for their.
 					</p>
@@ -815,7 +815,7 @@ function buildProductSingle(product){
 							</span>
 							<input type="text" id="quantity" name="quantity" class="quantity form-control input-number"
 								value="1" min="1" max="100">
-							<span class="input-group-btn ml-2" >
+							<span class="input-group-btn ml-2">
 								<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 									<i class="ion-ios-add"></i>
 								</button>
