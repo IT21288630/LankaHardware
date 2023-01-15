@@ -344,7 +344,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody id="cart_itemList">
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>

@@ -4,6 +4,15 @@ public class Item {
 
 	private String itemID;
 	private int quantity;
+	private double price;
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	public int getQuantity() {
 		return quantity;

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import model.Cart;
 import service.CartServiceImpl;
 import service.ICartService;
 
@@ -38,15 +39,22 @@ public class GetCartServlet extends HttpServlet {
 
 		String email = "a@g.m";
 		ICartService iCartService = new CartServiceImpl();
+		Cart cart = iCartService.getCart(email);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iCartService.getCart(email));
-		String resp2 = new Gson().toJson(2000);
+		String resp = new Gson().toJson(cart.getItems());
+		String resp2 = new Gson().toJson(cart.getTotal());
 		String bothJson = "["+resp+","+resp2+"]";
 		
 		out.print(bothJson);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
 	}
 }

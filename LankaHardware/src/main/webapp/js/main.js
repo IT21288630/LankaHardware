@@ -351,6 +351,7 @@ var newArrival_itemList = document.getElementById('newArrival_itemList')
 var wishlist_itemList = document.getElementById('wishlist_itemList')
 var cartQuantity = document.getElementById('cartQuantity')
 var added_msg = document.getElementById('added_msg')
+var cartTotals = document.getElementById('cartTotals')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -434,8 +435,8 @@ function buildWishlist(wishlistItems){
 	    						<p class="price"><span>$120.00</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2">Remove<span><i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
+    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="return false;"><span onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1)">Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a href="#" class="buy-now text-center py-2" onclick="return false;"><span onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}')">Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
     				</div>
@@ -443,6 +444,33 @@ function buildWishlist(wishlistItems){
     			
     	wishlist_itemList.innerHTML += item
 	}
+}
+
+//Add to wishlist
+function callAddToWishlistServlet(itemID){
+	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID}, function(response){
+	    
+	    added_msg.innerHTML = response
+	    added_msg.classList.add('active')
+	    setTimeout(function() {
+	    	added_msg.classList.remove('active')
+	  	}, 2000);
+	})
+}
+
+//Remove from wishlist
+function callRemoveFromWishlistServlet(itemID){
+	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID}, function(response){
+	   
+	   wishlist_itemList.innerHTML = ""
+	   callWishlistServlet()
+	   
+	   added_msg.innerHTML = response
+	   added_msg.classList.add('active')
+	   setTimeout(function() {
+	   	added_msg.classList.remove('active')
+	   }, 2000);
+	})
 }
 
 //call index servlet
@@ -506,8 +534,10 @@ function callCartServlet(){
 		cartItems = response[0]
 		getCartQuantity()
 
+		var Total = response[1]
+		
 		if(firstTime == false) buildMiniCart(cartItems)
-		if(itemRemoved == true) buildMainCart(cartItems)
+		if(itemRemoved == true) buildMainCart(cartItems, Total)
 		
 		firstTime = false
 	})
@@ -538,7 +568,8 @@ function getCartQuantity(){
 	cartQuantity.innerHTML = no_of_Items
 }
 
-function buildMainCart(cartItems){
+function buildMainCart(cartItems, Total){
+	cartTotal(Total)
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center">
 						<td class="image-prod">
@@ -567,12 +598,23 @@ function buildMainCart(cartItems){
 	}
 }
 
+//Cart totals
+function cartTotal(Total){
+	cartTotals.innerHTML = '$' + Total
+}
+
 //Add to cart
 function callAddToCartServlet(itemID, quantity){
 	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity}, function(response){
 	    
 	    firstTime = true
 	    callCartServlet()
+	    
+	    added_msg.innerHTML = response
+	    added_msg.classList.add('active')
+	    setTimeout(function() {
+	    	added_msg.classList.remove('active')
+	  	}, 2000);
 	})
 }
 
@@ -584,18 +626,12 @@ function callRemoveFromCartServlet(itemID, operation){
 	   itemRemoved = true
 	   mainCart_itemList.innerHTML="";
 	   callCartServlet()
-	})
-}
-
-//Add to wishlist
-function callAddToWishlistServlet(itemID){
-	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID}, function(response){
-	    
-	    added_msg.innerHTML = response
-	    added_msg.classList.add('active')
-	    setTimeout(function() {
-	    	added_msg.classList.remove('active')
-	  	}, 3000);
+	   
+	   added_msg.innerHTML = response
+	   added_msg.classList.add('active')
+	   setTimeout(function() {
+	   	added_msg.classList.remove('active')
+	   }, 2000);
 	})
 }
 

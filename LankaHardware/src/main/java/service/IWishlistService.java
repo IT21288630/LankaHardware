@@ -37,7 +37,7 @@ public interface IWishlistService {
 	 * @param email
 	 * @param itemID
 	 */
-	public void removeFromWishlist(String email, String itemID);
+	public String removeFromWishlist(String email, String itemID);
 	
 	/**
 	 * get wishlist items

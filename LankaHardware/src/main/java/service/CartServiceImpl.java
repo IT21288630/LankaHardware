@@ -118,11 +118,10 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public void addToCart(String email, String itemID, int quantity) {
+	public String addToCart(String email, String itemID, int quantity) {
 		// TODO Auto-generated method stub
 
-		Cart cart = new Cart();
-		cart.setCartID(getCartIdByEmail(email));
+		Cart cart = getCart(email);
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -134,8 +133,9 @@ public class CartServiceImpl implements ICartService {
 
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO: handle exception
-			ArrayList<Item> items = getCart(email);
-
+			
+			ArrayList<Item> items = cart.getItems();
+			
 			for (Item item : items) {
 				if (item.getItemID().equals(itemID)) {
 					quantity += item.getQuantity();
@@ -169,7 +169,8 @@ public class CartServiceImpl implements ICartService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
+		
+		return "Added to cart";
 	}
 
 	@Override
@@ -211,7 +212,7 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public void clearOneItemFromCart(String email, String itemID) {
+	public String clearOneItemFromCart(String email, String itemID) {
 		// TODO Auto-generated method stub
 
 		Cart cart = new Cart();
@@ -244,11 +245,12 @@ public class CartServiceImpl implements ICartService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
+		
+		return "Item removed";
 	}
 
 	@Override
-	public void clearCart(String email) {
+	public String clearCart(String email) {
 		// TODO Auto-generated method stub
 
 		Cart cart = new Cart();
@@ -280,11 +282,12 @@ public class CartServiceImpl implements ICartService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
+		
+		return "Cart cleared";
 	}
 
 	@Override
-	public ArrayList<Item> getCart(String email) {
+	public Cart getCart(String email) {
 		// TODO Auto-generated method stub
 
 		Cart cart = new Cart();
@@ -331,13 +334,23 @@ public class CartServiceImpl implements ICartService {
 		}
 
 		cart.setItems(items);
+		cart.setTotal(calculateTotal(items));
 
-		return cart.getItems();
+		return cart;
+	}
+
+	@Override
+	public double calculateTotal(ArrayList<Item> items) {
+		// TODO Auto-generated method stub
+
+		
+		
+		return 0;
 	}
 
 	public static void main(String[] args) {
 		ICartService iCartService = new CartServiceImpl();
 
-		iCartService.addToCart("a@g.m", "i100", 1);
+		System.out.println(iCartService.getCart("a@g.m"));
 	}
 }

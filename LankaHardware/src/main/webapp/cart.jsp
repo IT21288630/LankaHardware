@@ -146,7 +146,7 @@
 						<hr>
 						<p class="d-flex total-price">
 							<span>Total</span>
-							<span>$17.60</span>
+							<span  id="cartTotals"></span>
 						</p>
 					</div>
 					<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to
@@ -268,12 +268,14 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.jsp" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>
 
 	<div id="mini-cart-overlay"></div>
+
+	<div class="alert alert-success added_msg" role="alert" id="added_msg"></div>
 
 	<!-- Search Begin -->
 	<div class="search-model">
@@ -348,11 +350,13 @@
 				cartItems = response[0]
 				getCartQuantity()
 				
+				var Total = response[1]
+				
 				if(firstTime == false) buildMiniCart(cartItems)
 				
 				firstTime = false
 				
-				buildMainCart(cartItems)
+				buildMainCart(cartItems, Total)
 			})
 		});
 	</script>

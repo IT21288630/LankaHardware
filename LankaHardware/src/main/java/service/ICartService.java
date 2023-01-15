@@ -3,6 +3,7 @@ package service;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import model.Cart;
 import model.Item;
 
 public interface ICartService {
@@ -28,7 +29,7 @@ public interface ICartService {
 	 * @param itemID
 	 * @param quantity
 	 */
-	public void addToCart(String email, String itemID, int quantity);
+	public String addToCart(String email, String itemID, int quantity);
 	
 	/**
 	 * Change quantity
@@ -42,18 +43,25 @@ public interface ICartService {
 	 * clear one item from cart
 	 * @param email
 	 * @param itemID
+	 * @return 
 	 */
-	public void clearOneItemFromCart(String email, String itemID);
+	public String clearOneItemFromCart(String email, String itemID);
 	
 	/**
 	 * clear cart
 	 * @param email
 	 */
-	public void clearCart(String email);
+	public String clearCart(String email);
 	
 	/**
 	 * get items in cart
 	 * @param email
 	 */
-	public ArrayList<Item> getCart(String email);
+	public Cart getCart(String email);
+	
+	/**
+	 * calculate total
+	 * @param email
+	 */
+	public double calculateTotal(ArrayList<Item> items);
 }

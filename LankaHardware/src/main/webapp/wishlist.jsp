@@ -63,7 +63,7 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">Minishop</a>
+			<a class="navbar-brand" href="index.jsp">Minishop</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
@@ -217,7 +217,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody id="cart_itemList">
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>
@@ -225,12 +225,14 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.jsp" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>
 
 	<div id="mini-cart-overlay"></div>
+
+	<div class="alert alert-success added_msg" role="alert" id="added_msg"></div>
 
 	<!-- Search Begin -->
 	<div class="search-model">

@@ -167,11 +167,11 @@ public class WishlistServiceImpl implements IWishlistService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		return "Added to wishlist successfully";
+		return "Added to wishlist";
 	}
 
 	@Override
-	public void removeFromWishlist(String email, String itemID) {
+	public String removeFromWishlist(String email, String itemID) {
 		// TODO Auto-generated method stub
 
 		Wishlist wishlist = new Wishlist();
@@ -209,6 +209,8 @@ public class WishlistServiceImpl implements IWishlistService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
+		
+		return "Item removed";
 	}
 
 	@Override
