@@ -107,8 +107,8 @@ public class CommonConstants {
 	 * 
 	 * 
 	 */
-	/** Constant for get new arrivals */
-	public static final String QUERY_ID_Get_ITEM_By_ID = "SELECT * FROM item i, item_img img, item_size size where i.id = img.Id and i.id = size.Id and i.id = ?;";
+	/** Constant for get item by id */
+	public static final String QUERY_ID_GET_ITEM_BY_ID = "SELECT * FROM item i, item_img img, item_size size where i.id = img.Id and i.id = size.Id and i.id = ?;";
 	
 	
 }
