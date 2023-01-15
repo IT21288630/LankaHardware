@@ -100,4 +100,15 @@ public class CommonConstants {
 
 	/** Constant for Column index eight */
 	public static final int COLUMN_INDEX_EIGHT = 8;
+	
+	
+	/*---------------------------------------------------
+	 * 
+	 * 
+	 * 
+	 */
+	/** Constant for get new arrivals */
+	public static final String QUERY_ID_Get_ITEM_By_ID = "SELECT * FROM item i, item_img img, item_size size where i.id = img.Id and i.id = size.Id and i.id = ?;";
+	
+	
 }
