@@ -29,6 +29,9 @@ public class CommonConstants {
 	/** Constant for cart id prefix */
 	public static final String WISHLIST_ID_PREFIX = "W300";
 	
+	/** Constant for item id prefix */
+	public static final String ITEM_ID_PREFIX = "I300";
+	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_CART_IDS = "select cid from cart;";
 	

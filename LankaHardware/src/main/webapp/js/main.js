@@ -827,45 +827,7 @@ function buildProductSingle(product){
 						</div>
 					</div>
 					<p><a href="cart.html" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
-				</div>
-				
-					<script>
-						
-			
-						var quantitiy = 0;
-						$('.quantity-right-plus').click(function (e) {
-			
-							// Stop acting like a button
-							e.preventDefault();
-							// Get the field name
-							var quantity = parseInt($('#quantity').val());
-			
-							// If is not undefined
-			
-							$('#quantity').val(quantity + 1);
-			
-			
-							// Increment
-			
-						});
-			
-						$('.quantity-left-minus').click(function (e) {
-							// Stop acting like a button
-							e.preventDefault();
-							// Get the field name
-							var quantity = parseInt($('#quantity').val());
-			
-							// If is not undefined
-			
-							// Increment
-							if (quantity > 0) {
-								$('#quantity').val(quantity - 1);
-							}
-						});
-			
-					
-				</script>
-				`
+				</div>`
     			
     	productDetails.innerHTML += details
 }
