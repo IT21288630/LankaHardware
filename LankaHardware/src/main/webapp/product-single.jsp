@@ -109,174 +109,11 @@
 
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row">
+			<div class="row" id="productDetails">
 				<!-- <div class="col-lg-6 mb-5 ftco-animate">
 					<a href="images/product-1.png" class="image-popup prod-img-bg"><img src="images/product-1.png"
 							class="img-fluid" alt="Colorlib Template"></a>
 				</div> -->
-				<div class="col-lg-5 mt-5">
-                    <div class="card mb-3">
-                        <img class="card-img img-fluid" src="images/product-1.png" alt="Card image cap" id="product-detail">
-                    </div>
-                    <div class="row">
-                        <!--Start Controls-->
-                        <div class="col-1 align-self-center">
-                            <a href="#multi-item-example" role="button" data-bs-slide="prev">
-                                <i class="text-dark fas fa-chevron-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </div>
-                        <!--End Controls-->
-                        <!--Start Carousel Wrapper-->
-                        <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
-                            <!--Start Slides-->
-                            <div class="carousel-inner product-links-wap" role="listbox">
-
-                                <!--First slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 1">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 2">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 3">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.First slide-->
-
-                                <!--Second slide-->
-                                <div class="carousel-item active">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 4">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 5">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 6">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Second slide-->
-
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 7">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 8">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 9">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Third slide-->
-                            </div>
-                            <!--End Slides-->
-                        </div>
-                        <!--End Carousel Wrapper-->
-                        <!--Start Controls-->
-                        <div class="col-1 align-self-center">
-                            <a href="#multi-item-example" role="button" data-bs-slide="next">
-                                <i class="text-dark fas fa-chevron-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                        <!--End Controls-->
-                    </div>
-                </div>
-				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-					<h3>Nike Free RN 2019 iD</h3>
-					<div class="rating d-flex">
-						<p class="text-left mr-4">
-							<a href="#" class="mr-2">5.0</a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-						</p>
-						<p class="text-left mr-4">
-							<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;"
-									id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
-									aria-controls="v-pills-3" aria-selected="false">Rating</span></a>
-						</p>
-						<p class="text-left">
-							<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
-						</p>
-					</div>
-					<p class="price"><span>$120.00</span></p>
-					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-						is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-					<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
-						would have been rewritten a thousand times and everything that was left from its origin would be
-						the word "and" and the Little Blind Text should turn around and return to its own, safe country.
-						But nothing the copy said could convince her and so it didn't take long until a few insidious
-						Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
-						agency, where they abused her for their.
-					</p>
-					<div class="row mt-4">
-						<div class="col-md-6">
-							<div class="form-group d-flex">
-								<div class="select-wrap">
-									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-									<select name="" id="" class="form-control">
-										<option value="">Small</option>
-										<option value="">Medium</option>
-										<option value="">Large</option>
-										<option value="">Extra Large</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="w-100"></div>
-						<div class="input-group col-md-6 d-flex mb-3">
-							<span class="input-group-btn mr-2">
-								<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-									<i class="ion-ios-remove"></i>
-								</button>
-							</span>
-							<input type="text" id="quantity" name="quantity" class="quantity form-control input-number"
-								value="1" min="1" max="100">
-							<span class="input-group-btn ml-2">
-								<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-									<i class="ion-ios-add"></i>
-								</button>
-							</span>
-						</div>
-						<div class="w-100"></div>
-						<div class="col-md-12">
-							<p style="color: #000;">80 piece available</p>
-						</div>
-					</div>
-					<p><a href="cart.html" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
-				</div>
 			</div>
 
 
@@ -614,7 +451,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody id="cart_itemList">
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>
@@ -628,6 +465,8 @@
 	</div>
 
 	<div id="mini-cart-overlay"></div>
+
+	<div class="alert alert-success added_msg" role="alert" id="added_msg"></div>
 
 	<!-- Search Begin -->
 	<div class="search-model">
@@ -698,6 +537,12 @@
 			});
 
 			callCartServlet()
+			
+			const keyValue = window.location.search
+			const urlParam = new URLSearchParams(keyValue)
+			var itemID = urlParam.get('product')
+			
+			callGetProductSingleServlet(itemID)
 		});
 	</script>
 
