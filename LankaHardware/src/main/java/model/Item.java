@@ -1,10 +1,16 @@
 package model;
 
-public class Item {
+
+public class Item{
 
 	private String itemID;
+	private String p_name;
 	private int quantity;
 	private double price;
+	private String des;
+	private String mf;
+	private String exp;
+	private String Warrant;
 
 	public double getPrice() {
 		return price;
