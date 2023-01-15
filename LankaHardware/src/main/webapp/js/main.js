@@ -554,6 +554,9 @@ function buildMiniCart(cartItems){
 						<td class="product-name" style="width: auto; border: none;  padding: 0px;">
 							<h3>${cartItems[i].itemID}</h3>
 							<p>Far far away, behind the word mountains, far from the countries</p>
+							<p class="d-flex" style="justify-content: end; padding-right: 5px;">
+								<span>&times;${cartItems[i].quantity}</span>
+							</p>
 						</td>
 					</tr>
 					<!-- END TR-->`
@@ -563,7 +566,13 @@ function buildMiniCart(cartItems){
 }
 
 function getCartQuantity(){
-	var no_of_Items = `[${cartItems.length}]`
+	
+	var qtyTotal = 0
+	for(var i = 0; i < cartItems.length; i++){
+		qtyTotal += cartItems[i].quantity
+	}
+	
+	var no_of_Items = `[${qtyTotal}]`
 	
 	cartQuantity.innerHTML = no_of_Items
 }
