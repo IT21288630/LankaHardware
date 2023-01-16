@@ -492,7 +492,7 @@ function buildNewArrivalslist(newArrivals){
 	for(var i = 0; i < newArrivals.length; i++){	
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.png" alt="Colorlib Template">
+    					<a href="#" class="img-prod" onclick="return false;"><img class="img-fluid" src="images/product-1.png" alt="Colorlib Template" onclick="toProductSinglePage('${newArrivals[i].itemID}');">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3">
@@ -515,8 +515,8 @@ function buildNewArrivalslist(newArrivals){
 	    						<p class="price"><span>$120.00</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="return false;"><span onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1)">Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2" onclick="return false;"><span onclick="callAddToWishlistServlet('${newArrivals[i].itemID}')">Wishlist<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
+    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${newArrivals[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
     				</div>
@@ -530,6 +530,7 @@ function buildNewArrivalslist(newArrivals){
 var cartItems = []
 var firstTime = true
 var itemRemoved = false
+var quantityChanged = false
 
 function callCartServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
@@ -540,7 +541,7 @@ function callCartServlet(){
 		var Total = response[1]
 		
 		if(firstTime == false) buildMiniCart(cartItems)
-		if(itemRemoved == true) buildMainCart(cartItems, Total)
+		if(itemRemoved == true && quantityChanged == false) buildMainCart(cartItems, Total)
 		
 		firstTime = false
 	})
@@ -593,17 +594,17 @@ function buildMainCart(cartItems, Total){
 							<p>Far far away, behind the word mountains, far from the countries</p>
 						</td>
 
-						<td class="price">$4.90</td>
+						<td class="price">$${cartItems[i].price}</td>
 
 						<td>
 						    <div class="quantity buttons_added">
-								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price})"><input type="button" value="+" class="plus">
 							</div>
 					    </td>
 
-						<td class="total">$4.90</td>
+						<td class="total" id="subTotal">$${cartItems[i].price * cartItems[i].quantity}</td>
 
-						<td class="product-remove"><a href="#" onclick="return false;"><span class="ion-ios-close" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one')"></span></a></td>
+						<td class="product-remove"><a href="#" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one'); return false;"><span class="ion-ios-close"></span></a></td>
 					</tr><!-- END TR-->`
     			
     	mainCart_itemList.innerHTML += item
@@ -650,6 +651,25 @@ function callRemoveFromCartServlet(itemID, operation){
 	   	added_msg.classList.remove('active')
 	   }, 2000);
 	})
+}
+
+//call change quantity servlet
+function callChangeQuantityServlet(itemID, element, price){
+	var quantity = element.value
+	
+	$.post("http://localhost:8080/LankaHardware/ChangeQuantityServlet", {itemID : itemID, quantity : quantity}, function(response) {
+		
+	   firstTime = true
+	   quantityChanged = true
+	   callCartServlet()
+	   calculateSubtotal(quantity, price)
+	})
+}
+
+function calculateSubtotal(quantity, price){
+	var subTotal = document.getElementById('subTotal')
+	
+	subTotal.innerHTML = `$${price * quantity}`
 }
 
 //Redirect to product-single page
@@ -828,12 +848,16 @@ function buildProductSingle(product){
     	productDetails.innerHTML += details
 }
 
+
 //call main product search servlet
 var mainProductSearchResults = []
 
 function mainSearch(){
 	var itemName = document.getElementById('search-input').value	
-	if(itemName == '') return
+	if(itemName == ''){
+		ProductSearchResult.innerHTML = ""
+		return
+	} 
 	
 	callMainProductSearch(itemName)
 }
@@ -845,7 +869,6 @@ function callMainProductSearch(itemName){
 	$.get("http://localhost:8080/LankaHardware/GetMainProductSearch", {itemName : itemName}, function(response) {
 		
 		mainProductSearchResults = response
-		console.log(mainProductSearchResults)
 		builtResults(mainProductSearchResults, forNoResults)
 	})
 }
