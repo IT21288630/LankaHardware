@@ -604,7 +604,7 @@ function buildMainCart(cartItems, Total){
 							</div>
 					    </td>
 
-						<td class="total" id="${cartItems[i].itemID}">$${cartItems[i].price * cartItems[i].quantity}</td>
+						<td class="total" id="${cartItems[i].itemID + cartItems[i].size}">$${cartItems[i].price * cartItems[i].quantity}</td>
 
 						<td class="product-remove"><a href="#" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one', '${cartItems[i].size}'); return false;"><span class="ion-ios-close"></span></a></td>
 					</tr><!-- END TR-->`
@@ -616,6 +616,7 @@ function buildMainCart(cartItems, Total){
 //Cart totals
 function cartTotal(Total){
 	cartTotals.innerHTML = '$' + Total
+	quantityChanged = false
 }
 
 //Add to cart
@@ -664,12 +665,13 @@ function callChangeQuantityServlet(itemID, element, price, size){
 	   firstTime = true
 	   quantityChanged = true
 	   callCartServlet()
-	   calculateSubtotal(quantity, price, itemID)
+	   calculateSubtotal(quantity, price, itemID, size)
 	})
 }
 
-function calculateSubtotal(quantity, price, itemID){
-	var itemTotal = document.getElementById(itemID)
+//calculate item total
+function calculateSubtotal(quantity, price, itemID, size){
+	var itemTotal = document.getElementById(itemID + size)
 	itemTotal.innerHTML = `$${price * quantity}`
 }
 
@@ -680,13 +682,15 @@ function toProductSinglePage(itemID){
 
 //call GetProductSingleServlet
 var product = []
+var productSizeAndPriceList = []
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
 		
-		product = response
-		
+		product = response[0]
+		productSizeAndPriceList = response[1]
 		buildProductSingle(product)
+		buildProductSizesAndPrice()
 	})
 }
 
@@ -808,7 +812,7 @@ function buildProductSingle(product){
 							<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
 						</p>
 					</div>
-					<p class="price"><span>$120.00</span></p>
+					<p class="price"><span id="productPrice">$120.00</span></p>
 					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
 						is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
 					<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
@@ -823,7 +827,7 @@ function buildProductSingle(product){
 							<div class="form-group d-flex">
 								<div class="select-wrap">
 									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-									<select name="" id="" class="form-control">
+									<select name="" id="ProductSizes" class="form-control">
 										<option value="">Small</option>
 										<option value="">Medium</option>
 										<option value="">Large</option>
@@ -843,12 +847,19 @@ function buildProductSingle(product){
 							<p style="color: #000;">80 piece available</p>
 						</div>
 					</div>
-					<p><a href="javascript:callAddToCartServlet('${product.itemID}', 0, );" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
+					<p><a href="javascript:callAddToCartServlet('${product.itemID}', 0, 'testing');" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
 				</div>`
     			
     	productDetails.innerHTML += details
 }
 
+//Building product sizes and price
+function buildProductSizesAndPrice(){
+	var ProductSizes = document.getElementById('ProductSizes')
+	for(const [size, price] of Object.entries(productSizeAndPriceList)){
+		console.log(`size : ${size} and price : ${price}`)
+	}
+}
 
 //call main product search servlet
 var mainProductSearchResults = []

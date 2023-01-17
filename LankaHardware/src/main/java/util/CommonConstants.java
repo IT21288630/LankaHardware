@@ -59,6 +59,9 @@ public class CommonConstants {
 	/** Constant for get default size */
 	public static final String QUERY_ID_GET_DEFAULT_SIZE = "SELECT size FROM item_size WHERE Id = ? ORDER BY unit_price LIMIT 1;";
 	
+	/** Constant for get items sizes and relevant prices */
+	public static final String QUERY_ID_GET_SIZES_AND_PRICES = "SELECT size, unit_price FROM item_size WHERE Id = ? ORDER BY unit_price;";
+	
 	/** Constant for select wishlist id's */
 	public static final String QUERY_ID_SELECT_WISHLIST_IDS = "select wid from wishlist;";
 	

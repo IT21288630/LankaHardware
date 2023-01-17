@@ -1,6 +1,8 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import model.Item;
@@ -17,8 +19,8 @@ public interface IProductSingleService {
 	public Item getProduct(String itemID);
 	
 	/**
-	 * for product-single page
+	 * get product size list for product-single page
 	 * @param itemID
 	 */
-	public ArrayList<String> getProductSizeList(String itemID);
+	public LinkedHashMap<String, Double> getProductSizeAndPriceList(String itemID);
 }

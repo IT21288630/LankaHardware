@@ -167,6 +167,9 @@ public class CartServiceImpl implements ICartService {
 				if (rs != null) {
 					rs.close();
 				}
+				if (st != null) {
+					st.close();
+				}
 				if (con != null) {
 					con.close();
 				}
@@ -207,6 +210,12 @@ public class CartServiceImpl implements ICartService {
 				if (pst != null) {
 					pst.close();
 				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
 				if (con != null) {
 					con.close();
 				}
@@ -245,6 +254,12 @@ public class CartServiceImpl implements ICartService {
 				if (pst != null) {
 					pst.close();
 				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
 				if (con != null) {
 					con.close();
 				}
@@ -281,6 +296,12 @@ public class CartServiceImpl implements ICartService {
 			try {
 				if (pst != null) {
 					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
 				}
 				if (con != null) {
 					con.close();
@@ -331,6 +352,9 @@ public class CartServiceImpl implements ICartService {
 			try {
 				if (pst != null) {
 					pst.close();
+				}
+				if (st != null) {
+					st.close();
 				}
 				if (rs != null) {
 					rs.close();
@@ -388,6 +412,9 @@ public class CartServiceImpl implements ICartService {
 			try {
 				if (pst != null) {
 					pst.close();
+				}
+				if (st != null) {
+					st.close();
 				}
 				if (rs != null) {
 					rs.close();

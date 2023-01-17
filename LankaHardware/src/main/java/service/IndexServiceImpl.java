@@ -60,6 +60,9 @@ public class IndexServiceImpl implements IIndexService {
 				if (pst != null) {
 					pst.close();
 				}
+				if (st != null) {
+					st.close();
+				}
 				if (rs != null) {
 					rs.close();
 				}

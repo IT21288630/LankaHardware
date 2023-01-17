@@ -46,8 +46,10 @@ public class GetProductSingleServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String resp = new Gson().toJson(iProductSingleService.getProduct(itemID));
-
-		out.print(resp);
+		String resp2 = new Gson().toJson(iProductSingleService.getProductSizeAndPriceList(itemID));
+		String bothJson = "["+resp+","+resp2+"]";
+		
+		out.print(bothJson);
 	}
 
 	/**
