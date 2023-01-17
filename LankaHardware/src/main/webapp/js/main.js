@@ -515,7 +515,7 @@ function buildNewArrivalslist(newArrivals){
 	    						<p class="price"><span>$120.00</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
     							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${newArrivals[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
@@ -542,6 +542,7 @@ function callCartServlet(){
 		
 		if(firstTime == false) buildMiniCart(cartItems)
 		if(itemRemoved == true && quantityChanged == false) buildMainCart(cartItems, Total)
+		if(quantityChanged == true)	cartTotal(Total)
 		
 		firstTime = false
 	})
@@ -592,19 +593,20 @@ function buildMainCart(cartItems, Total){
 						<td class="product-name">
 							<h3>${cartItems[i].itemID}</h3>
 							<p>Far far away, behind the word mountains, far from the countries</p>
+							<span style="color: grey; font-size: small;">Size ${cartItems[i].size}</span>
 						</td>
 
 						<td class="price">$${cartItems[i].price}</td>
 
 						<td>
 						    <div class="quantity buttons_added">
-								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price})"><input type="button" value="+" class="plus">
+								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')"><input type="button" value="+" class="plus">
 							</div>
 					    </td>
 
-						<td class="total" id="subTotal">$${cartItems[i].price * cartItems[i].quantity}</td>
+						<td class="total" id="${cartItems[i].itemID}">$${cartItems[i].price * cartItems[i].quantity}</td>
 
-						<td class="product-remove"><a href="#" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one'); return false;"><span class="ion-ios-close"></span></a></td>
+						<td class="product-remove"><a href="#" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one', '${cartItems[i].size}'); return false;"><span class="ion-ios-close"></span></a></td>
 					</tr><!-- END TR-->`
     			
     	mainCart_itemList.innerHTML += item
@@ -617,13 +619,13 @@ function cartTotal(Total){
 }
 
 //Add to cart
-function callAddToCartServlet(itemID, quantity){
+function callAddToCartServlet(itemID, quantity, size){
 	if(quantity != 1){
 		var productSingleQuantity = document.getElementById('productSingleQuantity').value
 		quantity = productSingleQuantity
 	}
 	
-	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity}, function(response){
+	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity, size : size}, function(response){
 	    
 	    firstTime = true
 	    callCartServlet()
@@ -637,8 +639,8 @@ function callAddToCartServlet(itemID, quantity){
 }
 
 //Clear cart
-function callRemoveFromCartServlet(itemID, operation){
-	$.post("http://localhost:8080/LankaHardware/RemoveFromCartServlet", {itemID : itemID, operation : operation}, function(response){
+function callRemoveFromCartServlet(itemID, operation, size){
+	$.post("http://localhost:8080/LankaHardware/RemoveFromCartServlet", {itemID : itemID, operation : operation, size : size}, function(response){
 	   
 	   firstTime = true
 	   itemRemoved = true
@@ -654,22 +656,21 @@ function callRemoveFromCartServlet(itemID, operation){
 }
 
 //call change quantity servlet
-function callChangeQuantityServlet(itemID, element, price){
+function callChangeQuantityServlet(itemID, element, price, size){
 	var quantity = element.value
 	
-	$.post("http://localhost:8080/LankaHardware/ChangeQuantityServlet", {itemID : itemID, quantity : quantity}, function(response) {
+	$.post("http://localhost:8080/LankaHardware/ChangeQuantityServlet", {itemID : itemID, quantity : quantity, size : size}, function(response) {
 		
 	   firstTime = true
 	   quantityChanged = true
 	   callCartServlet()
-	   calculateSubtotal(quantity, price)
+	   calculateSubtotal(quantity, price, itemID)
 	})
 }
 
-function calculateSubtotal(quantity, price){
-	var subTotal = document.getElementById('subTotal')
-	
-	subTotal.innerHTML = `$${price * quantity}`
+function calculateSubtotal(quantity, price, itemID){
+	var itemTotal = document.getElementById(itemID)
+	itemTotal.innerHTML = `$${price * quantity}`
 }
 
 //Redirect to product-single page
@@ -842,7 +843,7 @@ function buildProductSingle(product){
 							<p style="color: #000;">80 piece available</p>
 						</div>
 					</div>
-					<p><a href="javascript:callAddToCartServlet('${product.itemID}', 0);" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
+					<p><a href="javascript:callAddToCartServlet('${product.itemID}', 0, );" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
 				</div>`
     			
     	productDetails.innerHTML += details

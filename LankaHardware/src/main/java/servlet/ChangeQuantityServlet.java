@@ -42,8 +42,9 @@ public class ChangeQuantityServlet extends HttpServlet {
 		String email = "a@g.m";
 		String itemID = request.getParameter("itemID");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String size = request.getParameter("size");
 		ICartService iCartService = new CartServiceImpl();
 		
-		iCartService.changeQuantity(email, itemID, quantity);
+		iCartService.changeQuantity(email, itemID, quantity, size);
 	}
 }

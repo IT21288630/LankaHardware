@@ -11,6 +11,16 @@ public class Item {
 	private String expDate;
 	private String Warranty;
 
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	private String size;
+
 	public String getName() {
 		return name;
 	}

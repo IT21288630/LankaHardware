@@ -39,22 +39,25 @@ public class CommonConstants {
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	
 	/** Constant for add to cart */
-	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty) VALUES(?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty, size) VALUES(?, ?, ?, ?);";
 	
 	/** Constant for get specific cart id */
 	public static final String QUERY_ID_GET_SPECIFIC_CART_ID = "SELECT cid FROM cart WHERE email = ?;";
 	
 	/** Constant for update cart quantity */
-	public static final String QUERY_ID_UPDATE_QUANTITY = "UPDATE cart_item SET qty = ? WHERE cid = ? AND itId = ?;";
+	public static final String QUERY_ID_UPDATE_QUANTITY = "UPDATE cart_item SET qty = ? WHERE cid = ? AND itId = ? AND size = ?;";
 	
 	/** Constant for clear specific item cart */
-	public static final String QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_CART = "DELETE FROM cart_item WHERE cid = ? and itId = ?;";
+	public static final String QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_CART = "DELETE FROM cart_item WHERE cid = ? AND itId = ? AND size = ?;";
 	
 	/** Constant for clear cart */
 	public static final String QUERY_ID_CLEAR_CART = "DELETE FROM cart_item WHERE cid = ?;";
 
 	/** Constant for get items in cart */
 	public static final String QUERY_ID_GET_CART = "SELECT * FROM cart_item WHERE cid = ?;";
+	
+	/** Constant for get default size */
+	public static final String QUERY_ID_GET_DEFAULT_SIZE = "SELECT size FROM item_size WHERE Id = ? ORDER BY unit_price LIMIT 1;";
 	
 	/** Constant for select wishlist id's */
 	public static final String QUERY_ID_SELECT_WISHLIST_IDS = "select wid from wishlist;";

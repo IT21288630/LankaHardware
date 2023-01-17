@@ -48,6 +48,7 @@ public class AddToCartServlet extends HttpServlet {
 		
 		String email = "a@g.m";
 		String itemID = request.getParameter("itemID");
+		String size = request.getParameter("size");
 		int quantity = Integer.parseInt(request.getParameter("quantity")) ;
 		ICartService iCartService = new CartServiceImpl();
 		
@@ -55,7 +56,7 @@ public class AddToCartServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iCartService.addToCart(email, itemID, quantity));
+		String resp = new Gson().toJson(iCartService.addToCart(email, itemID, quantity, size));
 
 		out.print(resp);
 	}

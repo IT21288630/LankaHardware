@@ -29,7 +29,7 @@ public interface ICartService {
 	 * @param itemID
 	 * @param quantity
 	 */
-	public String addToCart(String email, String itemID, int quantity);
+	public String addToCart(String email, String itemID, int quantity, String size);
 	
 	/**
 	 * Change quantity
@@ -37,7 +37,7 @@ public interface ICartService {
 	 * @param itemID
 	 * @param quantity
 	 */
-	public void changeQuantity(String email, String itemID, int quantity);
+	public void changeQuantity(String email, String itemID, int quantity, String size);
 	
 	/**
 	 * clear one item from cart
@@ -45,7 +45,7 @@ public interface ICartService {
 	 * @param itemID
 	 * @return 
 	 */
-	public String clearOneItemFromCart(String email, String itemID);
+	public String clearOneItemFromCart(String email, String itemID, String size);
 	
 	/**
 	 * clear cart
@@ -64,4 +64,10 @@ public interface ICartService {
 	 * @param email
 	 */
 	public double calculateTotal(ArrayList<Item> items);
+	
+	/**
+	 * get a default size
+	 * @param itemID
+	 */
+	public String getDefaultSize(String itemID);
 }

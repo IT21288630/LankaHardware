@@ -46,7 +46,7 @@ public class GetCartServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String resp = new Gson().toJson(cart.getItems());
-		String resp2 = new Gson().toJson(cart.getTotal());
+		String resp2 = new Gson().toJson(iCartService.calculateTotal(cart.getItems()));
 		String bothJson = "["+resp+","+resp2+"]";
 		
 		out.print(bothJson);

@@ -58,8 +58,9 @@ public class RemoveFromCartServlet extends HttpServlet {
 
 		if (operation.equals("one")) {
 			String itemID = request.getParameter("itemID");
+			String size = request.getParameter("size");
 
-			String resp = new Gson().toJson(iCartService.clearOneItemFromCart(email, itemID));
+			String resp = new Gson().toJson(iCartService.clearOneItemFromCart(email, itemID, size));
 
 			out.print(resp);
 		} else if (operation.equals("all")) {
