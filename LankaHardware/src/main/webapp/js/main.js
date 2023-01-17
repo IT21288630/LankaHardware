@@ -812,7 +812,7 @@ function buildProductSingle(product){
 							<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
 						</p>
 					</div>
-					<p class="price"><span id="productPrice">$120.00</span></p>
+					<p class="price"><span id="productPrice">$${product.price}</span></p>
 					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
 						is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
 					<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
@@ -827,11 +827,7 @@ function buildProductSingle(product){
 							<div class="form-group d-flex">
 								<div class="select-wrap">
 									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-									<select name="" id="ProductSizes" class="form-control">
-										<option value="">Small</option>
-										<option value="">Medium</option>
-										<option value="">Large</option>
-										<option value="">Extra Large</option>
+									<select name="" id="ProductSizes" class="form-control" onchange="displayProductPrice()">
 									</select>
 								</div>
 							</div>
@@ -847,7 +843,7 @@ function buildProductSingle(product){
 							<p style="color: #000;">80 piece available</p>
 						</div>
 					</div>
-					<p><a href="javascript:callAddToCartServlet('${product.itemID}', 0, 'testing');" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
+					<p><a href="javascript:addToCartFromSingleProductPage('${product.itemID}', 0);" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
 				</div>`
     			
     	productDetails.innerHTML += details
@@ -856,10 +852,29 @@ function buildProductSingle(product){
 //Building product sizes and price
 function buildProductSizesAndPrice(){
 	var ProductSizes = document.getElementById('ProductSizes')
+	
 	for(const [size, price] of Object.entries(productSizeAndPriceList)){
-		console.log(`size : ${size} and price : ${price}`)
+		var productSize = `<option value="${size}">${size}</option>`
+		
+		ProductSizes.innerHTML += productSize
 	}
 }
+
+//call add to cart from single product page
+function addToCartFromSingleProductPage(itemID, quantity){
+	var size = document.getElementById('ProductSizes').value
+	callAddToCartServlet(itemID, quantity, size)
+}
+
+//display relevant product price
+function displayProductPrice(){
+	var productPrice = document.getElementById('productPrice')
+	var productSize = document.getElementById('ProductSizes').value
+	var displayPrice = productSizeAndPriceList[productSize]
+	
+	productPrice.innerHTML = `$${displayPrice}`
+}
+
 
 //call main product search servlet
 var mainProductSearchResults = []
