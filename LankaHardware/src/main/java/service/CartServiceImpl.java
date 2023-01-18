@@ -123,9 +123,9 @@ public class CartServiceImpl implements ICartService {
 
 		Cart cart = getCart(email);
 		if (size.equals("notSpecified")) {
-			size = getDefaultSize(itemID);
+			size = getDefaultSizeAndPrice(itemID);
 		}
-		
+
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -335,10 +335,24 @@ public class CartServiceImpl implements ICartService {
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
 				item.setQuantity(rs.getInt(CommonConstants.COLUMN_INDEX_THREE));
 				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
-				item.setPrice(100);
-				item.setDescription("Dummy data");
 
 				items.add(item);
+			}
+
+			for (Item item : items) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+				pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
+				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getItemID());
+				rs = pst.executeQuery();
+				rs.next();
+
+				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
+				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
 			}
 
 		} catch (SQLException e) {
@@ -387,7 +401,7 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public String getDefaultSize(String itemID) {
+	public String getDefaultSizeAndPrice(String itemID) {
 		// TODO Auto-generated method stub
 
 		String size = null;
@@ -432,7 +446,17 @@ public class CartServiceImpl implements ICartService {
 
 	public static void main(String[] args) {
 		ICartService iCartService = new CartServiceImpl();
-
-		System.out.println(iCartService.getCart("a@g.m"));
+		Cart cart = iCartService.getCart("a@g.m");
+		
+		System.out.println(cart.getCartID());
+		System.out.println(cart.getTotal());
+		
+		ArrayList<Item> items = cart.getItems();
+		
+		System.out.println();
+		
+		for (Item item : items) {
+			System.out.println(item.getBrand());
+		}
 	}
 }

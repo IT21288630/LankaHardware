@@ -147,7 +147,7 @@
 						<hr>
 						<p class="d-flex total-price">
 							<span>Total</span>
-							<span  id="cartTotals"></span>
+							<span  id="cartTotals" style="text-transform: none;"></span>
 						</p>
 					</div>
 					<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to

@@ -13027,7 +13027,7 @@ h5,
 .product-details button,
 .product-details .form-control {
   height: 40px !important;
-  text-align: center;
+/*  text-align: center;*/
   border: 1px solid rgba(0, 0, 0, 0.1) !important;
   color: #dbcc8f;
   padding: 10px 20px;

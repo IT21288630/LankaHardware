@@ -492,13 +492,13 @@ function buildNewArrivalslist(newArrivals){
 	for(var i = 0; i < newArrivals.length; i++){	
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
-    					<a href="#" class="img-prod" onclick="return false;"><img class="img-fluid" src="images/product-1.png" alt="Colorlib Template" onclick="toProductSinglePage('${newArrivals[i].itemID}');">
+    					<a href="#" class="img-prod" onclick="return false;"><img class="img-fluid" src="${newArrivals[i].mainImg}" alt="Colorlib Template" onclick="toProductSinglePage('${newArrivals[i].itemID}');">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3">
     						<div class="d-flex">
     							<div class="cat">
-		    						<span>${newArrivals[i].quantity}</span>
+		    						<span>${newArrivals[i].brand}</span>
 		    					</div>
 		    					<div class="rating">
 	    							<p class="text-right mb-0">
@@ -510,9 +510,9 @@ function buildNewArrivalslist(newArrivals){
 	    							</p>
 	    						</div>
 	    					</div>
-    						<h3><a href="javascript:toProductSinglePage('${newArrivals[i].itemID}');">${newArrivals[i].itemID}</a></h3>
+    						<h3><a href="javascript:toProductSinglePage('${newArrivals[i].itemID}');">${newArrivals[i].name}</a></h3>
     						<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
+	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
     							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
@@ -553,13 +553,14 @@ function buildMiniCart(cartItems){
 		var item = `<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
 						<td class="image-prod" style="border: none; padding: 0px;">
 							<div class="img"
-								style="background-image:url(images/product-3.jpg); margin: 0px;">
+								style="background-image:url(${cartItems[i].mainImg}); margin: 0px;">
 							</div>
 						</td>
 						<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-							<h3>${cartItems[i].itemID}</h3>
-							<p>Far far away, behind the word mountains, far from the countries</p>
-							<p class="d-flex" style="justify-content: end; padding-right: 5px;">
+							<h3>${cartItems[i].name}</h3>
+							<p>${cartItems[i].description}</p>
+							<p class="d-flex" style="justify-content: space-between; padding-left: 5px;">
+								<span>&times;${cartItems[i].quantity}</span>
 								<span>&times;${cartItems[i].quantity}</span>
 							</p>
 						</td>
@@ -587,16 +588,16 @@ function buildMainCart(cartItems, Total){
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center">
 						<td class="image-prod">
-							<div class="img" style="background-image:url(images/product-3.jpg);"></div>
+							<div class="img" style="background-image:url(${cartItems[i].mainImg});"></div>
 						</td>
 
 						<td class="product-name">
-							<h3>${cartItems[i].itemID}</h3>
-							<p>Far far away, behind the word mountains, far from the countries</p>
+							<h3>${cartItems[i].name}</h3>
+							<p>${cartItems[i].description}</p>
 							<span style="color: grey; font-size: small;">Size ${cartItems[i].size}</span>
 						</td>
 
-						<td class="price">$${cartItems[i].price}</td>
+						<td class="price">Rs${cartItems[i].price}</td>
 
 						<td>
 						    <div class="quantity buttons_added">
@@ -604,7 +605,7 @@ function buildMainCart(cartItems, Total){
 							</div>
 					    </td>
 
-						<td class="total" id="${cartItems[i].itemID + cartItems[i].size}">$${cartItems[i].price * cartItems[i].quantity}</td>
+						<td class="total" id="${cartItems[i].itemID + cartItems[i].size}">Rs${cartItems[i].price * cartItems[i].quantity}</td>
 
 						<td class="product-remove"><a href="#" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one', '${cartItems[i].size}'); return false;"><span class="ion-ios-close"></span></a></td>
 					</tr><!-- END TR-->`
@@ -615,7 +616,7 @@ function buildMainCart(cartItems, Total){
 
 //Cart totals
 function cartTotal(Total){
-	cartTotals.innerHTML = '$' + Total
+	cartTotals.innerHTML = 'Rs' + Total
 	quantityChanged = false
 }
 
@@ -672,7 +673,7 @@ function callChangeQuantityServlet(itemID, element, price, size){
 //calculate item total
 function calculateSubtotal(quantity, price, itemID, size){
 	var itemTotal = document.getElementById(itemID + size)
-	itemTotal.innerHTML = `$${price * quantity}`
+	itemTotal.innerHTML = `Rs${price * quantity}`
 }
 
 //Redirect to product-single page
@@ -697,7 +698,7 @@ function callGetProductSingleServlet(itemID){
 function buildProductSingle(product){
 	var details = `<div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="images/product-1.png" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="${product.mainImg}" alt="Card image cap" id="product-detail">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -718,17 +719,17 @@ function buildProductSingle(product){
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 1">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 2">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 3">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 3">
                                             </a>
                                         </div>
                                     </div>
@@ -740,17 +741,17 @@ function buildProductSingle(product){
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 4">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 4">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 5">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 5">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 6">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 6">
                                             </a>
                                         </div>
                                     </div>
@@ -762,17 +763,17 @@ function buildProductSingle(product){
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 7">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 7">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 8">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 8">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="images/product-1.png" alt="Product Image 9">
+                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 9">
                                             </a>
                                         </div>
                                     </div>
@@ -793,7 +794,7 @@ function buildProductSingle(product){
                     </div>
                 </div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
-					<h3>${product.itemID}</h3>
+					<h3>${product.name}</h3>
 					<div class="rating d-flex">
 						<p class="text-left mr-4">
 							<a href="#" class="mr-2">5.0</a>
@@ -812,9 +813,8 @@ function buildProductSingle(product){
 							<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
 						</p>
 					</div>
-					<p class="price"><span id="productPrice">$${product.price}</span></p>
-					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-						is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+					<p class="price"><span id="productPrice">Rs${product.price}</span></p>
+					<p>${product.description}</p>
 					<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
 						would have been rewritten a thousand times and everything that was left from its origin would be
 						the word "and" and the Little Blind Text should turn around and return to its own, safe country.
@@ -872,7 +872,7 @@ function displayProductPrice(){
 	var productSize = document.getElementById('ProductSizes').value
 	var displayPrice = productSizeAndPriceList[productSize]
 	
-	productPrice.innerHTML = `$${displayPrice}`
+	productPrice.innerHTML = `Rs${displayPrice}`
 }
 
 

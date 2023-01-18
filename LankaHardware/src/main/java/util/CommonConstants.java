@@ -62,6 +62,9 @@ public class CommonConstants {
 	/** Constant for get items sizes and relevant prices */
 	public static final String QUERY_ID_GET_SIZES_AND_PRICES = "SELECT size, unit_price FROM item_size WHERE Id = ? ORDER BY unit_price;";
 	
+	/** Constant for get other item details for cart */
+	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART = "SELECT name, brand, description, (SELECT img FROM item_img WHERE Id = ? limit 1) as 'img', (SELECT unit_price FROM item_size WHERE id = ? and size = ?) as 'price' FROM item WHERE id = ?;";
+	
 	/** Constant for select wishlist id's */
 	public static final String QUERY_ID_SELECT_WISHLIST_IDS = "select wid from wishlist;";
 	
@@ -75,13 +78,16 @@ public class CommonConstants {
 	public static final String QUERY_ID_ADD_TO_WISHLIST = "INSERT INTO wishlist_item(wid, itId) VALUES(?, ?);";
 	
 	/** Constant for clear specific item from wishlist */
-	public static final String QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_WISHLIST = "DELETE FROM wishlist_item WHERE wid = ? and itId = ?;";
+	public static final String QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_WISHLIST = "DELETE FROM wishlist_item WHERE wid = ? AND itId = ?;";
 	
 	/** Constant for get items in wishlist */
 	public static final String QUERY_ID_GET_WISHLIST = "SELECT * FROM wishlist_item WHERE wid = ?;";
 	
 	/** Constant for get new arrivals */
-	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT * FROM item ORDER BY id DESC limit 8;";
+	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY name ORDER BY i.id DESC limit 8;";
+	
+	/** Constant for get minimum price for new arrivals */
+	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC;";
 	
 	/** Constant for get main search results */
 	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id FROM item WHERE name LIKE ?;";

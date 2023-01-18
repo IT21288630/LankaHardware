@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,11 +19,11 @@ public class IndexServiceImpl implements IIndexService {
 
 	private static Connection con;
 
-	private static Statement st;
+	private static Statement st, st2;
 
 	private static PreparedStatement pst;
 
-	private static ResultSet rs;
+	private static ResultSet rs, rs2;
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(IndexServiceImpl.class.getName());
@@ -31,26 +32,30 @@ public class IndexServiceImpl implements IIndexService {
 	public ArrayList<Item> getNewArrivals() {
 		// TODO Auto-generated method stub
 
-		con = DBConnectionUtil.getDBConnection();
-		
 		ArrayList<Item> items = new ArrayList<>();
 		Index index = new Index();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_NEW_ARRIVALS);
+			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_MINIMUM_PRICE);
+			st2 = con.createStatement();
+			rs2 = st2.executeQuery(CommonConstants.QUERY_ID_GET_NEW_ARRIVALS);
 			
-			while (rs.next()) {
+			while (rs.next() && rs2.next()) {
 				Item item = new Item();
-				
+
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
-				
+				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_TWO));
+				item.setName(rs2.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setBrand(rs2.getString(CommonConstants.COLUMN_INDEX_TWO));
+				item.setMainImg(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
 				
 				items.add(item);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
 		} finally {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
@@ -60,11 +65,17 @@ public class IndexServiceImpl implements IIndexService {
 				if (pst != null) {
 					pst.close();
 				}
+				if (rs != null) {
+					rs.close();
+				}
 				if (st != null) {
 					st.close();
 				}
-				if (rs != null) {
-					rs.close();
+				if (rs2 != null) {
+					rs2.close();
+				}
+				if (st2 != null) {
+					st2.close();
 				}
 				if (con != null) {
 					con.close();
@@ -75,7 +86,7 @@ public class IndexServiceImpl implements IIndexService {
 		}
 
 		index.setItems(items);
-		
+
 		return index.getItems();
 	}
 

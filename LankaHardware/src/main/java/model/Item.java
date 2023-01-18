@@ -4,12 +4,31 @@ public class Item {
 
 	private String itemID;
 	private String name;
+	private String brand;
 	private int quantity;
 	private double price;
 	private String description;
 	private String mfDate;
 	private String expDate;
 	private String Warranty;
+	private String size;
+	private String mainImg;
+
+	public String getMainImg() {
+		return mainImg;
+	}
+
+	public void setMainImg(String mainImg) {
+		this.mainImg = mainImg;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
 	public String getSize() {
 		return size;
@@ -18,8 +37,6 @@ public class Item {
 	public void setSize(String size) {
 		this.size = size;
 	}
-
-	private String size;
 
 	public String getName() {
 		return name;

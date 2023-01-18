@@ -69,5 +69,5 @@ public interface ICartService {
 	 * get a default size
 	 * @param itemID
 	 */
-	public String getDefaultSize(String itemID);
+	public String getDefaultSizeAndPrice(String itemID);
 }
