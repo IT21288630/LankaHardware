@@ -127,8 +127,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-10 order-md-last">
-					<div class="row" id="shopItemList">
-					</div>
+					<div class="row" id="shopItemList"></div>
 					<div class="row mt-5">
 						<div class="col text-center">
 							<div class="block-27">
@@ -152,9 +151,7 @@
 							<h2 class="heading">Categories</h2>
 							<div class="fancy-collapse-panel">
 								<div class="panel-group" id="accordion" role="tablist"
-									aria-multiselectable="true">
-									
-								</div>
+									aria-multiselectable="true"></div>
 							</div>
 						</div>
 						<div class="sidebar-box-2">
@@ -164,21 +161,22 @@
 								<div class="price-input">
 									<div class="field">
 										<span>Min</span> <input type="number" class="input-min"
-											value="2500">
+											id="priceMin" value="">
 									</div>
 									<div class="separator">-</div>
 									<div class="field">
 										<span>Max</span> <input type="number" class="input-max"
-											value="7500">
+											id="priceMax" value="">
 									</div>
 								</div>
 								<div class="slider">
-									<div class="progress"></div>
+									<div class="progress" id="priceRangeProgress"></div>
 								</div>
 								<div class="range-input">
 									<input type="range" class="range-min" min="0" max="10000"
-										value="2500" step="100"> <input type="range"
-										class="range-max" min="0" max="10000" value="7500" step="100">
+										value="" step="100" id="priceRange1"> 
+									<input type="range" class="range-max" min="0" max="10000"
+										value="" step="100" id="priceRange2">
 								</div>
 							</div>
 						</div>
@@ -326,7 +324,7 @@
 
 	<div id="mini-cart-overlay"></div>
 	<div id="priceRange-overlay"></div>
-	
+
 	<!-- Search Begin -->
 	<div class="search-model">
 		<div class="h-100 d-flex align-items-center justify-content-center">

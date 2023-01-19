@@ -358,6 +358,11 @@ var ProductSearchResult = document.getElementById('result')
 var mainSearchClose = document.getElementById('mainSearchClose')
 var shopItemList = document.getElementById('shopItemList')
 var shopMainCategoryList = document.getElementById('accordion')
+var priceMax = document.getElementById('priceMax')
+var priceMin = document.getElementById('priceMin')
+var priceRange1 = document.getElementById('priceRange1')
+var priceRange2 = document.getElementById('priceRange2')
+var priceRangeProgress = document.getElementById('priceRangeProgress')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -951,6 +956,7 @@ var shopItems = []
 var mainCategories = []
 var highestPrice
 var lowestPrice
+var customizedShopItems = []
 
 function callGetShopServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetShopServlet", function(response) {
@@ -960,16 +966,18 @@ function callGetShopServlet(){
 		highestPrice = response[2]
 		lowestPrice = response[3]
 		
-		builtShopItems()
-		builtShopCategories()
+		buildShopItems(shopItems)
+		buildShopCategories()
+		buildPriceRange()
 	})
 }
 
-function builtShopItems(){	
+//Build items in shop page
+function buildShopItems(shopItems){	
 	for(var i = 0; i < shopItems.length; i++){
 		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
 							<div class="product">
-								<a href="#" class="img-prod"><img class="img-fluid"
+								<a href="#" class="img-prod" onclick="toProductSinglePage('${shopItems[i].itemID}'); return false;"><img class="img-fluid"
 									src="${shopItems[i].mainImg}" alt="Colorlib Template">
 									<div class="overlay"></div> </a>
 								<div class="text py-3 pb-4 px-3">
@@ -988,7 +996,7 @@ function builtShopItems(){
 										</div>
 									</div>
 									<h3>
-										<a href="#">${shopItems[i].name}</a>
+										<a href="#" onclick="toProductSinglePage('${shopItems[i].itemID}'); return false;">${shopItems[i].name}</a>
 									</h3>
 									<div class="pricing">
 										<p class="price">
@@ -1009,7 +1017,8 @@ function builtShopItems(){
 	}
 }
 
-function builtShopCategories(){	
+//Buils main categories in the shop page
+function buildShopCategories(){	
 	for(var i = 0; i < mainCategories.length; i++){
 		var headingID = `heading${numberToWord(i + 1)}`
 		var collapseID = `collapse${numberToWord(i + 1)}`
@@ -1017,7 +1026,7 @@ function builtShopCategories(){
 		var category = `<div class="panel panel-default">
                          <div class="panel-heading" role="tab" id="${headingID}">
                              <h4 class="panel-title">
-                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#${collapseID}" aria-expanded="false" aria-controls="${collapseID}">${mainCategories[i]}
+                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#${collapseID}" aria-expanded="false" aria-controls="${collapseID}" onclick="callGetCustomizedShopServlet('${mainCategories[i]}')">${mainCategories[i]}
                                  </a>
                              </h4>
                          </div>
@@ -1040,6 +1049,29 @@ function builtShopCategories(){
 	}
 }
 
+//Build price range
+function buildPriceRange(){	
+	priceMax.value = highestPrice
+	priceMin.value = lowestPrice
+	priceRange1.value = lowestPrice
+	priceRange2.value = highestPrice
+
+	priceRangeProgress.style = `left: ${lowestPrice / 100}%; right: ${100 - (highestPrice/100)}%`
+}
+
+//call get customized shop servlet
+function callGetCustomizedShopServlet(mainCategory){
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory}, function(response) {
+		
+		customizedShopItems = response
+		
+		shopItemList.innerHTML = ''
+		buildShopItems(customizedShopItems)
+	})
+}
+
+
+//Get the number in words
 function numberToWord(number){
 	var ones = {
 		0: "Zero",

@@ -1,7 +1,9 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import model.Item;
 import model.Shop;
 
 public interface IShopService {
@@ -11,7 +13,13 @@ public interface IShopService {
 	/**
 	 * get items to shop page
 	 * 
-	 * @param email
 	 */
 	public Shop getShop();
+	
+	/**
+	 * get items to shop page
+	 * 
+	 * @param main category
+	 */
+	public Shop getItemsByMainCategory(String mainCategory);
 }
