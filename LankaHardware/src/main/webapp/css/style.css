@@ -15469,11 +15469,8 @@ textarea.form-control {
   width: 100%;
   height: 100%;
   outline: none;
-  font-size: 19px;
   margin-left: 12px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1px solid #999;
+  border: none;
   -moz-appearance: textfield;
 }
 input[type="number"]::-webkit-outer-spin-button,
@@ -15549,4 +15546,15 @@ input[type="range"]::-moz-range-thumb{
 #priceRange-overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+#priceRangeBtn {
+	background: #dbcc8f;
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 300;
+    border: none;
+    padding: 0.5rem 2rem;
+    outline: none;
 }

@@ -356,6 +356,8 @@ var cartSubTotal = document.getElementById('cartSubTotal')
 var productDetails = document.getElementById('productDetails')
 var ProductSearchResult = document.getElementById('result')
 var mainSearchClose = document.getElementById('mainSearchClose')
+var shopItemList = document.getElementById('shopItemList')
+var shopMainCategoryList = document.getElementById('accordion')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -944,5 +946,120 @@ mainSearchClose.addEventListener('click', () => {
 })
 
 
-//Creating shop page
+//Call get shop servlet
+var shopItems = []
+var mainCategories = []
+var highestPrice
+var lowestPrice
 
+function callGetShopServlet(){
+	$.get("http://localhost:8080/LankaHardware/GetShopServlet", function(response) {
+		
+		shopItems = response[0]
+		mainCategories = response[1]
+		highestPrice = response[2]
+		lowestPrice = response[3]
+		
+		builtShopItems()
+		builtShopCategories()
+	})
+}
+
+function builtShopItems(){	
+	for(var i = 0; i < shopItems.length; i++){
+		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
+							<div class="product">
+								<a href="#" class="img-prod"><img class="img-fluid"
+									src="${shopItems[i].mainImg}" alt="Colorlib Template">
+									<div class="overlay"></div> </a>
+								<div class="text py-3 pb-4 px-3">
+									<div class="d-flex">
+										<div class="cat">
+											<span>${shopItems[i].brand}</span>
+										</div>
+										<div class="rating">
+											<p class="text-right mb-0">
+												<a href="#"><span class="ion-ios-star-outline"></span></a> <a
+													href="#"><span class="ion-ios-star-outline"></span></a> <a
+													href="#"><span class="ion-ios-star-outline"></span></a> <a
+													href="#"><span class="ion-ios-star-outline"></span></a> <a
+													href="#"><span class="ion-ios-star-outline"></span></a>
+											</p>
+										</div>
+									</div>
+									<h3>
+										<a href="#">${shopItems[i].name}</a>
+									</h3>
+									<div class="pricing">
+										<p class="price">
+											<span>Rs${shopItems[i].price}</span>
+										</p>
+									</div>
+									<p class="bottom-area d-flex px-3">
+										<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add
+												to cart <i class="ion-ios-add ml-1"></i>
+										</span></a> <a href="#" class="buy-now text-center py-2">Buy now<span><i
+												class="ion-ios-cart ml-1"></i></span></a>
+									</p>
+								</div>
+							</div>
+						</div>`
+    			
+    	shopItemList.innerHTML += item
+	}
+}
+
+function builtShopCategories(){	
+	for(var i = 0; i < mainCategories.length; i++){
+		var headingID = `heading${numberToWord(i + 1)}`
+		var collapseID = `collapse${numberToWord(i + 1)}`
+		
+		var category = `<div class="panel panel-default">
+                         <div class="panel-heading" role="tab" id="${headingID}">
+                             <h4 class="panel-title">
+                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#${collapseID}" aria-expanded="false" aria-controls="${collapseID}">${mainCategories[i]}
+                                 </a>
+                             </h4>
+                         </div>
+                         <div id="${collapseID}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="${headingID}">
+                             <div class="panel-body">
+                                <ul>
+                                 	<li><a href="#">Sport</a></li>
+                                 	<li><a href="#">Casual</a></li>
+                                 	<li><a href="#">Running</a></li>
+                                 	<li><a href="#">Jordan</a></li>
+                                 	<li><a href="#">Soccer</a></li>
+                                 	<li><a href="#">Football</a></li>
+                                 	<li><a href="#">Lifestyle</a></li>
+                                </ul>
+                             </div>
+                         </div>
+                     </div>`
+    			
+    	shopMainCategoryList.innerHTML += category
+	}
+}
+
+function numberToWord(number){
+	var ones = {
+		0: "Zero",
+		1: "One",
+		2: "Two",
+		3: "Three",
+		4: "Four",
+		5: "Five",
+		6: "Six",
+		7: "Seven",
+		8: "Eight",
+		9: "Nine"
+	}
+	
+	for(const [n, w] of Object.entries(ones)){
+		if(number == n){
+			var word = w
+			break
+		}
+	}
+	
+	return word
+}

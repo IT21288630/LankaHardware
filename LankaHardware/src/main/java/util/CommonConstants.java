@@ -101,6 +101,15 @@ public class CommonConstants {
 	/** Constant for add a review */
 	public static final String QUERY_ID_ADD_REVIEW = "INSERT INTO reviews(itID, email, description, stars, date)VALUES(?,?,?,?,CURDATE());";
 	
+	/** Constant for get items for shop page */
+	public static final String QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP = "SELECT i.id, min(s.unit_price), name, brand, img FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id;";
+	
+	/** Constant for get main categories for shop page */
+	public static final String QUERY_ID_GET_MAIN_CATEGORIES_FOR_SHOP = "SELECT type FROM item;";
+	
+	/** Constant for get maximum item price and minimum item price */
+	public static final String QUERY_ID_GET_MAX_AND_MIN_ITEM_PRICE_FOR_SHOP = "SELECT max(unit_price), min(unit_price) FROM item_size;";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 
