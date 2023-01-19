@@ -942,3 +942,7 @@ function builtResults(mainProductSearchResults, forNoResults){
 mainSearchClose.addEventListener('click', () => {
   ProductSearchResult.innerHTML = ""
 })
+
+
+//Creating shop page
+
