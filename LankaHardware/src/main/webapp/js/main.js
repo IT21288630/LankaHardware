@@ -352,6 +352,7 @@ var wishlist_itemList = document.getElementById('wishlist_itemList')
 var cartQuantity = document.getElementById('cartQuantity')
 var added_msg = document.getElementById('added_msg')
 var cartTotals = document.getElementById('cartTotals')
+var cartSubTotal = document.getElementById('cartSubTotal')
 var productDetails = document.getElementById('productDetails')
 var ProductSearchResult = document.getElementById('result')
 var mainSearchClose = document.getElementById('mainSearchClose')
@@ -415,13 +416,13 @@ function buildWishlist(wishlistItems){
 	for(var i = 0; i < wishlistItems.length; i++){
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.png" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${wishlistItems[i].mainImg}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3">
     						<div class="d-flex">
     							<div class="cat">
-		    						<span>${wishlistItems[i].quantity}</span>
+		    						<span>${wishlistItems[i].brand}</span>
 		    					</div>
 		    					<div class="rating">
 	    							<p class="text-right mb-0">
@@ -433,9 +434,9 @@ function buildWishlist(wishlistItems){
 	    							</p>
 	    						</div>
 	    					</div>
-    						<h3><a href="#">${wishlistItems[i].itemID}</a></h3>
+    						<h3><a href="#">${wishlistItems[i].name}</a></h3>
     						<div class="pricing">
-	    						<p class="price"><span>$120.00</span></p>
+	    						<p class="price"><span>${wishlistItems[i].price}</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
     							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="return false;"><span onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1)">Add to cart <i class="ion-ios-add ml-1"></i></span></a>
@@ -537,7 +538,7 @@ function callCartServlet(){
 		
 		cartItems = response[0]
 		getCartQuantity()
-
+		
 		var Total = response[1]
 		
 		if(firstTime == false) buildMiniCart(cartItems)
@@ -559,9 +560,9 @@ function buildMiniCart(cartItems){
 						<td class="product-name" style="width: auto; border: none;  padding: 0px;">
 							<h3>${cartItems[i].name}</h3>
 							<p>${cartItems[i].description}</p>
-							<p class="d-flex" style="justify-content: space-between; padding-left: 5px;">
-								<span>&times;${cartItems[i].quantity}</span>
-								<span>&times;${cartItems[i].quantity}</span>
+							<p class="d-flex" style="justify-content: space-between; padding-left: 5px; font-size: small;">
+								<span>Size ${cartItems[i].size}</span>
+								<span>Qty ${cartItems[i].quantity}</span>
 							</p>
 						</td>
 					</tr>
@@ -584,6 +585,7 @@ function getCartQuantity(){
 }
 
 function buildMainCart(cartItems, Total){
+	calculateSubTotal(cartItems)
 	cartTotal(Total)
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center">
@@ -666,14 +668,23 @@ function callChangeQuantityServlet(itemID, element, price, size){
 	   firstTime = true
 	   quantityChanged = true
 	   callCartServlet()
-	   calculateSubtotal(quantity, price, itemID, size)
+	   calculateItemtotal(quantity, price, itemID, size)
 	})
 }
 
 //calculate item total
-function calculateSubtotal(quantity, price, itemID, size){
+function calculateItemtotal(quantity, price, itemID, size){
 	var itemTotal = document.getElementById(itemID + size)
 	itemTotal.innerHTML = `Rs${price * quantity}`
+}
+
+//calculate cart subtotal
+function calculateSubTotal(cartItems){
+	var subTotal = 0
+	for(var i = 0; i < cartItems.length; i++){
+		subTotal += cartItems[i].price * cartItems[i].quantity
+	}
+	cartSubTotal.innerHTML = `Rs${subTotal}`
 }
 
 //Redirect to product-single page

@@ -32,6 +32,9 @@ public class CommonConstants {
 	/** Constant for item id prefix */
 	public static final String ITEM_ID_PREFIX = "I300";
 	
+	/** Constant for delivery fee */
+	public static final double DELIVERY_FEE = 200;
+	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_CART_IDS = "select cid from cart;";
 	
@@ -83,14 +86,20 @@ public class CommonConstants {
 	/** Constant for get items in wishlist */
 	public static final String QUERY_ID_GET_WISHLIST = "SELECT * FROM wishlist_item WHERE wid = ?;";
 	
+	/** Constant for get other item details for wishlist */
+	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_WISHLIST = "SELECT name, brand, img, (SELECT min(unit_price) FROM item_size where id = ?) as 'price' FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.id = ? GROUP BY i.id;";
+	
 	/** Constant for get new arrivals */
-	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY name ORDER BY i.id DESC limit 8;";
+	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
 	
 	/** Constant for get minimum price for new arrivals */
 	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC;";
 	
 	/** Constant for get main search results */
 	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id FROM item WHERE name LIKE ?;";
+	
+	/** Constant for add a review */
+	public static final String QUERY_ID_ADD_REVIEW = "INSERT INTO reviews(itID, email, description, stars, date)VALUES(?,?,?,?,CURDATE());";
 	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;

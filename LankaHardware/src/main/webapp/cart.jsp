@@ -134,11 +134,11 @@
 						<h3>Cart Totals</h3>
 						<p class="d-flex">
 							<span>Subtotal</span>
-							<span>$20.60</span>
+							<span id="cartSubTotal"></span>
 						</p>
 						<p class="d-flex">
 							<span>Delivery</span>
-							<span>$0.00</span>
+							<span>Rs200</span>
 						</p>
 						<p class="d-flex">
 							<span>Discount</span>
@@ -365,7 +365,7 @@
 				
 				cartItems = response[0]
 				getCartQuantity()
-				
+				calculateSubTotal(cartItems)
 				var Total = response[1]
 				
 				if(firstTime == false) buildMiniCart(cartItems)

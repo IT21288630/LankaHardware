@@ -209,7 +209,7 @@ public class WishlistServiceImpl implements IWishlistService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		
+
 		return "Item removed";
 	}
 
@@ -236,6 +236,18 @@ public class WishlistServiceImpl implements IWishlistService {
 				items.add(item);
 			}
 
+			for (Item item : items) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_WISHLIST);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+				rs = pst.executeQuery();
+				rs.next();
+
+				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
+				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FOUR));
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());

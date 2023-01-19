@@ -391,7 +391,7 @@ public class CartServiceImpl implements ICartService {
 	public double calculateTotal(ArrayList<Item> items) {
 		// TODO Auto-generated method stub
 
-		double total = 0;
+		double total = CommonConstants.DELIVERY_FEE;
 
 		for (Item item : items) {
 			total += item.getPrice() * item.getQuantity();
