@@ -174,9 +174,9 @@
 								</div>
 								<div class="range-input">
 									<input type="range" class="range-min" min="0" max="10000"
-										value="" step="100" id="priceRange1"> 
+										value="" step="100" id="priceRangeMin"> 
 									<input type="range" class="range-max" min="0" max="10000"
-										value="" step="100" id="priceRange2">
+										value="" step="100" id="priceRangeMax">
 								</div>
 							</div>
 						</div>

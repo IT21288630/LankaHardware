@@ -6,7 +6,6 @@ public class Review {
 	private String reviewDescription;
 	private String reviewDate;
 	private int stars;
-	//private Customer customer;
 
 	public String getReviewID() {
 		return reviewID;
@@ -40,11 +39,4 @@ public class Review {
 		this.stars = stars;
 	}
 
-//	public Customer getCustomer() {
-//		return customer;
-//	}
-//
-//	public void setCustomer(Customer customer) {
-//		this.customer = customer;
-//	}
 }

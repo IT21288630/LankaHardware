@@ -360,8 +360,8 @@ var shopItemList = document.getElementById('shopItemList')
 var shopMainCategoryList = document.getElementById('accordion')
 var priceMax = document.getElementById('priceMax')
 var priceMin = document.getElementById('priceMin')
-var priceRange1 = document.getElementById('priceRange1')
-var priceRange2 = document.getElementById('priceRange2')
+var priceRangeMin = document.getElementById('priceRangeMin')
+var priceRangeMax = document.getElementById('priceRangeMax')
 var priceRangeProgress = document.getElementById('priceRangeProgress')
 
 //Mini cart
@@ -957,6 +957,9 @@ var mainCategories = []
 var highestPrice
 var lowestPrice
 var customizedShopItems = []
+var currentMainCategory
+var priceRangeChanged = false
+var clickedCategory = false
 
 function callGetShopServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetShopServlet", function(response) {
@@ -973,7 +976,8 @@ function callGetShopServlet(){
 }
 
 //Build items in shop page
-function buildShopItems(shopItems){	
+function buildShopItems(shopItems){
+	shopItemList.innerHTML = ''
 	for(var i = 0; i < shopItems.length; i++){
 		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
 							<div class="product">
@@ -1019,6 +1023,7 @@ function buildShopItems(shopItems){
 
 //Buils main categories in the shop page
 function buildShopCategories(){	
+	shopMainCategoryList.innerHTML = ''
 	for(var i = 0; i < mainCategories.length; i++){
 		var headingID = `heading${numberToWord(i + 1)}`
 		var collapseID = `collapse${numberToWord(i + 1)}`
@@ -1026,7 +1031,7 @@ function buildShopCategories(){
 		var category = `<div class="panel panel-default">
                          <div class="panel-heading" role="tab" id="${headingID}">
                              <h4 class="panel-title">
-                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#${collapseID}" aria-expanded="false" aria-controls="${collapseID}" onclick="callGetCustomizedShopServlet('${mainCategories[i]}')">${mainCategories[i]}
+                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#${collapseID}" aria-expanded="false" aria-controls="${collapseID}" onclick="callGetCustomizedShopServlet('${mainCategories[i]}'); setCurrentMainCategory('${mainCategories[i]}')">${mainCategories[i]}
                                  </a>
                              </h4>
                          </div>
@@ -1049,27 +1054,54 @@ function buildShopCategories(){
 	}
 }
 
+//Set current main category
+function setCurrentMainCategory(mainCategory){
+	currentMainCategory = mainCategory
+}
+
 //Build price range
 function buildPriceRange(){	
 	priceMax.value = highestPrice
 	priceMin.value = lowestPrice
-	priceRange1.value = lowestPrice
-	priceRange2.value = highestPrice
+	priceRangeMin.value = lowestPrice
+	priceRangeMax.value = highestPrice
 
 	priceRangeProgress.style = `left: ${lowestPrice / 100}%; right: ${100 - (highestPrice/100)}%`
+	
+	priceRangeMax.addEventListener('change', () => {
+		priceRangeChanged = true
+	 	callGetCustomizedShopServlet(currentMainCategory)
+	})	
+	
+	priceRangeMin.addEventListener('change', () => {
+		priceRangeChanged = true
+	 	callGetCustomizedShopServlet(currentMainCategory)
+	})
 }
 
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
-	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory}, function(response) {
+	checkIfClicked()
+	if(mainCategory == undefined) mainCategory = `%%`
+	else mainCategory = `%${mainCategory}%`
+	var lowerPrice = priceMin.value
+	var higherPrice = priceMax.value
+	
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice}, function(response) {
 		
 		customizedShopItems = response
-		
-		shopItemList.innerHTML = ''
 		buildShopItems(customizedShopItems)
 	})
 }
 
+//check if category is clicked
+function checkIfClicked(){
+	if(clickedCategory == true){
+		clickedCategory = false
+		return
+	}
+	clickedCategory = true
+}
 
 //Get the number in words
 function numberToWord(number){

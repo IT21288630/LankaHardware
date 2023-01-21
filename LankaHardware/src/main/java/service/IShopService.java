@@ -21,5 +21,12 @@ public interface IShopService {
 	 * 
 	 * @param main category
 	 */
-	public Shop getItemsByMainCategory(String mainCategory);
+	public Shop getItemsByMainCategory(String mainCategory, double lowerPrice, double higherPrice);
+	
+	/**
+	 * get item size list to shop page
+	 * 
+	 * @param main category
+	 */
+	public ArrayList<String> getItemSizeList(String itemID);
 }

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,7 +100,7 @@ public class ShopServiceImpl implements IShopService {
 	}
 
 	@Override
-	public Shop getItemsByMainCategory(String mainCategory) {
+	public Shop getItemsByMainCategory(String mainCategory, double lowerPrice, double higherPrice) {
 		// TODO Auto-generated method stub
 
 		Shop shop = new Shop();
@@ -109,11 +110,13 @@ public class ShopServiceImpl implements IShopService {
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+			pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+			pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
 				Item item = new Item();
-				
+
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_TWO));
 				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
@@ -150,7 +153,72 @@ public class ShopServiceImpl implements IShopService {
 		}
 
 		shop.setItems(items);
-		
+
 		return shop;
+	}
+
+	@Override
+	public ArrayList<String> getItemSizeList(String itemID) {
+		// TODO Auto-generated method stub
+
+		ArrayList<String> sizeList = new ArrayList<>();
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEM_SIZE_LIST_FOR_SHOP);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				String temp = rs.getString(CommonConstants.COLUMN_INDEX_ONE);
+
+				if (Character.isDigit(temp.charAt(0))) {
+					if (temp.length() < 2) {
+						sizeList.add(temp);
+					} else {
+						sizeList.add(temp.substring(0, 2));
+					}
+				}
+				else {
+					if (temp.length() < 1) {
+						sizeList.add(temp);
+					} else {
+						sizeList.add(temp.substring(0, 1));
+					}
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return sizeList;
+	}
+
+	public static void main(String[] args) {
+		IShopService iShopService = new ShopServiceImpl();
+		System.out.println(iShopService.getItemSizeList("i100"));
 	}
 }

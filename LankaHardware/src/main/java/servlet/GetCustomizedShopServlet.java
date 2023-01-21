@@ -37,8 +37,11 @@ public class GetCustomizedShopServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String mainCategory = request.getParameter("mainCategory");
+		double lowerPrice = Double.parseDouble(request.getParameter("lowerPrice"));
+		double higherPrice = Double.parseDouble(request.getParameter("higherPrice"));
+		
 		IShopService iShopService = new ShopServiceImpl();
-		Shop shop = iShopService.getItemsByMainCategory(mainCategory);
+		Shop shop = iShopService.getItemsByMainCategory(mainCategory, lowerPrice, higherPrice);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

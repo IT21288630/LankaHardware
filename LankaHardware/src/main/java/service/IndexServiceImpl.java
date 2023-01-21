@@ -32,6 +32,7 @@ public class IndexServiceImpl implements IIndexService {
 	public ArrayList<Item> getNewArrivals() {
 		// TODO Auto-generated method stub
 
+		IReviewService iReviewService = new ReviewServiceImpl();
 		ArrayList<Item> items = new ArrayList<>();
 		Index index = new Index();
 		con = DBConnectionUtil.getDBConnection();
@@ -52,6 +53,10 @@ public class IndexServiceImpl implements IIndexService {
 				item.setMainImg(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
 				
 				items.add(item);
+			}
+			
+			for (Item item : items) {
+				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -90,4 +95,14 @@ public class IndexServiceImpl implements IIndexService {
 		return index.getItems();
 	}
 
+	public static void main(String[] args) {
+		IIndexService iIndexService = new IndexServiceImpl();
+		ArrayList<Item> items = iIndexService.getNewArrivals();
+		
+		for (Item item : items) {
+			System.out.println(item.getItemID());
+			System.out.println(item.getAvgRating());
+			System.out.println();
+		}
+	}
 }

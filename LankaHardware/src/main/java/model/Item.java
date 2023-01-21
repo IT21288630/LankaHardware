@@ -13,6 +13,7 @@ public class Item {
 	private String Warranty;
 	private String size;
 	private String mainImg;
+	private double avgRating;
 
 	public String getMainImg() {
 		return mainImg;
@@ -100,5 +101,13 @@ public class Item {
 
 	public void setItemID(String itemID) {
 		this.itemID = itemID;
+	}
+
+	public double getAvgRating() {
+		return avgRating;
+	}
+
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
 	}
 }
