@@ -414,13 +414,14 @@ function callWishlistServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetWishlistServlet", function(response) {
 				
 		wishlistItems = response
-						
 		buildWishlist(wishlistItems)
 	})
 }
 
 function buildWishlist(wishlistItems){
 	for(var i = 0; i < wishlistItems.length; i++){
+		var starID = wishlistItems[i].itemID + 'wishlistStar'
+		
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
     					<a href="#" class="img-prod"><img class="img-fluid" src="${wishlistItems[i].mainImg}" alt="Colorlib Template">
@@ -433,11 +434,11 @@ function buildWishlist(wishlistItems){
 		    					</div>
 		    					<div class="rating">
 	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
 	    							</p>
 	    						</div>
 	    					</div>
@@ -454,6 +455,7 @@ function buildWishlist(wishlistItems){
     			</div>`
     			
     	wishlist_itemList.innerHTML += item
+    	buildAverageRating(wishlistItems[i], starID)
 	}
 }
 
@@ -491,13 +493,15 @@ function callIndexServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetIndexServlet", function(response) {
 				
 		newArrivals = response
-						
+		
 		buildNewArrivalslist(newArrivals)
 	})
 }
 
 function buildNewArrivalslist(newArrivals){
 	for(var i = 0; i < newArrivals.length; i++){	
+		var starID = newArrivals[i].itemID + 'AvgStar'
+
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
     				<div class="product d-flex flex-column">
     					<a href="#" class="img-prod" onclick="return false;"><img class="img-fluid" src="${newArrivals[i].mainImg}" alt="Colorlib Template" onclick="toProductSinglePage('${newArrivals[i].itemID}');">
@@ -510,11 +514,11 @@ function buildNewArrivalslist(newArrivals){
 		    					</div>
 		    					<div class="rating">
 	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
+	    								<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
 	    							</p>
 	    						</div>
 	    					</div>
@@ -531,7 +535,88 @@ function buildNewArrivalslist(newArrivals){
     			</div>`
     			
     	newArrival_itemList.innerHTML += item
+    	buildAverageRating(newArrivals[i], starID)
 	}
+}
+
+//build average rating
+function buildAverageRating(item, starID){
+
+	
+	if(item.avgRating == 5){
+		for(var i = 1; i < 6; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+		}
+		
+	} else if(item.avgRating > 4){
+		for(var i = 1; i < 5; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+
+		}
+		var id = `${starID}${i}`
+		var star = document.getElementById(id)
+		star.classList.remove('ion-ios-star-outline')
+		star.classList.add('ion-ios-star-half')
+		
+	} else if(item.avgRating > 3){
+		for(var i = 1; i < 4; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+
+		}
+		var id = `${starID}${i}`
+		var star = document.getElementById(id)
+		star.classList.remove('ion-ios-star-outline')
+		star.classList.add('ion-ios-star-half')
+		
+	} else if(item.avgRating > 2){
+		for(var i = 1; i < 3; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+
+		}
+		var id = `${starID}${i}`
+		var star = document.getElementById(id)
+		star.classList.remove('ion-ios-star-outline')
+		star.classList.add('ion-ios-star-half')
+		
+	} else if(item.avgRating > 1){
+		for(var i = 1; i < 2; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+
+		}
+		var id = `${starID}${i}`
+		var star = document.getElementById(id)
+		star.classList.remove('ion-ios-star-outline')
+		star.classList.add('ion-ios-star-half')
+		
+		
+	} else if(item.avgRating > 0){
+		var id = `${starID}1`
+		var star = document.getElementById(id)
+		star.classList.remove('ion-ios-star-outline')
+		star.classList.add('ion-ios-star-half')
+
+	}
+
 }
 
 //call cart servlet
@@ -714,6 +799,8 @@ function callGetProductSingleServlet(itemID){
 }
 
 function buildProductSingle(product){
+	var starID = 'productStar'
+	
 	var details = `<div class="col-lg-5 mt-5">
                     <div class="card mb-3">
                         <img class="card-img img-fluid" src="${product.mainImg}" alt="Card image cap" id="product-detail">
@@ -815,12 +902,12 @@ function buildProductSingle(product){
 					<h3>${product.name}</h3>
 					<div class="rating d-flex">
 						<p class="text-left mr-4">
-							<a href="#" class="mr-2">5.0</a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
-							<a href="#"><span class="ion-ios-star-outline"></span></a>
+							<a href="#" class="mr-2">${product.avgRating}</a>
+							<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
+							<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
+							<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
+							<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
+							<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
 						</p>
 						<p class="text-left mr-4">
 							<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;"
@@ -865,6 +952,7 @@ function buildProductSingle(product){
 				</div>`
     			
     	productDetails.innerHTML += details
+    	buildAverageRating(product, starID)
 }
 
 //Building product sizes and price
@@ -979,6 +1067,8 @@ function callGetShopServlet(){
 function buildShopItems(shopItems){
 	shopItemList.innerHTML = ''
 	for(var i = 0; i < shopItems.length; i++){
+		var starID = shopItems[i].itemID + 'shopStar'
+		
 		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
 							<div class="product">
 								<a href="#" class="img-prod" onclick="toProductSinglePage('${shopItems[i].itemID}'); return false;"><img class="img-fluid"
@@ -991,11 +1081,11 @@ function buildShopItems(shopItems){
 										</div>
 										<div class="rating">
 											<p class="text-right mb-0">
-												<a href="#"><span class="ion-ios-star-outline"></span></a> <a
-													href="#"><span class="ion-ios-star-outline"></span></a> <a
-													href="#"><span class="ion-ios-star-outline"></span></a> <a
-													href="#"><span class="ion-ios-star-outline"></span></a> <a
-													href="#"><span class="ion-ios-star-outline"></span></a>
+												<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a> <a
+													href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a> <a
+													href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a> <a
+													href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a> <a
+													href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
 											</p>
 										</div>
 									</div>
@@ -1018,6 +1108,7 @@ function buildShopItems(shopItems){
 						</div>`
     			
     	shopItemList.innerHTML += item
+    	buildAverageRating(shopItems[i], starID)
 	}
 }
 

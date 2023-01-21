@@ -35,6 +35,7 @@ public class ShopServiceImpl implements IShopService {
 		Shop shop = new Shop();
 		ArrayList<Item> items = new ArrayList<>();
 		ArrayList<String> mainCategories = new ArrayList<>();
+		IReviewService iReviewService = new ReviewServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -49,10 +50,10 @@ public class ShopServiceImpl implements IShopService {
 				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
-
+				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				items.add(item);
 			}
-
+			
 			shop.setItems(items);
 
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_MAIN_CATEGORIES_FOR_SHOP);
@@ -72,7 +73,7 @@ public class ShopServiceImpl implements IShopService {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		} finally {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
@@ -105,6 +106,7 @@ public class ShopServiceImpl implements IShopService {
 
 		Shop shop = new Shop();
 		ArrayList<Item> items = new ArrayList<>();
+		IReviewService iReviewService = new ReviewServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -124,6 +126,10 @@ public class ShopServiceImpl implements IShopService {
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 
 				items.add(item);
+			}
+			
+			for (Item item : items) {
+				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 			}
 
 		} catch (SQLException e) {

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedHashMap;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +32,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 
 		Item item = new Item();
 		LinkedHashMap<String, Double> map = getProductSizeAndPriceList(itemID);
+		IReviewService iReviewService = new ReviewServiceImpl();
 		
 		item.setSize(map.entrySet().iterator().next().getKey()); 
 		item.setItemID(itemID);
@@ -53,6 +53,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 			item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 			item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
+			item.setAvgRating(iReviewService.getAverageRating(itemID));
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

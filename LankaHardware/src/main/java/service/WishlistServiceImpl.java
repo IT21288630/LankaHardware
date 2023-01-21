@@ -219,6 +219,7 @@ public class WishlistServiceImpl implements IWishlistService {
 
 		Wishlist wishlist = new Wishlist();
 		wishlist.setWishlistID(getWishlistIdByEmail(email));
+		IReviewService iReviewService = new ReviewServiceImpl();
 
 		con = DBConnectionUtil.getDBConnection();
 		ArrayList<Item> items = new ArrayList<>();
@@ -247,10 +248,12 @@ public class WishlistServiceImpl implements IWishlistService {
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
+				con = DBConnectionUtil.getDBConnection();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
 		} finally {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
