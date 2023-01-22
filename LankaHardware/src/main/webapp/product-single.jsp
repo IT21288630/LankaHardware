@@ -162,7 +162,20 @@
 							<div class="row p-4">
 								<div class="col-md-7 mini-cart-no-scroll-bar"
 									style="max-height: 715px; overflow-y: scroll;"  id="reviewContainer">
-									
+									<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+												<div class="col-lg-6 mb-5 ftco-animate  fadeInUp ftco-animated" style="max-width: 30%;">
+													<a href="images/product-1.png" class="image-popup"><img src="images/product-1.png"
+															class="img-fluid" alt="Colorlib Template"></a>
+												</div>
+												<div class="col-lg-6 mb-5 ftco-animate  fadeInUp ftco-animated" style="max-width: 30%;">
+													<a href="images/product-1.png" class="image-popup"><img src="images/product-1.png"
+															class="img-fluid" alt="Colorlib Template"></a>
+												</div>
+												<div class="col-lg-6 mb-5 ftco-animate  fadeInUp ftco-animated" style="max-width: 30%;">
+													<a href="images/product-1.png" class="image-popup"><img src="images/product-1.png"
+															class="img-fluid" alt="Colorlib Template"></a>
+												</div>
+											</div>
 								</div>
 								<div class="col-md-4">
 									<div class="rating-wrap">

@@ -1018,11 +1018,7 @@ function buildReviewPercentagesAndCounts(product){
 //Build all reviews
 function buildAllReviews(allReviews, productRatingCount){
 	reviewContainer.innerHTML = `<h3 class="mb-4">${productRatingCount} Reviews</h3>`
-	
 	for(var i = 0; i < allReviews.length; i++){
-		const d = new Date(allReviews[i].reviewDate).toLocaleDateString();
-		console.log(d)
-		
 		var starID = `${allReviews[i].reviewID}reviewStar`
 		var review = `<div class="review">
 						<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
@@ -1042,6 +1038,9 @@ function buildAllReviews(allReviews, productRatingCount){
 								<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
 							</p>
 							<p>${allReviews[i].reviewDescription}</p>
+							<div style="display: flex; flex-direction: row; flex-wrap: wrap;" id="${allReviews[i].reviewID}ImageContainer">
+								
+							</div>
 						</div>
 					</div>`
     			
@@ -1049,8 +1048,26 @@ function buildAllReviews(allReviews, productRatingCount){
     	
     	var item = {"avgRating": allReviews[i].stars}
     	buildAverageRating(item, starID)
+    	if(allReviews[i].reviewImages.length != 0) buildAllReviewImages(allReviews[i].reviewImages, allReviews[i].reviewID)
 	}
 }
+
+//Build all review images
+function buildAllReviewImages(images, containerID){
+	var reviewImageContainer = document.getElementById(`${containerID}ImageContainer`)
+	
+	for(var i = 0; i < images.length; i++){
+		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 30%;">
+						<a href="${images[i]}" class="image-popup">
+							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template">
+						</a>
+					</div>`
+		
+		
+		reviewImageContainer.innerHTML += image
+	}
+}
+
 
 //call add to cart from single product page
 function addToCartFromSingleProductPage(itemID, quantity){
