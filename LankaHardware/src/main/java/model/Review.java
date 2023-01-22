@@ -1,11 +1,15 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Review {
 
 	private String reviewID;
 	private String reviewDescription;
 	private String reviewDate;
 	private int stars;
+	private Customer customer;
+	private ArrayList<String> reviewImages;
 
 	public String getReviewID() {
 		return reviewID;
@@ -37,6 +41,22 @@ public class Review {
 
 	public void setStars(int stars) {
 		this.stars = stars;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public ArrayList<String> getReviewImages() {
+		return reviewImages;
+	}
+
+	public void setReviewImages(ArrayList<String> reviewImages) {
+		this.reviewImages = reviewImages;
 	}
 
 }

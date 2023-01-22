@@ -140,10 +140,6 @@
 							<span>Delivery</span>
 							<span>Rs200</span>
 						</p>
-						<p class="d-flex">
-							<span>Discount</span>
-							<span>$3.00</span>
-						</p>
 						<hr>
 						<p class="d-flex total-price">
 							<span>Total</span>
@@ -368,10 +364,7 @@
 				calculateSubTotal(cartItems)
 				var Total = response[1]
 				
-				if(firstTime == false) buildMiniCart(cartItems)
-				
-				firstTime = false
-				
+				buildMiniCart(cartItems)
 				buildMainCart(cartItems, Total)
 			})
 		});

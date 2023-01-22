@@ -14,6 +14,16 @@ public class Item {
 	private String size;
 	private String mainImg;
 	private double avgRating;
+	private int ratingCount;
+	private double[][] ratingPercentageList;
+
+	public int getRatingCount() {
+		return ratingCount;
+	}
+
+	public void setRatingCount(int ratingCount) {
+		this.ratingCount = ratingCount;
+	}
 
 	public String getMainImg() {
 		return mainImg;
@@ -110,4 +120,13 @@ public class Item {
 	public void setAvgRating(double avgRating) {
 		this.avgRating = avgRating;
 	}
+
+	public double[][] getRatingPercentageList() {
+		return ratingPercentageList;
+	}
+
+	public void setRatingPercentageList(double[][] ratingPercentageList) {
+		this.ratingPercentageList = ratingPercentageList;
+	}
+
 }

@@ -54,6 +54,8 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 			item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
 			item.setAvgRating(iReviewService.getAverageRating(itemID));
+			item.setRatingCount(iReviewService.getItemRatingCount(itemID));
+			item.setRatingPercentageList(iReviewService.calculateItemRatingPercentage(itemID));
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -72,9 +74,6 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 				}
 				if (st != null) {
 					st.close();
-				}
-				if (con != null) {
-					con.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
@@ -119,9 +118,6 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 				}
 				if (st != null) {
 					st.close();
-				}
-				if (con != null) {
-					con.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());

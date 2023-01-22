@@ -61,9 +61,6 @@ public class MainProductSearchImpl implements IMainProductSearch {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}

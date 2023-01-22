@@ -363,6 +363,7 @@ var priceMin = document.getElementById('priceMin')
 var priceRangeMin = document.getElementById('priceRangeMin')
 var priceRangeMax = document.getElementById('priceRangeMax')
 var priceRangeProgress = document.getElementById('priceRangeProgress')
+var reviewContainer = document.getElementById('reviewContainer')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -541,8 +542,6 @@ function buildNewArrivalslist(newArrivals){
 
 //build average rating
 function buildAverageRating(item, starID){
-
-	
 	if(item.avgRating == 5){
 		for(var i = 1; i < 6; i++){
 			var id = `${starID}${i}`
@@ -566,6 +565,15 @@ function buildAverageRating(item, starID){
 		star.classList.remove('ion-ios-star-outline')
 		star.classList.add('ion-ios-star-half')
 		
+	} else if(item.avgRating == 4){
+		for(var i = 1; i < 5; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+		}
+		
 	} else if(item.avgRating > 3){
 		for(var i = 1; i < 4; i++){
 			var id = `${starID}${i}`
@@ -580,6 +588,15 @@ function buildAverageRating(item, starID){
 		star.classList.remove('ion-ios-star-outline')
 		star.classList.add('ion-ios-star-half')
 		
+	} else if(item.avgRating == 3){
+		for(var i = 1; i < 3; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+		}
+		
 	} else if(item.avgRating > 2){
 		for(var i = 1; i < 3; i++){
 			var id = `${starID}${i}`
@@ -593,6 +610,15 @@ function buildAverageRating(item, starID){
 		var star = document.getElementById(id)
 		star.classList.remove('ion-ios-star-outline')
 		star.classList.add('ion-ios-star-half')
+		
+	} else if(item.avgRating == 2){
+		for(var i = 1; i < 3; i++){
+			var id = `${starID}${i}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+		}
 		
 	} else if(item.avgRating > 1){
 		for(var i = 1; i < 2; i++){
@@ -609,6 +635,13 @@ function buildAverageRating(item, starID){
 		star.classList.add('ion-ios-star-half')
 		
 		
+	} else if(item.avgRating == 1){
+			var id = `${starID}${1}`
+			var star = document.getElementById(id)
+			
+			star.classList.remove('ion-ios-star-outline')
+			star.classList.add('ion-ios-star')
+		
 	} else if(item.avgRating > 0){
 		var id = `${starID}1`
 		var star = document.getElementById(id)
@@ -621,7 +654,6 @@ function buildAverageRating(item, starID){
 
 //call cart servlet
 var cartItems = []
-var firstTime = true
 var itemRemoved = false
 var quantityChanged = false
 
@@ -632,16 +664,18 @@ function callCartServlet(){
 		getCartQuantity()
 		
 		var Total = response[1]
-		
-		if(firstTime == false) buildMiniCart(cartItems)
-		if(itemRemoved == true && quantityChanged == false) buildMainCart(cartItems, Total)
-		if(quantityChanged == true)	cartTotal(Total)
-		
-		firstTime = false
+
+		buildMiniCart(cartItems)
+		if(itemRemoved == true) buildMainCart(cartItems, Total)
+		if(quantityChanged == true){
+			calculateSubTotal(cartItems)
+			cartTotal(Total)
+		}
 	})
 }
 
 function buildMiniCart(cartItems){
+	miniCart_itemList.innerHTML = ''
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
 						<td class="image-prod" style="border: none; padding: 0px;">
@@ -677,6 +711,7 @@ function getCartQuantity(){
 }
 
 function buildMainCart(cartItems, Total){
+	mainCart_itemList.innerHTML = ''
 	calculateSubTotal(cartItems)
 	cartTotal(Total)
 	for(var i = 0; i < cartItems.length; i++){
@@ -708,10 +743,9 @@ function buildMainCart(cartItems, Total){
 	}
 }
 
-//Cart totals
+//Cart total
 function cartTotal(Total){
 	cartTotals.innerHTML = 'Rs' + Total
-	quantityChanged = false
 }
 
 //Add to cart
@@ -723,7 +757,6 @@ function callAddToCartServlet(itemID, quantity, size){
 	
 	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity, size : size}, function(response){
 	    
-	    firstTime = true
 	    callCartServlet()
 	    
 	    added_msg.innerHTML = response
@@ -738,8 +771,8 @@ function callAddToCartServlet(itemID, quantity, size){
 function callRemoveFromCartServlet(itemID, operation, size){
 	$.post("http://localhost:8080/LankaHardware/RemoveFromCartServlet", {itemID : itemID, operation : operation, size : size}, function(response){
 	   
-	   firstTime = true
 	   itemRemoved = true
+	   quantityChanged = true
 	   mainCart_itemList.innerHTML="";
 	   callCartServlet()
 	   
@@ -756,8 +789,7 @@ function callChangeQuantityServlet(itemID, element, price, size){
 	var quantity = element.value
 	
 	$.post("http://localhost:8080/LankaHardware/ChangeQuantityServlet", {itemID : itemID, quantity : quantity, size : size}, function(response) {
-		
-	   firstTime = true
+
 	   quantityChanged = true
 	   callCartServlet()
 	   calculateItemtotal(quantity, price, itemID, size)
@@ -787,14 +819,19 @@ function toProductSinglePage(itemID){
 //call GetProductSingleServlet
 var product = []
 var productSizeAndPriceList = []
+var allReviews = []
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
 		
 		product = response[0]
 		productSizeAndPriceList = response[1]
+		allReviews = response[2]
+		
 		buildProductSingle(product)
-		buildProductSizesAndPrice()
+		buildProductSizes()
+		buildReviewPercentagesAndCounts(product)
+		buildAllReviews(allReviews, product.ratingCount)
 	})
 }
 
@@ -902,7 +939,7 @@ function buildProductSingle(product){
 					<h3>${product.name}</h3>
 					<div class="rating d-flex">
 						<p class="text-left mr-4">
-							<a href="#" class="mr-2">${product.avgRating}</a>
+							<a href="#" class="mr-2">${Math.round(product.avgRating * 10) / 10}</a>
 							<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
 							<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
 							<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
@@ -910,7 +947,7 @@ function buildProductSingle(product){
 							<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
 						</p>
 						<p class="text-left mr-4">
-							<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;"
+							<a href="#" class="mr-2" style="color: #000;">${product.ratingCount} <span style="color: #bbb;"
 									id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
 									aria-controls="v-pills-3" aria-selected="false">Rating</span></a>
 						</p>
@@ -955,14 +992,63 @@ function buildProductSingle(product){
     	buildAverageRating(product, starID)
 }
 
-//Building product sizes and price
-function buildProductSizesAndPrice(){
+//Building product sizes
+function buildProductSizes(){
 	var ProductSizes = document.getElementById('ProductSizes')
 	
 	for(const [size, price] of Object.entries(productSizeAndPriceList)){
 		var productSize = `<option value="${size}">${size}</option>`
 		
 		ProductSizes.innerHTML += productSize
+	}
+}
+
+//Building review percentages and counts
+function buildReviewPercentagesAndCounts(product){
+	for(var i = 5; i >= 1; i--){
+		
+		var percentageElement = document.getElementById(`${numberToWord(i)}StarPercentage`)
+		var countElement = document.getElementById(`${numberToWord(i)}StarCount`)
+		
+		percentageElement.innerHTML = `(${parseInt(product.ratingPercentageList[i - 1][0])}%)`
+		countElement.innerHTML = `${parseInt(product.ratingPercentageList[i - 1][1])} Reviews`
+	}
+}
+
+//Build all reviews
+function buildAllReviews(allReviews, productRatingCount){
+	reviewContainer.innerHTML = `<h3 class="mb-4">${productRatingCount} Reviews</h3>`
+	
+	for(var i = 0; i < allReviews.length; i++){
+		const d = new Date(allReviews[i].reviewDate).toLocaleDateString();
+		console.log(d)
+		
+		var starID = `${allReviews[i].reviewID}reviewStar`
+		var review = `<div class="review">
+						<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+						<div class="desc">
+							<h4>
+								<span class="text-left">${allReviews[i].customer.email}</span>
+								<span class="text-right">${allReviews[i].reviewDate}</span>
+							</h4>
+							<p class="star">
+								<span>
+									<i class="ion-ios-star-outline" id="${starID}1"></i>
+									<i class="ion-ios-star-outline" id="${starID}2"></i>
+									<i class="ion-ios-star-outline" id="${starID}3"></i>
+									<i class="ion-ios-star-outline" id="${starID}4"></i>
+									<i class="ion-ios-star-outline" id="${starID}5"></i>
+								</span>
+								<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+							</p>
+							<p>${allReviews[i].reviewDescription}</p>
+						</div>
+					</div>`
+    			
+    	reviewContainer.innerHTML += review
+    	
+    	var item = {"avgRating": allReviews[i].stars}
+    	buildAverageRating(item, starID)
 	}
 }
 

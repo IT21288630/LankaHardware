@@ -60,9 +60,6 @@ public class WishlistServiceImpl implements IWishlistService {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -113,9 +110,6 @@ public class WishlistServiceImpl implements IWishlistService {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -160,9 +154,6 @@ public class WishlistServiceImpl implements IWishlistService {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -201,9 +192,6 @@ public class WishlistServiceImpl implements IWishlistService {
 				}
 				if (rs != null) {
 					rs.close();
-				}
-				if (con != null) {
-					con.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
@@ -268,9 +256,6 @@ public class WishlistServiceImpl implements IWishlistService {
 				}
 				if (rs != null) {
 					rs.close();
-				}
-				if (con != null) {
-					con.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());

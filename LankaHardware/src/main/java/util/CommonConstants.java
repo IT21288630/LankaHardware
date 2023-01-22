@@ -119,6 +119,18 @@ public class CommonConstants {
 	/** Constant for get average item rating */
 	public static final String QUERY_ID_GET_ITEM_AVERAGE_RATING = "select avg(stars) from review where itID = ?;";
 	
+	/** Constant for get rating count for an item */
+	public static final String QUERY_ID_GET_ITEM_RATING_COUNT = "select count(reviewID) from review where ItID = ?;";
+	
+	/** Constant for get details for rating percentage for an item */
+	public static final String QUERY_ID_GET_DETAILS_FOR_ITEM_RATING_PERCENTAGE = "select stars from review where ItID = ?;";
+	
+	/** Constant for get all ratings for an item */
+	public static final String QUERY_ID_GET_ALL_RATINGS_FOR_AN_ITEM = "SELECT reviewID, email, description, stars, date FROM review where ItID = ?;";
+	
+	/** Constant for get rating images for an item */
+	public static final String QUERY_ID_GET_RATING_IMAGES_FOR_AN_ITEM = "SELECT img FROM review_img where reviewID = ?;";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 

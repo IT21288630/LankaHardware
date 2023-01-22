@@ -54,9 +54,6 @@ public class CartServiceImpl implements ICartService {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -107,9 +104,6 @@ public class CartServiceImpl implements ICartService {
 				}
 				if (rs != null) {
 					rs.close();
-				}
-				if (con != null) {
-					con.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
@@ -170,9 +164,6 @@ public class CartServiceImpl implements ICartService {
 				if (st != null) {
 					st.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -216,9 +207,6 @@ public class CartServiceImpl implements ICartService {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -260,9 +248,6 @@ public class CartServiceImpl implements ICartService {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -302,9 +287,6 @@ public class CartServiceImpl implements ICartService {
 				}
 				if (rs != null) {
 					rs.close();
-				}
-				if (con != null) {
-					con.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
@@ -373,9 +355,6 @@ public class CartServiceImpl implements ICartService {
 				if (rs != null) {
 					rs.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -432,9 +411,6 @@ public class CartServiceImpl implements ICartService {
 				}
 				if (rs != null) {
 					rs.close();
-				}
-				if (con != null) {
-					con.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());

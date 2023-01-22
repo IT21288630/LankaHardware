@@ -42,7 +42,7 @@ public class IndexServiceImpl implements IIndexService {
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_MINIMUM_PRICE);
 			st2 = con.createStatement();
 			rs2 = st2.executeQuery(CommonConstants.QUERY_ID_GET_NEW_ARRIVALS);
-			
+
 			while (rs.next() && rs2.next()) {
 				Item item = new Item();
 
@@ -51,10 +51,10 @@ public class IndexServiceImpl implements IIndexService {
 				item.setName(rs2.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setBrand(rs2.getString(CommonConstants.COLUMN_INDEX_TWO));
 				item.setMainImg(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
-				
+
 				items.add(item);
 			}
-			
+
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 			}
@@ -82,9 +82,6 @@ public class IndexServiceImpl implements IIndexService {
 				if (st2 != null) {
 					st2.close();
 				}
-				if (con != null) {
-					con.close();
-				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
 			}
@@ -95,14 +92,4 @@ public class IndexServiceImpl implements IIndexService {
 		return index.getItems();
 	}
 
-	public static void main(String[] args) {
-		IIndexService iIndexService = new IndexServiceImpl();
-		ArrayList<Item> items = iIndexService.getNewArrivals();
-		
-		for (Item item : items) {
-			System.out.println(item.getItemID());
-			System.out.println(item.getAvgRating());
-			System.out.println();
-		}
-	}
 }
