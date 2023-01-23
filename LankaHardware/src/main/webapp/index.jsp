@@ -193,7 +193,7 @@
     	<div class="container">
 				<div class="row no-gutters">
 					<div class="col-lg-4">
-						<div class="choose-wrap divider-one img p-5 d-flex align-items-end" style="background-image: url(images/choose-1.jpg);">
+						<div class="choose-wrap divider-one img p-5 d-flex align-items-end" style="background-image: url(images/construction.jpg);">
 
     					<div class="text text-center text-white px-2">
 								<span class="subheading">Men's Shoes</span>
@@ -206,7 +206,7 @@
 					<div class="col-lg-8">
     				<div class="row no-gutters choose-wrap divider-two align-items-stretch">
     					<div class="col-md-12">
-	    					<div class="choose-wrap full-wrap img align-self-stretch d-flex align-item-center justify-content-end" style="background-image: url(images/choose-2.jpg);">
+	    					<div class="choose-wrap full-wrap img align-self-stretch d-flex align-item-center justify-content-end" style="background-image: url(images/paintBrush.jpg);">
 	    						<div class="col-md-7 d-flex align-items-center">
 	    							<div class="text text-white px-5">
 	    								<span class="subheading">Women's Shoes</span>
@@ -230,7 +230,7 @@
 		    						</div>
 	    						</div>
 	    						<div class="col-md-6">
-		    						<div class="choose-wrap wrap img align-self-stretch d-flex align-items-center" style="background-image: url(images/choose-3.jpg);">
+		    						<div class="choose-wrap wrap img align-self-stretch d-flex align-items-center" style="background-image: url(images/tools.jpg);">
 		    							<div class="text text-center text-white px-5">
 		    								<span class="subheading">Shoes</span>
 				    						<h2>Best Sellers</h2>

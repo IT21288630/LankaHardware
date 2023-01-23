@@ -96,7 +96,10 @@ public class CommonConstants {
 	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC;";
 	
 	/** Constant for get main search results */
-	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id FROM item WHERE name LIKE ?;";
+	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id, name, description FROM item WHERE name LIKE ?;";
+	
+	/** Constant for get images for main search results */
+	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS_IMAGES = "select img from item_img where Id = ? limit 1;";
 	
 	/** Constant for add a review */
 	public static final String QUERY_ID_ADD_REVIEW = "INSERT INTO reviews(itID, email, description, stars, date)VALUES(?,?,?,?,CURDATE());";

@@ -410,12 +410,13 @@ function closeModal(modal) {
 
 //Call wishlist servlet
 var wishlistItems = []
+var wishlistItemRemoved = false
 
 function callWishlistServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetWishlistServlet", function(response) {
 				
 		wishlistItems = response
-		buildWishlist(wishlistItems)
+		if(wishlistItemRemoved == false) buildWishlist(wishlistItems)
 	})
 }
 
@@ -423,7 +424,7 @@ function buildWishlist(wishlistItems){
 	for(var i = 0; i < wishlistItems.length; i++){
 		var starID = wishlistItems[i].itemID + 'wishlistStar'
 		
-		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
+		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" id="${wishlistItems[i].itemID}ProductCard">
     				<div class="product d-flex flex-column">
     					<a href="#" class="img-prod"><img class="img-fluid" src="${wishlistItems[i].mainImg}" alt="Colorlib Template">
     						<div class="overlay"></div>
@@ -448,8 +449,8 @@ function buildWishlist(wishlistItems){
 	    						<p class="price"><span>${wishlistItems[i].price}</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="return false;"><span onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1)">Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2" onclick="return false;"><span onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}')">Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
+    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1, 'notSpecified'); return false;"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a href="#" class="buy-now text-center py-2" onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}'); return false;"><span>Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
     				</div>
@@ -476,8 +477,10 @@ function callAddToWishlistServlet(itemID){
 function callRemoveFromWishlistServlet(itemID){
 	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID}, function(response){
 	   
-	   wishlist_itemList.innerHTML = ""
+	   //wishlist_itemList.innerHTML = ""
+	   wishlistItemRemoved = true
 	   callWishlistServlet()
+	   deleteWishlistItemElement(itemID)
 	   
 	   added_msg.innerHTML = response
 	   added_msg.classList.add('active')
@@ -485,6 +488,14 @@ function callRemoveFromWishlistServlet(itemID){
 	   	added_msg.classList.remove('active')
 	   }, 2000);
 	})
+}
+
+//delete wishlist item element
+function deleteWishlistItemElement(id){
+	var productCard = document.getElementById(`${id}ProductCard`)
+	
+	productCard.classList.remove('d-flex')
+	productCard.style = "display: none;"
 }
 
 //call index servlet
@@ -666,16 +677,19 @@ function callCartServlet(){
 		var Total = response[1]
 
 		buildMiniCart(cartItems)
-		if(itemRemoved == true) buildMainCart(cartItems, Total)
-		if(quantityChanged == true){
+		//if(itemRemoved == true) buildMainCart(cartItems, Total)
+		if(quantityChanged == true || itemRemoved == true){
 			calculateSubTotal(cartItems)
 			cartTotal(Total)
+			buildMainCart(cartItems, Total)
 		}
 	})
 }
 
 function buildMiniCart(cartItems){
 	miniCart_itemList.innerHTML = ''
+	if(cartItems.length == 0) miniCart_itemList.innerHTML = '<p style="text-align: center; font-size: large; color: gray;">Your cart is empty. Add some items to the cart.</p>'
+	
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
 						<td class="image-prod" style="border: none; padding: 0px;">
@@ -712,10 +726,19 @@ function getCartQuantity(){
 
 function buildMainCart(cartItems, Total){
 	mainCart_itemList.innerHTML = ''
+	
+	if(cartItems.length == 0) {
+		mainCart_itemList.innerHTML = `<p style="position: absolute; right: 0; left: 0; font-size: large; color: gray; margin-top: 20px;">Your cart is empty. Add some items to the cart.</p>`
+		var cartSummery = document.getElementById('cartSummery')
+		cartSummery.style = "transform: scale(0);"
+		
+		return
+	}
+	
 	calculateSubTotal(cartItems)
 	cartTotal(Total)
 	for(var i = 0; i < cartItems.length; i++){
-		var item = `<tr class="text-center">
+		var item = `<tr class="text-center" id="${cartItems[i].itemID}TableRow">
 						<td class="image-prod">
 							<div class="img" style="background-image:url(${cartItems[i].mainImg});"></div>
 						</td>
@@ -736,7 +759,7 @@ function buildMainCart(cartItems, Total){
 
 						<td class="total" id="${cartItems[i].itemID + cartItems[i].size}">Rs${cartItems[i].price * cartItems[i].quantity}</td>
 
-						<td class="product-remove"><a href="#" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one', '${cartItems[i].size}'); return false;"><span class="ion-ios-close"></span></a></td>
+						<td class="product-remove"><a href="#" onclick="callRemoveFromCartServlet('${cartItems[i].itemID}', 'one', '${cartItems[i].size}'); deleteTableRow('${cartItems[i].itemID}'); return false;"><span class="ion-ios-close"></span></a></td>
 					</tr><!-- END TR-->`
     			
     	mainCart_itemList.innerHTML += item
@@ -773,7 +796,7 @@ function callRemoveFromCartServlet(itemID, operation, size){
 	   
 	   itemRemoved = true
 	   quantityChanged = true
-	   mainCart_itemList.innerHTML="";
+	   //mainCart_itemList.innerHTML="";
 	   callCartServlet()
 	   
 	   added_msg.innerHTML = response
@@ -782,6 +805,13 @@ function callRemoveFromCartServlet(itemID, operation, size){
 	   	added_msg.classList.remove('active')
 	   }, 2000);
 	})
+}
+
+//delete table row
+function deleteTableRow(id){
+	var row = document.getElementById(`${id}TableRow`)
+	
+	row.style = "display: none;"
 }
 
 //call change quantity servlet
@@ -985,7 +1015,7 @@ function buildProductSingle(product){
 							<p style="color: #000;">80 piece available</p>
 						</div>
 					</div>
-					<p><a href="javascript:addToCartFromSingleProductPage('${product.itemID}', 0);" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
+					<p><a href="#" onclick="addToCartFromSingleProductPage('${product.itemID}', 0); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
 				</div>`
     			
     	productDetails.innerHTML += details
@@ -1038,7 +1068,7 @@ function buildAllReviews(allReviews, productRatingCount){
 								<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
 							</p>
 							<p>${allReviews[i].reviewDescription}</p>
-							<div style="display: flex; flex-direction: row; flex-wrap: wrap;" id="${allReviews[i].reviewID}ImageContainer">
+							<div class="reviewImgContainer" style="display: flex; flex-direction: row; flex-wrap: wrap;" id="${allReviews[i].reviewID}ImageContainer">
 								
 							</div>
 						</div>
@@ -1068,6 +1098,9 @@ function buildAllReviewImages(images, containerID){
 	}
 }
 
+$('.col-md-7 .mini-cart-no-scroll-bar').magnificPopup({
+    delegate: '.col-md-7 .mini-cart-no-scroll-bar'
+});
 
 //call add to cart from single product page
 function addToCartFromSingleProductPage(itemID, quantity){
@@ -1124,12 +1157,12 @@ function builtResults(mainProductSearchResults, forNoResults){
 		var item = `<tr class="text-center clickable" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;" onclick="toProductSinglePage('${mainProductSearchResults[i].itemID}');">
 						<td class="image-prod" style="border: none; padding: 0px;">
 							<div class="img"
-								style="background-image:url(images/product-3.jpg); margin: 0px;">
+								style="background-image:url(${mainProductSearchResults[i].mainImg}); margin: 0px;">
 							</div>
 						</td>
 						<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-							<h3>${mainProductSearchResults[i].itemID}</h3>
-							<p>Far far away, behind the word mountains, far from the countries</p>
+							<h3>${mainProductSearchResults[i].name}</h3>
+							<p>${mainProductSearchResults[i].description}</p>
 						</td>
 					</tr><!-- END TR-->`
     			

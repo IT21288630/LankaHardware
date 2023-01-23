@@ -42,8 +42,19 @@ public class MainProductSearchImpl implements IMainProductSearch {
 				Item item = new Item();
 
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
-
+				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
+				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
+				
 				items.add(item);
+			}
+			
+			for (Item item : items) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_MAIN_SEARCH_RESULTS_IMAGES);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+				rs = pst.executeQuery();
+				rs.next();
+				
+				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 			}
 
 		} catch (SQLException e) {
