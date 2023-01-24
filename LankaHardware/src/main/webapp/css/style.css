@@ -13719,7 +13719,7 @@ h5,
 }
 
 .form-control {
-  height: 52px !important;
+  height: 52px;
   background: #fff !important;
   color: #000000 !important;
   font-size: 18px;
@@ -15204,6 +15204,9 @@ textarea.form-control {
 
 .colorlib-form-2 .form-group .form-field .form-control {
   padding-right: 50px;
+  display: flex;
+  font-size: 12px;
+  align-items: center
 }
 
 .colorlib-form-2 textarea.form-control {
@@ -15424,12 +15427,12 @@ textarea.form-control {
 	top: 15%;
 	left: 50%;
 	z-index: 8;
-	transform: scale(0);
+	transform: translate(-50%, -50%) scale(0);
 	transition: 300ms ease-in-out;
 }
 
 .added_msg.active{
-	transform: scale(1);
+	transform: translate(-50%, -50%) scale(1);
 }
 
 /* clickable */
@@ -15440,7 +15443,7 @@ textarea.form-control {
 
 /* Price range */
 .wrapper{
-  position: relative;
+  position: absolute;
   z-index: 10;
   width: 400px;
   background: #fff;
@@ -15496,7 +15499,7 @@ input[type="number"]::-webkit-inner-spin-button {
   right: 25%;
   position: absolute;
   border-radius: 5px;
-  background: #17A2B8;
+  background: #dbcc8f;
 }
 .range-input{
   position: relative;
@@ -15515,7 +15518,7 @@ input[type="range"]::-webkit-slider-thumb{
   height: 17px;
   width: 17px;
   border-radius: 50%;
-  background: #17A2B8;
+  background: #dbcc8f;
   pointer-events: auto;
   -webkit-appearance: none;
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
@@ -15525,7 +15528,7 @@ input[type="range"]::-moz-range-thumb{
   width: 17px;
   border: none;
   border-radius: 50%;
-  background: #17A2B8;
+  background: #dbcc8f;
   pointer-events: auto;
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
@@ -15557,4 +15560,23 @@ input[type="range"]::-moz-range-thumb{
     border: none;
     padding: 0.5rem 2rem;
     outline: none;
+}
+
+/*for current filters*/
+.btn:hover span {
+  color: red;
+}
+
+.filter {
+	background-color: white;
+	border: none;
+}
+
+.filter:hover {
+  background-color: white;
+  color: gray;
+}
+
+.filterReset {
+	font-weight: 600;
 }

@@ -19,6 +19,8 @@
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
 	rel="stylesheet">
 
+<link rel="stylesheet" href="nice select/css/nice-select.css">
+
 <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="css/animate.css">
 
@@ -73,7 +75,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">Minishop</a>
+			<a class="navbar-brand" href="index.jsp">Minishop</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -124,6 +126,10 @@
 	</div>
 
 	<section class="ftco-section bg-light">
+		<div class="d-flex" style="justify-content: center; position: absolute; top: 0; left: 0; right: 0;">
+			<div class="d-flex" id="currentFilters">
+			</div>
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-10 order-md-last">
@@ -156,7 +162,8 @@
 						</div>
 						<div class="sidebar-box-2">
 							<h2 class="heading">Price Range</h2>
-							<button id="priceRangeBtn" onclick="openPriceRange();">Edit</button>
+<!-- 							<button id="priceRangeBtn" onclick="openPriceRange();">Edit</button> -->
+							<a href="" onclick="openPriceRange(); return false;" class="btn btn-primary">Edit</a>
 							<div class="wrapper" id="wrapper">
 								<div class="price-input">
 									<div class="field">
@@ -179,6 +186,26 @@
 										value="" step="100" id="priceRangeMax">
 								</div>
 							</div>
+						</div>
+						<div class="sidebar-box-2">
+							<form method="post" class="colorlib-form-2">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<h2 class="heading">Sort By</h2>
+											<div class="form-field">
+												<i class="icon icon-arrow-down3"></i>
+												<select name="people" id="people" class="form-control" onchange="buildCurrentFilters()">
+													<option value="Price: Low To High">Price: Low To High</option>
+													<option value="Price: High To Low">Price: High To Low</option>
+													<option value="Avg. Customer Review">Avg. Customer Review</option>
+													<option value="Newest Arrivals">Newest Arrivals</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -325,6 +352,8 @@
 	<div id="mini-cart-overlay"></div>
 	<div id="priceRange-overlay"></div>
 
+	<div class="alert alert-success added_msg" role="alert" id="added_msg"></div>
+
 	<!-- Search Begin -->
 	<div class="search-model">
 		<div class="h-100 d-flex align-items-center justify-content-center">
@@ -378,10 +407,13 @@
 	<script src="js/main.js"></script>
 	<script src="https://kit.fontawesome.com/339febfaad.js"
 		crossorigin="anonymous"></script>
-
+	<script src="nice select/js/jquery.js"></script> 
+	<script src="nice select/js/jquery.nice-select.js"></script>
 	<script>
 		//Call cart servlet
 		$(document).ready(function() {
+			jQuery('select').niceSelect();
+			
 			callCartServlet()
 			callGetShopServlet()
 		});

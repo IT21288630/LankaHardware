@@ -364,6 +364,7 @@ var priceRangeMin = document.getElementById('priceRangeMin')
 var priceRangeMax = document.getElementById('priceRangeMax')
 var priceRangeProgress = document.getElementById('priceRangeProgress')
 var reviewContainer = document.getElementById('reviewContainer')
+var currentFilters = document.getElementById('currentFilters')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -998,7 +999,6 @@ function buildProductSingle(product){
 						<div class="col-md-6">
 							<div class="form-group d-flex">
 								<div class="select-wrap">
-									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
 									<select name="" id="ProductSizes" class="form-control" onchange="displayProductPrice()">
 									</select>
 								</div>
@@ -1031,6 +1031,8 @@ function buildProductSizes(){
 		
 		ProductSizes.innerHTML += productSize
 	}
+	
+	jQuery('select').niceSelect();
 }
 
 //Building review percentages and counts
@@ -1098,10 +1100,6 @@ function buildAllReviewImages(images, containerID){
 	}
 }
 
-$('.col-md-7 .mini-cart-no-scroll-bar').magnificPopup({
-    delegate: '.col-md-7 .mini-cart-no-scroll-bar'
-});
-
 //call add to cart from single product page
 function addToCartFromSingleProductPage(itemID, quantity){
 	var size = document.getElementById('ProductSizes').value
@@ -1122,7 +1120,9 @@ function displayProductPrice(){
 var mainProductSearchResults = []
 
 function mainSearch(){
-	var itemName = document.getElementById('search-input').value	
+	var itemName = document.getElementById('search-input').value
+	itemName = itemName.trim()
+	console.log(itemName)
 	if(itemName == ''){
 		ProductSearchResult.innerHTML = ""
 		return
@@ -1184,6 +1184,7 @@ var customizedShopItems = []
 var currentMainCategory
 var priceRangeChanged = false
 var clickedCategory = false
+var sortByValue
 
 function callGetShopServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetShopServlet", function(response) {
@@ -1234,9 +1235,9 @@ function buildShopItems(shopItems){
 										</p>
 									</div>
 									<p class="bottom-area d-flex px-3">
-										<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add
+										<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${shopItems[i].itemID}', 1, '${shopItems[i].size}'); return false;"><span>Add
 												to cart <i class="ion-ios-add ml-1"></i>
-										</span></a> <a href="#" class="buy-now text-center py-2">Buy now<span><i
+										</span></a> <a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${shopItems[i].itemID}'); return false;">Buy now<span><i
 												class="ion-ios-cart ml-1"></i></span></a>
 									</p>
 								</div>
@@ -1258,7 +1259,7 @@ function buildShopCategories(){
 		var category = `<div class="panel panel-default">
                          <div class="panel-heading" role="tab" id="${headingID}">
                              <h4 class="panel-title">
-                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#${collapseID}" aria-expanded="false" aria-controls="${collapseID}" onclick="callGetCustomizedShopServlet('${mainCategories[i]}'); setCurrentMainCategory('${mainCategories[i]}')">${mainCategories[i]}
+                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#${collapseID}" aria-expanded="false" aria-controls="${collapseID}" onclick="setCurrentMainCategory('${mainCategories[i]}'); buildCurrentFilters();">${mainCategories[i]}
                                  </a>
                              </h4>
                          </div>
@@ -1297,12 +1298,12 @@ function buildPriceRange(){
 	
 	priceRangeMax.addEventListener('change', () => {
 		priceRangeChanged = true
-	 	callGetCustomizedShopServlet(currentMainCategory)
+	 	buildCurrentFilters()
 	})	
 	
 	priceRangeMin.addEventListener('change', () => {
 		priceRangeChanged = true
-	 	callGetCustomizedShopServlet(currentMainCategory)
+	 	buildCurrentFilters()
 	})
 }
 
@@ -1314,10 +1315,11 @@ function callGetCustomizedShopServlet(mainCategory){
 	var lowerPrice = priceMin.value
 	var higherPrice = priceMax.value
 	
-	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice}, function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue}, function(response) {
 		
 		customizedShopItems = response
 		buildShopItems(customizedShopItems)
+		//buildCurrentFilters()
 	})
 }
 
@@ -1328,6 +1330,37 @@ function checkIfClicked(){
 		return
 	}
 	clickedCategory = true
+}
+
+//build current filters
+function buildCurrentFilters(){
+	var sortBy = document.getElementById('people')
+	sortByValue = sortBy.value
+	
+	currentFilters.innerHTML = ''
+	
+	if(currentMainCategory != null){
+		currentFilters.innerHTML = `<div class="cat" style="padding: 10px; text-transform: capitalize;">
+									<a href="" onclick="return false" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${currentMainCategory}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
+								</div>`
+	}
+	
+	currentFilters.innerHTML += `<div class="cat" style="padding: 10px; text-transform: capitalize;">
+									<a href="" onclick="return false" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${sortByValue}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
+								</div>`
+	
+	currentFilters.innerHTML += `<div class="cat" style="padding: 10px;">
+									<button type="reset" class="btn btn-outline-secondary filterReset" onclick="resetCurrentFilters();">Reset Filters	</button>
+								</div>`
+								
+	callGetCustomizedShopServlet(currentMainCategory)
+}
+
+//reset filters
+function resetCurrentFilters(){
+	currentFilters.innerHTML = ``
+	currentMainCategory = null
+	callGetShopServlet()
 }
 
 //Get the number in words

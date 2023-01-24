@@ -53,7 +53,7 @@ public class ShopServiceImpl implements IShopService {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				items.add(item);
 			}
-			
+
 			shop.setItems(items);
 
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_MAIN_CATEGORIES_FOR_SHOP);
@@ -98,7 +98,7 @@ public class ShopServiceImpl implements IShopService {
 	}
 
 	@Override
-	public Shop getItemsByMainCategory(String mainCategory, double lowerPrice, double higherPrice) {
+	public Shop getItemsByMainCategory(String mainCategory, double lowerPrice, double higherPrice, String sortByValue) {
 		// TODO Auto-generated method stub
 
 		Shop shop = new Shop();
@@ -107,10 +107,28 @@ public class ShopServiceImpl implements IShopService {
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
-			pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
-			pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+			if (sortByValue.equals("Price: Low To High")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_ASC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+			} else if (sortByValue.equals("Price: High To Low")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+			} else if (sortByValue.equals("Avg. Customer Review")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+			} else if (sortByValue.equals("Newest Arrivals")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+			}
+
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -121,10 +139,11 @@ public class ShopServiceImpl implements IShopService {
 				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
-
+				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				
 				items.add(item);
 			}
-			
+
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 			}
@@ -178,8 +197,7 @@ public class ShopServiceImpl implements IShopService {
 					} else {
 						sizeList.add(temp.substring(0, 2));
 					}
-				}
-				else {
+				} else {
 					if (temp.length() < 1) {
 						sizeList.add(temp);
 					} else {

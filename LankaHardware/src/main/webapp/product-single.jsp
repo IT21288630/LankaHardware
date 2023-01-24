@@ -20,6 +20,8 @@
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
 	rel="stylesheet">
 
+<link rel="stylesheet" href="nice select/css/nice-select.css">
+
 <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="css/animate.css">
 
@@ -425,10 +427,11 @@
 	<script src="https://kit.fontawesome.com/339febfaad.js"
 		crossorigin="anonymous"></script>
 	<script src="quantity/script.js"></script>
-
+	<script src="nice select/js/jquery.js"></script> 
+	<script src="nice select/js/jquery.nice-select.js"></script>
 	<script>
 		$(document).ready(function() {
-
+			jQuery('select').niceSelect();
 			var quantitiy = 0;
 			$('.quantity-right-plus').click(function(e) {
 
