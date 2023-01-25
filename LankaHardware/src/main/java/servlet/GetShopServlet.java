@@ -37,9 +37,10 @@ public class GetShopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+System.out.println("shop servlet");
+		String itemName = request.getParameter("itemName");
 		IShopService iShopService = new ShopServiceImpl();
-		Shop shop = iShopService.getShop();
+		Shop shop = iShopService.getShop(itemName);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

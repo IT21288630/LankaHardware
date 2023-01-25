@@ -13,20 +13,26 @@ public interface IShopService {
 	/**
 	 * get items to shop page
 	 * 
+	 * @param itemName
 	 */
-	public Shop getShop();
+	public Shop getShop(String itemName);
 	
 	/**
 	 * get items to shop page
 	 * 
 	 * @param main category
+	 * @param lowerPrice
+	 * @param higherPrice
+	 * @param sortByValue
+	 * @param itemName
+	 * 
 	 */
-	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue);
+	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName);
 	
 	/**
 	 * get item size list to shop page
 	 * 
-	 * @param main category
+	 * 
 	 */
 	public ArrayList<String> getItemSizeList(String itemID);
 }

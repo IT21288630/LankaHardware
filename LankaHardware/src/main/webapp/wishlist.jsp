@@ -241,7 +241,7 @@
 	        <form class="search-model-form">
 	            <div>
 	                <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
-	                <i class="fa-solid fa-magnifying-glass searchFormBtn clickable"></i>
+	                <i class="fa-solid fa-magnifying-glass searchFormBtn clickable" onclick="searchToShop();"></i>
 	            </div>
 	            
 	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">

@@ -1119,11 +1119,14 @@ function displayProductPrice(){
 
 //call main product search servlet
 var mainProductSearchResults = []
+var itemNameForShop
+var isFromSearch
 
 function mainSearch(){
 	var itemName = document.getElementById('search-input').value
 	itemName = itemName.trim()
-	console.log(itemName)
+	itemNameForShop = itemName
+	
 	if(itemName == ''){
 		ProductSearchResult.innerHTML = ""
 		return
@@ -1175,6 +1178,19 @@ mainSearchClose.addEventListener('click', () => {
   ProductSearchResult.innerHTML = ""
 })
 
+//from search to shop page
+function searchToShop(){
+	window.location = 'http://localhost:8080/LankaHardware/shop.jsp?search=' + itemNameForShop
+}
+
+//customized search
+function customizedSearch(itemName){
+	if(itemName != undefined){
+		isFromSearch = true
+		itemNameForShop = itemName
+		callGetShopServlet()
+	}
+}
 
 //Call get shop servlet
 var shopItems = []
@@ -1188,7 +1204,15 @@ var clickedCategory = false
 var sortByValue
 
 function callGetShopServlet(){
-	$.get("http://localhost:8080/LankaHardware/GetShopServlet", function(response) {
+	var itemName
+	if(itemNameForShop != undefined){
+		itemName = itemNameForShop
+		itemName = `%${itemName}%`
+	} else{
+		itemName = `%%`
+	}
+	
+	$.get("http://localhost:8080/LankaHardware/GetShopServlet", {itemName : itemName}, function(response) {
 		
 		shopItems = response[0]
 		mainCategories = response[1]
@@ -1198,6 +1222,7 @@ function callGetShopServlet(){
 		buildShopItems(shopItems)
 		buildShopCategories()
 		buildPriceRange()
+		buildCurrentFilters()
 	})
 }
 
@@ -1309,29 +1334,29 @@ function buildPriceRange(){
 
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
-	checkIfClicked()
+	
 	if(mainCategory == undefined) {
 		buildShopCategories()
 		mainCategory = `%%`
 	}
 	else mainCategory = `%${mainCategory}%`
+	
+	var itemName
+	if(itemNameForShop != undefined){
+		itemName = itemNameForShop
+		itemName = `%${itemName}%`
+	} else{
+		itemName = `%%`
+	}
+	
 	var lowerPrice = priceMin.value
 	var higherPrice = priceMax.value
 	
-	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue}, function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName}, function(response) {
 		
 		customizedShopItems = response
 		buildShopItems(customizedShopItems)
 	})
-}
-
-//check if category is clicked
-function checkIfClicked(){
-	if(clickedCategory == true){
-		clickedCategory = false
-		return
-	}
-	clickedCategory = true
 }
 
 //build current filters
@@ -1343,6 +1368,12 @@ function buildCurrentFilters(){
 	if(currentMainCategory != null){
 		currentFilters.innerHTML = `<div class="cat" style="padding: 10px; text-transform: capitalize;">
 										<a href="" onclick="removeMainCategory(); return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${currentMainCategory}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
+									</div>`
+	}
+	
+	if(itemNameForShop != null){
+		currentFilters.innerHTML += `<div class="cat" style="padding: 10px; text-transform: capitalize;">
+										<a href="" onclick="removeSearchedName(); return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">"${itemNameForShop}"<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
 									</div>`
 	}
 	
@@ -1363,9 +1394,16 @@ function removeMainCategory(){
 	buildCurrentFilters()
 }
 
+//remove searched name
+function removeSearchedName(){
+	itemNameForShop = null
+	buildCurrentFilters()
+}
+
 //remove sort by
-//function removeSortBy(){
-//}
+function removeSortBy(){
+	
+}
 
 //reset filters
 function resetCurrentFilters(){

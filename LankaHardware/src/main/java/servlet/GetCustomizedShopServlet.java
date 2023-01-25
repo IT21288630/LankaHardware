@@ -35,14 +35,15 @@ public class GetCustomizedShopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("custom servlet");
 		String mainCategory = request.getParameter("mainCategory");
 		double lowerPrice = Double.parseDouble(request.getParameter("lowerPrice"));
 		double higherPrice = Double.parseDouble(request.getParameter("higherPrice"));
 		String sortByValue = request.getParameter("sortByValue");
+		String itemName = request.getParameter("itemName");
 		
 		IShopService iShopService = new ShopServiceImpl();
-		Shop shop = iShopService.getCustomizedItemList(mainCategory, lowerPrice, higherPrice, sortByValue);
+		Shop shop = iShopService.getCustomizedItemList(mainCategory, lowerPrice, higherPrice, sortByValue, itemName);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

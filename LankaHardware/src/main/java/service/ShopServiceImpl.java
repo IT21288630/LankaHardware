@@ -29,7 +29,7 @@ public class ShopServiceImpl implements IShopService {
 	public static final Logger log = Logger.getLogger(IndexServiceImpl.class.getName());
 
 	@Override
-	public Shop getShop() {
+	public Shop getShop(String itemName) {
 		// TODO Auto-generated method stub
 
 		Shop shop = new Shop();
@@ -39,9 +39,10 @@ public class ShopServiceImpl implements IShopService {
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			st = con.createStatement();
-			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP);
-
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemName);
+			rs = pst.executeQuery();
+			
 			while (rs.next()) {
 				Item item = new Item();
 
@@ -50,12 +51,14 @@ public class ShopServiceImpl implements IShopService {
 				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				items.add(item);
 			}
 
 			shop.setItems(items);
 
+			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_MAIN_CATEGORIES_FOR_SHOP);
 			rs.next();
 
@@ -98,7 +101,7 @@ public class ShopServiceImpl implements IShopService {
 	}
 
 	@Override
-	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue) {
+	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName) {
 		// TODO Auto-generated method stub
 
 		Shop shop = new Shop();
@@ -112,21 +115,25 @@ public class ShopServiceImpl implements IShopService {
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
 			} else if (sortByValue.equals("Price: High To Low")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
 			} else if (sortByValue.equals("Avg. Customer Review")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
 			} else if (sortByValue.equals("Newest Arrivals")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
 			}
 
 			rs = pst.executeQuery();
