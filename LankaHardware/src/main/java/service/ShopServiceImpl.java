@@ -98,7 +98,7 @@ public class ShopServiceImpl implements IShopService {
 	}
 
 	@Override
-	public Shop getItemsByMainCategory(String mainCategory, double lowerPrice, double higherPrice, String sortByValue) {
+	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue) {
 		// TODO Auto-generated method stub
 
 		Shop shop = new Shop();

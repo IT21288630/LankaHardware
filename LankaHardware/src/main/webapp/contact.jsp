@@ -322,7 +322,10 @@
 	    <div class="h-100 d-flex align-items-center justify-content-center">
 	        <div class="search-close-switch" id="mainSearchClose">+</div>
 	        <form class="search-model-form">
-	            <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	            <div>
+	                <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	                <i class="fa-solid fa-magnifying-glass searchFormBtn clickable"></i>
+	            </div>
 	            
 	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">
 				<div class="container">

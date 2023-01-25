@@ -601,7 +601,7 @@ function buildAverageRating(item, starID){
 		star.classList.add('ion-ios-star-half')
 		
 	} else if(item.avgRating == 3){
-		for(var i = 1; i < 3; i++){
+		for(var i = 1; i < 4; i++){
 			var id = `${starID}${i}`
 			var star = document.getElementById(id)
 			
@@ -693,12 +693,12 @@ function buildMiniCart(cartItems){
 	
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
-						<td class="image-prod" style="border: none; padding: 0px;">
+						<td class="image-prod clickable" style="border: none; padding: 0px;" onclick="toProductSinglePage('${cartItems[i].itemID}');">
 							<div class="img"
 								style="background-image:url(${cartItems[i].mainImg}); margin: 0px;">
 							</div>
 						</td>
-						<td class="product-name" style="width: auto; border: none;  padding: 0px;">
+						<td class="product-name clickable" style="width: auto; border: none;  padding: 0px;" onclick="toProductSinglePage('${cartItems[i].itemID}');">
 							<h3>${cartItems[i].name}</h3>
 							<p>${cartItems[i].description}</p>
 							<p class="d-flex" style="justify-content: space-between; padding-left: 5px; font-size: small;">
@@ -740,11 +740,11 @@ function buildMainCart(cartItems, Total){
 	cartTotal(Total)
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center" id="${cartItems[i].itemID}TableRow">
-						<td class="image-prod">
+						<td class="image-prod clickable" onclick="toProductSinglePage('${cartItems[i].itemID}');">
 							<div class="img" style="background-image:url(${cartItems[i].mainImg});"></div>
 						</td>
 
-						<td class="product-name">
+						<td class="product-name clickable" onclick="toProductSinglePage('${cartItems[i].itemID}');">
 							<h3>${cartItems[i].name}</h3>
 							<p>${cartItems[i].description}</p>
 							<span style="color: grey; font-size: small;">Size ${cartItems[i].size}</span>
@@ -1237,8 +1237,7 @@ function buildShopItems(shopItems){
 									<p class="bottom-area d-flex px-3">
 										<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${shopItems[i].itemID}', 1, '${shopItems[i].size}'); return false;"><span>Add
 												to cart <i class="ion-ios-add ml-1"></i>
-										</span></a> <a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${shopItems[i].itemID}'); return false;">Buy now<span><i
-												class="ion-ios-cart ml-1"></i></span></a>
+										</span></a> <a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${shopItems[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
 									</p>
 								</div>
 							</div>

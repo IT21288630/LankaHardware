@@ -21,7 +21,7 @@ public interface IShopService {
 	 * 
 	 * @param main category
 	 */
-	public Shop getItemsByMainCategory(String mainCategory, double lowerPrice, double higherPrice, String sortByValue);
+	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue);
 	
 	/**
 	 * get item size list to shop page
