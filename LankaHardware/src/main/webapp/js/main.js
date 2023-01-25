@@ -365,6 +365,7 @@ var priceRangeMax = document.getElementById('priceRangeMax')
 var priceRangeProgress = document.getElementById('priceRangeProgress')
 var reviewContainer = document.getElementById('reviewContainer')
 var currentFilters = document.getElementById('currentFilters')
+var sortBy = document.getElementById('people')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -1309,7 +1310,10 @@ function buildPriceRange(){
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
 	checkIfClicked()
-	if(mainCategory == undefined) mainCategory = `%%`
+	if(mainCategory == undefined) {
+		buildShopCategories()
+		mainCategory = `%%`
+	}
 	else mainCategory = `%${mainCategory}%`
 	var lowerPrice = priceMin.value
 	var higherPrice = priceMax.value
@@ -1318,7 +1322,6 @@ function callGetCustomizedShopServlet(mainCategory){
 		
 		customizedShopItems = response
 		buildShopItems(customizedShopItems)
-		//buildCurrentFilters()
 	})
 }
 
@@ -1333,19 +1336,18 @@ function checkIfClicked(){
 
 //build current filters
 function buildCurrentFilters(){
-	var sortBy = document.getElementById('people')
 	sortByValue = sortBy.value
 	
 	currentFilters.innerHTML = ''
 	
 	if(currentMainCategory != null){
 		currentFilters.innerHTML = `<div class="cat" style="padding: 10px; text-transform: capitalize;">
-									<a href="" onclick="return false" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${currentMainCategory}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
-								</div>`
+										<a href="" onclick="removeMainCategory(); return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${currentMainCategory}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
+									</div>`
 	}
 	
 	currentFilters.innerHTML += `<div class="cat" style="padding: 10px; text-transform: capitalize;">
-									<a href="" onclick="return false" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${sortByValue}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
+									<a href="" onclick="return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${sortByValue}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
 								</div>`
 	
 	currentFilters.innerHTML += `<div class="cat" style="padding: 10px;">
@@ -1355,10 +1357,22 @@ function buildCurrentFilters(){
 	callGetCustomizedShopServlet(currentMainCategory)
 }
 
+//remove main category
+function removeMainCategory(){
+	currentMainCategory = null
+	buildCurrentFilters()
+}
+
+//remove sort by
+//function removeSortBy(){
+//}
+
 //reset filters
 function resetCurrentFilters(){
 	currentFilters.innerHTML = ``
 	currentMainCategory = null
+	sortBy.value = 'Price: Low To High'
+	$('select').niceSelect('update');
 	callGetShopServlet()
 }
 
