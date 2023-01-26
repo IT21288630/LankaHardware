@@ -1202,6 +1202,7 @@ var currentMainCategory
 var priceRangeChanged = false
 var clickedCategory = false
 var sortByValue
+var sortByFilterOpen = false
 
 function callGetShopServlet(){
 	var itemName
@@ -1229,6 +1230,10 @@ function callGetShopServlet(){
 //Build items in shop page
 function buildShopItems(shopItems){
 	shopItemList.innerHTML = ''
+	
+	if(shopItems.length == 0) shopEmpty()
+	else shopItemList.style = "justify-content: inherit;"
+	
 	for(var i = 0; i < shopItems.length; i++){
 		var starID = shopItems[i].itemID + 'shopStar'
 		
@@ -1377,14 +1382,18 @@ function buildCurrentFilters(){
 									</div>`
 	}
 	
-	currentFilters.innerHTML += `<div class="cat" style="padding: 10px; text-transform: capitalize;">
-									<a href="" onclick="return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${sortByValue}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
+	if(sortByFilterOpen == true){
+		currentFilters.innerHTML += `<div class="cat" style="padding: 10px; text-transform: capitalize;">
+									<a href="" onclick="removeSortBy(); return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${sortByValue}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
 								</div>`
+	}
 	
-	currentFilters.innerHTML += `<div class="cat" style="padding: 10px;">
+	if(currentMainCategory != null || itemNameForShop != null || sortByFilterOpen != false){
+		currentFilters.innerHTML += `<div class="cat" style="padding: 10px;">
 									<button type="reset" class="btn btn-outline-secondary filterReset" onclick="resetCurrentFilters();">Reset Filters	</button>
 								</div>`
-								
+	}
+				
 	callGetCustomizedShopServlet(currentMainCategory)
 }
 
@@ -1400,18 +1409,40 @@ function removeSearchedName(){
 	buildCurrentFilters()
 }
 
+//set sort by
+function setSotrBy(){
+	sortByFilterOpen = true
+}
+
 //remove sort by
 function removeSortBy(){
-	
+	sortByFilterOpen = false
+	sortBy.value = 'Price: Low To High'
+	$('select').niceSelect('update');
+	buildCurrentFilters()
 }
 
 //reset filters
 function resetCurrentFilters(){
 	currentFilters.innerHTML = ``
 	currentMainCategory = null
+	itemNameForShop = null
+	sortByFilterOpen = false
 	sortBy.value = 'Price: Low To High'
 	$('select').niceSelect('update');
 	callGetShopServlet()
+}
+
+//shop empty message
+function shopEmpty(){
+	shopItemList.style = "justify-content: center;"
+	shopItemList.innerHTML = `<div style='display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: medium; margin-top: 50px;'>
+									<span style='font-size: x-large'><i class="fa-solid fa-circle-exclamation"></i> We're Sorry</span>
+									<span>We couldn't find any items</span>
+							</div>`
+							
+	var pagination = document.getElementById('pagination')
+	pagination.style = "display: none;"
 }
 
 //Get the number in words

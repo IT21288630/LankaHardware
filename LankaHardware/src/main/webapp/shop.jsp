@@ -134,7 +134,7 @@
 			<div class="row">
 				<div class="col-md-8 col-lg-10 order-md-last">
 					<div class="row" id="shopItemList"></div>
-					<div class="row mt-5">
+					<div class="row mt-5" id="pagination">
 						<div class="col text-center">
 							<div class="block-27">
 								<ul>
@@ -195,7 +195,7 @@
 											<h2 class="heading">Sort By</h2>
 											<div class="form-field">
 												<i class="icon icon-arrow-down3"></i>
-												<select name="people" id="people" class="form-control" onchange="buildCurrentFilters()">
+												<select name="people" id="people" class="form-control" onchange="setSotrBy(); buildCurrentFilters();">
 													<option value="Price: Low To High">Price: Low To High</option>
 													<option value="Price: High To Low">Price: High To Low</option>
 													<option value="Avg. Customer Review">Avg. Customer Review</option>
