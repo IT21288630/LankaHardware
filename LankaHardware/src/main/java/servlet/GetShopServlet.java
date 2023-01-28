@@ -37,7 +37,7 @@ public class GetShopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-System.out.println("shop servlet");
+		
 		String itemName = request.getParameter("itemName");
 		IShopService iShopService = new ShopServiceImpl();
 		Shop shop = iShopService.getShop(itemName);
@@ -51,7 +51,7 @@ System.out.println("shop servlet");
 		String resp3 = new Gson().toJson(shop.getHighestPrice());
 		String resp4 = new Gson().toJson(shop.getLowestPrice());
 		String allJson = "[" + resp + "," + resp2 + ", " + resp3 + "," + resp4 + "]";
-		
+
 		out.print(allJson);
 	}
 

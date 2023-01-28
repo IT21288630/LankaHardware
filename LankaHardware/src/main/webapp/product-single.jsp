@@ -164,20 +164,7 @@
 							<div class="row p-4">
 								<div class="col-md-7 mini-cart-no-scroll-bar"
 									style="max-height: 715px; overflow-y: scroll;"  id="reviewContainer">
-									<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
-												<div class="col-lg-6 mb-5 ftco-animate  fadeInUp ftco-animated" style="max-width: 30%;">
-													<a href="images/product-1.png" class="image-popup"><img src="images/product-1.png"
-															class="img-fluid" alt="Colorlib Template"></a>
-												</div>
-												<div class="col-lg-6 mb-5 ftco-animate  fadeInUp ftco-animated" style="max-width: 30%;">
-													<a href="images/product-1.png" class="image-popup"><img src="images/product-1.png"
-															class="img-fluid" alt="Colorlib Template"></a>
-												</div>
-												<div class="col-lg-6 mb-5 ftco-animate  fadeInUp ftco-animated" style="max-width: 30%;">
-													<a href="images/product-1.png" class="image-popup"><img src="images/product-1.png"
-															class="img-fluid" alt="Colorlib Template"></a>
-												</div>
-											</div>
+									
 								</div>
 								<div class="col-md-4">
 									<div class="rating-wrap">
@@ -431,6 +418,10 @@
 	<script src="quantity/script.js"></script>
 	<script src="nice select/js/jquery.js"></script> 
 	<script src="nice select/js/jquery.nice-select.js"></script>
+	
+
+<!-- magnific popup js cdn link  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			jQuery('select').niceSelect();

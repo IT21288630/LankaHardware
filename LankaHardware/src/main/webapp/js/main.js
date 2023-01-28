@@ -1099,6 +1099,16 @@ function buildAllReviewImages(images, containerID){
 		
 		reviewImageContainer.innerHTML += image
 	}
+    	
+    	$('#reviewContainer').magnificPopup({
+
+		          delegate:`.image-popup`,
+		          type: 'image',
+		          gallery: {
+		            enabled: false
+		          }
+
+		});
 }
 
 //call add to cart from single product page

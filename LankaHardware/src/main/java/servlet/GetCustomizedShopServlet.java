@@ -35,7 +35,7 @@ public class GetCustomizedShopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("custom servlet");
+		
 		String mainCategory = request.getParameter("mainCategory");
 		double lowerPrice = Double.parseDouble(request.getParameter("lowerPrice"));
 		double higherPrice = Double.parseDouble(request.getParameter("higherPrice"));
