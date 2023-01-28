@@ -23,4 +23,10 @@ public interface IProductSingleService {
 	 * @param itemID
 	 */
 	public LinkedHashMap<String, Double> getProductSizeAndPriceList(String itemID);
+	
+	/**
+	 * get product size list for product-single page
+	 * @param itemID
+	 */
+	public ArrayList<Item> getRelatedProducts(String itemID);
 }

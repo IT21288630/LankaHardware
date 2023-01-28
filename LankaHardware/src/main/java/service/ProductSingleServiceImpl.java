@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,6 +126,58 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 		}
 
 		return map;
+	}
+
+	@Override
+	public ArrayList<Item> getRelatedProducts(String itemID) {
+		// TODO Auto-generated method stub
+		ArrayList<Item> items = new ArrayList<>();
+		IReviewService iReviewService = new ReviewServiceImpl();
+		con = DBConnectionUtil.getDBConnection();
+		
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_RELATED_ITEMS);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				Item item = new Item();
+				
+				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_TWO));
+				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
+				items.add(item);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		
+		return items;
 	}
 
 	public static void main(String[] args) {

@@ -44,6 +44,26 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet" href="quantity/style.css">
+
+<style>
+		.small-img-group {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.small-img-col {
+			flex-basis: 24%;
+			cursor: pointer;
+		}
+
+		.row {
+			transition: 300ms all;
+		}
+		
+		.small-img.active {
+			border: 1px solid #8080803b;
+		}
+	</style>
 </head>
 
 <body class="goto-here">
@@ -218,6 +238,23 @@
 		</div>
 	</section>
 
+	<section class="ftco-section bg-light">
+    	<div class="container">
+				<div class="row justify-content-center mb-3 pb-3">
+          <div class="col-md-12 heading-section text-center ftco-animate fadeInUp ftco-animated">
+            <h2 class="mb-4">Related Products</h2>
+          </div>
+        </div>   		
+    	</div>
+    	<div class="container">
+    		<div class="row">
+				<div class="owl-carousel owl-theme" id="relatedProductList">
+					
+				</div>
+
+    		</div>
+    	</div>
+    </section>
 
 	<footer class="ftco-footer ftco-section">
 		<div class="container">
@@ -418,10 +455,10 @@
 	<script src="quantity/script.js"></script>
 	<script src="nice select/js/jquery.js"></script> 
 	<script src="nice select/js/jquery.nice-select.js"></script>
+	<!-- magnific popup js cdn link  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
 	
-
-<!-- magnific popup js cdn link  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			jQuery('select').niceSelect();

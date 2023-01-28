@@ -51,7 +51,8 @@ public class GetProductSingleServlet extends HttpServlet {
 		String resp = new Gson().toJson(iProductSingleService.getProduct(itemID));
 		String resp2 = new Gson().toJson(iProductSingleService.getProductSizeAndPriceList(itemID));
 		String resp3 = new Gson().toJson(iReviewService.getItemRatings(itemID));
-		String allJson = "["+resp+","+resp2+", "+resp3+"]";
+		String resp4 = new Gson().toJson(iProductSingleService.getRelatedProducts(itemID));
+		String allJson = "["+resp+","+resp2+", "+resp3+", "+resp4+"]";
 		
 		out.print(allJson);
 	}

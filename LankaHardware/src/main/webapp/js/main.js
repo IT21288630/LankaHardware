@@ -366,6 +366,7 @@ var priceRangeProgress = document.getElementById('priceRangeProgress')
 var reviewContainer = document.getElementById('reviewContainer')
 var currentFilters = document.getElementById('currentFilters')
 var sortBy = document.getElementById('people')
+var relatedProductList = document.getElementById('relatedProductList')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -536,7 +537,7 @@ function buildNewArrivalslist(newArrivals){
 	    							</p>
 	    						</div>
 	    					</div>
-    						<h3><a href="javascript:toProductSinglePage('${newArrivals[i].itemID}');">${newArrivals[i].name}</a></h3>
+    						<h3><a href="#" onclick="toProductSinglePage('${newArrivals[i].itemID}'); return false;">${newArrivals[i].name}</a></h3>
     						<div class="pricing">
 	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
@@ -852,6 +853,7 @@ function toProductSinglePage(itemID){
 var product = []
 var productSizeAndPriceList = []
 var allReviews = []
+var relatedProducts = []
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
@@ -859,113 +861,38 @@ function callGetProductSingleServlet(itemID){
 		product = response[0]
 		productSizeAndPriceList = response[1]
 		allReviews = response[2]
+		relatedProducts = response[3]
 		
+		console.log(relatedProducts)
 		buildProductSingle(product)
 		buildProductSizes()
 		buildReviewPercentagesAndCounts(product)
 		buildAllReviews(allReviews, product.ratingCount)
+		buildRelatedProducts()
 	})
 }
 
 function buildProductSingle(product){
 	var starID = 'productStar'
 	
-	var details = `<div class="col-lg-5 mt-5">
-                    <div class="card mb-3">
-                        <img class="card-img img-fluid" src="${product.mainImg}" alt="Card image cap" id="product-detail">
-                    </div>
-                    <div class="row">
-                        <!--Start Controls-->
-                        <div class="col-1 align-self-center">
-                            <a href="#multi-item-example" role="button" data-bs-slide="prev">
-                                <i class="text-dark fas fa-chevron-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </div>
-                        <!--End Controls-->
-                        <!--Start Carousel Wrapper-->
-                        <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
-                            <!--Start Slides-->
-                            <div class="carousel-inner product-links-wap" role="listbox">
+	var details = `<div class="col-lg-5">
+                    <img src="${product.mainImg}" class="img-fluid pb-1" alt="Colorlib Template" id="mainImg">
 
-                                <!--First slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 1">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 2">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 3">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.First slide-->
-
-                                <!--Second slide-->
-                                <div class="carousel-item active">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 4">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 5">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 6">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Second slide-->
-
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 7">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 8">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="${product.mainImg}" alt="Product Image 9">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Third slide-->
-                            </div>
-                            <!--End Slides-->
-                        </div>
-                        <!--End Carousel Wrapper-->
-                        <!--Start Controls-->
-                        <div class="col-1 align-self-center">
-                            <a href="#multi-item-example" role="button" data-bs-slide="next">
-                                <i class="text-dark fas fa-chevron-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                        <!--End Controls-->
-                    </div>
+					<div class="small-img-group">
+						<div class="small-img-col">
+							<img src="${product.mainImg}" alt="" width="100%" class="small-img" onclick="changeMainImage(this)">
+						</div>
+						<div class="small-img-col">
+							<img src="images/product-2.jpg" alt="" width="100%" class="small-img" onclick="changeMainImage(this)">
+						</div>
+						<div class="small-img-col">
+							<img src="images/product-3.png" alt="" width="100%" class="small-img" onclick="changeMainImage(this)">
+						</div>
+						<div class="small-img-col">
+							<img src="images/product-4.jpg" alt="" width="100%" class="small-img" onclick="changeMainImage(this)">
+						</div>
+					</div>
+                    
                 </div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
 					<h3>${product.name}</h3>
@@ -1021,6 +948,12 @@ function buildProductSingle(product){
     			
     	productDetails.innerHTML += details
     	buildAverageRating(product, starID)
+    	mainImg = document.getElementById('mainImg')
+}
+
+//buiding product images
+function changeMainImage(element){
+	mainImg.src = element.src
 }
 
 //Building product sizes
@@ -1109,6 +1042,71 @@ function buildAllReviewImages(images, containerID){
 		          }
 
 		});
+}
+
+//build related products
+function buildRelatedProducts(){
+	for(var i = 0; i < relatedProducts.length; i++){
+		var starID = relatedProducts[i].itemID + 'RelatedProductAvgStar'
+		
+		var item = `<div class="item">
+						<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" style="min-width: fit-content;">
+							<div class="product d-flex flex-column">
+								<a href="#" class="img-prod" onclick="return flase;"><img class="img-fluid" src="${relatedProducts[i].mainImg}" alt="Colorlib Template" onclick="toProductSinglePage('${relatedProducts[i].itemID}');">
+									<div class="overlay"></div>
+								</a>
+								<div class="text py-3 pb-4 px-3">
+									<div class="d-flex">
+										<div class="cat">
+											<span>${relatedProducts[i].brand}</span>
+										</div>
+										<div class="rating">
+											<p class="text-right mb-0">
+												<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
+			    								<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
+			    								<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
+			    								<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
+			    								<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
+											</p>
+										</div>
+									</div>
+									<h3><a href="#" onclick="toProductSinglePage('${relatedProducts[i].itemID}'); return false;">${relatedProducts[i].name}</a></h3>
+									<div class="pricing">
+										<p class="price"><span>${relatedProducts[i].price}</span></p>
+									</div>
+									<p class="bottom-area d-flex px-3">
+		    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${relatedProducts[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+		    							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${relatedProducts[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
+		    						</p>
+								</div>
+							</div>
+						</div>
+					</div>`
+		
+		
+		relatedProductList.innerHTML += item
+		buildAverageRating(relatedProducts[i], starID)
+	}
+	
+	$('.owl-carousel').owlCarousel({
+			loop:false,
+			margin:10,
+			nav:false,
+			dots:false,
+			autoplay:true,
+			autoplayTimeout: 3000,
+			responsive:{
+				0:{
+					items:1
+				},
+				600:{
+					items:2
+				},
+				1000:{
+					items:4
+				}
+			}
+		})
 }
 
 //call add to cart from single product page
