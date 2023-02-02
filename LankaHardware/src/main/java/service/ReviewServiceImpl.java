@@ -335,6 +335,8 @@ public class ReviewServiceImpl implements IReviewService {
 
 				}
 			}
+			
+			review.setReviewImages(filePathArrayList);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
