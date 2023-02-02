@@ -11,7 +11,7 @@
 	<!--Search css Styles -->
 	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
-	<link rel="stylesheet" href="ashion-master/css/style.css" type="text/css">
+	<link rel="stylesheet" href="css/search.css" type="text/css">
 
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -33,6 +33,7 @@
 	<link rel="stylesheet" href="css/flaticon.css">
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="quantity/style.css">
 </head>
 
 <body class="goto-here">
@@ -61,7 +62,7 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">Minishop</a>
+			<a class="navbar-brand" href="index.jsp">Minishop</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
@@ -83,9 +84,9 @@
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item"><a href="#" class="nav-link"><i class="icon_search search-switch"></i></a></li>
-					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="#"
-							class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+					<li class="nav-item"><a href="javascript: return false;" class="nav-link"><i class="icon_search search-switch"></i></a></li>
+					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: return false;"
+							class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
 					<li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 				</ul>
 			</div>
@@ -120,80 +121,29 @@
 									<th>&nbsp;</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr class="text-center">
-									<td class="image-prod">
-										<div class="img" style="background-image:url(images/product-3.jpg);"></div>
-									</td>
-
-									<td class="product-name">
-										<h3>Nike Free RN 2019 iD</h3>
-										<p>Far far away, behind the word mountains, far from the countries</p>
-									</td>
-
-									<td class="price">$4.90</td>
-
-									<td class="quantity">
-										<div class="input-group mb-3">
-											<input type="text" name="quantity"
-												class="quantity form-control input-number" value="1" min="1" max="100">
-										</div>
-
-									<td class="total">$4.90</td>
-
-									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-								</tr><!-- END TR-->
-
-								<tr class="text-center">
-									<td class="image-prod">
-										<div class="img" style="background-image:url(images/product-4.jpg);"></div>
-									</td>
-
-									<td class="product-name">
-										<h3>Nike Free RN 2019 iD</h3>
-										<p>Far far away, behind the word mountains, far from the countries</p>
-									</td>
-
-									<td class="price">$15.70</td>
-
-									<td class="quantity">
-										<div class="input-group mb-3">
-											<input type="text" name="quantity"
-												class="quantity form-control input-number" value="1" min="1" max="100">
-										</div>
-									</td>
-
-									<td class="total">$15.70</td>
-
-
-									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-								</tr><!-- END TR-->
+							<tbody id="mainCart_itemList">
+								
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div class="row justify-content-start">
+			<div class="row justify-content-start" id="cartSummery">
 				<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
 					<div class="cart-total mb-3">
 						<h3>Cart Totals</h3>
 						<p class="d-flex">
 							<span>Subtotal</span>
-							<span>$20.60</span>
+							<span id="cartSubTotal"></span>
 						</p>
 						<p class="d-flex">
 							<span>Delivery</span>
-							<span>$0.00</span>
-						</p>
-						<p class="d-flex">
-							<span>Discount</span>
-							<span>$3.00</span>
+							<span>Rs200</span>
 						</p>
 						<hr>
 						<p class="d-flex total-price">
 							<span>Total</span>
-							<span>$17.60</span>
+							<span  id="cartTotals" style="text-transform: none;"></span>
 						</p>
 					</div>
 					<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to
@@ -307,31 +257,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody>
-										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
-									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
-											<td class="image-prod" style="border: none; padding: 0px;">
-												<div class="img"
-													style="background-image:url(images/product-3.jpg); margin: 0px;">
-												</div>
-											</td>
-											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-												<h3>Nike Free RN 2019 iD</h3>
-												<p>Far far away, behind the word mountains, far from the countries</p>
-											</td>
-										</tr><!-- END TR-->
-										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
-									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
-											<td class="image-prod" style="border: none;  padding: 0px;">
-												<div class="img"
-													style="background-image:url(images/product-3.jpg); margin: 0px;">
-												</div>
-											</td>
-											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-												<h3>Nike Free RN 2019 iD</h3>
-												<p>Far far away, behind the word mountains, far from the countries</p>
-											</td>
-										</tr><!-- END TR-->
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>
@@ -339,19 +265,39 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.jsp" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>
 
 	<div id="mini-cart-overlay"></div>
 
+	<div class="alert alert-success added_msg" role="alert" id="added_msg"></div>
+
 	<!-- Search Begin -->
 	<div class="search-model">
 	    <div class="h-100 d-flex align-items-center justify-content-center">
-	        <div class="search-close-switch">+</div>
+	        <div class="search-close-switch" id="mainSearchClose">+</div>
 	        <form class="search-model-form">
-	            <input type="text" id="search-input" placeholder="Search here.....">
+	            <div>
+	                <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	                <i class="fa-solid fa-magnifying-glass searchFormBtn clickable" onclick="searchToShop();"></i>
+	            </div>
+	            
+	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody id="result">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 	        </form>
 	    </div>
 	</div>
@@ -374,12 +320,12 @@
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
 	<script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
-
+	<script src="quantity/script.js"></script>
+	
 	<script>
 		$(document).ready(function () {
 
@@ -413,7 +359,17 @@
 					$('#quantity').val(quantity - 1);
 				}
 			});
-
+			
+			$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
+				
+				cartItems = response[0]
+				getCartQuantity()
+				calculateSubTotal(cartItems)
+				var Total = response[1]
+				
+				buildMiniCart(cartItems)
+				buildMainCart(cartItems, Total)
+			})
 		});
 	</script>
 
