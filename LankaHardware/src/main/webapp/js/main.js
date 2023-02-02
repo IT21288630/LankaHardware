@@ -1188,7 +1188,10 @@ mainSearchClose.addEventListener('click', () => {
 
 //from search to shop page
 function searchToShop(){
-	window.location = 'http://localhost:8080/LankaHardware/shop.jsp?search=' + itemNameForShop
+	var itemName = document.getElementById('search-input').value
+	
+	if(itemName == '') return
+	else window.location = 'http://localhost:8080/LankaHardware/shop.jsp?search=' + itemNameForShop
 }
 
 //customized search

@@ -1,7 +1,10 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Logger;
+
+import javax.servlet.http.Part;
 
 import model.Review;
 
@@ -9,6 +12,18 @@ public interface IReviewService {
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(IReviewService.class.getName());
 
+	/**
+	 * add a rating for an item
+	 * 
+	 *  @param email
+	 *  @param itemID
+	 *  @param reviewDescription
+	 *  @param stars
+	 *  @param reviewImages
+	 *  
+	 */
+	public void addReview(String email, String itemID, String reviewDescription, int stars, Collection<Part> reviewImages);
+	
 	/**
 	 * get average rating for an item
 	 * 

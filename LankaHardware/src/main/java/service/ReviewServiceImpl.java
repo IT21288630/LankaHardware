@@ -1,17 +1,23 @@
 package service;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.servlet.http.Part;
 
 import model.Customer;
 import model.Review;
 import util.CommonConstants;
+import util.CommonUtil;
 import util.DBConnectionUtil;
 
 public class ReviewServiceImpl implements IReviewService {
@@ -222,7 +228,7 @@ public class ReviewServiceImpl implements IReviewService {
 
 			for (Review review : reviews) {
 				ArrayList<String> reviewImages = new ArrayList<>();
-				
+
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_RATING_IMAGES_FOR_AN_ITEM);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, review.getReviewID());
 				rs = pst.executeQuery();
@@ -260,18 +266,104 @@ public class ReviewServiceImpl implements IReviewService {
 		return reviews;
 	}
 
-	public static void main(String[] args) {
-		IReviewService iReviewService = new ReviewServiceImpl();
-		ArrayList<Review> reviews = iReviewService.getItemRatings("i500");
+	@Override
+	public void addReview(String email, String itemID, String reviewDescription, int stars,
+			Collection<Part> reviewImages) {
+		// TODO Auto-generated method stub
 
-		for (Review review : reviews) {
-			System.out.println(review.getReviewID());
-			
-			ArrayList<String> arrayList = review.getReviewImages();
-			
-			for (String string : arrayList) {
-				System.out.println(string);
+		ArrayList<String> ids = new ArrayList<>();
+		Review review = new Review();
+		ArrayList<String> filePathArrayList = new ArrayList<>();
+		String fileName;
+		String path = CommonConstants.QUERY_ID_REVIEW_IMAGES_PATH;
+		String basePath = CommonConstants.QUERY_ID_BASE_PATH;
+		String relativePath;
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_REVIEW_IDS);
+
+			while (rs.next()) {
+				ids.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+
+			review.setReviewID(CommonUtil.generateIDs(ids, "review"));
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_REVIEW);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, review.getReviewID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, reviewDescription);
+			pst.setInt(CommonConstants.COLUMN_INDEX_FIVE, stars);
+			pst.executeUpdate();
+
+			for (Part part : reviewImages) {
+				if (part.getSubmittedFileName() != null) {
+					fileName = part.getSubmittedFileName();
+					String newfileName;
+					int i = 1;
+
+					while (true) {
+						newfileName = fileName.substring(0, fileName.indexOf(".")) + "(" + i + ")";
+						newfileName += fileName.substring(fileName.indexOf("."));
+
+						File file = new File(path + File.separator + newfileName);
+
+						if (file.exists()) {
+							System.out.println("Image already exist");
+							// System.out.println("current name: " + newfileName);
+							i++;
+						} else {
+							relativePath = new File(basePath).toURI().relativize(new File(file.getPath()).toURI())
+									.getPath();
+
+							filePathArrayList.add(relativePath);
+							break;
+						}
+
+					}
+
+					try {
+						part.write(path + File.separator + newfileName);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					// System.out.println("new name: " + newfileName);
+
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
+
+	}
+
+	public static void main(String[] args) {
+		IReviewService iReviewService = new ReviewServiceImpl();
+		// iReviewService.addReview("a@g.m", "i100", "testing", 5);
+
 	}
 }

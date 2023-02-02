@@ -12,20 +12,20 @@ public class CommonUtil {
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(Cart.class.getName());
-	
+
 	public static final Properties properties = new Properties();
-	
+
 	static {
 		try {
-			
+
 			// Read the property only once when load the class
 			properties.load(QueryUtil.class.getResourceAsStream(CommonConstants.PROPERTY_FILE));
-			
+
 		} catch (IOException e) {
 			log.log(Level.SEVERE, e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Generate a new ID
 	 * 
@@ -38,29 +38,33 @@ public class CommonUtil {
 		String id = null;
 		int next = arrayList.size();
 		next++;
-		
+
 		if (idType.equals("cart")) {
 			id = CommonConstants.CART_ID_PREFIX + next;
 			if (arrayList.contains(id)) {
 				next++;
 				id = CommonConstants.CART_ID_PREFIX + next;
-			} 
-		}
-		else if (idType.equals("wishlist")) {
+			}
+		} else if (idType.equals("wishlist")) {
 			id = CommonConstants.WISHLIST_ID_PREFIX + next;
 			if (arrayList.contains(id)) {
 				next++;
 				id = CommonConstants.WISHLIST_ID_PREFIX + next;
-			} 
-		}
-		else if (idType.equals("item")) {
+			}
+		} else if (idType.equals("item")) {
 			id = CommonConstants.ITEM_ID_PREFIX + next;
 			if (arrayList.contains(id)) {
 				next++;
 				id = CommonConstants.ITEM_ID_PREFIX + next;
-			} 
+			}
+		} else if (idType.equals("review")) {
+			id = CommonConstants.REVIEW_ID_PREFIX + next;
+			if (arrayList.contains(id)) {
+				next++;
+				id = CommonConstants.REVIEW_ID_PREFIX + next;
+			}
 		}
-		
+
 		return id;
 	}
 }
