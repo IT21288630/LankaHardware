@@ -23,12 +23,6 @@ public class CommonConstants {
 	/** Constant for driver name key of MySQL database in config.properties */
 	public static final String DRIVER_NAME = "driverName";
 	
-	/** Constant for select review images path */
-	public static final String QUERY_ID_REVIEW_IMAGES_PATH = "/LankaHardware/src/main/webapp/images/Ratings";
-	
-	/** Constant for select base path */
-	public static final String QUERY_ID_BASE_PATH = "/LankaHardware/src/main/webapp";
-	
 	/** Constant for cart id prefix */
 	public static final String CART_ID_PREFIX = "C300";
 	
@@ -45,7 +39,7 @@ public class CommonConstants {
 	public static final double DELIVERY_FEE = 200;
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_CART_IDS = "select cid from cart;";
+	public static final String QUERY_ID_SELECT_CART_IDS = "SELECT cid FROM cart;";
 	
 	/** Constant for create a cart */
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
@@ -118,6 +112,9 @@ public class CommonConstants {
 	
 	/** Constant for add a review */
 	public static final String QUERY_ID_ADD_REVIEW = "INSERT INTO review(reviewID, email, ItID, description, stars, date) VALUES(?, ?, ?, ?, ?, CURDATE());";
+	
+	/** Constant for add review images */
+	public static final String QUERY_ID_ADD_REVIEW_IMAGES = "INSERT INTO review_img(reviewID, img) VALUES(?, ?);";
 	
 	/** Constant for get items for shop page */
 	public static final String QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP = "SELECT i.id, min(s.unit_price), name, brand, img, s.size FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.name LIKE ? GROUP BY i.id ORDER BY s.unit_price;";
