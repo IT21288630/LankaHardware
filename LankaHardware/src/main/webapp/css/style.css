@@ -15584,3 +15584,41 @@ input[type="range"]::-moz-range-thumb{
 .filterReset {
 	font-weight: 600;
 }
+
+/* -- Rating star -- */
+.star-widget {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.star-widget input {
+  display: none;
+}
+
+.star-widget label {
+  font-size: 15px;
+  color: #444;
+  padding: 5px;
+  transition: all 0.3s ease;
+  font-weight: 100;
+}
+
+input:not(:checked)~label:hover,
+input:not(:checked)~label:hover~label {
+  color: #fd4;
+}
+
+input:checked~label {
+  font-weight: 900;
+  color: #fd4;
+}
+
+input#rate-5:checked~label {
+  color: #fe7;
+  text-shadow: 0 0 1px #a37a5b78;
+}
+
+input:checked~form {
+  display: block;
+}
