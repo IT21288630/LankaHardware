@@ -87,9 +87,6 @@
                                                         </td>
                                                     </tr>
                                                     <!-- END TR-->
-
-
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -98,13 +95,11 @@
                             </div>
                         </section>
                         <div class="star-widget">
-                            <input type="radio" name="rate" id="rate-5"> <label for="rate-5"
-                                class="fas fa-star"></label> <input type="radio" name="rate" id="rate-4"> <label
-                                for="rate-4" class="fas fa-star"></label> <input type="radio" name="rate" id="rate-3">
-                            <label for="rate-3" class="fas fa-star"></label>
-                            <input type="radio" name="rate" id="rate-2"> <label for="rate-2"
-                                class="fas fa-star"></label> <input type="radio" name="rate" id="rate-1"> <label
-                                for="rate-1" class="fas fa-star"></label>
+                            <input type="radio" name="rate" id="rate-5" value="5" checked> <label for="rate-5" class="fas fa-star"></label>
+                            <input type="radio" name="rate" id="rate-4" value="4"> <label for="rate-4" class="fas fa-star"></label>
+                            <input type="radio" name="rate" id="rate-3" value="3"> <label for="rate-3" class="fas fa-star"></label>
+                            <input type="radio" name="rate" id="rate-2" value="2"> <label for="rate-2" class="fas fa-star"></label>
+                            <input type="radio" name="rate" id="rate-1" value="1"> <label for="rate-1" class="fas fa-star"></label>
                         </div>
                         <div class="reviewCard">
                             <div class="drag-area">
@@ -113,22 +108,19 @@
                                     <span class="select" role="button">Browse</span>
                                 </span>
                                 <span class="on-drop">Drop images here</span>
-                                <input name="file" type="file" class="file" multiple />
+                                <input name="file" id="inputFile" type="file" class="file" multiple />
                             </div>
 
                             <!-- IMAGE PREVIEW CONTAINER -->
                             <div class="imageContainer"></div>
                         </div>
-                        <textarea name="desc" id="" cols="30" rows="7" class="form-control reviewTextArea"
+                        <textarea name="desc" id="reviewDescription" cols="30" rows="7" class="form-control reviewTextArea"
                             placeholder="Review" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>
-
-
-
 
                     </div>
                     <div class="modal-footer" style="border-top: none;">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-primary" id="ratingSubmitBtn">Submit</button>
                     </div>
                 </div>
             </div>
@@ -191,9 +183,16 @@
     <script src="js/scrollax.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
+    <script src="js/rating.js"></script>
     <script src="js/main.js"></script>
     <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
-    <script src="js/rating.js"></script>
+    
+    <script>
+    ratingSubmitBtn.addEventListener('click', () => {
+    	callAddReviewServlet()
+    })
+    
+    </script>
 </body>
 
 </html>

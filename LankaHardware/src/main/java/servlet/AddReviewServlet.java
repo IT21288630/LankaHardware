@@ -53,7 +53,8 @@ public class AddReviewServlet extends HttpServlet {
 		doGet(request, response);
 
 		String email = "a@g.m";
-		String itemID = request.getParameter("itemID");
+		//String itemID = request.getParameter("itemID");
+		String itemID = "i100";
 		String reviewDescription = request.getParameter("reviewDescription");
 		int stars = Integer.parseInt(request.getParameter("stars"));
 		Collection<Part> reviewImages = request.getParts();

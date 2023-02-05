@@ -367,6 +367,7 @@ var reviewContainer = document.getElementById('reviewContainer')
 var currentFilters = document.getElementById('currentFilters')
 var sortBy = document.getElementById('people')
 var relatedProductList = document.getElementById('relatedProductList')
+var ratingSubmitBtn = document.getElementById('ratingSubmitBtn')
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -1025,7 +1026,7 @@ function buildAllReviewImages(images, containerID){
 	for(var i = 0; i < images.length; i++){
 		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 30%;">
 						<a href="${images[i]}" class="image-popup">
-							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template">
+							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template" style="height: 100%;">
 						</a>
 					</div>`
 		
@@ -1455,6 +1456,33 @@ function shopEmpty(){
 	var pagination = document.getElementById('pagination')
 	pagination.style = "display: none;"
 }
+
+//call AddReviewServlet
+
+function test(){
+	console.log(ratingSubmitBtn)
+}
+
+function callAddReviewServlet(){
+	var inputFile = document.getElementById('inputFile')
+	var reviewDescription = document.getElementById('reviewDescription').value
+	var stars = document.querySelector('input[name="rate"]:checked').value
+	var endpoint = "http://localhost:8080/LankaHardware/AddReviewServlet"
+	var formData = new FormData();
+	
+	for(const file of inputFile.files){
+		formData.append('inputFile', file)
+	}
+	
+	formData.append('reviewDescription', reviewDescription)
+	formData.append('stars', stars)
+	
+	fetch(endpoint, {
+		method: "post",
+		body: formData
+	}).catch(console.error)
+}
+		
 
 //Get the number in words
 function numberToWord(number){

@@ -347,6 +347,7 @@ public class ReviewServiceImpl implements IReviewService {
 			for (String image : imagePathArrayList) {
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, review.getReviewID());
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, image);
+				pst.executeUpdate();
 			}
 
 			System.out.println("success");
