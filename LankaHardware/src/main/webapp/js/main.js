@@ -368,6 +368,14 @@ var currentFilters = document.getElementById('currentFilters')
 var sortBy = document.getElementById('people')
 var relatedProductList = document.getElementById('relatedProductList')
 var ratingSubmitBtn = document.getElementById('ratingSubmitBtn')
+var sendEmailBtn = document.getElementById('sendEmailBtn')
+var sendLoader = document.getElementById('sendLoader')
+var totalRatings = document.getElementById('totalRatings')
+var averageProductRating = document.getElementById('averageProductRating')
+
+function stopScrollingToTop(){
+	return false
+}
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -500,6 +508,21 @@ function deleteWishlistItemElement(id){
 	
 	productCard.classList.remove('d-flex')
 	productCard.style = "display: none;"
+}
+
+//call SendBackInStockEmailServlet
+function callSendBackInStockEmailServlet(){
+	var itemID = 'i200'
+	
+	sendLoader.innerHTML = `<span class="loader">Send&nbsp;ng</span>
+	    					<span class="loader2"></span>`
+	    					
+	sendLoader.classList.add('active')
+	
+	$.post("http://localhost:8080/LankaHardware/SendBackInStockEmailServlet", {itemID : itemID}, function(response){
+	   
+	   sendLoader.classList.remove('active')
+	})
 }
 
 //call index servlet
@@ -864,10 +887,10 @@ function callGetProductSingleServlet(itemID){
 		allReviews = response[2]
 		relatedProducts = response[3]
 		
-		console.log(relatedProducts)
+		console.log(product)
 		buildProductSingle(product)
 		buildProductSizes()
-		buildReviewPercentagesAndCounts(product)
+		buildReviewPercentagesAndCounts(product, product.ratingCount)
 		buildAllReviews(allReviews, product.ratingCount)
 		buildRelatedProducts()
 	})
@@ -971,15 +994,23 @@ function buildProductSizes(){
 }
 
 //Building review percentages and counts
-function buildReviewPercentagesAndCounts(product){
+function buildReviewPercentagesAndCounts(product, ratingCount){
+	totalRatings.innerHTML = ratingCount
+	averageProductRating.innerHTML = product.avgRating.toFixed(1)
 	for(var i = 5; i >= 1; i--){
 		
 		var percentageElement = document.getElementById(`${numberToWord(i)}StarPercentage`)
 		var countElement = document.getElementById(`${numberToWord(i)}StarCount`)
-		
-		percentageElement.innerHTML = `(${parseInt(product.ratingPercentageList[i - 1][0])}%)`
+		updateProgressBar(percentageElement, product.ratingPercentageList[i - 1][0]);
+		//percentageElement.innerHTML = `(${parseInt(product.ratingPercentageList[i - 1][0])}%)`
 		countElement.innerHTML = `${parseInt(product.ratingPercentageList[i - 1][1])} Reviews`
 	}
+}
+
+function updateProgressBar(progressBar, value) {
+	value = Math.round(value);
+	progressBar.querySelector(".progress__fill").style.width = `${value}%`;
+	//progressBar.querySelector(".progress__text").textContent = `${value}%`;
 }
 
 //Build all reviews

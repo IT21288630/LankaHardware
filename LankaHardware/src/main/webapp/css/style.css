@@ -15622,3 +15622,149 @@ input#rate-5:checked~label {
 input:checked~form {
   display: block;
 }
+
+/* Email waiting loader */
+.loader {
+  color: #000;
+  display: inline-block;
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 29px;
+  letter-spacing: 4px;
+  box-sizing: border-box;
+  animation: envFloating 1s ease-in infinite alternate;
+  top: 35%;
+}
+.loader::before {
+  content: '';  
+  position: absolute;
+  right: 47px;
+  bottom: 15px;
+  height: 16px;
+  width: 3px;
+  background: currentColor;
+  box-sizing: border-box;
+}
+.loader::after {
+  content: '';  
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  position: absolute;
+  right: 47.5px;
+  top: 14px;
+  box-sizing: border-box;
+  animation: animloader 0.6s ease-out infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    top: 14px;
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    top: 9px;
+    transform: rotate(180deg) scale(1.5);
+  }
+}
+        
+.loader2 {
+    position: absolute;
+    border-style: solid;
+    box-sizing: border-box;
+    border-width: 40px 60px 30px 60px;
+    border-color: #3760C9 #96DDFC #96DDFC #36BBF7;
+    animation: envFloating 1s ease-in infinite alternate;
+    top: 45%;
+}
+
+.loader2:after {
+    content: "";
+    position: absolute;
+    right: 62px;
+    top: -40px;
+    height: 70px;
+    width: 50px;
+    background-image:
+        linear-gradient(#000000 45px, transparent 0),
+        linear-gradient(#000000 45px, transparent 0),
+        linear-gradient(#000000 45px, transparent 0);
+    background-repeat: no-repeat;
+    background-size: 30px 4px;
+    background-position: 0px 11px, 8px 35px, 0px 60px;
+    animation: envDropping 0.75s linear infinite;
+}
+
+@keyframes envFloating {
+    0% {
+        transform: translate(-2px, -5px)
+    }
+
+    100% {
+        transform: translate(0, 5px)
+    }
+}
+
+@keyframes envDropping {
+    0% {
+        background-position: 100px 11px, 115px 35px, 105px 60px;
+        opacity: 1;
+    }
+
+    50% {
+        background-position: 0px 11px, 20px 35px, 5px 60px;
+    }
+
+    60% {
+        background-position: -30px 11px, 0px 35px, -10px 60px;
+    }
+
+    75%,
+    100% {
+        background-position: -30px 11px, -30px 35px, -30px 60px;
+        opacity: 0;
+    }
+}
+
+#sendLoader {
+	display: flex;
+	justify-content: center;
+	width: 400px;
+	position: absolute;
+	height: 500px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0);
+	transition: 300ms ease-in-out;
+}
+
+#sendLoader.active {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+/* Ratings progress bar */
+.progress {
+     position: relative;
+     width: 210px;
+     height: 10px;
+     background: #ede7d0;
+     border-radius: 5px;
+     overflow: hidden;
+ }
+
+.progress__fill {
+    width: 0%;
+    height: 100%;
+    background: #dbcc8f;
+    transition: all 0.2s;
+    border-radius: 100vh;
+}
+
+.progress__text {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    font: bold 14px "Quicksand", sans-serif;
+    color: #ffffff;
+}

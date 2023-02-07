@@ -92,6 +92,12 @@ public class CommonConstants {
 	/** Constant for get other item details for wishlist */
 	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_WISHLIST = "SELECT name, brand, img, (SELECT min(unit_price) FROM item_size where id = ?) as 'price' FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.id = ? GROUP BY i.id;";
 	
+	/** Constant for get emails of customers for wishlist */
+	public static final String QUERY_ID_GET_CUSTOMER_EMAILS_FOR_WISHLIST = "SELECT w.email FROM wishlist w, wishlist_item wi WHERE w.wid = wi.wid AND wi.itId = ?;";
+	
+	/** Constant for get items in wishlist */
+	public static final String QUERY_ID_GET_EMAILED_WISHLIST_ITEM_DETAILS = "SELECT name, (SELECT img FROM item_img where Id = ? limit 1) as 'image' FROM item WHERE id = ?;";
+	
 	/** Constant for get new arrivals */
 	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
 	
@@ -105,7 +111,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id, name, description FROM item WHERE name LIKE ?;";
 	
 	/** Constant for get images for main search results */
-	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS_IMAGES = "select img from item_img where Id = ? limit 1;";
+	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS_IMAGES = "SELECT img FROM item_img WHERE Id = ? LIMIT 1;";
 	
 	/** Constant for select review ids */
 	public static final String QUERY_ID_SELECT_REVIEW_IDS = "SELECT reviewID FROM review";

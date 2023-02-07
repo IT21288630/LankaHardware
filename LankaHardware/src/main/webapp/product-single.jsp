@@ -123,12 +123,12 @@
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item"><a href="javascript: return false;" class="nav-link"><i
+					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
 							class="icon_search search-switch"></i></a></li>
 					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a
-						href="javascript: return false;" class="nav-link"><span class="icon-shopping_cart"></span><span
+						href="javascript: stopScrollingToTop();" class="nav-link"><span class="icon-shopping_cart"></span><span
 							id="cartQuantity"></span></a></li>
-					<li class="nav-item"><a href="#" class="nav-link"><i
+					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
 							class="fa-solid fa-user"></i></a></li>
 				</ul>
 			</div>
@@ -189,45 +189,60 @@
 								<div class="col-md-4">
 									<div class="rating-wrap">
 										<h3 class="mb-4">Give a Review</h3>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <span
-												id="FiveStarPercentage">(98%)</span>
-											</span> <span id="FiveStarCount">20 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star-outline"></i>
-												<span id="FourStarPercentage">(98%)</span>
-											</span> <span id="FourStarCount">10 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <span
-												id="ThreeStarPercentage">(98%)</span>
-											</span> <span id="ThreeStarCount">5 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star-outline"></i>
-												<i class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <span
-												id="TwoStarPercentage">(98%)</span>
-											</span> <span id="TwoStarCount">0 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <span
-												id="OneStarPercentage">(98%)</span>
-											</span> <span id="OneStarCount">0 Reviews</span>
-										</p>
+										<div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <span style="font-size: xxx-large;" id="averageProductRating">4.1</span>
+                                        <p class="star" style="display: flex; flex-direction: column;">
+                                            <span style="display: flex;">
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                            </span>
+                                            <span id="totalRatings">1654</span>
+                                        </p>
+                                    </div>
+                            
+                                    <div style="display: flex; flex-direction: column; row-gap: 8px;">
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                        <span>5</span>
+                                        <div class="progress" id="FiveStarPercentage">
+                                            <div class="progress__fill"></div>
+                                        </div>
+                                        <span id="FiveStarCount">20 Reviews</span>
+                                    </div>
+                            
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                        <span>4</span>
+                                        <div class="progress" id="FourStarPercentage">
+                                            <div class="progress__fill"></div>
+                                        </div>
+                                        <span id="FourStarCount">20 Reviews</span>
+                                    </div>
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                        <span>3</span>
+                                        <div class="progress" id="ThreeStarPercentage">
+                                            <div class="progress__fill"></div>
+                                        </div>
+                                        <span id="ThreeStarCount">20 Reviews</span>
+                                    </div>
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                        <span>2</span>
+                                        <div class="progress" id="TwoStarPercentage">
+                                            <div class="progress__fill"></div>
+                                        </div>
+                                        <span id="TwoStarCount">20 Reviews</span>
+                                    </div>
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                        <span>1</span>
+                                        <div class="progress" id="OneStarPercentage">
+                                            <div class="progress__fill"></div>
+                                        </div>
+                                        <span id="OneStarCount">20 Reviews</span>
+                                    </div>
+                                </div>
+                                </div>
 									</div>
 								</div>
 							</div>
