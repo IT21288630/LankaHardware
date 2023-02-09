@@ -101,11 +101,12 @@ public class ShopServiceImpl implements IShopService {
 	}
 
 	@Override
-	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName) {
+	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName, String brand) {
 		// TODO Auto-generated method stub
 
 		Shop shop = new Shop();
 		ArrayList<Item> items = new ArrayList<>();
+		ArrayList<String> brandList = new ArrayList<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 
@@ -116,24 +117,28 @@ public class ShopServiceImpl implements IShopService {
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
 				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
 			} else if (sortByValue.equals("Price: High To Low")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
 				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
 			} else if (sortByValue.equals("Avg. Customer Review")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
 				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
 			} else if (sortByValue.equals("Newest Arrivals")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
 				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
 			}
 
 			rs = pst.executeQuery();
@@ -154,7 +159,19 @@ public class ShopServiceImpl implements IShopService {
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 			}
-
+			
+			if(!mainCategory.equals("%%")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_BRAND_LIST_FOR_SHOP);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+				rs = pst.executeQuery();
+				
+				while (rs.next()) {
+					brandList.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+				}
+				
+				shop.setBrandList(brandList);
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

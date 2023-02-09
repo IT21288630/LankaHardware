@@ -7,6 +7,7 @@ public class Shop {
 	private ArrayList<String> mainCategories;
 	private ArrayList<String> subCategories;
 	private ArrayList<Item> items;
+	private ArrayList<String> brandList;
 	private double lowestPrice;
 	private double highestPrice;
 
@@ -48,6 +49,14 @@ public class Shop {
 
 	public void setHighestPrice(double highestPrice) {
 		this.highestPrice = highestPrice;
+	}
+
+	public ArrayList<String> getBrandList() {
+		return brandList;
+	}
+
+	public void setBrandList(ArrayList<String> brandList) {
+		this.brandList = brandList;
 	}
 
 }

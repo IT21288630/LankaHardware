@@ -372,6 +372,7 @@ var sendEmailBtn = document.getElementById('sendEmailBtn')
 var sendLoader = document.getElementById('sendLoader')
 var totalRatings = document.getElementById('totalRatings')
 var averageProductRating = document.getElementById('averageProductRating')
+var brandListElement = document.getElementById('brandListElement')
 
 function stopScrollingToTop(){
 	return false
@@ -1005,11 +1006,14 @@ function buildReviewPercentagesAndCounts(product, ratingCount){
 		//percentageElement.innerHTML = `(${parseInt(product.ratingPercentageList[i - 1][0])}%)`
 		countElement.innerHTML = `${parseInt(product.ratingPercentageList[i - 1][1])} Reviews`
 	}
+	
+	var starID = `overviewStar`
+	buildAverageRating(product, starID)
 }
 
 function updateProgressBar(progressBar, value) {
 	value = Math.round(value);
-	progressBar.querySelector(".progress__fill").style.width = `${value}%`;
+	progressBar.querySelector(".ratingProgress__fill").style.width = `${value}%`;
 	//progressBar.querySelector(".progress__text").textContent = `${value}%`;
 }
 
@@ -1055,9 +1059,9 @@ function buildAllReviewImages(images, containerID){
 	var reviewImageContainer = document.getElementById(`${containerID}ImageContainer`)
 	
 	for(var i = 0; i < images.length; i++){
-		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 30%;">
+		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 20%;">
 						<a href="${images[i]}" class="image-popup">
-							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template" style="height: 100%;">
+							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template">
 						</a>
 					</div>`
 		
@@ -1246,6 +1250,8 @@ var priceRangeChanged = false
 var clickedCategory = false
 var sortByValue
 var sortByFilterOpen = false
+var brandList = []
+var currentBrand = ''
 
 function callGetShopServlet(){
 	var itemName
@@ -1267,6 +1273,7 @@ function callGetShopServlet(){
 		buildShopCategories()
 		buildPriceRange()
 		buildCurrentFilters()
+		buildDefaultBrandList()
 	})
 }
 
@@ -1360,6 +1367,12 @@ function setCurrentMainCategory(mainCategory){
 	currentMainCategory = mainCategory
 }
 
+//set current brand
+function setCurrentBrand(){
+	currentBrand = document.querySelector('input[name="brand"]:checked').value
+	callGetCustomizedShopServlet(currentMainCategory)
+}
+
 //Build price range
 function buildPriceRange(){	
 	priceMax.value = highestPrice
@@ -1383,28 +1396,70 @@ function buildPriceRange(){
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
 	
-	if(mainCategory == undefined) {
+	if(mainCategory == undefined){
 		buildShopCategories()
 		mainCategory = `%%`
-	}
-	else mainCategory = `%${mainCategory}%`
+	}else mainCategory = `%${mainCategory}%`
 	
 	var itemName
 	if(itemNameForShop != undefined){
 		itemName = itemNameForShop
 		itemName = `%${itemName}%`
-	} else{
+	}else{
 		itemName = `%%`
+	}
+	
+	var brand
+	if(currentBrand == "" || currentBrand == null){
+		brand = `%%`
+	}else{
+		brand = `%${currentBrand}%`
 	}
 	
 	var lowerPrice = priceMin.value
 	var higherPrice = priceMax.value
 	
-	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName}, function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName, brand: brand}, function(response) {
 		
-		customizedShopItems = response
+		customizedShopItems = response[0]
+		brandList = response[1]
+		
 		buildShopItems(customizedShopItems)
+		buildDefaultBrandList()
+		if(brandList != null) buildBrandList()
 	})
+}
+
+//build default brand list
+function buildDefaultBrandList(){
+	if(currentBrand == ''){
+		brandListElement.innerHTML = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+										<span style="width: fit-content;">All</span>
+										<input class="brand-check-input" type="radio" value='' name="brand" checked onclick="setCurrentBrand()">
+									  </label>`
+	}else {
+		brandListElement.innerHTML = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+										<span style="width: fit-content;">All</span>
+										<input class="brand-check-input" type="radio" value='' name="brand" onclick="setCurrentBrand()">
+									  </label>`
+	}
+	
+	
+}
+
+//build brand list
+function buildBrandList(){
+	for(var i = 0; i < brandList.length; i++){
+		var brand = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+						<span style="width: fit-content;">${brandList[i]}</span>
+						<input class="brand-check-input" type="radio" value="${brandList[i]}" name="brand" onclick="setCurrentBrand()">
+					 </label>`
+					 
+		brandListElement.innerHTML += brand
+	}
+	
+	var selectedRadioButton = document.querySelector(`input[name="brand"][value='${currentBrand}'`);
+	selectedRadioButton.checked = true
 }
 
 //build current filters
@@ -1469,6 +1524,7 @@ function removeSortBy(){
 function resetCurrentFilters(){
 	currentFilters.innerHTML = ``
 	currentMainCategory = null
+	currentBrand = null
 	itemNameForShop = null
 	sortByFilterOpen = false
 	sortBy.value = 'Price: Low To High'

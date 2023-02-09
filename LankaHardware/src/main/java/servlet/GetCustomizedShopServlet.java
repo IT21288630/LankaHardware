@@ -37,21 +37,24 @@ public class GetCustomizedShopServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String mainCategory = request.getParameter("mainCategory");
+		String brand = request.getParameter("brand");
 		double lowerPrice = Double.parseDouble(request.getParameter("lowerPrice"));
 		double higherPrice = Double.parseDouble(request.getParameter("higherPrice"));
 		String sortByValue = request.getParameter("sortByValue");
 		String itemName = request.getParameter("itemName");
 		
 		IShopService iShopService = new ShopServiceImpl();
-		Shop shop = iShopService.getCustomizedItemList(mainCategory, lowerPrice, higherPrice, sortByValue, itemName);
+		Shop shop = iShopService.getCustomizedItemList(mainCategory, lowerPrice, higherPrice, sortByValue, itemName, brand);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
 		String resp = new Gson().toJson(shop.getItems());
+		String resp2 = new Gson().toJson(shop.getBrandList());
+		String bothJson = "["+resp+","+resp2+"]";
 		
-		out.print(resp);
+		out.print(bothJson);
 	}
 
 	/**

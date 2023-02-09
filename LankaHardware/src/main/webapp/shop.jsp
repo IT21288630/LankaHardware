@@ -161,6 +161,42 @@
 							</div>
 						</div>
 						<div class="sidebar-box-2">
+							<h2 class="heading">Brand</h2>
+							<form method="post" class="colorlib-form-2">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div style="display: flex; flex-direction: column;" id="brandListElement">
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="sidebar-box-2">
+							<h2 class="heading">Availability</h2>
+							<form method="post" class="colorlib-form-2">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div style="display: flex; flex-direction: column;">
+												<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+													<span style="width: fit-content;">in stock</span>
+													<input class="brand-check-input" type="radio" value="" name="brand" checked>
+												</label>
+												<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+													<span style="width: fit-content;">include out of stock</span>
+													<input class="brand-check-input" type="radio" value="" name="brand">
+												</label>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="sidebar-box-2">
 							<h2 class="heading">Price Range</h2>
 <!-- 							<button id="priceRangeBtn" onclick="openPriceRange();">Edit</button> -->
 							<a href="" onclick="openPriceRange(); return false;" class="btn btn-primary">Edit</a>

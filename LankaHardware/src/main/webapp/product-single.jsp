@@ -177,67 +177,62 @@
 								<a class="nav-link ftco-animate active" id="v-pills-3-tab"
 									data-toggle="pill" href="#v-pills-3" role="tab"
 									aria-controls="v-pills-3" aria-selected="false"
-									style="width: 100%;">Reviews</a>
+									style="width: 100%; padding: 15px 10px;">Reviews</a>
 
 							</div>
 
-							<div class="row p-4">
-								<div class="col-md-7 mini-cart-no-scroll-bar"
-									style="max-height: 715px; overflow-y: scroll;"  id="reviewContainer">
-									
-								</div>
-								<div class="col-md-4">
+							<div class="col-md-4" style="max-width: 100%;">
 									<div class="rating-wrap">
 										<h3 class="mb-4">Give a Review</h3>
-										<div style="display: flex; justify-content: space-between; align-items: center;">
+										<div style="display: flex; justify-content: center; align-items: center; column-gap: 100px;">
                                     <div>
                                         <span style="font-size: xxx-large;" id="averageProductRating">4.1</span>
                                         <p class="star" style="display: flex; flex-direction: column;">
                                             <span style="display: flex;">
-                                                <i class="ion-ios-star-outline"></i>
-                                                <i class="ion-ios-star-outline"></i>
-                                                <i class="ion-ios-star-outline"></i>
-                                                <i class="ion-ios-star-outline"></i>
-                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar1"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar2"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar3"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar4"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar5"></i>
                                             </span>
                                             <span id="totalRatings">1654</span>
                                         </p>
                                     </div>
                             
-                                    <div style="display: flex; flex-direction: column; row-gap: 8px;">
-                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                    <div style="display: flex; flex-direction: column;">
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
                                         <span>5</span>
-                                        <div class="progress" id="FiveStarPercentage">
-                                            <div class="progress__fill"></div>
+                                        <div class="ratingProgress" id="FiveStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
                                         </div>
                                         <span id="FiveStarCount">20 Reviews</span>
                                     </div>
                             
-                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
                                         <span>4</span>
-                                        <div class="progress" id="FourStarPercentage">
-                                            <div class="progress__fill"></div>
+                                        <div class="ratingProgress" id="FourStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
                                         </div>
                                         <span id="FourStarCount">20 Reviews</span>
                                     </div>
-                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
                                         <span>3</span>
-                                        <div class="progress" id="ThreeStarPercentage">
-                                            <div class="progress__fill"></div>
+                                        <div class="ratingProgress" id="ThreeStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
                                         </div>
                                         <span id="ThreeStarCount">20 Reviews</span>
                                     </div>
-                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
                                         <span>2</span>
-                                        <div class="progress" id="TwoStarPercentage">
-                                            <div class="progress__fill"></div>
+                                        <div class="ratingProgress" id="TwoStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
                                         </div>
                                         <span id="TwoStarCount">20 Reviews</span>
                                     </div>
-                                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
                                         <span>1</span>
-                                        <div class="progress" id="OneStarPercentage">
-                                            <div class="progress__fill"></div>
+                                        <div class="ratingProgress" id="OneStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
                                         </div>
                                         <span id="OneStarCount">20 Reviews</span>
                                     </div>
@@ -245,6 +240,49 @@
                                 </div>
 									</div>
 								</div>
+
+							<div style="display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+									<div class="cat" style="padding: 10px;">
+										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green;"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;">
+										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">With images<i class="fa-solid fa-check" style="color: green;"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;">
+										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="fa-solid fa-check" style="color: green;"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;">
+										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;">
+										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;">
+										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;">
+										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+									</div>
+								</div>
+
+							<div class="row p-4">
+								<div class="col-md-7 reviewOverflow"
+									style="max-height: 715px; overflow-y: scroll;"  id="reviewContainer">
+									
+								</div>
+								
 							</div>
 						</div>
 					</div>
