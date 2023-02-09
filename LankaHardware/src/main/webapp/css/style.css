@@ -15821,3 +15821,8 @@ input:checked~form {
 .brand-check-input {
 	border-radius: 50%;
 }
+
+/*reviewFilterButton*/
+.reviewFilterButton i:last-child {
+	display: none;
+}

@@ -741,13 +741,12 @@ function buildMiniCart(cartItems){
 }
 
 function getCartQuantity(){
-	
 	var qtyTotal = 0
 	for(var i = 0; i < cartItems.length; i++){
 		qtyTotal += cartItems[i].quantity
 	}
 	
-	var no_of_Items = `[${qtyTotal}]`
+	var no_of_Items = qtyTotal
 	
 	cartQuantity.innerHTML = no_of_Items
 }
@@ -781,7 +780,9 @@ function buildMainCart(cartItems, Total){
 
 						<td>
 						    <div class="quantity buttons_added">
-								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')"><input type="button" value="+" class="plus">
+								<input type="button" value="-" class="minus">
+								<input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')">
+								<input type="button" value="+" class="plus">
 							</div>
 					    </td>
 
@@ -879,6 +880,12 @@ var product = []
 var productSizeAndPriceList = []
 var allReviews = []
 var relatedProducts = []
+var oneStarReviews = []
+var twoStarReviews = []
+var threeStarReviews = []
+var fourStarReviews = []
+var fiveStarReviews = []
+var reviewsWithImages = []
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
@@ -888,12 +895,12 @@ function callGetProductSingleServlet(itemID){
 		allReviews = response[2]
 		relatedProducts = response[3]
 		
-		console.log(product)
 		buildProductSingle(product)
 		buildProductSizes()
 		buildReviewPercentagesAndCounts(product, product.ratingCount)
 		buildAllReviews(allReviews, product.ratingCount)
 		buildRelatedProducts()
+		filterReviews()
 	})
 }
 
@@ -1078,6 +1085,57 @@ function buildAllReviewImages(images, containerID){
 		          }
 
 		});
+}
+
+//build review filtered list
+function filterReviews(){
+	for(var i = 0; i < allReviews.length; i++){
+		if(allReviews[i].stars == 5){
+			fiveStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 4){
+			fourStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 3){
+			threeStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 2){
+			twoStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 1){
+			oneStarReviews.push(allReviews[i])
+		}
+		if(allReviews[i].reviewImages.length > 0){
+			reviewsWithImages.push(allReviews[i])
+		}
+	}
+}
+
+//get filtered reviews
+function getFilteredReviews(type){
+	if(type == 'all'){
+		buildAllReviews(allReviews, allReviews.length)
+	}else if(type == 'with images'){
+		if(reviewsWithImages.length == 0) emptyFilteredReviews('images.')
+		else buildAllReviews(reviewsWithImages, reviewsWithImages.length)
+	}else if(type == 'fiveStar'){
+		if(fiveStarReviews.length == 0) emptyFilteredReviews('five stars.')
+		else buildAllReviews(fiveStarReviews, fiveStarReviews.length)
+	}else if(type == 'fourStar'){
+		if(fourStarReviews.length == 0) emptyFilteredReviews('four stars.')
+		else buildAllReviews(fourStarReviews, fourStarReviews.length)
+	}else if(type == 'threeStar'){
+		if(threeStarReviews.length == 0) emptyFilteredReviews('three stars.')
+		else buildAllReviews(threeStarReviews, threeStarReviews.length)
+	}else if(type == 'twoStar'){
+		if(twoStarReviews.length == 0) emptyFilteredReviews('two stars.')
+		else buildAllReviews(twoStarReviews, twoStarReviews.length)
+	}else if(type == 'oneStar'){
+		if(oneStarReviews.length == 0) emptyFilteredReviews('one stars.')
+		else buildAllReviews(oneStarReviews, oneStarReviews.length)
+	}
+	
+}
+
+//empty filtered reviews
+function emptyFilteredReviews(text){
+	reviewContainer.innerHTML = `<h4 style="color: grey; text-align: center;">No reviews with ${text}</h4>`
 }
 
 //build related products
@@ -1498,6 +1556,7 @@ function buildCurrentFilters(){
 //remove main category
 function removeMainCategory(){
 	currentMainCategory = null
+	currentBrand = null
 	buildCurrentFilters()
 }
 

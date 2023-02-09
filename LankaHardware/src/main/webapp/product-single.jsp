@@ -183,7 +183,7 @@
 
 							<div class="col-md-4" style="max-width: 100%;">
 									<div class="rating-wrap">
-										<h3 class="mb-4">Give a Review</h3>
+										<h3 class="mb-4">Overview</h3>
 										<div style="display: flex; justify-content: center; align-items: center; column-gap: 100px;">
                                     <div>
                                         <span style="font-size: xxx-large;" id="averageProductRating">4.1</span>
@@ -242,14 +242,14 @@
 								</div>
 
 							<div style="display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-									<div class="cat" style="padding: 10px;">
-										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green;"></i></a>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('all');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green;"></i></a>
 									</div>
-									<div class="cat" style="padding: 10px;">
-										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">With images<i class="fa-solid fa-check" style="color: green;"></i></a>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('with images');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">With images<i class="fa-solid fa-check" style="color: green;"></i></a>
 									</div>
-									<div class="cat" style="padding: 10px;">
-										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('fiveStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
@@ -257,23 +257,23 @@
 											<i class="ion-ios-star"></i>
 											<i class="fa-solid fa-check" style="color: green;"></i></a>
 									</div>
-									<div class="cat" style="padding: 10px;">
-										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('fourStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
 									</div>
-									<div class="cat" style="padding: 10px;">
-										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('threeStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
 									</div>
-									<div class="cat" style="padding: 10px;">
-										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('twoStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
 									</div>
-									<div class="cat" style="padding: 10px;">
-										<a href="" onclick="return false" class="btn" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('oneStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
 									</div>
 								</div>
 
