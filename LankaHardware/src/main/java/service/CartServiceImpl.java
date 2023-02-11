@@ -136,7 +136,7 @@ public class CartServiceImpl implements ICartService {
 			ArrayList<Item> items = cart.getItems();
 
 			for (Item item : items) {
-				if (item.getItemID().equals(itemID)) {
+				if (item.getItemID().equals(itemID) && item.getSize().equals(size)) {
 					quantity += item.getQuantity();
 
 					break;

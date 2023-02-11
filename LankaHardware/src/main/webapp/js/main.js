@@ -373,6 +373,13 @@ var sendLoader = document.getElementById('sendLoader')
 var totalRatings = document.getElementById('totalRatings')
 var averageProductRating = document.getElementById('averageProductRating')
 var brandListElement = document.getElementById('brandListElement')
+var allToggle = document.getElementById('allToggle')
+var imagesToggle = document.getElementById('imagesToggle')
+var fiveStarToggle = document.getElementById('fiveStarToggle')
+var fourStarToggle = document.getElementById('fourStarToggle')
+var threeStarToggle = document.getElementById('threeStarToggle')
+var twoStarToggle = document.getElementById('twoStarToggle')
+var oneStarToggle = document.getElementById('oneStarToggle')
 
 function stopScrollingToTop(){
 	return false
@@ -802,7 +809,7 @@ function cartTotal(Total){
 
 //Add to cart
 function callAddToCartServlet(itemID, quantity, size){
-	if(quantity != 1){
+	if(quantity == 0){
 		var productSingleQuantity = document.getElementById('productSingleQuantity').value
 		quantity = productSingleQuantity
 	}
@@ -1110,27 +1117,76 @@ function filterReviews(){
 //get filtered reviews
 function getFilteredReviews(type){
 	if(type == 'all'){
+		allToggle.checked = true
+		toggleReviewFilterCheck()
 		buildAllReviews(allReviews, allReviews.length)
 	}else if(type == 'with images'){
+		imagesToggle.checked = true
+		toggleReviewFilterCheck()
 		if(reviewsWithImages.length == 0) emptyFilteredReviews('images.')
 		else buildAllReviews(reviewsWithImages, reviewsWithImages.length)
 	}else if(type == 'fiveStar'){
+		fiveStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(fiveStarReviews.length == 0) emptyFilteredReviews('five stars.')
 		else buildAllReviews(fiveStarReviews, fiveStarReviews.length)
 	}else if(type == 'fourStar'){
+		fourStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(fourStarReviews.length == 0) emptyFilteredReviews('four stars.')
 		else buildAllReviews(fourStarReviews, fourStarReviews.length)
 	}else if(type == 'threeStar'){
+		threeStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(threeStarReviews.length == 0) emptyFilteredReviews('three stars.')
 		else buildAllReviews(threeStarReviews, threeStarReviews.length)
 	}else if(type == 'twoStar'){
+		twoStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(twoStarReviews.length == 0) emptyFilteredReviews('two stars.')
 		else buildAllReviews(twoStarReviews, twoStarReviews.length)
 	}else if(type == 'oneStar'){
+		oneStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(oneStarReviews.length == 0) emptyFilteredReviews('one stars.')
 		else buildAllReviews(oneStarReviews, oneStarReviews.length)
 	}
 	
+}
+
+//toggle the check mark
+function toggleReviewFilterCheck() {
+	var allCheck = document.getElementById('allCheck')
+	var imagesCheck = document.getElementById('imagesCheck')
+	var fiveCheck = document.getElementById('fiveCheck')
+	var fourCheck = document.getElementById('fourCheck')
+	var threeCheck = document.getElementById('threeCheck')
+	var twoCheck = document.getElementById('twoCheck')
+	var oneCheck = document.getElementById('oneCheck')
+
+	allCheck.style = "display: none;"
+	imagesCheck.style = "display: none;"
+	fiveCheck.style = "display: none;"
+	fourCheck.style = "display: none;"
+	threeCheck.style = "display: none;"
+	twoCheck.style = "display: none;"
+	oneCheck.style = "display: none;"
+
+	if (allToggle.checked == true) {
+		allCheck.style = "display: block; color: green;"
+	} else if (imagesToggle.checked == true) {
+		imagesCheck.style = "display: block; color: green;"
+	} else if (fiveStarToggle.checked == true) {
+		fiveCheck.style = "display: block; color: green;"
+	} else if (fourStarToggle.checked == true) {
+		fourCheck.style = "display: block; color: green;"
+	} else if (threeStarToggle.checked == true) {
+		threeCheck.style = "display: block; color: green;"
+	} else if (twoStarToggle.checked == true) {
+		twoCheck.style = "display: block; color: green;"
+	} else if (oneStarToggle.checked == true) {
+		oneCheck.style = "display: block; color: green;"
+	}
 }
 
 //empty filtered reviews

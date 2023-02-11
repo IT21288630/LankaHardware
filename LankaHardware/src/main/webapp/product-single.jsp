@@ -183,6 +183,15 @@
 
 							<div class="col-md-4" style="max-width: 100%;">
 									<div class="rating-wrap">
+									<div style="display: none;">
+											<input type="radio" name="toggleTick" id="allToggle" onclick="toggle();">
+											<input type="radio" name="toggleTick" id="imagesToggle" onclick="toggle();">
+											<input type="radio" name="toggleTick" id="fiveStarToggle" onclick="toggle();">
+											<input type="radio" name="toggleTick" id="fourStarToggle" onclick="toggle();">
+											<input type="radio" name="toggleTick" id="threeStarToggle" onclick="toggle();">
+											<input type="radio" name="toggleTick" id="twoStarToggle" onclick="toggle();">
+											<input type="radio" name="toggleTick" id="oneStarToggle" onclick="toggle();">
+										</div>
 										<h3 class="mb-4">Overview</h3>
 										<div style="display: flex; justify-content: center; align-items: center; column-gap: 100px;">
                                     <div>
@@ -243,10 +252,10 @@
 
 							<div style="display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('all');">
-										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green;"></i></a>
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green;" id="allCheck"></i></a>
 									</div>
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('with images');">
-										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">With images<i class="fa-solid fa-check" style="color: green;"></i></a>
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">With images<i class="fa-solid fa-check" style="color: green;" id="imagesCheck"></i></a>
 									</div>
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('fiveStar');">
 										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">
@@ -255,25 +264,25 @@
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
-											<i class="fa-solid fa-check" style="color: green;"></i></a>
+											<i class="fa-solid fa-check" style="color: green;" id="fiveCheck"></i></a>
 									</div>
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('fourStar');">
 										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
-											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="fourCheck"></i></a>
 									</div>
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('threeStar');">
 										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
 											<i class="ion-ios-star"></i>
-											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="threeCheck"></i></a>
 									</div>
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('twoStar');">
 										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
-											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="twoCheck"></i></a>
 									</div>
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('oneStar');">
-										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;"></i></a>
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="oneCheck"></i></a>
 									</div>
 								</div>
 
@@ -287,6 +296,94 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</section>
+
+<section class="ftco-section">
+		<div class="container bg-light" style="padding: 15px;">
+			<h3>Questions about this Product</h3>
+			<h4 class="mb-4 ml-4">23 Questions</h4>
+			<div class="row p-4">
+				<div class="col-md-7 reviewOverflow" style="max-width: 100%; flex: 0 0 100%;">
+					<div style="display: flex; flex-direction: column; margin-top: 20px; border: 1px solid transparent; border-bottom: 1px solid rgba(0, 0, 0, 0.05);">
+						<div class="review">
+							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+							</div>
+							<div class="desc">
+								<h4>
+									<span class="text-left">Jacob Webb</span>
+									<span class="text-right">14 March 2018</span>
+								</h4>
+
+								<p><span>Question : </span>When she reached the first hills of the Italic Mountains, she
+									had a
+									last
+									view back on the skyline of her hometown Bookmarksgrov</p>
+
+
+							</div>
+						</div>
+						<div class="review" style="padding-left: 40px;">
+							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+							</div>
+							<div class="desc">
+								<h4>
+									<span class="text-left">Jacob Webb</span>
+									<span class="text-right">14 March 2018</span>
+								</h4>
+
+								<p><span>Answer : </span>When she reached the first hills of the Italic Mountains, she
+									had a
+									last
+									view back on the skyline of her hometown Bookmarksgrov</p>
+
+
+							</div>
+						</div>
+					</div>
+					<div style="display: flex; flex-direction: column; margin-top: 20px; border: 1px solid transparent; border-bottom: 1px solid rgba(0, 0, 0, 0.05);">
+						<div class="review">
+							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+							</div>
+							<div class="desc">
+								<h4>
+									<span class="text-left">Jacob Webb</span>
+									<span class="text-right">14 March 2018</span>
+								</h4>
+
+								<p><span>Question : </span>When she reached the first hills of the Italic Mountains, she
+									had a
+									last
+									view back on the skyline of her hometown Bookmarksgrov</p>
+
+
+							</div>
+						</div>
+						<div class="review" style="padding-left: 40px;">
+							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+							</div>
+							<div class="desc">
+								<h4>
+									<span class="text-left">Jacob Webb</span>
+									<span class="text-right">14 March 2018</span>
+								</h4>
+
+								<p><span>Answer : </span>When she reached the first hills of the Italic Mountains, she
+									had a
+									last
+									view back on the skyline of her hometown Bookmarksgrov</p>
+
+
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+			<div style="display: flex; justify-content: flex-end;">
+				<a href="#" class="btn btn-primary py-3 px-4">Ask a Question</a>
 			</div>
 		</div>
 	</section>
