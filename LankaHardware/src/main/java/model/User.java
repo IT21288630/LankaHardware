@@ -7,6 +7,7 @@ public abstract class User {
 	private String name;
 	private String phone;
 	private String address;
+	private String profilePic;
 
 	public String getEmail() {
 		return email;
@@ -46,5 +47,13 @@ public abstract class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 	}
 }
