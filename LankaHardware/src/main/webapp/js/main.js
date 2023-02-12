@@ -373,6 +373,19 @@ var sendLoader = document.getElementById('sendLoader')
 var totalRatings = document.getElementById('totalRatings')
 var averageProductRating = document.getElementById('averageProductRating')
 var brandListElement = document.getElementById('brandListElement')
+var allToggle = document.getElementById('allToggle')
+var imagesToggle = document.getElementById('imagesToggle')
+var fiveStarToggle = document.getElementById('fiveStarToggle')
+var fourStarToggle = document.getElementById('fourStarToggle')
+var threeStarToggle = document.getElementById('threeStarToggle')
+var twoStarToggle = document.getElementById('twoStarToggle')
+var oneStarToggle = document.getElementById('oneStarToggle')
+var productQuestionsList = document.getElementById('productQuestionsList')
+var totalQuestions = document.getElementById('totalQuestions')
+var openQuestionModal = document.getElementById('openQuestionModal')
+var questionModalHeader = document.getElementById('questionModalHeader')
+var questionModalBody = document.getElementById('questionModalBody')
+var questionModalFooter = document.getElementById('questionModalFooter')
 
 function stopScrollingToTop(){
 	return false
@@ -802,7 +815,7 @@ function cartTotal(Total){
 
 //Add to cart
 function callAddToCartServlet(itemID, quantity, size){
-	if(quantity != 1){
+	if(quantity == 0){
 		var productSingleQuantity = document.getElementById('productSingleQuantity').value
 		quantity = productSingleQuantity
 	}
@@ -886,6 +899,8 @@ var threeStarReviews = []
 var fourStarReviews = []
 var fiveStarReviews = []
 var reviewsWithImages = []
+var productQuestions = []
+var itemIDForQuestion
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
@@ -894,6 +909,9 @@ function callGetProductSingleServlet(itemID){
 		productSizeAndPriceList = response[1]
 		allReviews = response[2]
 		relatedProducts = response[3]
+		productQuestions = response[4]
+		itemIDForQuestion = product.itemID
+		console.log(productQuestions)
 		
 		buildProductSingle(product)
 		buildProductSizes()
@@ -901,11 +919,13 @@ function callGetProductSingleServlet(itemID){
 		buildAllReviews(allReviews, product.ratingCount)
 		buildRelatedProducts()
 		filterReviews()
+		bulidProductQuestions()
 	})
 }
 
 function buildProductSingle(product){
 	var starID = 'productStar'
+	productDetails.innerHTML = ''
 	
 	var details = `<div class="col-lg-5">
                     <img src="${product.mainImg}" class="img-fluid pb-1" alt="Colorlib Template" id="mainImg">
@@ -1024,6 +1044,53 @@ function updateProgressBar(progressBar, value) {
 	//progressBar.querySelector(".progress__text").textContent = `${value}%`;
 }
 
+//Build product questions
+function bulidProductQuestions(){
+	totalQuestions.innerHTML = `${productQuestions.length} Questions`
+	productQuestionsList.innerHTML = ''
+	
+	for(var i = 0; i < productQuestions.length; i++){
+		var answerID = `${productQuestions[i].questionID}Answer`
+		var question = `<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
+						<li class="comment">
+							<div class="vcard bio">
+								<img src="images/person_1.jpg" alt="Image placeholder">
+							</div>
+							<div class="comment-body">
+								<h3>${productQuestions[i].customer.email}</h3>
+								<div class="meta">${productQuestions[i].questionDate}</div>
+								<p><span>Question: </span> ${productQuestions[i].question}</p>
+								
+							</div>
+	
+							<ul class="children" id="${answerID}" style="padding: 0px;">
+								
+							</ul>
+						</li>
+					</ul>`
+		
+		productQuestionsList.innerHTML += question
+		if(productQuestions[i].admin.email != null && productQuestions[i].answer != null) buildProductAnswers(answerID, productQuestions[i].admin.email, productQuestions[i].answer, productQuestions[i].answerDate)
+	}
+}
+
+//Build product answers
+function buildProductAnswers(answerID, email, answer, answerDate){
+	var answerElement = document.getElementById(answerID)
+	answerElement.style = "padding: 50px 0 0 40px;"
+	
+	answerElement.innerHTML = `<li class="comment">
+									<div class="vcard bio">
+										<img src="images/person_1.jpg" alt="Image placeholder">
+									</div>
+									<div class="comment-body">
+										<h3>${email}</h3>
+										<div class="meta">${answerDate}</div>
+										<p><span>Answer: </span> ${answer}</p>
+									</div>
+								</li>`
+}
+
 //Build all reviews
 function buildAllReviews(allReviews, productRatingCount){
 	reviewContainer.innerHTML = `<h3 class="mb-4">${productRatingCount} Reviews</h3>`
@@ -1110,27 +1177,76 @@ function filterReviews(){
 //get filtered reviews
 function getFilteredReviews(type){
 	if(type == 'all'){
+		allToggle.checked = true
+		toggleReviewFilterCheck()
 		buildAllReviews(allReviews, allReviews.length)
 	}else if(type == 'with images'){
+		imagesToggle.checked = true
+		toggleReviewFilterCheck()
 		if(reviewsWithImages.length == 0) emptyFilteredReviews('images.')
 		else buildAllReviews(reviewsWithImages, reviewsWithImages.length)
 	}else if(type == 'fiveStar'){
+		fiveStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(fiveStarReviews.length == 0) emptyFilteredReviews('five stars.')
 		else buildAllReviews(fiveStarReviews, fiveStarReviews.length)
 	}else if(type == 'fourStar'){
+		fourStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(fourStarReviews.length == 0) emptyFilteredReviews('four stars.')
 		else buildAllReviews(fourStarReviews, fourStarReviews.length)
 	}else if(type == 'threeStar'){
+		threeStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(threeStarReviews.length == 0) emptyFilteredReviews('three stars.')
 		else buildAllReviews(threeStarReviews, threeStarReviews.length)
 	}else if(type == 'twoStar'){
+		twoStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(twoStarReviews.length == 0) emptyFilteredReviews('two stars.')
 		else buildAllReviews(twoStarReviews, twoStarReviews.length)
 	}else if(type == 'oneStar'){
+		oneStarToggle.checked = true
+		toggleReviewFilterCheck()
 		if(oneStarReviews.length == 0) emptyFilteredReviews('one stars.')
 		else buildAllReviews(oneStarReviews, oneStarReviews.length)
 	}
 	
+}
+
+//toggle the check mark
+function toggleReviewFilterCheck() {
+	var allCheck = document.getElementById('allCheck')
+	var imagesCheck = document.getElementById('imagesCheck')
+	var fiveCheck = document.getElementById('fiveCheck')
+	var fourCheck = document.getElementById('fourCheck')
+	var threeCheck = document.getElementById('threeCheck')
+	var twoCheck = document.getElementById('twoCheck')
+	var oneCheck = document.getElementById('oneCheck')
+
+	allCheck.style = "display: none;"
+	imagesCheck.style = "display: none;"
+	fiveCheck.style = "display: none;"
+	fourCheck.style = "display: none;"
+	threeCheck.style = "display: none;"
+	twoCheck.style = "display: none;"
+	oneCheck.style = "display: none;"
+
+	if (allToggle.checked == true) {
+		allCheck.style = "display: block; color: green;"
+	} else if (imagesToggle.checked == true) {
+		imagesCheck.style = "display: block; color: green;"
+	} else if (fiveStarToggle.checked == true) {
+		fiveCheck.style = "display: block; color: green;"
+	} else if (fourStarToggle.checked == true) {
+		fourCheck.style = "display: block; color: green;"
+	} else if (threeStarToggle.checked == true) {
+		threeCheck.style = "display: block; color: green;"
+	} else if (twoStarToggle.checked == true) {
+		twoCheck.style = "display: block; color: green;"
+	} else if (oneStarToggle.checked == true) {
+		oneCheck.style = "display: block; color: green;"
+	}
 }
 
 //empty filtered reviews
@@ -1628,7 +1744,46 @@ function callAddReviewServlet(){
 		body: formData
 	}).catch(console.error)
 }
-		
+	
+
+//call AskQuestionServlet
+openQuestionModal.addEventListener('click', () => {
+	questionModalHeader.innerHTML = `<i class="fa-solid fa-arrow-left" data-bs-dismiss="modal" style="font-size: large;"></i>
+									<h5 style="color: gray;"> Ask a Question </h5>`
+	questionModalBody.innerHTML = `<textarea name="desc" id="questionTextArea" cols="30" rows="7" class="form-control reviewTextArea" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>`
+    questionModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+									 <button type="button" class="btn btn-primary" id="questionSubmitBtn" onclick="toQuestionServlet();">Submit</button>`
+
+	questionModalHeader.style = "display: flex; justify-content: flex-start; border-bottom: none; padding-bottom: 0px; align-items: baseline; column-gap: 10px;"
+	questionModalBody.style = "display: flex;"
+	questionModalFooter.style = "display: flex; border-top: none;"
+})
+
+function toQuestionServlet(){
+	var question = document.getElementById('questionTextArea').value
+	question = question.trim()
+	if(question.length > 0) callAskQuestionServlet(question)
+}
+
+function callAskQuestionServlet(question){
+	var itemID = itemIDForQuestion
+	
+	$.post("http://localhost:8080/LankaHardware/AskQuestionServlet", {question : question, itemID : itemID}, function(response){
+	    
+	    questionModalHeader.style = "display: none;"
+	    questionModalBody.style = "padding: 1rem;"
+	    questionModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									    </div>`
+	    questionModalFooter.style = "display: none;"
+	    callGetProductSingleServlet(itemID)
+	    
+	    setTimeout(function() {
+	    	$('#modalCenter').modal('hide')
+	  	}, 2500);
+	})
+}
 
 //Get the number in words
 function numberToWord(number){
