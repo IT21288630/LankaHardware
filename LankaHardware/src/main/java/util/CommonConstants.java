@@ -175,6 +175,9 @@ public class CommonConstants {
 	
 	/** Constant for answer a question */
 	public static final String QUERY_ID_ANSWER_QUESTION = "UPDATE question SET answer = ?, aDate = NOW(), adEmail = ? WHERE qID = ?;";
+
+	/** Constant for get all questions and answers by itemID */
+	public static final String QUERY_ID_GET_QST_AND_ANS_BY_ITEMID = "SELECT qID, question, answer, date_format(qDate, '%M %d, %Y AT %h:%i%p'), date_format(aDate, '%M %d, %Y AT %h:%i%p'), itID, cusEmail, adEmail FROM question WHERE itID = ? ORDER BY qDate DESC;";
 	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;

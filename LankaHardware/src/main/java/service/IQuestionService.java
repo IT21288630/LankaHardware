@@ -1,6 +1,9 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
+
+import model.Question;
 
 public interface IQuestionService {
 	/** Initialize logger */
@@ -23,4 +26,11 @@ public interface IQuestionService {
 	 * 
 	 */
 	public String answerQuestion(String answer, String email, String questionID);
+	
+	/**
+	 * get all questions and answers by itemID
+	 * @param itemID
+	 * 
+	 */
+	public ArrayList<Question> getAllQuestionsAndAnswersByItemID(String itemID);
 }

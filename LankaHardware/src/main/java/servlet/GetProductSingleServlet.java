@@ -13,8 +13,10 @@ import com.google.gson.Gson;
 
 import model.Item;
 import service.IProductSingleService;
+import service.IQuestionService;
 import service.IReviewService;
 import service.ProductSingleServiceImpl;
+import service.QuestionServiceImpl;
 import service.ReviewServiceImpl;
 
 /**
@@ -43,6 +45,7 @@ public class GetProductSingleServlet extends HttpServlet {
 		String itemID = request.getParameter("itemID");
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		IReviewService iReviewService = new ReviewServiceImpl();
+		IQuestionService iQuestionService = new QuestionServiceImpl();
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -52,7 +55,8 @@ public class GetProductSingleServlet extends HttpServlet {
 		String resp2 = new Gson().toJson(iProductSingleService.getProductSizeAndPriceList(itemID));
 		String resp3 = new Gson().toJson(iReviewService.getItemRatings(itemID));
 		String resp4 = new Gson().toJson(iProductSingleService.getRelatedProducts(itemID));
-		String allJson = "["+resp+","+resp2+", "+resp3+", "+resp4+"]";
+		String resp5 = new Gson().toJson(iQuestionService.getAllQuestionsAndAnswersByItemID(itemID));
+		String allJson = "["+resp+","+resp2+", "+resp3+", "+resp4+", "+resp5+"]";
 		
 		out.print(allJson);
 	}

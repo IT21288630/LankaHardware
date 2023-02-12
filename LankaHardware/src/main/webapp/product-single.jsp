@@ -184,13 +184,13 @@
 							<div class="col-md-4" style="max-width: 100%;">
 									<div class="rating-wrap">
 									<div style="display: none;">
-											<input type="radio" name="toggleTick" id="allToggle" onclick="toggle();">
-											<input type="radio" name="toggleTick" id="imagesToggle" onclick="toggle();">
-											<input type="radio" name="toggleTick" id="fiveStarToggle" onclick="toggle();">
-											<input type="radio" name="toggleTick" id="fourStarToggle" onclick="toggle();">
-											<input type="radio" name="toggleTick" id="threeStarToggle" onclick="toggle();">
-											<input type="radio" name="toggleTick" id="twoStarToggle" onclick="toggle();">
-											<input type="radio" name="toggleTick" id="oneStarToggle" onclick="toggle();">
+											<input type="radio" name="toggleTick" id="allToggle">
+											<input type="radio" name="toggleTick" id="imagesToggle">
+											<input type="radio" name="toggleTick" id="fiveStarToggle">
+											<input type="radio" name="toggleTick" id="fourStarToggle">
+											<input type="radio" name="toggleTick" id="threeStarToggle">
+											<input type="radio" name="toggleTick" id="twoStarToggle">
+											<input type="radio" name="toggleTick" id="oneStarToggle">
 										</div>
 										<h3 class="mb-4">Overview</h3>
 										<div style="display: flex; justify-content: center; align-items: center; column-gap: 100px;">
@@ -252,7 +252,7 @@
 
 							<div style="display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('all');">
-										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green;" id="allCheck"></i></a>
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green; display: block;" id="allCheck"></i></a>
 									</div>
 									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('with images');">
 										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">With images<i class="fa-solid fa-check" style="color: green;" id="imagesCheck"></i></a>
@@ -303,70 +303,8 @@
 	<section class="ftco-section">
 			<div class="container bg-light" style="padding: 15px;">
 				<h3>Questions about this Product</h3>
-				<h5 class="mb-4">23 Questions</h5>
-				<div class="mt-5 reviewOverflow">
-					<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
-						<li class="comment">
-							<div class="vcard bio">
-								<img src="images/person_1.jpg" alt="Image placeholder">
-							</div>
-							<div class="comment-body">
-								<h3>John Doe</h3>
-								<div class="meta">June 27, 2018 at 2:21pm</div>
-								<p><span>Question: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-									necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste
-									iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-								
-							</div>
-	
-							<ul class="children">
-								<li class="comment">
-									<div class="vcard bio">
-										<img src="images/person_1.jpg" alt="Image placeholder">
-									</div>
-									<div class="comment-body">
-										<h3>John Doe</h3>
-										<div class="meta">June 27, 2018 at 2:21pm</div>
-										<p><span>Answer: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-											necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
-											sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-										
-									</div>
-								</li>
-							</ul>
-						</li>
-					</ul>
-					<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
-						<li class="comment">
-							<div class="vcard bio">
-								<img src="images/person_1.jpg" alt="Image placeholder">
-							</div>
-							<div class="comment-body">
-								<h3>John Doe</h3>
-								<div class="meta">June 27, 2018 at 2:21pm</div>
-								<p><span>Question: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-									necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste
-									iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-								
-							</div>
-	
-							<ul class="children">
-								<li class="comment">
-									<div class="vcard bio">
-										<img src="images/person_1.jpg" alt="Image placeholder">
-									</div>
-									<div class="comment-body">
-										<h3>John Doe</h3>
-										<div class="meta">June 27, 2018 at 2:21pm</div>
-										<p><span>Answer: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-											necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
-											sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-										
-									</div>
-								</li>
-							</ul>
-						</li>
-					</ul>
+				<h5 class="mb-4" id="totalQuestions">23 Questions</h5>
+				<div class="mt-5 reviewOverflow" id="productQuestionsList">
 					<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
 						<li class="comment">
 							<div class="vcard bio">
@@ -403,7 +341,7 @@
 					
 				</div>
 				<div style="display: flex; justify-content: flex-end;">
-					<a href="#" class="btn btn-primary py-3 px-4" data-bs-toggle="modal" data-bs-target="#modalCenter">Ask a
+					<a href="#" class="btn btn-primary py-3 px-4" data-bs-toggle="modal" data-bs-target="#modalCenter" id="openQuestionModal">Ask a
 						Question</a>
 				</div>
 			</div>
@@ -605,23 +543,23 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content" style="border: none;">
 				<div class="modal-header"
-					style="justify-content: flex-start; border-bottom: none; padding-bottom: 0px; align-items: baseline; column-gap: 10px;">
+					style="justify-content: flex-start; border-bottom: none; padding-bottom: 0px; align-items: baseline; column-gap: 10px;" id="questionModalHeader">
 					<i class="fa-solid fa-arrow-left" data-bs-dismiss="modal" style="font-size: large;"></i>
 					<h5 style="color: gray;"> Ask a Question </h5>
 				</div>
-				<div class="modal-body" style="padding-top: 0px;">
+				<div class="modal-body" style="padding-top: 0px;" id="questionModalBody">
 
 
 
-					<textarea name="desc" id="" cols="30" rows="7" class="form-control reviewTextArea" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>
+					<textarea name="desc" id="questionTextArea" cols="30" rows="7" class="form-control reviewTextArea" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>
 
 
 
 
 				</div>
-				<div class="modal-footer" style="border-top: none;">
+				<div class="modal-footer" style="border-top: none;" id="questionModalFooter">
 					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="btn">Submit</button>
+					<button type="button" class="btn btn-primary" id="questionSubmitBtn">Submit</button>
 				</div>
 			</div>
 		</div>
@@ -662,18 +600,17 @@
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
-	<script src="https://kit.fontawesome.com/339febfaad.js"
-		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
 	<script src="quantity/script.js"></script>
 	<script src="nice select/js/jquery.js"></script> 
 	<script src="nice select/js/jquery.nice-select.js"></script>
 	<!-- magnific popup js cdn link  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 	
 	<script>
 		$(document).ready(function() {
