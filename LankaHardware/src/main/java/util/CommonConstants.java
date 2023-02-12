@@ -35,6 +35,9 @@ public class CommonConstants {
 	/** Constant for item id prefix */
 	public static final String ITEM_ID_PREFIX = "I300";
 	
+	/** Constant for question id prefix */
+	public static final String QUESTION_ID_PREFIX = "Q300";
+	
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
 	
@@ -163,6 +166,15 @@ public class CommonConstants {
 	
 	/** Constant for get rating images for an item */
 	public static final String QUERY_ID_GET_RATING_IMAGES_FOR_AN_ITEM = "SELECT img FROM review_img where reviewID = ?;";
+	
+	/** Constant for select question ids */
+	public static final String QUERY_ID_SELECT_QUESTION_IDS = "SELECT qID FROM question;";
+	
+	/** Constant for create a question */
+	public static final String QUERY_ID_CREATE_QUESTION = "INSERT INTO question(qID, question, qDate, itID, cusEmail) VALUES(?, ?, NOW(), ?, ?);";
+	
+	/** Constant for answer a question */
+	public static final String QUERY_ID_ANSWER_QUESTION = "UPDATE question SET answer = ?, aDate = NOW(), adEmail = ? WHERE qID = ?;";
 	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;

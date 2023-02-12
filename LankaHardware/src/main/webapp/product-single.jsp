@@ -300,93 +300,114 @@
 		</div>
 	</section>
 
-<section class="ftco-section">
-		<div class="container bg-light" style="padding: 15px;">
-			<h3>Questions about this Product</h3>
-			<h4 class="mb-4 ml-4">23 Questions</h4>
-			<div class="row p-4">
-				<div class="col-md-7 reviewOverflow" style="max-width: 100%; flex: 0 0 100%;">
-					<div style="display: flex; flex-direction: column; margin-top: 20px; border: 1px solid transparent; border-bottom: 1px solid rgba(0, 0, 0, 0.05);">
-						<div class="review">
-							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+	<section class="ftco-section">
+			<div class="container bg-light" style="padding: 15px;">
+				<h3>Questions about this Product</h3>
+				<h5 class="mb-4">23 Questions</h5>
+				<div class="mt-5 reviewOverflow">
+					<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
+						<li class="comment">
+							<div class="vcard bio">
+								<img src="images/person_1.jpg" alt="Image placeholder">
 							</div>
-							<div class="desc">
-								<h4>
-									<span class="text-left">Jacob Webb</span>
-									<span class="text-right">14 March 2018</span>
-								</h4>
-
-								<p><span>Question : </span>When she reached the first hills of the Italic Mountains, she
-									had a
-									last
-									view back on the skyline of her hometown Bookmarksgrov</p>
-
-
+							<div class="comment-body">
+								<h3>John Doe</h3>
+								<div class="meta">June 27, 2018 at 2:21pm</div>
+								<p><span>Question: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+									necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste
+									iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+								
 							</div>
-						</div>
-						<div class="review" style="padding-left: 40px;">
-							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+	
+							<ul class="children">
+								<li class="comment">
+									<div class="vcard bio">
+										<img src="images/person_1.jpg" alt="Image placeholder">
+									</div>
+									<div class="comment-body">
+										<h3>John Doe</h3>
+										<div class="meta">June 27, 2018 at 2:21pm</div>
+										<p><span>Answer: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+											necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
+											sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+										
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
+						<li class="comment">
+							<div class="vcard bio">
+								<img src="images/person_1.jpg" alt="Image placeholder">
 							</div>
-							<div class="desc">
-								<h4>
-									<span class="text-left">Jacob Webb</span>
-									<span class="text-right">14 March 2018</span>
-								</h4>
-
-								<p><span>Answer : </span>When she reached the first hills of the Italic Mountains, she
-									had a
-									last
-									view back on the skyline of her hometown Bookmarksgrov</p>
-
-
+							<div class="comment-body">
+								<h3>John Doe</h3>
+								<div class="meta">June 27, 2018 at 2:21pm</div>
+								<p><span>Question: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+									necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste
+									iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+								
 							</div>
-						</div>
-					</div>
-					<div style="display: flex; flex-direction: column; margin-top: 20px; border: 1px solid transparent; border-bottom: 1px solid rgba(0, 0, 0, 0.05);">
-						<div class="review">
-							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+	
+							<ul class="children">
+								<li class="comment">
+									<div class="vcard bio">
+										<img src="images/person_1.jpg" alt="Image placeholder">
+									</div>
+									<div class="comment-body">
+										<h3>John Doe</h3>
+										<div class="meta">June 27, 2018 at 2:21pm</div>
+										<p><span>Answer: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+											necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
+											sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+										
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
+						<li class="comment">
+							<div class="vcard bio">
+								<img src="images/person_1.jpg" alt="Image placeholder">
 							</div>
-							<div class="desc">
-								<h4>
-									<span class="text-left">Jacob Webb</span>
-									<span class="text-right">14 March 2018</span>
-								</h4>
-
-								<p><span>Question : </span>When she reached the first hills of the Italic Mountains, she
-									had a
-									last
-									view back on the skyline of her hometown Bookmarksgrov</p>
-
-
+							<div class="comment-body">
+								<h3>John Doe</h3>
+								<div class="meta">June 27, 2018 at 2:21pm</div>
+								<p><span>Question: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+									necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste
+									iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+								
 							</div>
-						</div>
-						<div class="review" style="padding-left: 40px;">
-							<div class="user-img" style="background-image: url(images/person_1.jpg)">
-							</div>
-							<div class="desc">
-								<h4>
-									<span class="text-left">Jacob Webb</span>
-									<span class="text-right">14 March 2018</span>
-								</h4>
-
-								<p><span>Answer : </span>When she reached the first hills of the Italic Mountains, she
-									had a
-									last
-									view back on the skyline of her hometown Bookmarksgrov</p>
-
-
-							</div>
-						</div>
-					</div>
+	
+							<ul class="children">
+								<li class="comment">
+									<div class="vcard bio">
+										<img src="images/person_1.jpg" alt="Image placeholder">
+									</div>
+									<div class="comment-body">
+										<h3>John Doe</h3>
+										<div class="meta">June 27, 2018 at 2:21pm</div>
+										<p><span>Answer: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+											necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
+											sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+										
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<!-- END comment-list -->
+	
 					
 				</div>
+				<div style="display: flex; justify-content: flex-end;">
+					<a href="#" class="btn btn-primary py-3 px-4" data-bs-toggle="modal" data-bs-target="#modalCenter">Ask a
+						Question</a>
+				</div>
 			</div>
-
-			<div style="display: flex; justify-content: flex-end;">
-				<a href="#" class="btn btn-primary py-3 px-4">Ask a Question</a>
-			</div>
-		</div>
-	</section>
+		</section>
 
 	<section class="ftco-section bg-light">
     	<div class="container">
@@ -578,6 +599,51 @@
 		</div>
 	</div>
 	<!-- Search End -->
+
+	<!-- Question Modal -->
+	<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content" style="border: none;">
+				<div class="modal-header"
+					style="justify-content: flex-start; border-bottom: none; padding-bottom: 0px; align-items: baseline; column-gap: 10px;">
+					<i class="fa-solid fa-arrow-left" data-bs-dismiss="modal" style="font-size: large;"></i>
+					<h5 style="color: gray;"> Ask a Question </h5>
+				</div>
+				<div class="modal-body" style="padding-top: 0px;">
+
+
+
+					<textarea name="desc" id="" cols="30" rows="7" class="form-control reviewTextArea" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>
+
+
+
+
+				</div>
+				<div class="modal-footer" style="border-top: none;">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="btn">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Core JS -->
+	<!-- build:js assets/vendor/js/core.js -->
+	<script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="Admin/assets/vendor/libs/popper/popper.js"></script>
+	<script src="Admin/assets/vendor/js/bootstrap.js"></script>
+	<script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+	<script src="Admin/assets/vendor/js/menu.js"></script>
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+
+	<!-- Main JS -->
+	<script src="Admin/assets/js/main.js"></script>
+
+	<!-- Page JS -->
+	<script src="Admin/assets/js/ui-modals.js"></script>
 
 	<!--Search Js Plugins -->
 	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>

@@ -72,7 +72,6 @@ public class CartServiceImpl implements ICartService {
 
 		try {
 			st = con.createStatement();
-
 			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_CART_IDS);
 
 			while (rs.next()) {
