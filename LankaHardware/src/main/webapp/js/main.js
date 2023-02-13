@@ -1544,6 +1544,7 @@ function buildShopCategories(){
 //Set current main category
 function setCurrentMainCategory(mainCategory){
 	currentMainCategory = mainCategory
+	currentBrand = ''
 }
 
 //set current brand
@@ -1574,7 +1575,6 @@ function buildPriceRange(){
 
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
-	
 	if(mainCategory == undefined){
 		buildShopCategories()
 		mainCategory = `%%`
@@ -1611,15 +1611,15 @@ function callGetCustomizedShopServlet(mainCategory){
 
 //build default brand list
 function buildDefaultBrandList(){
-	if(currentBrand == ''){
+	if(currentBrand == '' || currentBrand == null){
 		brandListElement.innerHTML = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
 										<span style="width: fit-content;">All</span>
-										<input class="brand-check-input" type="radio" value='' name="brand" checked onclick="setCurrentBrand()">
+										<input class="brand-check-input" type="radio" value='' name="brand" checked onclick="setCurrentBrand()" id="allBrandRadioButton">
 									  </label>`
 	}else {
 		brandListElement.innerHTML = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
 										<span style="width: fit-content;">All</span>
-										<input class="brand-check-input" type="radio" value='' name="brand" onclick="setCurrentBrand()">
+										<input class="brand-check-input" type="radio" value='' name="brand" onclick="setCurrentBrand()" id="allBrandRadio">
 									  </label>`
 	}
 	
@@ -1637,7 +1637,9 @@ function buildBrandList(){
 		brandListElement.innerHTML += brand
 	}
 	
-	var selectedRadioButton = document.querySelector(`input[name="brand"][value='${currentBrand}'`);
+	var selectedRadioButton
+	
+	selectedRadioButton = document.querySelector(`input[name="brand"][value='${currentBrand}']`)
 	selectedRadioButton.checked = true
 }
 
@@ -1677,7 +1679,7 @@ function buildCurrentFilters(){
 //remove main category
 function removeMainCategory(){
 	currentMainCategory = null
-	currentBrand = null
+	currentBrand = ''
 	buildCurrentFilters()
 }
 
@@ -1704,7 +1706,8 @@ function removeSortBy(){
 function resetCurrentFilters(){
 	currentFilters.innerHTML = ``
 	currentMainCategory = null
-	currentBrand = null
+	currentBrand = ''
+	brandList = null
 	itemNameForShop = null
 	sortByFilterOpen = false
 	sortBy.value = 'Price: Low To High'
