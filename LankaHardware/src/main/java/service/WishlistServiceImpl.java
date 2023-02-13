@@ -276,7 +276,7 @@ public class WishlistServiceImpl implements IWishlistService {
 	public String sendBackInStockEmail(String itemID) {
 		// TODO Auto-generated method stub
 
-		String status = "";
+		String status = "There was an error";
 		Item item = new Item();
 		ArrayList<String> to = new ArrayList<>();
 		String from = "regularpizza17@gmail.com";
@@ -304,7 +304,6 @@ public class WishlistServiceImpl implements IWishlistService {
 				to.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 			}
 			
-			System.out.println(to);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -360,11 +359,9 @@ public class WishlistServiceImpl implements IWishlistService {
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			status = "There was an error";
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			status = "There was an error";
 		}
 		
 		return status;
