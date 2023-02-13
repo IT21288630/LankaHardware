@@ -191,12 +191,12 @@ public class QuestionServiceImpl implements IQuestionService {
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_NEW_QUESTIONS);
-			
+
 			while (rs.next()) {
 				Question question = new Question();
 				Item item = new Item();
 				Customer customer = new Customer();
-				
+
 				question.setQuestionID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				question.setQuestion(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
 				question.setQuestionDate(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
@@ -204,10 +204,10 @@ public class QuestionServiceImpl implements IQuestionService {
 				question.setItem(item);
 				customer.setEmail(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				question.setCustomer(customer);
-				
+
 				questions.add(question);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -237,19 +237,19 @@ public class QuestionServiceImpl implements IQuestionService {
 	@Override
 	public ArrayList<Question> getAnsweredQuestions() {
 		// TODO Auto-generated method stub
-		
+
 		ArrayList<Question> questions = new ArrayList<>();
 		con = DBConnectionUtil.getDBConnection();
-		
+
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_ANSWERED_QUESTIONS);
-			
+
 			while (rs.next()) {
 				Question question = new Question();
 				Item item = new Item();
 				Customer customer = new Customer();
-				
+
 				question.setQuestionID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				question.setQuestion(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
 				question.setAnswer(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
@@ -259,9 +259,50 @@ public class QuestionServiceImpl implements IQuestionService {
 				question.setItem(item);
 				customer.setEmail(rs.getString(CommonConstants.COLUMN_INDEX_SEVEN));
 				question.setCustomer(customer);
-				
+
 				questions.add(question);
 			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return questions;
+	}
+
+	@Override
+	public String editAnsweredQuestions(String questionID, String answer) {
+		// TODO Auto-generated method stub
+
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_ANSWERED_QUESTIONS);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, answer);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, questionID);
+			pst.executeUpdate();
+			
+			status = "Answer Updated";
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -285,8 +326,8 @@ public class QuestionServiceImpl implements IQuestionService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		
-		return questions;
+
+		return status;
 	}
 
 	public static void main(String[] args) {

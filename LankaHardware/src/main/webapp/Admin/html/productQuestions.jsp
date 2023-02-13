@@ -162,54 +162,9 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
-            
-            
-           
-            
-
-            
-
-            
-
             <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
             <!-- Forms -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Elements">Form Elements</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="forms-basic-inputs.html" class="menu-link">
-                    <div data-i18n="Basic Inputs">Basic Inputs</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-input-groups.html" class="menu-link">
-                    <div data-i18n="Input groups">Input groups</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Layouts">Form Layouts</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="form-layouts-vertical.html" class="menu-link">
-                    <div data-i18n="Vertical Form">Vertical Form</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="form-layouts-horizontal.html" class="menu-link">
-                    <div data-i18n="Horizontal Form">Horizontal Form</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
             <!-- Tables -->
             <li class="menu-item active" id="new">
               <a href="#" onclick="return false;" class="menu-link">
@@ -341,7 +296,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> New Questions</h4>
+              <h4 class="fw-bold py-3 mb-4" id="breadCrumbHeading"><span class="text-muted fw-light">Tables /</span> New Questions</h4>
 
               <!-- Basic Bootstrap Table -->
               <div class="card" id="dynamicTable">
@@ -482,11 +437,13 @@
         var newElement = document.getElementById('new')
         var answered = document.getElementById('answered')
         var dynamicTable = document.getElementById('dynamicTable')
-
+		var breadCrumbHeading = document.getElementById('breadCrumbHeading')
+		
         newElement.addEventListener('click', () => {
           newElement.classList.add('active')
           answered.classList.remove('active')
-
+		  breadCrumbHeading.innerHTML = `<span class="text-muted fw-light">Tables /</span> New Questions`
+          
           dynamicTable.innerHTML = `<h5 class="card-header">New Questions</h5>
                                   <div class="text-nowrap">
                                     <table class="table">
@@ -512,6 +469,7 @@
         answered.addEventListener('click', () => {
           answered.classList.add('active')
           newElement.classList.remove('active')
+          breadCrumbHeading.innerHTML = `<span class="text-muted fw-light">Tables /</span> Answered Questions`
 
           dynamicTable.innerHTML = `<h5 class="card-header">Answered Questions</h5>
                                   <div class="text-nowrap">

@@ -45,4 +45,11 @@ public interface IQuestionService {
 	 * 
 	 */
 	public ArrayList<Question> getAnsweredQuestions();
+	
+	/**
+	 * edit answered questions
+	 * @param questionID
+	 * @param answer
+	 */
+	public String editAnsweredQuestions(String questionID, String answer);
 }

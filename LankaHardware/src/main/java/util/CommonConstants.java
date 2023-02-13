@@ -192,6 +192,9 @@ public class CommonConstants {
 	/** Constant for get answered questions */
 	public static final String QUERY_ID_GET_ANSWERED_QUESTIONS = "SELECT qID, question, answer, date_format(qDate, '%M %d, %Y AT %h:%i%p') AS 'qDate', date_format(aDate, '%M %d, %Y AT %h:%i%p') AS 'aDate', itID, cusEmail FROM question WHERE answer IS NOT NULL AND aDate IS NOT NULL AND adEmail IS NOT NULL ORDER BY aDate DESC;";
 	
+	/** Constant for get answered questions */
+	public static final String QUERY_ID_EDIT_ANSWERED_QUESTIONS = "UPDATE question SET answer = ?, aDate = NOW() WHERE qID = ?;";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 

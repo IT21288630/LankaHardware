@@ -335,8 +335,8 @@ public class WishlistServiceImpl implements IWishlistService {
 		properties.put("mail.smtp.port", "587");
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 
-		String username = "regularpizza17@gmail.com";
-		String password = "cajxxmputrxlxyqv";
+		final String username = "regularpizza17@gmail.com";
+		final String password = "cajxxmputrxlxyqv";
 
 		// session
 		Session session = Session.getInstance(properties, new Authenticator() {

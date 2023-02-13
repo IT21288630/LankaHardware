@@ -3,11 +3,13 @@
  */
 //call GetNewQuestionsServlet
 var newQuestions = []
+var newQuestionsListElement
 
 function callGetNewQuestionsServlet(newQuestionsList) {
 	$.get("http://localhost:8080/LankaHardware/GetNewQuestionsServlet", function(response) {
 
 		newQuestions = response
+		newQuestionsListElement = newQuestionsList
 		buildNewQuestions(newQuestionsList)
 	})
 }
@@ -68,11 +70,14 @@ function buildNewQuestions(newQuestionsList) {
 
 //call GetAnsweredQuestionsServlet
 var answeredQuestions = []
+var answeredQuestionsListElement
 
 function callGetAnsweredQuestionsServlet(answeredQuestionsList) {
 	$.get("http://localhost:8080/LankaHardware/GetAnsweredQuestionsServlet", function(response) {
 
 		answeredQuestions = response
+		answeredQuestionsListElement = answeredQuestionsList
+		
 		buildAnsweredQuestions(answeredQuestionsList)
 	})
 }
@@ -119,7 +124,7 @@ function buildAnsweredQuestions(answeredQuestionsList) {
                               </button>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalCenter2"
-                                  onclick="createViewAnswerModal('${answeredQuestions[i].question}', '${answeredQuestions[i].answer}')"><i class="bx bx-edit-alt me-2"></i> View</a
+                                  onclick="createViewAnswerModal('${answeredQuestions[i].question}', '${answeredQuestions[i].answer}', '${answeredQuestions[i].questionID}')"><i class="bx bx-edit-alt me-2"></i> View</a
                                 >
                                 <a class="dropdown-item" href="javascript:void(0);"
                                   ><i class="bx bx-trash me-2"></i> Delete</a
@@ -137,8 +142,11 @@ function buildAnsweredQuestions(answeredQuestionsList) {
 var viewAnswerModalHeader = document.getElementById('viewAnswerModalHeader')
 var viewAnswerModalBody = document.getElementById('viewAnswerModalBody')
 var viewAnswerModalFooter = document.getElementById('viewAnswerModalFooter')
+var currentAnswer
 
-function createViewAnswerModal(question, answer) {
+function createViewAnswerModal(question, answer, questionID) {
+	currentAnswer = answer
+	
 	viewAnswerModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">View the Answer</h5>
 					              <button
 					                type="button"
@@ -150,13 +158,13 @@ function createViewAnswerModal(question, answer) {
 					              <div class="row mt-3">
 					                <div class="mb-3">
 					                    <label class="form-label" for="answerTextArea">Your Answer</label>
-					                    <textarea id="answerTextArea" class="form-control" placeholder="">${answer}</textarea>
+					                    <textarea id="editAnswerTextArea" class="form-control" placeholder="">${answer}</textarea>
 					                </div>
 					              </div>`
 	viewAnswerModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 					                Close
 					              </button>
-					              <button type="button" class="btn btn-primary">Submit</button>`
+					              <button type="button" class="btn btn-primary" onclick="toEditAnswerServlet('${questionID}')">Submit</button>`
 }
 
 //call AnswerQuestionServlet
@@ -203,10 +211,37 @@ function callAnswerQuestionServlet(answer, questionID) {
 									        <span style="font-size: x-large;">${response}</span>
 									    </div>`
 		answerModalFooter.style = "display: none;"
-		callGetNewQuestionsServlet()
+		callGetNewQuestionsServlet(newQuestionsListElement)
 
 		setTimeout(function() {
 			$('#modalCenter').modal('hide')
+		}, 2500);
+	})
+}
+
+//call EditAnsweredQuestionsServlet
+function toEditAnswerServlet(questionID){
+	var newAnswer = document.getElementById('editAnswerTextArea').value
+	newAnswer = newAnswer.trim()
+	
+	if(newAnswer != currentAnswer) callEditAnsweredQuestionsServlet(newAnswer, questionID)
+}
+
+function callEditAnsweredQuestionsServlet(answer, questionID) {
+	$.post("http://localhost:8080/LankaHardware/EditAnsweredQuestionsServlet", { answer: answer, questionID: questionID }, function(response) {
+
+		viewAnswerModalHeader.style = "display: none;"
+		viewAnswerModalBody.style = "padding: 1rem;"
+		viewAnswerModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									    </div>`
+		viewAnswerModalFooter.style = "display: none;"
+		
+		callGetAnsweredQuestionsServlet(answeredQuestionsListElement)
+
+		setTimeout(function() {
+			$('#modalCenter2').modal('hide')
 		}, 2500);
 	})
 }
