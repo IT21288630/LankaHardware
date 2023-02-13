@@ -369,7 +369,7 @@ var sortBy = document.getElementById('people')
 var relatedProductList = document.getElementById('relatedProductList')
 var ratingSubmitBtn = document.getElementById('ratingSubmitBtn')
 var sendEmailBtn = document.getElementById('sendEmailBtn')
-var sendLoader = document.getElementById('sendLoader')
+var emailModalBody = document.getElementById('emailModalBody')
 var totalRatings = document.getElementById('totalRatings')
 var averageProductRating = document.getElementById('averageProductRating')
 var brandListElement = document.getElementById('brandListElement')
@@ -528,14 +528,19 @@ function deleteWishlistItemElement(id){
 function callSendBackInStockEmailServlet(){
 	var itemID = 'i200'
 	
-	sendLoader.innerHTML = `<span class="loader">Send&nbsp;ng</span>
-	    					<span class="loader2"></span>`
-	    					
-	sendLoader.classList.add('active')
+	emailModalBody.innerHTML = `<span class="loader">Send&nbsp;ng</span>
+                    			<span class="loader2"></span>`
 	
 	$.post("http://localhost:8080/LankaHardware/SendBackInStockEmailServlet", {itemID : itemID}, function(response){
 	   
-	   sendLoader.classList.remove('active')
+	   emailModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									</div>`
+									
+		setTimeout(function() {
+			$('#emailModal').modal('hide')
+		}, 2500);
 	})
 }
 

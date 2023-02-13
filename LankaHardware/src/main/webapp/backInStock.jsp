@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="imageSelect.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -48,10 +49,25 @@
 <body>
     <div class="mt-3">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary reviewBtn" id="sendEmailBtn">Send</button>
+        <button type="button" class="btn btn-primary reviewBtn" id="sendEmailBtn" data-bs-toggle="modal" data-bs-target="#emailModal">Send</button>
     </div>
     
     <div id="sendLoader">
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="border: none;">
+                <div class="modal-header" style="border-bottom: none; justify-content: center;">
+
+                </div>
+                <div class="modal-body emailAnimation" id="emailModalBody">
+                </div>
+                <div class="modal-footer" style="border-top: none;">
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- Core JS -->
@@ -92,6 +108,7 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
     <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     
     <script>
     	sendEmailBtn.addEventListener('click', () => {
