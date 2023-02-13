@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import model.Admin;
 import model.Customer;
+import model.Item;
 import model.Question;
 import util.CommonConstants;
 import util.CommonUtil;
@@ -85,18 +86,127 @@ public class QuestionServiceImpl implements IQuestionService {
 	@Override
 	public String answerQuestion(String answer, String email, String questionID) {
 		// TODO Auto-generated method stub
-		
+
 		String status = "There was a problem";
 		con = DBConnectionUtil.getDBConnection();
-		
+
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ANSWER_QUESTION);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, answer);
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, questionID);
 			pst.executeUpdate();
-			
+
 			status = "Answered";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return status;
+	}
+
+	@Override
+	public ArrayList<Question> getAllQuestionsAndAnswersByItemID(String itemID) {
+		// TODO Auto-generated method stub
+
+		ArrayList<Question> questions = new ArrayList<>();
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_QST_AND_ANS_BY_ITEMID);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Question question = new Question();
+				Customer customer = new Customer();
+				Admin admin = new Admin();
+
+				question.setQuestionID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+				question.setQuestion(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
+				question.setAnswer(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
+				question.setQuestionDate(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				question.setAnswerDate(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
+				customer.setEmail(rs.getString(CommonConstants.COLUMN_INDEX_SEVEN));
+				admin.setEmail(rs.getString(CommonConstants.COLUMN_INDEX_EIGHT));
+				question.setCustomer(customer);
+				question.setAdmin(admin);
+
+				questions.add(question);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return questions;
+	}
+
+	@Override
+	public ArrayList<Question> getNewQuestions() {
+		// TODO Auto-generated method stub
+
+		ArrayList<Question> questions = new ArrayList<>();
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_NEW_QUESTIONS);
+			
+			while (rs.next()) {
+				Question question = new Question();
+				Item item = new Item();
+				Customer customer = new Customer();
+				
+				question.setQuestionID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+				question.setQuestion(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
+				question.setQuestionDate(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				question.setItem(item);
+				customer.setEmail(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
+				question.setCustomer(customer);
+				
+				questions.add(question);
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -120,37 +230,35 @@ public class QuestionServiceImpl implements IQuestionService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		
-		
-		return status;
+
+		return questions;
 	}
 
 	@Override
-	public ArrayList<Question> getAllQuestionsAndAnswersByItemID(String itemID) {
+	public ArrayList<Question> getAnsweredQuestions() {
 		// TODO Auto-generated method stub
 		
 		ArrayList<Question> questions = new ArrayList<>();
 		con = DBConnectionUtil.getDBConnection();
 		
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_QST_AND_ANS_BY_ITEMID);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
-			rs = pst.executeQuery();
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_ANSWERED_QUESTIONS);
 			
 			while (rs.next()) {
 				Question question = new Question();
+				Item item = new Item();
 				Customer customer = new Customer();
-				Admin admin = new Admin();
 				
 				question.setQuestionID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				question.setQuestion(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
 				question.setAnswer(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				question.setQuestionDate(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				question.setAnswerDate(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				question.setItem(item);
 				customer.setEmail(rs.getString(CommonConstants.COLUMN_INDEX_SEVEN));
-				admin.setEmail(rs.getString(CommonConstants.COLUMN_INDEX_EIGHT));
 				question.setCustomer(customer);
-				question.setAdmin(admin);
 				
 				questions.add(question);
 			}
@@ -178,13 +286,12 @@ public class QuestionServiceImpl implements IQuestionService {
 			}
 		}
 		
-		
 		return questions;
 	}
 
 	public static void main(String[] args) {
 		IQuestionService iQuestionService = new QuestionServiceImpl();
-		
-		System.out.println(iQuestionService.getAllQuestionsAndAnswersByItemID("i100"));
+
+		System.out.println(iQuestionService.getAnsweredQuestions());
 	}
 }

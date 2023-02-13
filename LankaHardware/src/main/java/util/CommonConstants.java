@@ -177,7 +177,13 @@ public class CommonConstants {
 	public static final String QUERY_ID_ANSWER_QUESTION = "UPDATE question SET answer = ?, aDate = NOW(), adEmail = ? WHERE qID = ?;";
 
 	/** Constant for get all questions and answers by itemID */
-	public static final String QUERY_ID_GET_QST_AND_ANS_BY_ITEMID = "SELECT qID, question, answer, date_format(qDate, '%M %d, %Y AT %h:%i%p'), date_format(aDate, '%M %d, %Y AT %h:%i%p'), itID, cusEmail, adEmail FROM question WHERE itID = ? ORDER BY qDate DESC;";
+	public static final String QUERY_ID_GET_QST_AND_ANS_BY_ITEMID = "SELECT qID, question, answer, date_format(qDate, '%M %d, %Y AT %h:%i%p') AS 'qDate', date_format(aDate, '%M %d, %Y AT %h:%i%p'), itID, cusEmail, adEmail FROM question WHERE itID = ? ORDER BY qDate DESC;";
+	
+	/** Constant for get new questions */
+	public static final String QUERY_ID_GET_NEW_QUESTIONS = "SELECT qID, question, date_format(qDate, '%M %d, %Y AT %h:%i%p') AS 'qDate', itID, cusEmail FROM question WHERE answer IS NULL AND aDate IS NULL AND adEmail IS NULL ORDER BY qDate DESC;";
+	
+	/** Constant for get answered questions */
+	public static final String QUERY_ID_GET_ANSWERED_QUESTIONS = "SELECT qID, question, answer, date_format(qDate, '%M %d, %Y AT %h:%i%p') AS 'qDate', date_format(aDate, '%M %d, %Y AT %h:%i%p') AS 'aDate', itID, cusEmail FROM question WHERE answer IS NOT NULL AND aDate IS NOT NULL AND adEmail IS NOT NULL ORDER BY aDate DESC;";
 	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;

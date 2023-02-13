@@ -9,6 +9,7 @@ public class Question {
 	private Admin admin;
 	private String questionDate;
 	private String answerDate;
+	private Item item;
 
 	public String getQuestionID() {
 		return questionID;
@@ -64,5 +65,13 @@ public class Question {
 
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
 }

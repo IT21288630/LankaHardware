@@ -33,4 +33,16 @@ public interface IQuestionService {
 	 * 
 	 */
 	public ArrayList<Question> getAllQuestionsAndAnswersByItemID(String itemID);
+	
+	/**
+	 * get new questions
+	 * 
+	 */
+	public ArrayList<Question> getNewQuestions();
+	
+	/**
+	 * get answered questions
+	 * 
+	 */
+	public ArrayList<Question> getAnsweredQuestions();
 }
