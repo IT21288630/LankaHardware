@@ -65,7 +65,7 @@ public class CommonUtil {
 			}
 		} else if (idType.equals("question")) {
 			id = CommonConstants.QUESTION_ID_PREFIX + next;
-			if (arrayList.contains(id)) {
+			while (arrayList.contains(id)) {
 				next++;
 				id = CommonConstants.QUESTION_ID_PREFIX + next;
 			}
