@@ -330,6 +330,47 @@ public class QuestionServiceImpl implements IQuestionService {
 		return status;
 	}
 
+	@Override
+	public String deleteQuestion(String questionID) {
+		// TODO Auto-generated method stub
+		
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+		
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_DELETE_QUESTION);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, questionID);
+			pst.executeUpdate();
+			
+			status = "Question deleted";
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		
+		
+		return status;
+	}
+
 	public static void main(String[] args) {
 		IQuestionService iQuestionService = new QuestionServiceImpl();
 

@@ -195,6 +195,9 @@ public class CommonConstants {
 	/** Constant for get answered questions */
 	public static final String QUERY_ID_EDIT_ANSWERED_QUESTIONS = "UPDATE question SET answer = ?, aDate = NOW() WHERE qID = ?;";
 	
+	/** Constant for delete a question */
+	public static final String QUERY_ID_DELETE_QUESTION = "DELETE FROM question WHERE qID = ?;";
+	
 	/** Constant for Column index one */
 	public static final int COLUMN_INDEX_ONE = 1;
 

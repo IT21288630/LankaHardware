@@ -83,7 +83,23 @@
             background: linear-gradient(to right, transparent, #ffffff);
         }
 
-        
+		.icon-box {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  width: 80px;
+		  height: 80px;
+		  margin: 0 auto;
+		  border-radius: 50%;
+		  border: 3px solid #f15e5e;
+		}
+		
+		.icon-box i {
+		  font-style: initial;
+		  color: #f15e5e;
+		  font-size: 46px;
+		  display: inline-block;
+		}
     </style>
   </head>
 
@@ -169,7 +185,7 @@
             <li class="menu-item active" id="new">
               <a href="#" onclick="return false;" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">New Questions</div>
+                <div data-i18n="Tables">New Questions <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger" id="newMessagesCount">3</span></div>
               </a>
             </li>
             
@@ -199,16 +215,8 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
+              <div class="navbar-nav align-items-center" id="dynamicSearch">
+                
               </div>
               <!-- /Search -->
 
@@ -404,6 +412,20 @@
                 Close
               </button>
               <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+		<!-- Modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
             </div>
           </div>
         </div>

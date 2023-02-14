@@ -15,16 +15,16 @@ import service.IQuestionService;
 import service.QuestionServiceImpl;
 
 /**
- * Servlet implementation class AnswerQuestionServlet
+ * Servlet implementation class DeleteQuestionServlet
  */
-@WebServlet("/AnswerQuestionServlet")
-public class AnswerQuestionServlet extends HttpServlet {
+@WebServlet("/DeleteQuestionServlet")
+public class DeleteQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnswerQuestionServlet() {
+    public DeleteQuestionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,8 +43,6 @@ public class AnswerQuestionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String email = "b@g.m";
-		String answer = request.getParameter("answer");
 		String questionID = request.getParameter("questionID");
 		IQuestionService iQuestionService = new QuestionServiceImpl();
 		
@@ -52,7 +50,7 @@ public class AnswerQuestionServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iQuestionService.answerQuestion(answer, email, questionID));
+		String resp = new Gson().toJson(iQuestionService.deleteQuestion(questionID));
 
 		out.print(resp);
 	}

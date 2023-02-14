@@ -52,4 +52,11 @@ public interface IQuestionService {
 	 * @param answer
 	 */
 	public String editAnsweredQuestions(String questionID, String answer);
+	
+	/**
+	 * delete a question
+	 * @param questionID
+	 * @param answer
+	 */
+	public String deleteQuestion(String questionID);
 }

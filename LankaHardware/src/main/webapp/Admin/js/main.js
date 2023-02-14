@@ -4,18 +4,21 @@
 //call GetNewQuestionsServlet
 var newQuestions = []
 var newQuestionsListElement
+var newMessagesCount = document.getElementById('newMessagesCount')
 
 function callGetNewQuestionsServlet(newQuestionsList) {
 	$.get("http://localhost:8080/LankaHardware/GetNewQuestionsServlet", function(response) {
 
 		newQuestions = response
 		newQuestionsListElement = newQuestionsList
-		buildNewQuestions(newQuestionsList)
+		buildNewQuestions(newQuestionsList, newQuestions)
+		buildNewMessagesCount()
+		buildSearch('new')
 	})
 }
 
 //Build New Questions
-function buildNewQuestions(newQuestionsList) {
+function buildNewQuestions(newQuestionsList, newQuestions) {
 	newQuestionsList.innerHTML = ''
 
 	for (var i = 0; i < newQuestions.length; i++) {
@@ -56,8 +59,8 @@ function buildNewQuestions(newQuestionsList) {
 	                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalCenter" id="openAnswerModal"
 	                                onclick="createAnswerModal('${newQuestions[i].question}', '${newQuestions[i].questionID}');"><i class="bx bx-edit-alt me-2"></i> Answer</a
 	                              >
-	                              <a class="dropdown-item" href="javascript:void(0);"
-	                                ><i class="bx bx-trash me-2"></i> Delete</a
+	                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"
+	                                onclick="createDeleteModal('${newQuestions[i].questionID}', 'new')"><i class="bx bx-trash me-2"></i> Delete</a
 	                              >
 	                            </div>
 	                          </div>
@@ -66,6 +69,11 @@ function buildNewQuestions(newQuestionsList) {
 
 		newQuestionsList.innerHTML += question
 	}
+}
+
+//build new messages count
+function buildNewMessagesCount() {
+	newMessagesCount.innerHTML = `${newQuestions.length}`
 }
 
 //call GetAnsweredQuestionsServlet
@@ -77,12 +85,13 @@ function callGetAnsweredQuestionsServlet(answeredQuestionsList) {
 
 		answeredQuestions = response
 		answeredQuestionsListElement = answeredQuestionsList
-		
-		buildAnsweredQuestions(answeredQuestionsList)
+
+		buildAnsweredQuestions(answeredQuestionsList, answeredQuestions)
+		buildSearch('answered')
 	})
 }
 
-function buildAnsweredQuestions(answeredQuestionsList) {
+function buildAnsweredQuestions(answeredQuestionsList, answeredQuestions) {
 	answeredQuestionsList.innerHTML = ''
 
 	for (var i = 0; i < answeredQuestions.length; i++) {
@@ -126,8 +135,8 @@ function buildAnsweredQuestions(answeredQuestionsList) {
                                 <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalCenter2"
                                   onclick="createViewAnswerModal('${answeredQuestions[i].question}', '${answeredQuestions[i].answer}', '${answeredQuestions[i].questionID}')"><i class="bx bx-edit-alt me-2"></i> View</a
                                 >
-                                <a class="dropdown-item" href="javascript:void(0);"
-                                  ><i class="bx bx-trash me-2"></i> Delete</a
+                                <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                  onclick="createDeleteModal('${answeredQuestions[i].questionID}', 'answered')"><i class="bx bx-trash me-2"></i> Delete</a
                                 >
                               </div>
                             </div>
@@ -138,6 +147,23 @@ function buildAnsweredQuestions(answeredQuestionsList) {
 	}
 }
 
+//build search
+function buildSearch(from) {
+	var dynamicSearch = document.getElementById('dynamicSearch')
+
+	dynamicSearch.innerHTML = `<div class="nav-item d-flex align-items-center">
+				                  <i class="bx bx-search fs-4 lh-0"></i>
+				                  <input
+				                    type="text"
+				                    class="form-control border-0 shadow-none"
+				                    placeholder="Search..."
+				                    aria-label="Search..."
+				                    id="${from}Search"
+				                    oninput="buildSearchResults('${from}')"
+				                  />
+				                </div>`
+}
+
 //create viewAnswerModal
 var viewAnswerModalHeader = document.getElementById('viewAnswerModalHeader')
 var viewAnswerModalBody = document.getElementById('viewAnswerModalBody')
@@ -146,7 +172,7 @@ var currentAnswer
 
 function createViewAnswerModal(question, answer, questionID) {
 	currentAnswer = answer
-	
+
 	viewAnswerModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">View the Answer</h5>
 					              <button
 					                type="button"
@@ -154,6 +180,8 @@ function createViewAnswerModal(question, answer, questionID) {
 					                data-bs-dismiss="modal"
 					                aria-label="Close"
 					              ></button>`
+	viewAnswerModalHeader.style.display = ""
+
 	viewAnswerModalBody.innerHTML = `<span>${question}</span>
 					              <div class="row mt-3">
 					                <div class="mb-3">
@@ -161,10 +189,13 @@ function createViewAnswerModal(question, answer, questionID) {
 					                    <textarea id="editAnswerTextArea" class="form-control" placeholder="">${answer}</textarea>
 					                </div>
 					              </div>`
+	viewAnswerModalBody.style.padding = ""
+
 	viewAnswerModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 					                Close
 					              </button>
 					              <button type="button" class="btn btn-primary" onclick="toEditAnswerServlet('${questionID}')">Submit</button>`
+	viewAnswerModalFooter.style.display = ""
 }
 
 //call AnswerQuestionServlet
@@ -181,6 +212,8 @@ function createAnswerModal(question, questionID) {
 					                data-bs-dismiss="modal"
 					                aria-label="Close"
 					              ></button>`
+	answerModalHeader.style.display = ""
+
 	answerModalBody.innerHTML = `<span>${question}</span>
 					              <div class="row mt-3">
 					                <div class="mb-3">
@@ -188,10 +221,13 @@ function createAnswerModal(question, questionID) {
 					                    <textarea id="answerTextArea" class="form-control" placeholder=""></textarea>
 					                </div>
 					              </div>`
+	answerModalBody.style.padding = ""
+
 	answerModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 					                Close
 					              </button>
 					              <button type="button" class="btn btn-primary" onclick="toAnswerServlet('${questionID}');">Submit</button>`
+	answerModalFooter.style.display = ""
 }
 
 function toAnswerServlet(questionID) {
@@ -220,11 +256,11 @@ function callAnswerQuestionServlet(answer, questionID) {
 }
 
 //call EditAnsweredQuestionsServlet
-function toEditAnswerServlet(questionID){
+function toEditAnswerServlet(questionID) {
 	var newAnswer = document.getElementById('editAnswerTextArea').value
 	newAnswer = newAnswer.trim()
-	
-	if(newAnswer != currentAnswer) callEditAnsweredQuestionsServlet(newAnswer, questionID)
+
+	if (newAnswer != currentAnswer) callEditAnsweredQuestionsServlet(newAnswer, questionID)
 }
 
 function callEditAnsweredQuestionsServlet(answer, questionID) {
@@ -237,11 +273,87 @@ function callEditAnsweredQuestionsServlet(answer, questionID) {
 									        <span style="font-size: x-large;">${response}</span>
 									    </div>`
 		viewAnswerModalFooter.style = "display: none;"
-		
+
 		callGetAnsweredQuestionsServlet(answeredQuestionsListElement)
 
 		setTimeout(function() {
 			$('#modalCenter2').modal('hide')
 		}, 2500);
 	})
+}
+
+//call DeleteQuestionServlet
+var deleteModalHeader = document.getElementById('deleteModalHeader')
+var deleteModalBody = document.getElementById('deleteModalBody')
+var deleteModalFooter = document.getElementById('deleteModalFooter')
+
+function createDeleteModal(questionID, from) {
+	deleteModalHeader.innerHTML = `<button
+					                type="button"
+					                class="btn-close"
+					                data-bs-dismiss="modal"
+					                aria-label="Close"
+					              ></button>`
+	deleteModalHeader.style.display = ""
+
+	deleteModalBody.innerHTML = `<div style="display: flex; flex-direction: column; text-align: center;">
+					                <div class="icon-box">
+					                  <i class="material-icons">&times;</i>
+					                </div>						
+					                <h4 class="modal-title w-100">Are you sure?</h4>
+					                <p style="margin-top: 10px;">Do you really want to delete these records? This process cannot be undone.</p>
+					              </div>`
+	deleteModalBody.style.padding = ""
+
+	deleteModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					                Close
+					              </button>
+					              <button type="button" class="btn btn-danger" onclick="callDeleteQuestionServlet('${questionID}', '${from}')">Delete</button>`
+	deleteModalFooter.style.display = ""
+}
+
+function callDeleteQuestionServlet(questionID, from) {
+	$.post("http://localhost:8080/LankaHardware/DeleteQuestionServlet", { questionID: questionID }, function(response) {
+
+		deleteModalHeader.style = "display: none;"
+		deleteModalBody.style = "padding: 1rem;"
+		deleteModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									    </div>`
+		deleteModalFooter.style = "display: none;"
+
+		if (from == 'answered') callGetAnsweredQuestionsServlet(answeredQuestionsListElement)
+		else if (from == 'new') callGetNewQuestionsServlet(newQuestionsListElement)
+
+		setTimeout(function() {
+			$('#deleteModal').modal('hide')
+		}, 2500);
+	})
+}
+
+//build search results
+var searchResults = []
+
+function buildSearchResults(from) {
+	searchResults = []
+	var search = document.getElementById(`${from}Search`).value.toLowerCase()
+	search = search.trim()
+
+	if (from == 'new') {
+		for (var i = 0; i < newQuestions.length; i++) {
+			if(newQuestions[i].questionID.toLowerCase().includes(search)) searchResults.push(newQuestions[i])
+		}
+		
+		buildNewQuestions(newQuestionsList, searchResults)
+		
+	} else if (from == 'answered') {
+		for (var i = 0; i < answeredQuestions.length; i++) {
+			if(answeredQuestions[i].questionID.toLowerCase().includes(search)) searchResults.push(answeredQuestions[i])
+		}
+		
+		buildAnsweredQuestions(answeredQuestionsList, searchResults)
+	}
+
+
 }
