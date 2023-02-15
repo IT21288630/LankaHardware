@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import model.Admin;
+import model.Customer;
+import model.Item;
+import model.Question;
 import service.IQuestionService;
 import service.QuestionServiceImpl;
 
@@ -43,16 +47,29 @@ public class AnswerQuestionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
+		Question question = new Question();
+		Admin admin = new Admin();
+		Customer customer = new Customer();
+		Item item = new Item();
 		String email = "b@g.m";
-		String answer = request.getParameter("answer");
-		String questionID = request.getParameter("questionID");
+		admin.setEmail(email);
+		customer.setEmail(request.getParameter("customerEmail"));
+		item.setName(request.getParameter("itemName"));
+		item.setMainImg(request.getParameter("mainImg"));
+		
+		question.setAdmin(admin);
+		question.setCustomer(customer);
+		question.setItem(item);
+		question.setAnswer(request.getParameter("answer"));
+		question.setQuestionID(request.getParameter("questionID"));
+		question.setQuestion(request.getParameter("question"));
 		IQuestionService iQuestionService = new QuestionServiceImpl();
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iQuestionService.answerQuestion(answer, email, questionID));
+		String resp = new Gson().toJson(iQuestionService.answerQuestion(question));
 
 		out.print(resp);
 	}

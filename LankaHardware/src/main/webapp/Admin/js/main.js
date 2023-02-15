@@ -26,7 +26,7 @@ function buildNewQuestions(newQuestionsList, newQuestions) {
 	                        <td>
 	                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>${newQuestions[i].questionID}</strong>
 	                        </td>
-	                        <td>
+	                        <td style="display: flex;">
 	                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
 	                                <li
 	                                data-bs-toggle="tooltip"
@@ -36,9 +36,10 @@ function buildNewQuestions(newQuestionsList, newQuestions) {
 	                                title="${newQuestions[i].customer.email}"
 	                                >
 	                                    <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-	                                    ${newQuestions[i].customer.email}
+	                                    
 	                                </li>
 	                            </ul>
+	                            <span class="cutoff-text">${newQuestions[i].customer.email}</span>
 	                        </td>
 	                        
 	                        <td><span class="badge bg-label-success me-1">${newQuestions[i].item.itemID}</span></td>
@@ -57,7 +58,7 @@ function buildNewQuestions(newQuestionsList, newQuestions) {
 	                            </button>
 	                            <div class="dropdown-menu">
 	                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalCenter" id="openAnswerModal"
-	                                onclick="createAnswerModal('${newQuestions[i].question}', '${newQuestions[i].questionID}');"><i class="bx bx-edit-alt me-2"></i> Answer</a
+	                                onclick="createAnswerModal('${newQuestions[i].question}', '${newQuestions[i].questionID}', '${newQuestions[i].customer.email}', '${newQuestions[i].item.name}', '${newQuestions[i].item.mainImg}');"><i class="bx bx-edit-alt me-2"></i> Answer</a
 	                              >
 	                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"
 	                                onclick="createDeleteModal('${newQuestions[i].questionID}', 'new')"><i class="bx bx-trash me-2"></i> Delete</a
@@ -99,19 +100,20 @@ function buildAnsweredQuestions(answeredQuestionsList, answeredQuestions) {
                           <td>
                             <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>${answeredQuestions[i].questionID}</strong>
                           </td>
-                          <td>
+                          <td style="display: flex;">
                               <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                   <li
                                   data-bs-toggle="tooltip"
                                   data-popup="tooltip-custom"
                                   data-bs-placement="top"
                                   class="avatar avatar-xs pull-up"
-                                  title="Ted"
+                                  title="${answeredQuestions[i].customer.email}"
                                   >
                                       <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                      <span>${answeredQuestions[i].customer.email}</span>
+                                      
                                   </li>
                               </ul>
+                              <span class="cutoff-text">${answeredQuestions[i].customer.email}</span>
                           </td>
                           
                           <td><span class="badge bg-label-success me-1">${answeredQuestions[i].item.itemID}</span></td>
@@ -204,7 +206,7 @@ var answerModalHeader = document.getElementById('answerModalHeader')
 var answerModalBody = document.getElementById('answerModalBody')
 var answerModalFooter = document.getElementById('answerModalFooter')
 
-function createAnswerModal(question, questionID) {
+function createAnswerModal(question, questionID, customerEmail, itemName, mainImg) {
 	answerModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">Type the Answer</h5>
 					              <button
 					                type="button"
@@ -226,27 +228,32 @@ function createAnswerModal(question, questionID) {
 	answerModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 					                Close
 					              </button>
-					              <button type="button" class="btn btn-primary" onclick="toAnswerServlet('${questionID}');">Submit</button>`
+					              <button type="button" class="btn btn-primary" onclick="toAnswerServlet('${question}', '${questionID}', '${customerEmail}', '${itemName}', '${mainImg}');">Submit</button>`
 	answerModalFooter.style.display = ""
 }
 
-function toAnswerServlet(questionID) {
+function toAnswerServlet(question, questionID, customerEmail, itemName, mainImg) {
 	var answer = document.getElementById('answerTextArea').value
 	answer = answer.trim()
 
-	if (answer.length > 0) callAnswerQuestionServlet(answer, questionID)
+	if (answer.length > 0) callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg)
 }
 
-function callAnswerQuestionServlet(answer, questionID) {
-	$.post("http://localhost:8080/LankaHardware/AnswerQuestionServlet", { answer: answer, questionID: questionID }, function(response) {
+function callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg) {
+	answerModalHeader.style = "display: none;"
+	answerModalBody.style = "text-align: center;"
+	answerModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
+		                          <span class="visually-hidden">Loading...</span>
+		                        </div>`
+	answerModalFooter.style = "display: none;"
+	
+	$.post("http://localhost:8080/LankaHardware/AnswerQuestionServlet", { question: question, answer: answer, questionID: questionID, customerEmail: customerEmail, itemName: itemName, mainImg: mainImg }, function(response) {
 
-		answerModalHeader.style = "display: none;"
-		answerModalBody.style = "padding: 1rem;"
+		answerModalBody.style = "padding: 1rem; text-align: initial;"
 		answerModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
 									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
 									        <span style="font-size: x-large;">${response}</span>
-									    </div>`
-		answerModalFooter.style = "display: none;"
+									 </div>`
 		callGetNewQuestionsServlet(newQuestionsListElement)
 
 		setTimeout(function() {
@@ -264,15 +271,19 @@ function toEditAnswerServlet(questionID) {
 }
 
 function callEditAnsweredQuestionsServlet(answer, questionID) {
+	viewAnswerModalHeader.style = "display: none;"
+	viewAnswerModalBody.style = "text-align: center;"
+	viewAnswerModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
+			                          <span class="visually-hidden">Loading...</span>
+			                        </div>`
+	viewAnswerModalFooter.style = "display: none;"
 	$.post("http://localhost:8080/LankaHardware/EditAnsweredQuestionsServlet", { answer: answer, questionID: questionID }, function(response) {
 
-		viewAnswerModalHeader.style = "display: none;"
 		viewAnswerModalBody.style = "padding: 1rem;"
 		viewAnswerModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
 									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
 									        <span style="font-size: x-large;">${response}</span>
 									    </div>`
-		viewAnswerModalFooter.style = "display: none;"
 
 		callGetAnsweredQuestionsServlet(answeredQuestionsListElement)
 
@@ -313,15 +324,19 @@ function createDeleteModal(questionID, from) {
 }
 
 function callDeleteQuestionServlet(questionID, from) {
+	deleteModalHeader.style = "display: none;"
+	deleteModalBody.style = "text-align: center;"
+	deleteModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
+			                          <span class="visually-hidden">Loading...</span>
+			                        </div>`
+	deleteModalFooter.style = "display: none;"
 	$.post("http://localhost:8080/LankaHardware/DeleteQuestionServlet", { questionID: questionID }, function(response) {
 
-		deleteModalHeader.style = "display: none;"
 		deleteModalBody.style = "padding: 1rem;"
 		deleteModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
 									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
 									        <span style="font-size: x-large;">${response}</span>
 									    </div>`
-		deleteModalFooter.style = "display: none;"
 
 		if (from == 'answered') callGetAnsweredQuestionsServlet(answeredQuestionsListElement)
 		else if (from == 'new') callGetNewQuestionsServlet(newQuestionsListElement)

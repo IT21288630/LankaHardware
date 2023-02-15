@@ -585,7 +585,7 @@ function buildNewArrivalslist(newArrivals){
 	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a data-bs-toggle="modal" data-bs-target="#quickViewModal" href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
     							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${newArrivals[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
@@ -1140,7 +1140,7 @@ function buildAllReviewImages(images, containerID){
 	for(var i = 0; i < images.length; i++){
 		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 20%;">
 						<a href="${images[i]}" class="image-popup">
-							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template">
+							<img src="${images[i]}" class="img-fluid-ratings" alt="Colorlib Template">
 						</a>
 					</div>`
 		
@@ -1161,6 +1161,13 @@ function buildAllReviewImages(images, containerID){
 
 //build review filtered list
 function filterReviews(){
+	fiveStarReviews = []
+	fourStarReviews = []
+	threeStarReviews = []
+	twoStarReviews = []
+	oneStarReviews = []
+	reviewsWithImages = []
+	
 	for(var i = 0; i < allReviews.length; i++){
 		if(allReviews[i].stars == 5){
 			fiveStarReviews.push(allReviews[i])

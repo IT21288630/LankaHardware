@@ -14,6 +14,8 @@
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
+	<link rel="stylesheet" href="nice select/css/nice-select.css">
+
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
     
@@ -32,6 +34,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="quantity/style.css">
+    
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-black">
@@ -542,9 +546,116 @@
 	</div>
 	<!-- Search End -->
 
-	<!--Search Js Plugins -->
-	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
-	<script src="ashion-master/js/main.js"></script>
+	<!-- Modal -->
+	<div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
+		  <div class="modal-content quickView-modalContent">
+			<div class="modal-header quickView-header" style="justify-content: flex-end; padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">
+			  <button data-bs-dismiss="modal" style="border: none; outline: none; background: none; font-size: 1.25rem; font-weight: bold; color: rgb(0, 0, 0);">&times;</button>
+			</div>
+			<div class="modal-body quickView-body" style="padding-bottom: 0px; padding-top: 0px;">
+					<div class="quickView-imgContainer">
+						<img src="images/product-1.jpg" class="quickView-img" alt="Colorlib Template">
+					</div>
+
+					<div class="product-details ftco-animate fadeInUp ftco-animated quickView-description">
+						<h3>Nike Free RN 2019 iD</h3>
+						<div class="rating d-flex">
+							<p class="text-left mr-4">
+								<a href="#" class="mr-2">5.0</a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+							</p>
+						</div>
+						<p class="price"><span>$120.00</span></p>
+						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
+							is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+						<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
+							would have been rewritten a thousand times and everything that was left from its origin would be
+							the word "and" and the Little Blind Text should turn around and return to its own, safe country.
+							But nothing the copy said could convince her and so it didn’t take long until a few insidious
+							Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
+							agency, where they abused her for their.
+						</p>
+						<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
+							would have been rewritten a thousand times and everything that was left from its origin would be
+							the word "and" and the Little Blind Text should turn around and return to its own, safe country.
+							But nothing the copy said could convince her and so it didn’t take long until a few insidious
+							Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
+							agency, where they abused her for their.
+						</p>
+						<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
+							would have been rewritten a thousand times and everything that was left from its origin would be
+							the word "and" and the Little Blind Text should turn around and return to its own, safe country.
+							But nothing the copy said could convince her and so it didn’t take long until a few insidious
+							Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
+							agency, where they abused her for their.
+						</p>
+						<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
+							would have been rewritten a thousand times and everything that was left from its origin would be
+							the word "and" and the Little Blind Text should turn around and return to its own, safe country.
+							But nothing the copy said could convince her and so it didn’t take long until a few insidious
+							Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
+							agency, where they abused her for their.
+						</p>
+						<div class="row mt-4">
+							<div class="col-md-6">
+								<div class="form-group d-flex">
+									<div class="select-wrap">
+										<select name="" id="" class="form-control">
+											<option value="">Small</option>
+											<option value="">Medium</option>
+											<option value="">Large</option>
+											<option value="">Extra Large</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="input-group col-md-6 d-flex mb-3">
+								<div class="quantity buttons_added">
+									<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+								</div>
+							</div>
+						</div>
+						<p style="width: 100%;"><a href="cart.html" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;" data-bs-dismiss="modal">Add to Cart</a>
+						</p>
+					</div>
+				
+			</div>
+			<div class="modal-footer quickView-footer">
+			  
+			</div>
+		  </div>
+		</div>
+	</div>
+
+	<!-- build:js assets/vendor/js/core.js -->
+	<script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="Admin/assets/vendor/libs/popper/popper.js"></script>
+	<script src="Admin/assets/vendor/js/bootstrap.js"></script>
+	<script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+	<script src="Admin/assets/vendor/js/menu.js"></script>
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+
+	<!-- Main JS -->
+	<script src="Admin/assets/js/main.js"></script>
+
+	<!-- Page JS -->
+	<script src="Admin/assets/js/ui-modals.js"></script>
+
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <!--Search Js Plugins -->
+  <script src="ashion-master/js/jquery-3.3.1.min.js"></script>
+  <script src="ashion-master/js/main.js"></script>
 
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -563,12 +674,16 @@
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
   <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
-    
+  <script defer src="quantity/script.js"></script>
+  <script src="nice select/js/jquery.js"></script> 
+  <script src="nice select/js/jquery.nice-select.js"></script>
+	
     <script>
 	//Call index servlet
 		$(document).ready(function () {
 			callIndexServlet()
 			callCartServlet()
+			jQuery('select').niceSelect();
 		});
 	</script>
   </body>
