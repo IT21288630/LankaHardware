@@ -2,6 +2,7 @@ package service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +10,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.http.Part;
+
+import org.apache.commons.io.FileUtils;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import model.Customer;
 import model.Review;
@@ -273,11 +281,8 @@ public class ReviewServiceImpl implements IReviewService {
 
 		ArrayList<String> ids = new ArrayList<>();
 		Review review = new Review();
-		ArrayList<String> filePathArrayList = new ArrayList<>();
-		String fileName;
-		String path = CommonConstants.QUERY_ID_REVIEW_IMAGES_PATH;
-		String basePath = CommonConstants.QUERY_ID_BASE_PATH;
-		String relativePath;
+		ArrayList<String> imagePathArrayList = new ArrayList<>();
+
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -298,43 +303,54 @@ public class ReviewServiceImpl implements IReviewService {
 			pst.setInt(CommonConstants.COLUMN_INDEX_FIVE, stars);
 			pst.executeUpdate();
 
+			// Configure to upload to cloudinary
+			Map config = new HashMap();
+			config.put("cloud_name", "dqgiitni2");
+			config.put("api_key", "987952682616387");
+			config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
+			Cloudinary cloudinary = new Cloudinary(config);
+
 			for (Part part : reviewImages) {
 				if (part.getSubmittedFileName() != null) {
-					fileName = part.getSubmittedFileName();
-					String newfileName;
-					int i = 1;
-
-					while (true) {
-						newfileName = fileName.substring(0, fileName.indexOf(".")) + "(" + i + ")";
-						newfileName += fileName.substring(fileName.indexOf("."));
-
-						File file = new File(path + File.separator + newfileName);
-
-						if (file.exists()) {
-							System.out.println("Image already exist");
-							// System.out.println("current name: " + newfileName);
-							i++;
-						} else {
-							relativePath = new File(basePath).toURI().relativize(new File(file.getPath()).toURI())
-									.getPath();
-
-							filePathArrayList.add(relativePath);
-							break;
-						}
-
-					}
 
 					try {
-						part.write(path + File.separator + newfileName);
+						InputStream is = part.getInputStream();
+
+						File tempFile = File.createTempFile("javaMyfile", ".xls");
+						FileUtils.copyToFile(is, tempFile);
+
+						System.out.println(tempFile.getName());
+						System.out.println(tempFile.exists());
+
+						// Upload to cloudinary
+						try {
+							Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
+							imagePathArrayList.add(map.get("url"));
+						} catch (IOException exception) {
+							System.out.println(exception.getMessage());
+						}
+
+						System.out.println("deleting " + tempFile.getAbsolutePath() + " " + tempFile.delete());
+						System.out.println(tempFile.exists());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
-					// System.out.println("new name: " + newfileName);
-
 				}
 			}
+
+			System.out.println(imagePathArrayList);
+			review.setReviewImages(imagePathArrayList);
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_REVIEW_IMAGES);
+
+			for (String image : imagePathArrayList) {
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, review.getReviewID());
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, image);
+				pst.executeUpdate();
+			}
+
+			System.out.println("success");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

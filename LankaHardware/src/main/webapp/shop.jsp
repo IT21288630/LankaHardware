@@ -97,12 +97,12 @@
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item"><a href="javascript: return false;" class="nav-link"><i
+					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
 							class="icon_search search-switch"></i></a></li>
 					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a
-						href="javascript: return false;" class="nav-link"><span class="icon-shopping_cart"></span><span
+						href="javascript: stopScrollingToTop();" class="nav-link"><span class="icon-shopping_cart"></span><span
 							id="cartQuantity"></span></a></li>
-					<li class="nav-item"><a href="#" class="nav-link"><i
+					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
 							class="fa-solid fa-user"></i></a></li>
 				</ul>
 			</div>
@@ -159,6 +159,42 @@
 								<div class="panel-group" id="accordion" role="tablist"
 									aria-multiselectable="true"></div>
 							</div>
+						</div>
+						<div class="sidebar-box-2">
+							<h2 class="heading">Brand</h2>
+							<form method="post" class="colorlib-form-2">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div style="display: flex; flex-direction: column;" id="brandListElement">
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="sidebar-box-2">
+							<h2 class="heading">Availability</h2>
+							<form method="post" class="colorlib-form-2">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div style="display: flex; flex-direction: column;">
+												<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+													<span style="width: fit-content;">in stock</span>
+													<input class="brand-check-input" type="radio" value="" name="brand" checked>
+												</label>
+												<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+													<span style="width: fit-content;">include out of stock</span>
+													<input class="brand-check-input" type="radio" value="" name="brand">
+												</label>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</form>
 						</div>
 						<div class="sidebar-box-2">
 							<h2 class="heading">Price Range</h2>

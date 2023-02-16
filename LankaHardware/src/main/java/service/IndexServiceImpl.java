@@ -33,6 +33,7 @@ public class IndexServiceImpl implements IIndexService {
 		// TODO Auto-generated method stub
 
 		IReviewService iReviewService = new ReviewServiceImpl();
+		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		ArrayList<Item> items = new ArrayList<>();
 		Index index = new Index();
 		con = DBConnectionUtil.getDBConnection();
@@ -51,13 +52,16 @@ public class IndexServiceImpl implements IIndexService {
 				item.setName(rs2.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setBrand(rs2.getString(CommonConstants.COLUMN_INDEX_TWO));
 				item.setMainImg(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setDescription(rs2.getString(CommonConstants.COLUMN_INDEX_FOUR));
 
 				items.add(item);
 			}
 
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
+				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

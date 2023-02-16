@@ -46,4 +46,11 @@ public interface IWishlistService {
 	 */
 	public ArrayList<Item> getWishlist(String email);
 	
+	/**
+	 * send back in stock email to customers
+	 * 
+	 * @param itemID
+	 */
+	public String sendBackInStockEmail(String itemID);
+	
 }

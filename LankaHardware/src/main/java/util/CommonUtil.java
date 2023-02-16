@@ -63,6 +63,12 @@ public class CommonUtil {
 				next++;
 				id = CommonConstants.REVIEW_ID_PREFIX + next;
 			}
+		} else if (idType.equals("question")) {
+			id = CommonConstants.QUESTION_ID_PREFIX + next;
+			while (arrayList.contains(id)) {
+				next++;
+				id = CommonConstants.QUESTION_ID_PREFIX + next;
+			}
 		}
 
 		return id;

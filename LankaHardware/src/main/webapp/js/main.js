@@ -367,6 +367,30 @@ var reviewContainer = document.getElementById('reviewContainer')
 var currentFilters = document.getElementById('currentFilters')
 var sortBy = document.getElementById('people')
 var relatedProductList = document.getElementById('relatedProductList')
+var ratingSubmitBtn = document.getElementById('ratingSubmitBtn')
+var sendEmailBtn = document.getElementById('sendEmailBtn')
+var emailModalBody = document.getElementById('emailModalBody')
+var totalRatings = document.getElementById('totalRatings')
+var averageProductRating = document.getElementById('averageProductRating')
+var brandListElement = document.getElementById('brandListElement')
+var allToggle = document.getElementById('allToggle')
+var imagesToggle = document.getElementById('imagesToggle')
+var fiveStarToggle = document.getElementById('fiveStarToggle')
+var fourStarToggle = document.getElementById('fourStarToggle')
+var threeStarToggle = document.getElementById('threeStarToggle')
+var twoStarToggle = document.getElementById('twoStarToggle')
+var oneStarToggle = document.getElementById('oneStarToggle')
+var productQuestionsList = document.getElementById('productQuestionsList')
+var totalQuestions = document.getElementById('totalQuestions')
+var openQuestionModal = document.getElementById('openQuestionModal')
+var questionModalHeader = document.getElementById('questionModalHeader')
+var questionModalBody = document.getElementById('questionModalBody')
+var questionModalFooter = document.getElementById('questionModalFooter')
+var quickViewModal = document.getElementById('quickViewModal')
+
+function stopScrollingToTop(){
+	return false
+}
 
 //Mini cart
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -501,8 +525,29 @@ function deleteWishlistItemElement(id){
 	productCard.style = "display: none;"
 }
 
+//call SendBackInStockEmailServlet
+function callSendBackInStockEmailServlet(){
+	var itemID = 'i200'
+	
+	emailModalBody.innerHTML = `<span class="loader">Send&nbsp;ng</span>
+                    			<span class="loader2"></span>`
+	
+	$.post("http://localhost:8080/LankaHardware/SendBackInStockEmailServlet", {itemID : itemID}, function(response){
+	   
+	   emailModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									</div>`
+									
+		setTimeout(function() {
+			$('#emailModal').modal('hide')
+		}, 2500);
+	})
+}
+
 //call index servlet
 var newArrivals = []
+var quickViewsizesAndPrizes = []
 
 function callIndexServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetIndexServlet", function(response) {
@@ -514,7 +559,9 @@ function callIndexServlet(){
 }
 
 function buildNewArrivalslist(newArrivals){
-	for(var i = 0; i < newArrivals.length; i++){	
+	for(var i = 0; i < newArrivals.length; i++){
+		quickViewsizesAndPrizes.push(newArrivals[i].sizesAndPrizes)
+		
 		var starID = newArrivals[i].itemID + 'AvgStar'
 
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
@@ -542,7 +589,7 @@ function buildNewArrivalslist(newArrivals){
 	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a data-bs-toggle="modal" data-bs-target="#quickViewModal" href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); buildQuickView('${newArrivals[i].itemID}', '${newArrivals[i].mainImg}', '${newArrivals[i].name}', '${newArrivals[i].price}', '${newArrivals[i].description}', ${newArrivals[i].avgRating}, ${i}); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
     							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${newArrivals[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
@@ -551,6 +598,79 @@ function buildNewArrivalslist(newArrivals){
     			
     	newArrival_itemList.innerHTML += item
     	buildAverageRating(newArrivals[i], starID)
+	}
+}
+
+//build quick view
+function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes){
+	var starID = `QuickViewStar`
+	
+	quickViewModal.innerHTML = `<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
+								  <div class="modal-content quickView-modalContent">
+									<div class="modal-header quickView-header" style="justify-content: flex-end; padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">
+									  <button data-bs-dismiss="modal" style="border: none; outline: none; background: none; font-size: 1.25rem; font-weight: bold; color: rgb(0, 0, 0);">&times;</button>
+									</div>
+									<div class="modal-body quickView-body" style="padding-bottom: 0px; padding-top: 0px;">
+											<div class="quickView-imgContainer">
+												<img src="${mainImg}" class="quickView-img" alt="Colorlib Template">
+											</div>
+						
+											<div class="product-details ftco-animate fadeInUp ftco-animated quickView-description">
+												<h3>${name}</h3>
+												<div class="rating d-flex">
+													<p class="text-left mr-4">
+														<a href="#" class="mr-2">${Math.round(avgRating * 10) / 10}</a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
+													</p>
+												</div>
+												<p class="price"><span>$${price}</span></p>
+												<p>${description}</p>
+												<div class="row mt-4">
+													<div class="col-md-6">
+														<div class="form-group d-flex">
+															<div class="select-wrap">
+																<select name="" id="ProductSizes" class="form-control">
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="w-100"></div>
+													<div class="input-group col-md-6 d-flex mb-3">
+														<div class="quantity buttons_added">
+															<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
+														</div>
+													</div>
+												</div>
+												<p style="width: 100%;" onclick="addToCartFromSingleProductPage('${itemID}', 0); return false;"><a href="cart.html" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;" data-bs-dismiss="modal">Add to Cart</a>
+												</p>
+											</div>
+										
+									</div>
+									<div class="modal-footer quickView-footer">
+									  
+									</div>
+								  </div>
+								</div>`
+	
+	buildQuickViewSizes(sizesAndPrizes)						
+	jQuery('select').niceSelect();
+	var item = {"avgRating": avgRating}
+    buildAverageRating(item, starID)
+}
+
+//build quick view sizes and prices
+function buildQuickViewSizes(sizesAndPrizes){
+	var ProductSizes = document.getElementById('ProductSizes')
+	ProductSizes.innerHTML = ''
+	
+	for(const [size, price] of Object.entries(quickViewsizesAndPrizes[sizesAndPrizes])){
+		var productSize = `<option value="${size}">${size}</option>`
+		
+		ProductSizes.innerHTML += productSize
 	}
 }
 
@@ -716,13 +836,12 @@ function buildMiniCart(cartItems){
 }
 
 function getCartQuantity(){
-	
 	var qtyTotal = 0
 	for(var i = 0; i < cartItems.length; i++){
 		qtyTotal += cartItems[i].quantity
 	}
 	
-	var no_of_Items = `[${qtyTotal}]`
+	var no_of_Items = qtyTotal
 	
 	cartQuantity.innerHTML = no_of_Items
 }
@@ -756,7 +875,9 @@ function buildMainCart(cartItems, Total){
 
 						<td>
 						    <div class="quantity buttons_added">
-								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')"><input type="button" value="+" class="plus">
+								<input type="button" value="-" class="minus">
+								<input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')">
+								<input type="button" value="+" class="plus">
 							</div>
 					    </td>
 
@@ -776,7 +897,7 @@ function cartTotal(Total){
 
 //Add to cart
 function callAddToCartServlet(itemID, quantity, size){
-	if(quantity != 1){
+	if(quantity == 0){
 		var productSingleQuantity = document.getElementById('productSingleQuantity').value
 		quantity = productSingleQuantity
 	}
@@ -854,6 +975,14 @@ var product = []
 var productSizeAndPriceList = []
 var allReviews = []
 var relatedProducts = []
+var oneStarReviews = []
+var twoStarReviews = []
+var threeStarReviews = []
+var fourStarReviews = []
+var fiveStarReviews = []
+var reviewsWithImages = []
+var productQuestions = []
+var itemIDForQuestion
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
@@ -862,18 +991,22 @@ function callGetProductSingleServlet(itemID){
 		productSizeAndPriceList = response[1]
 		allReviews = response[2]
 		relatedProducts = response[3]
+		productQuestions = response[4]
+		itemIDForQuestion = product.itemID
 		
-		console.log(relatedProducts)
 		buildProductSingle(product)
 		buildProductSizes()
-		buildReviewPercentagesAndCounts(product)
+		buildReviewPercentagesAndCounts(product, product.ratingCount)
 		buildAllReviews(allReviews, product.ratingCount)
 		buildRelatedProducts()
+		filterReviews()
+		bulidProductQuestions()
 	})
 }
 
 function buildProductSingle(product){
 	var starID = 'productStar'
+	productDetails.innerHTML = ''
 	
 	var details = `<div class="col-lg-5">
                     <img src="${product.mainImg}" class="img-fluid pb-1" alt="Colorlib Template" id="mainImg">
@@ -970,15 +1103,73 @@ function buildProductSizes(){
 }
 
 //Building review percentages and counts
-function buildReviewPercentagesAndCounts(product){
+function buildReviewPercentagesAndCounts(product, ratingCount){
+	totalRatings.innerHTML = ratingCount
+	averageProductRating.innerHTML = product.avgRating.toFixed(1)
 	for(var i = 5; i >= 1; i--){
 		
 		var percentageElement = document.getElementById(`${numberToWord(i)}StarPercentage`)
 		var countElement = document.getElementById(`${numberToWord(i)}StarCount`)
-		
-		percentageElement.innerHTML = `(${parseInt(product.ratingPercentageList[i - 1][0])}%)`
+		updateProgressBar(percentageElement, product.ratingPercentageList[i - 1][0]);
+		//percentageElement.innerHTML = `(${parseInt(product.ratingPercentageList[i - 1][0])}%)`
 		countElement.innerHTML = `${parseInt(product.ratingPercentageList[i - 1][1])} Reviews`
 	}
+	
+	var starID = `overviewStar`
+	buildAverageRating(product, starID)
+}
+
+function updateProgressBar(progressBar, value) {
+	value = Math.round(value);
+	progressBar.querySelector(".ratingProgress__fill").style.width = `${value}%`;
+	//progressBar.querySelector(".progress__text").textContent = `${value}%`;
+}
+
+//Build product questions
+function bulidProductQuestions(){
+	totalQuestions.innerHTML = `${productQuestions.length} Questions`
+	productQuestionsList.innerHTML = ''
+	
+	for(var i = 0; i < productQuestions.length; i++){
+		var answerID = `${productQuestions[i].questionID}Answer`
+		var question = `<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
+						<li class="comment">
+							<div class="vcard bio">
+								<img src="images/person_1.jpg" alt="Image placeholder">
+							</div>
+							<div class="comment-body">
+								<h3>${productQuestions[i].customer.email}</h3>
+								<div class="meta">${productQuestions[i].questionDate}</div>
+								<p><span>Question: </span> ${productQuestions[i].question}</p>
+								
+							</div>
+	
+							<ul class="children" id="${answerID}" style="padding: 0px;">
+								
+							</ul>
+						</li>
+					</ul>`
+		
+		productQuestionsList.innerHTML += question
+		if(productQuestions[i].admin.email != null && productQuestions[i].answer != null) buildProductAnswers(answerID, productQuestions[i].admin.email, productQuestions[i].answer, productQuestions[i].answerDate)
+	}
+}
+
+//Build product answers
+function buildProductAnswers(answerID, email, answer, answerDate){
+	var answerElement = document.getElementById(answerID)
+	answerElement.style = "padding: 50px 0 0 40px;"
+	
+	answerElement.innerHTML = `<li class="comment">
+									<div class="vcard bio">
+										<img src="images/person_1.jpg" alt="Image placeholder">
+									</div>
+									<div class="comment-body">
+										<h3>${email}</h3>
+										<div class="meta">${answerDate}</div>
+										<p><span>Answer: </span> ${answer}</p>
+									</div>
+								</li>`
 }
 
 //Build all reviews
@@ -1023,9 +1214,9 @@ function buildAllReviewImages(images, containerID){
 	var reviewImageContainer = document.getElementById(`${containerID}ImageContainer`)
 	
 	for(var i = 0; i < images.length; i++){
-		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 30%;">
+		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 20%;">
 						<a href="${images[i]}" class="image-popup">
-							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template">
+							<img src="${images[i]}" class="img-fluid-ratings" alt="Colorlib Template">
 						</a>
 					</div>`
 		
@@ -1042,6 +1233,113 @@ function buildAllReviewImages(images, containerID){
 		          }
 
 		});
+}
+
+//build review filtered list
+function filterReviews(){
+	fiveStarReviews = []
+	fourStarReviews = []
+	threeStarReviews = []
+	twoStarReviews = []
+	oneStarReviews = []
+	reviewsWithImages = []
+	
+	for(var i = 0; i < allReviews.length; i++){
+		if(allReviews[i].stars == 5){
+			fiveStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 4){
+			fourStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 3){
+			threeStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 2){
+			twoStarReviews.push(allReviews[i])
+		}else if(allReviews[i].stars == 1){
+			oneStarReviews.push(allReviews[i])
+		}
+		if(allReviews[i].reviewImages.length > 0){
+			reviewsWithImages.push(allReviews[i])
+		}
+	}
+}
+
+//get filtered reviews
+function getFilteredReviews(type){
+	if(type == 'all'){
+		allToggle.checked = true
+		toggleReviewFilterCheck()
+		buildAllReviews(allReviews, allReviews.length)
+	}else if(type == 'with images'){
+		imagesToggle.checked = true
+		toggleReviewFilterCheck()
+		if(reviewsWithImages.length == 0) emptyFilteredReviews('images.')
+		else buildAllReviews(reviewsWithImages, reviewsWithImages.length)
+	}else if(type == 'fiveStar'){
+		fiveStarToggle.checked = true
+		toggleReviewFilterCheck()
+		if(fiveStarReviews.length == 0) emptyFilteredReviews('five stars.')
+		else buildAllReviews(fiveStarReviews, fiveStarReviews.length)
+	}else if(type == 'fourStar'){
+		fourStarToggle.checked = true
+		toggleReviewFilterCheck()
+		if(fourStarReviews.length == 0) emptyFilteredReviews('four stars.')
+		else buildAllReviews(fourStarReviews, fourStarReviews.length)
+	}else if(type == 'threeStar'){
+		threeStarToggle.checked = true
+		toggleReviewFilterCheck()
+		if(threeStarReviews.length == 0) emptyFilteredReviews('three stars.')
+		else buildAllReviews(threeStarReviews, threeStarReviews.length)
+	}else if(type == 'twoStar'){
+		twoStarToggle.checked = true
+		toggleReviewFilterCheck()
+		if(twoStarReviews.length == 0) emptyFilteredReviews('two stars.')
+		else buildAllReviews(twoStarReviews, twoStarReviews.length)
+	}else if(type == 'oneStar'){
+		oneStarToggle.checked = true
+		toggleReviewFilterCheck()
+		if(oneStarReviews.length == 0) emptyFilteredReviews('one stars.')
+		else buildAllReviews(oneStarReviews, oneStarReviews.length)
+	}
+	
+}
+
+//toggle the check mark
+function toggleReviewFilterCheck() {
+	var allCheck = document.getElementById('allCheck')
+	var imagesCheck = document.getElementById('imagesCheck')
+	var fiveCheck = document.getElementById('fiveCheck')
+	var fourCheck = document.getElementById('fourCheck')
+	var threeCheck = document.getElementById('threeCheck')
+	var twoCheck = document.getElementById('twoCheck')
+	var oneCheck = document.getElementById('oneCheck')
+
+	allCheck.style = "display: none;"
+	imagesCheck.style = "display: none;"
+	fiveCheck.style = "display: none;"
+	fourCheck.style = "display: none;"
+	threeCheck.style = "display: none;"
+	twoCheck.style = "display: none;"
+	oneCheck.style = "display: none;"
+
+	if (allToggle.checked == true) {
+		allCheck.style = "display: block; color: green;"
+	} else if (imagesToggle.checked == true) {
+		imagesCheck.style = "display: block; color: green;"
+	} else if (fiveStarToggle.checked == true) {
+		fiveCheck.style = "display: block; color: green;"
+	} else if (fourStarToggle.checked == true) {
+		fourCheck.style = "display: block; color: green;"
+	} else if (threeStarToggle.checked == true) {
+		threeCheck.style = "display: block; color: green;"
+	} else if (twoStarToggle.checked == true) {
+		twoCheck.style = "display: block; color: green;"
+	} else if (oneStarToggle.checked == true) {
+		oneCheck.style = "display: block; color: green;"
+	}
+}
+
+//empty filtered reviews
+function emptyFilteredReviews(text){
+	reviewContainer.innerHTML = `<h4 style="color: grey; text-align: center;">No reviews with ${text}</h4>`
 }
 
 //build related products
@@ -1214,6 +1512,8 @@ var priceRangeChanged = false
 var clickedCategory = false
 var sortByValue
 var sortByFilterOpen = false
+var brandList = []
+var currentBrand = ''
 
 function callGetShopServlet(){
 	var itemName
@@ -1235,6 +1535,7 @@ function callGetShopServlet(){
 		buildShopCategories()
 		buildPriceRange()
 		buildCurrentFilters()
+		buildDefaultBrandList()
 	})
 }
 
@@ -1326,6 +1627,13 @@ function buildShopCategories(){
 //Set current main category
 function setCurrentMainCategory(mainCategory){
 	currentMainCategory = mainCategory
+	currentBrand = ''
+}
+
+//set current brand
+function setCurrentBrand(){
+	currentBrand = document.querySelector('input[name="brand"]:checked').value
+	callGetCustomizedShopServlet(currentMainCategory)
 }
 
 //Build price range
@@ -1350,29 +1658,72 @@ function buildPriceRange(){
 
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
-	
-	if(mainCategory == undefined) {
+	if(mainCategory == undefined){
 		buildShopCategories()
 		mainCategory = `%%`
-	}
-	else mainCategory = `%${mainCategory}%`
+	}else mainCategory = `%${mainCategory}%`
 	
 	var itemName
 	if(itemNameForShop != undefined){
 		itemName = itemNameForShop
 		itemName = `%${itemName}%`
-	} else{
+	}else{
 		itemName = `%%`
+	}
+	
+	var brand
+	if(currentBrand == "" || currentBrand == null){
+		brand = `%%`
+	}else{
+		brand = `%${currentBrand}%`
 	}
 	
 	var lowerPrice = priceMin.value
 	var higherPrice = priceMax.value
 	
-	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName}, function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName, brand: brand}, function(response) {
 		
-		customizedShopItems = response
+		customizedShopItems = response[0]
+		brandList = response[1]
+		
 		buildShopItems(customizedShopItems)
+		buildDefaultBrandList()
+		if(brandList != null) buildBrandList()
 	})
+}
+
+//build default brand list
+function buildDefaultBrandList(){
+	if(currentBrand == '' || currentBrand == null){
+		brandListElement.innerHTML = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+										<span style="width: fit-content;">All</span>
+										<input class="brand-check-input" type="radio" value='' name="brand" checked onclick="setCurrentBrand()" id="allBrandRadioButton">
+									  </label>`
+	}else {
+		brandListElement.innerHTML = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+										<span style="width: fit-content;">All</span>
+										<input class="brand-check-input" type="radio" value='' name="brand" onclick="setCurrentBrand()" id="allBrandRadio">
+									  </label>`
+	}
+	
+	
+}
+
+//build brand list
+function buildBrandList(){
+	for(var i = 0; i < brandList.length; i++){
+		var brand = `<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
+						<span style="width: fit-content;">${brandList[i]}</span>
+						<input class="brand-check-input" type="radio" value="${brandList[i]}" name="brand" onclick="setCurrentBrand()">
+					 </label>`
+					 
+		brandListElement.innerHTML += brand
+	}
+	
+	var selectedRadioButton
+	
+	selectedRadioButton = document.querySelector(`input[name="brand"][value='${currentBrand}']`)
+	selectedRadioButton.checked = true
 }
 
 //build current filters
@@ -1411,6 +1762,7 @@ function buildCurrentFilters(){
 //remove main category
 function removeMainCategory(){
 	currentMainCategory = null
+	currentBrand = ''
 	buildCurrentFilters()
 }
 
@@ -1437,6 +1789,8 @@ function removeSortBy(){
 function resetCurrentFilters(){
 	currentFilters.innerHTML = ``
 	currentMainCategory = null
+	currentBrand = ''
+	brandList = null
 	itemNameForShop = null
 	sortByFilterOpen = false
 	sortBy.value = 'Price: Low To High'
@@ -1454,6 +1808,72 @@ function shopEmpty(){
 							
 	var pagination = document.getElementById('pagination')
 	pagination.style = "display: none;"
+}
+
+//call AddReviewServlet
+
+function test(){
+	console.log(ratingSubmitBtn)
+}
+
+function callAddReviewServlet(){
+	var inputFile = document.getElementById('inputFile')
+	var reviewDescription = document.getElementById('reviewDescription').value
+	var stars = document.querySelector('input[name="rate"]:checked').value
+	var endpoint = "http://localhost:8080/LankaHardware/AddReviewServlet"
+	var formData = new FormData();
+	
+	for(const file of inputFile.files){
+		formData.append('inputFile', file)
+	}
+	
+	formData.append('reviewDescription', reviewDescription)
+	formData.append('stars', stars)
+	
+	fetch(endpoint, {
+		method: "post",
+		body: formData
+	}).catch(console.error)
+}
+	
+
+//call AskQuestionServlet
+openQuestionModal.addEventListener('click', () => {
+	questionModalHeader.innerHTML = `<i class="fa-solid fa-arrow-left" data-bs-dismiss="modal" style="font-size: large;"></i>
+									<h5 style="color: gray;"> Ask a Question </h5>`
+	questionModalBody.innerHTML = `<textarea name="desc" id="questionTextArea" cols="30" rows="7" class="form-control reviewTextArea" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>`
+    questionModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+									 <button type="button" class="btn btn-primary" id="questionSubmitBtn" onclick="toQuestionServlet();">Submit</button>`
+
+	questionModalHeader.style = "display: flex; justify-content: flex-start; border-bottom: none; padding-bottom: 0px; align-items: baseline; column-gap: 10px;"
+	questionModalBody.style = "display: flex;"
+	questionModalFooter.style = "display: flex; border-top: none;"
+})
+
+function toQuestionServlet(){
+	var question = document.getElementById('questionTextArea').value
+	question = question.trim()
+	if(question.length > 0) callAskQuestionServlet(question)
+}
+
+function callAskQuestionServlet(question){
+	var itemID = itemIDForQuestion
+	
+	$.post("http://localhost:8080/LankaHardware/AskQuestionServlet", {question : question, itemID : itemID}, function(response){
+	    
+	    questionModalHeader.style = "display: none;"
+	    questionModalBody.style = "padding: 1rem;"
+	    questionModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									    </div>`
+	    questionModalFooter.style = "display: none;"
+	    callGetProductSingleServlet(itemID)
+	    
+	    setTimeout(function() {
+	    	$('#modalCenter').modal('hide')
+	  	}, 2500);
+	})
 }
 
 //Get the number in words

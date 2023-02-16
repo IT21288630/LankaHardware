@@ -16,9 +16,7 @@
 	type="text/css">
 <link rel="stylesheet" href="css/search.css" type="text/css">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
 <link rel="stylesheet" href="nice select/css/nice-select.css">
 
@@ -123,12 +121,12 @@
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item"><a href="javascript: return false;" class="nav-link"><i
+					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
 							class="icon_search search-switch"></i></a></li>
 					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a
-						href="javascript: return false;" class="nav-link"><span class="icon-shopping_cart"></span><span
+						href="javascript: stopScrollingToTop();" class="nav-link"><span class="icon-shopping_cart"></span><span
 							id="cartQuantity"></span></a></li>
-					<li class="nav-item"><a href="#" class="nav-link"><i
+					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
 							class="fa-solid fa-user"></i></a></li>
 				</ul>
 			</div>
@@ -177,59 +175,121 @@
 								<a class="nav-link ftco-animate active" id="v-pills-3-tab"
 									data-toggle="pill" href="#v-pills-3" role="tab"
 									aria-controls="v-pills-3" aria-selected="false"
-									style="width: 100%;">Reviews</a>
+									style="width: 100%; padding: 15px 10px;">Reviews</a>
 
 							</div>
 
+							<div class="col-md-4" style="max-width: 100%;">
+									<div class="rating-wrap">
+									<div style="display: none;">
+											<input type="radio" name="toggleTick" id="allToggle">
+											<input type="radio" name="toggleTick" id="imagesToggle">
+											<input type="radio" name="toggleTick" id="fiveStarToggle">
+											<input type="radio" name="toggleTick" id="fourStarToggle">
+											<input type="radio" name="toggleTick" id="threeStarToggle">
+											<input type="radio" name="toggleTick" id="twoStarToggle">
+											<input type="radio" name="toggleTick" id="oneStarToggle">
+										</div>
+										<h3 class="mb-4">Overview</h3>
+										<div style="display: flex; justify-content: center; align-items: center; column-gap: 100px;">
+                                    <div>
+                                        <span style="font-size: xxx-large;" id="averageProductRating">4.1</span>
+                                        <p class="star" style="display: flex; flex-direction: column;">
+                                            <span style="display: flex;">
+                                                <i class="ion-ios-star-outline" id="overviewStar1"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar2"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar3"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar4"></i>
+                                                <i class="ion-ios-star-outline" id="overviewStar5"></i>
+                                            </span>
+                                            <span id="totalRatings">1654</span>
+                                        </p>
+                                    </div>
+                            
+                                    <div style="display: flex; flex-direction: column;">
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
+                                        <span>5</span>
+                                        <div class="ratingProgress" id="FiveStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
+                                        </div>
+                                        <span id="FiveStarCount">20 Reviews</span>
+                                    </div>
+                            
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
+                                        <span>4</span>
+                                        <div class="ratingProgress" id="FourStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
+                                        </div>
+                                        <span id="FourStarCount">20 Reviews</span>
+                                    </div>
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
+                                        <span>3</span>
+                                        <div class="ratingProgress" id="ThreeStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
+                                        </div>
+                                        <span id="ThreeStarCount">20 Reviews</span>
+                                    </div>
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
+                                        <span>2</span>
+                                        <div class="ratingProgress" id="TwoStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
+                                        </div>
+                                        <span id="TwoStarCount">20 Reviews</span>
+                                    </div>
+                                    <div style="display: flex; align-items: baseline; justify-content: space-between; column-gap: 10px;">
+                                        <span>1</span>
+                                        <div class="ratingProgress" id="OneStarPercentage">
+                                            <div class="ratingProgress__fill"></div>
+                                        </div>
+                                        <span id="OneStarCount">20 Reviews</span>
+                                    </div>
+                                </div>
+                                </div>
+									</div>
+								</div>
+
+							<div style="display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('all');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">All<i class="fa-solid fa-check" style="color: green; display: block;" id="allCheck"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('with images');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">With images<i class="fa-solid fa-check" style="color: green;" id="imagesCheck"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('fiveStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;">
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="fa-solid fa-check" style="color: green;" id="fiveCheck"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('fourStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="fourCheck"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('threeStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="threeCheck"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('twoStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="twoCheck"></i></a>
+									</div>
+									<div class="cat" style="padding: 10px;" onclick="getFilteredReviews('oneStar');">
+										<a href="" onclick="return false;" class="btn reviewFilterButton" style="display: flex; align-items: center;  height: 33px; border: 1px solid #6c757d; color: #6c757d; width: fit-content; column-gap: 5px;"><i class="ion-ios-star"></i><i class="fa-solid fa-check" style="color: green;" id="oneCheck"></i></a>
+									</div>
+								</div>
+
 							<div class="row p-4">
-								<div class="col-md-7 mini-cart-no-scroll-bar"
+								<div class="col-md-7 reviewOverflow"
 									style="max-height: 715px; overflow-y: scroll;"  id="reviewContainer">
 									
 								</div>
-								<div class="col-md-4">
-									<div class="rating-wrap">
-										<h3 class="mb-4">Give a Review</h3>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <span
-												id="FiveStarPercentage">(98%)</span>
-											</span> <span id="FiveStarCount">20 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star-outline"></i>
-												<span id="FourStarPercentage">(98%)</span>
-											</span> <span id="FourStarCount">10 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <span
-												id="ThreeStarPercentage">(98%)</span>
-											</span> <span id="ThreeStarCount">5 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star"></i> <i class="ion-ios-star-outline"></i>
-												<i class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <span
-												id="TwoStarPercentage">(98%)</span>
-											</span> <span id="TwoStarCount">0 Reviews</span>
-										</p>
-										<p class="star">
-											<span> <i class="ion-ios-star"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <i
-												class="ion-ios-star-outline"></i> <span
-												id="OneStarPercentage">(98%)</span>
-											</span> <span id="OneStarCount">0 Reviews</span>
-										</p>
-									</div>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -237,6 +297,53 @@
 			</div>
 		</div>
 	</section>
+
+	<section class="ftco-section">
+			<div class="container bg-light" style="padding: 15px;">
+				<h3>Questions about this Product</h3>
+				<h5 class="mb-4" id="totalQuestions">23 Questions</h5>
+				<div class="mt-5 reviewOverflow" id="productQuestionsList">
+					<ul class="comment-list" style="overflow: auto; border-bottom: 1px solid rgba(0, 0, 0, 0.05); margin-top: 10px;">
+						<li class="comment">
+							<div class="vcard bio">
+								<img src="images/person_1.jpg" alt="Image placeholder">
+							</div>
+							<div class="comment-body">
+								<h3>John Doe</h3>
+								<div class="meta">June 27, 2018 at 2:21pm</div>
+								<p><span>Question: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+									necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste
+									iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+								
+							</div>
+	
+							<ul class="children">
+								<li class="comment">
+									<div class="vcard bio">
+										<img src="images/person_1.jpg" alt="Image placeholder">
+									</div>
+									<div class="comment-body">
+										<h3>John Doe</h3>
+										<div class="meta">June 27, 2018 at 2:21pm</div>
+										<p><span>Answer: </span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
+											necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
+											sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+										
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<!-- END comment-list -->
+	
+					
+				</div>
+				<div style="display: flex; justify-content: flex-end;">
+					<a href="#" class="btn btn-primary py-3 px-4" data-bs-toggle="modal" data-bs-target="#modalCenter" id="openQuestionModal">Ask a
+						Question</a>
+				</div>
+			</div>
+		</section>
 
 	<section class="ftco-section bg-light">
     	<div class="container">
@@ -429,6 +536,51 @@
 	</div>
 	<!-- Search End -->
 
+	<!-- Question Modal -->
+	<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content" style="border: none;">
+				<div class="modal-header"
+					style="justify-content: flex-start; border-bottom: none; padding-bottom: 0px; align-items: baseline; column-gap: 10px;" id="questionModalHeader">
+					<i class="fa-solid fa-arrow-left" data-bs-dismiss="modal" style="font-size: large;"></i>
+					<h5 style="color: gray;"> Ask a Question </h5>
+				</div>
+				<div class="modal-body" style="padding-top: 0px;" id="questionModalBody">
+
+
+
+					<textarea name="desc" id="questionTextArea" cols="30" rows="7" class="form-control reviewTextArea" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>
+
+
+
+
+				</div>
+				<div class="modal-footer" style="border-top: none;" id="questionModalFooter">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="questionSubmitBtn">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Core JS -->
+	<!-- build:js assets/vendor/js/core.js -->
+	<script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="Admin/assets/vendor/libs/popper/popper.js"></script>
+	<script src="Admin/assets/vendor/js/bootstrap.js"></script>
+	<script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+	<script src="Admin/assets/vendor/js/menu.js"></script>
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+
+	<!-- Main JS -->
+	<script src="Admin/assets/js/main.js"></script>
+
+	<!-- Page JS -->
+	<script src="Admin/assets/js/ui-modals.js"></script>
+
 	<!--Search Js Plugins -->
 	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
 	<script src="ashion-master/js/main.js"></script>
@@ -446,18 +598,17 @@
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
-	<script src="https://kit.fontawesome.com/339febfaad.js"
-		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
 	<script src="quantity/script.js"></script>
 	<script src="nice select/js/jquery.js"></script> 
 	<script src="nice select/js/jquery.nice-select.js"></script>
 	<!-- magnific popup js cdn link  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 	
 	<script>
 		$(document).ready(function() {
