@@ -166,13 +166,20 @@ public class ShopServiceImpl implements IShopService {
 				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
-				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
-				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SEVEN));
+				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
 				
 				items.add(item);
 			}
 
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_RELEVANT_ITEM_SIZE_FOR_SHOP);
+			
 			for (Item item : items) {
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, item.getPrice());
+				rs = pst.executeQuery();
+				rs.next();
+				
+				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
@@ -279,12 +286,13 @@ public class ShopServiceImpl implements IShopService {
 		
 		ArrayList<Item> items = shop.getItems();
 		
-		for (Item item : items) {
-			System.out.println("ID : " + item.getItemID());
-			System.out.println("Size : " + item.getSize());
-			System.out.println("Price : " + item.getPrice());
-			
-			System.out.println();
-		}
+		System.out.println(items.size());
+//		for (Item item : items) {
+//			System.out.println("ID : " + item.getItemID());
+//			System.out.println("Size : " + item.getSize());
+//			System.out.println("Price : " + item.getPrice());
+//			
+//			System.out.println();
+//		}
 	}
 }

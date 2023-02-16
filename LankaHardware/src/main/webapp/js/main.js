@@ -1532,11 +1532,8 @@ function searchToShop(){
 
 //customized search
 function customizedSearch(itemName){
-	if(itemName != undefined){
-		isFromSearch = true
-		itemNameForShop = itemName
-		callGetShopServlet()
-	}
+	itemNameForShop = itemName
+	callGetShopServlet()
 }
 
 //Call get shop servlet
@@ -1555,7 +1552,7 @@ var currentBrand = ''
 
 function callGetShopServlet(){
 	var itemName
-	if(itemNameForShop != undefined){
+	if(itemNameForShop != undefined || itemNameForShop != null){
 		itemName = itemNameForShop
 		itemName = `%${itemName}%`
 	} else{
@@ -1587,7 +1584,7 @@ function buildShopItems(shopItems){
 	
 	for(var i = 0; i < shopItems.length; i++){
 		quickViewsizesAndPrizes.push(shopItems[i].sizesAndPrizes)
-		console.log(`${shopItems[i].size} => ${shopItems[i].price}`)
+		console.log(`here`)
 		var starID = shopItems[i].itemID + 'shopStar'
 		
 		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
@@ -1697,6 +1694,7 @@ function buildPriceRange(){
 
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
+	console.log(`custom`)
 	if(mainCategory == undefined){
 		buildShopCategories()
 		mainCategory = `%%`

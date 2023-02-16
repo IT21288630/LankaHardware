@@ -482,8 +482,7 @@
 			const urlParam = new URLSearchParams(keyValue)
 			var itemName = urlParam.get('search')
 
-			if(itemName == null) callGetShopServlet()
-			else customizedSearch(itemName)
+			customizedSearch(itemName)
 		});
 	</script>
 </body>
