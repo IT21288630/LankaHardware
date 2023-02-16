@@ -47,6 +47,17 @@ public class CommonConstants {
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_CART_IDS = "select cid from cart;";
 	
+	/** Constant for select employee id's */
+	public static final String QUERY_ID_SELECT_EMPLOYEE_IDS = "select empNo from cart;";
+	
+	/** Constant for select cart id's */
+	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employees;";
+	
+	/** Constant for add to cart */
+	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employees(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	
+	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employees(empNo) VALUES(?);";
+	
 	/** Constant for create a cart */
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	
