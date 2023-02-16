@@ -45,9 +45,9 @@ public interface IWishlistService {
 	/**
 	 * get wishlist items
 	 * 
-	 * @param email
+	 * @param customer
 	 */
-	public ArrayList<Item> getWishlist(String email);
+	public ArrayList<Item> getWishlist(Customer customer);
 	
 	/**
 	 * send back in stock email to customers

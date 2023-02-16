@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import model.Customer;
 import service.IWishlistService;
 import service.WishlistServiceImpl;
 
@@ -36,13 +37,16 @@ public class GetWishlistServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String email = "a@g.m";
 		
+		Customer customer = new Customer();
 		IWishlistService iWishlistService = new WishlistServiceImpl();
+		
+		customer.setEmail(email);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iWishlistService.getWishlist(email));
+		String resp = new Gson().toJson(iWishlistService.getWishlist(customer));
 
 		out.print(resp);
 	}

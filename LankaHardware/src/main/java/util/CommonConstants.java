@@ -102,6 +102,9 @@ public class CommonConstants {
 	/** Constant for get other item details for wishlist */
 	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_WISHLIST = "SELECT name, brand, img, (SELECT min(unit_price) FROM item_size where id = ?) as 'price' FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.id = ? GROUP BY i.id;";
 	
+	/** Constant for get all other item details for wishlist */
+	public static final String QUERY_ID_GET_OTHER_DETAILS_FOR_WISHLIST = "SELECT name, brand, img, (SELECT unit_price FROM item_size where id = ? AND size = ?) as 'price', description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.id = ? GROUP BY i.id;";
+	
 	/** Constant for get emails of customers for wishlist */
 	public static final String QUERY_ID_GET_CUSTOMER_EMAILS_FOR_WISHLIST = "SELECT w.email FROM wishlist w, wishlist_item wi WHERE w.wid = wi.wid AND wi.itId = ?;";
 	
@@ -112,7 +115,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img, description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
 	
 	/** Constant for get minimum price for new arrivals */
-	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC;";
+	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC limit 8;";
 	
 	/** Constant for get related items for product single page */
 	public static final String QUERY_ID_GET_RELATED_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, s.size FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type = (select type from item where id = ?) and i.id != ? GROUP BY i.id ORDER BY s.unit_price;";
@@ -133,7 +136,10 @@ public class CommonConstants {
 	public static final String QUERY_ID_ADD_REVIEW_IMAGES = "INSERT INTO review_img(reviewID, img) VALUES(?, ?);";
 	
 	/** Constant for get items for shop page */
-	public static final String QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP = "SELECT i.id, min(s.unit_price), name, brand, img, s.size, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.name LIKE ? GROUP BY i.id ORDER BY s.unit_price;";
+	public static final String QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.name LIKE ? GROUP BY i.id ORDER BY s.unit_price;";
+	
+	/** Constant for get relevant item size for shop page */
+	public static final String QUERY_ID_GET_RELEVANT_ITEM_SIZE_FOR_SHOP = "SELECT size FROM item_size WHERE Id = ? AND unit_price = ?;";
 	
 	/** Constant for get main categories for shop page */
 	public static final String QUERY_ID_GET_MAIN_CATEGORIES_FOR_SHOP = "SELECT type FROM item;";

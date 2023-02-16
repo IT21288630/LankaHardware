@@ -210,13 +210,13 @@ public class WishlistServiceImpl implements IWishlistService {
 	}
 
 	@Override
-	public ArrayList<Item> getWishlist(String email) {
+	public ArrayList<Item> getWishlist(Customer customer) {
 		// TODO Auto-generated method stub
 
 		Wishlist wishlist = new Wishlist();
-		wishlist.setWishlistID(getWishlistIdByEmail(email));
+		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
 		IReviewService iReviewService = new ReviewServiceImpl();
-
+		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 		ArrayList<Item> items = new ArrayList<>();
 
@@ -229,14 +229,17 @@ public class WishlistServiceImpl implements IWishlistService {
 				Item item = new Item();
 
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
-
+				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
+				
 				items.add(item);
 			}
 
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_DETAILS_FOR_WISHLIST);
+			
 			for (Item item : items) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_WISHLIST);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getSize());
+				pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getItemID());
 				rs = pst.executeQuery();
 				rs.next();
 
@@ -244,8 +247,9 @@ public class WishlistServiceImpl implements IWishlistService {
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
-				con = DBConnectionUtil.getDBConnection();
+				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

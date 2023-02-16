@@ -34,6 +34,7 @@ public class IndexServiceImpl implements IIndexService {
 
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
 		ArrayList<Item> items = new ArrayList<>();
 		Index index = new Index();
 		con = DBConnectionUtil.getDBConnection();
@@ -59,6 +60,7 @@ public class IndexServiceImpl implements IIndexService {
 
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
+				item.setSize(iCartService.getDefaultSizeAndPrice(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
 

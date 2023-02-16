@@ -448,15 +448,20 @@ function callWishlistServlet(){
 }
 
 function buildWishlist(wishlistItems){
+	quickViewsizesAndPrizes = []
+	
 	for(var i = 0; i < wishlistItems.length; i++){
-		var starID = wishlistItems[i].itemID + 'wishlistStar'
+		quickViewsizesAndPrizes.push(wishlistItems[i].sizesAndPrizes)
 		
-		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" id="${wishlistItems[i].itemID}ProductCard">
+		var starID = `${wishlistItems[i].itemID + wishlistItems[i].size}wishlistStar`
+		
+		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" id="${wishlistItems[i].itemID + wishlistItems[i].size}ProductCard">
     				<div class="product d-flex flex-column">
     					<a href="#" class="img-prod"><img class="img-fluid" src="${wishlistItems[i].mainImg}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3">
+    					
     						<div class="d-flex">
     							<div class="cat">
 		    						<span>${wishlistItems[i].brand}</span>
@@ -473,16 +478,25 @@ function buildWishlist(wishlistItems){
 	    					</div>
     						<h3><a href="#">${wishlistItems[i].name}</a></h3>
     						<div class="pricing">
-	    						<p class="price"><span>${wishlistItems[i].price}</span></p>
+	    						<p class="price" style="display: flex; justify-content: space-between;">
+		    						<span>Rs${wishlistItems[i].price}</span>
+		    						<span style="color: grey;">${wishlistItems[i].size}</span>
+	    						</p>
 	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1, 'notSpecified'); return false;"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2" onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}'); return false;"><span>Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
-    						</p>
+    						
+    						<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${wishlistItems[i].itemID}', '${wishlistItems[i].mainImg}', '${wishlistItems[i].name}', '${wishlistItems[i].price}', '${wishlistItems[i].description}', ${wishlistItems[i].avgRating}, ${i}, '${wishlistItems[i].size}');">
+								<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
+							</p>
+							
     					</div>
     				</div>
     			</div>`
     			
+    			
+//    			<p class="bottom-area d-flex px-3">
+//					<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1, 'notSpecified'); return false;"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+//					<a href="#" class="buy-now text-center py-2" onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}', '${wishlistItems[i].size}'); return false;"><span>Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
+//				</p>
     	wishlist_itemList.innerHTML += item
     	buildAverageRating(wishlistItems[i], starID)
 	}
@@ -502,13 +516,13 @@ function callAddToWishlistServlet(itemID){
 }
 
 //Remove from wishlist
-function callRemoveFromWishlistServlet(itemID){
-	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID}, function(response){
+function callRemoveFromWishlistServlet(itemID, size){
+	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID, size: size}, function(response){
 	   
 	   //wishlist_itemList.innerHTML = ""
 	   wishlistItemRemoved = true
 	   callWishlistServlet()
-	   deleteWishlistItemElement(itemID)
+	   deleteWishlistItemElement(itemID + size)
 	   
 	   added_msg.innerHTML = response
 	   added_msg.classList.add('active')
@@ -591,7 +605,7 @@ function buildNewArrivalslist(newArrivals){
     						<div class="pricing">
 	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
-	    					<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${newArrivals[i].itemID}', '${newArrivals[i].mainImg}', '${newArrivals[i].name}', '${newArrivals[i].price}', '${newArrivals[i].description}', ${newArrivals[i].avgRating}, ${i});">
+	    					<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${newArrivals[i].itemID}', '${newArrivals[i].mainImg}', '${newArrivals[i].name}', '${newArrivals[i].price}', '${newArrivals[i].description}', ${newArrivals[i].avgRating}, ${i}, '${newArrivals[i].size}');">
 								<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
 							</p>
     					</div>
@@ -604,7 +618,7 @@ function buildNewArrivalslist(newArrivals){
 }
 
 //build quick view
-function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes){
+function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes, size){
 	var starID = `QuickViewStar`
 	
 	quickViewModal.innerHTML = `<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
@@ -667,14 +681,15 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 								  </div>
 								</div>`
 	
-	buildQuickViewSizes(sizesAndPrizes)						
+	buildQuickViewSizes(sizesAndPrizes, size)						
 	jQuery('select').niceSelect();
 	var item = {"avgRating": avgRating}
     buildAverageRating(item, starID)
 }
 
 //build quick view sizes and prices
-function buildQuickViewSizes(sizesAndPrizes){
+function buildQuickViewSizes(sizesAndPrizes, size){
+	console.log(size)
 	var ProductSizes = document.getElementById('ProductSizes')
 	ProductSizes.innerHTML = ''
 	
@@ -683,6 +698,9 @@ function buildQuickViewSizes(sizesAndPrizes){
 		
 		ProductSizes.innerHTML += productSize
 	}
+	
+	ProductSizes.value = size
+	$('select').niceSelect('update');
 }
 
 //display relevant product price
@@ -1569,6 +1587,7 @@ function buildShopItems(shopItems){
 	
 	for(var i = 0; i < shopItems.length; i++){
 		quickViewsizesAndPrizes.push(shopItems[i].sizesAndPrizes)
+		console.log(`${shopItems[i].size} => ${shopItems[i].price}`)
 		var starID = shopItems[i].itemID + 'shopStar'
 		
 		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
@@ -1599,7 +1618,7 @@ function buildShopItems(shopItems){
 											<span>Rs${shopItems[i].price}</span>
 										</p>
 									</div>
-									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${shopItems[i].itemID}', '${shopItems[i].mainImg}', '${shopItems[i].name}', '${shopItems[i].price}', '${shopItems[i].description}', ${shopItems[i].avgRating}, ${i});">
+									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${shopItems[i].itemID}', '${shopItems[i].mainImg}', '${shopItems[i].name}', '${shopItems[i].price}', '${shopItems[i].description}', ${shopItems[i].avgRating}, ${i}, '${shopItems[i].size}');">
 										<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
 									</p>
 								</div>
