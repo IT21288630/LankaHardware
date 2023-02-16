@@ -605,7 +605,7 @@
 							<div class="col-md-6">
 								<div class="form-group d-flex">
 									<div class="select-wrap">
-										<select name="" id="" class="form-control">
+										<select name="" id="ProductSizes" class="form-control">
 											<option value="">Small</option>
 											<option value="">Medium</option>
 											<option value="">Large</option>

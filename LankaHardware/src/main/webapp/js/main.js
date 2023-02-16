@@ -386,6 +386,7 @@ var openQuestionModal = document.getElementById('openQuestionModal')
 var questionModalHeader = document.getElementById('questionModalHeader')
 var questionModalBody = document.getElementById('questionModalBody')
 var questionModalFooter = document.getElementById('questionModalFooter')
+var quickViewModal = document.getElementById('quickViewModal')
 
 function stopScrollingToTop(){
 	return false
@@ -546,6 +547,7 @@ function callSendBackInStockEmailServlet(){
 
 //call index servlet
 var newArrivals = []
+var quickViewsizesAndPrizes = []
 
 function callIndexServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetIndexServlet", function(response) {
@@ -557,7 +559,9 @@ function callIndexServlet(){
 }
 
 function buildNewArrivalslist(newArrivals){
-	for(var i = 0; i < newArrivals.length; i++){	
+	for(var i = 0; i < newArrivals.length; i++){
+		quickViewsizesAndPrizes.push(newArrivals[i].sizesAndPrizes)
+		
 		var starID = newArrivals[i].itemID + 'AvgStar'
 
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
@@ -585,7 +589,7 @@ function buildNewArrivalslist(newArrivals){
 	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
 	    					<p class="bottom-area d-flex px-3">
-    							<a data-bs-toggle="modal" data-bs-target="#quickViewModal" href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+    							<a data-bs-toggle="modal" data-bs-target="#quickViewModal" href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); buildQuickView('${newArrivals[i].itemID}', '${newArrivals[i].mainImg}', '${newArrivals[i].name}', '${newArrivals[i].price}', '${newArrivals[i].description}', ${newArrivals[i].avgRating}, ${i}); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
     							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${newArrivals[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
     						</p>
     					</div>
@@ -594,6 +598,79 @@ function buildNewArrivalslist(newArrivals){
     			
     	newArrival_itemList.innerHTML += item
     	buildAverageRating(newArrivals[i], starID)
+	}
+}
+
+//build quick view
+function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes){
+	var starID = `QuickViewStar`
+	
+	quickViewModal.innerHTML = `<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
+								  <div class="modal-content quickView-modalContent">
+									<div class="modal-header quickView-header" style="justify-content: flex-end; padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">
+									  <button data-bs-dismiss="modal" style="border: none; outline: none; background: none; font-size: 1.25rem; font-weight: bold; color: rgb(0, 0, 0);">&times;</button>
+									</div>
+									<div class="modal-body quickView-body" style="padding-bottom: 0px; padding-top: 0px;">
+											<div class="quickView-imgContainer">
+												<img src="${mainImg}" class="quickView-img" alt="Colorlib Template">
+											</div>
+						
+											<div class="product-details ftco-animate fadeInUp ftco-animated quickView-description">
+												<h3>${name}</h3>
+												<div class="rating d-flex">
+													<p class="text-left mr-4">
+														<a href="#" class="mr-2">${Math.round(avgRating * 10) / 10}</a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
+													</p>
+												</div>
+												<p class="price"><span>$${price}</span></p>
+												<p>${description}</p>
+												<div class="row mt-4">
+													<div class="col-md-6">
+														<div class="form-group d-flex">
+															<div class="select-wrap">
+																<select name="" id="ProductSizes" class="form-control">
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="w-100"></div>
+													<div class="input-group col-md-6 d-flex mb-3">
+														<div class="quantity buttons_added">
+															<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
+														</div>
+													</div>
+												</div>
+												<p style="width: 100%;" onclick="addToCartFromSingleProductPage('${itemID}', 0); return false;"><a href="cart.html" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;" data-bs-dismiss="modal">Add to Cart</a>
+												</p>
+											</div>
+										
+									</div>
+									<div class="modal-footer quickView-footer">
+									  
+									</div>
+								  </div>
+								</div>`
+	
+	buildQuickViewSizes(sizesAndPrizes)						
+	jQuery('select').niceSelect();
+	var item = {"avgRating": avgRating}
+    buildAverageRating(item, starID)
+}
+
+//build quick view sizes and prices
+function buildQuickViewSizes(sizesAndPrizes){
+	var ProductSizes = document.getElementById('ProductSizes')
+	ProductSizes.innerHTML = ''
+	
+	for(const [size, price] of Object.entries(quickViewsizesAndPrizes[sizesAndPrizes])){
+		var productSize = `<option value="${size}">${size}</option>`
+		
+		ProductSizes.innerHTML += productSize
 	}
 }
 
@@ -916,7 +993,6 @@ function callGetProductSingleServlet(itemID){
 		relatedProducts = response[3]
 		productQuestions = response[4]
 		itemIDForQuestion = product.itemID
-		console.log(productQuestions)
 		
 		buildProductSingle(product)
 		buildProductSizes()

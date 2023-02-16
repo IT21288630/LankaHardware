@@ -1,5 +1,7 @@
 package model;
 
+import java.util.LinkedHashMap;
+
 public class Item {
 
 	private String itemID;
@@ -16,6 +18,7 @@ public class Item {
 	private double avgRating;
 	private int ratingCount;
 	private double[][] ratingPercentageList;
+	private LinkedHashMap<String, Double> sizesAndPrizes;
 
 	public int getRatingCount() {
 		return ratingCount;
@@ -127,6 +130,14 @@ public class Item {
 
 	public void setRatingPercentageList(double[][] ratingPercentageList) {
 		this.ratingPercentageList = ratingPercentageList;
+	}
+
+	public LinkedHashMap<String, Double> getSizesAndPrizes() {
+		return sizesAndPrizes;
+	}
+
+	public void setSizesAndPrizes(LinkedHashMap<String, Double> sizesAndPrizes) {
+		this.sizesAndPrizes = sizesAndPrizes;
 	}
 
 }

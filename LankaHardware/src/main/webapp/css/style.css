@@ -15826,7 +15826,7 @@ input:checked~form {
 
 /*Quick view*/
 .quickView-modal {
-  max-width: 70%;
+  max-width: 60%;
 }
 
 .quickView-modalContent {

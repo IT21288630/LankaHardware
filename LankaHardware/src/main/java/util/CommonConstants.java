@@ -109,7 +109,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_GET_EMAILED_WISHLIST_ITEM_DETAILS = "SELECT name, (SELECT img FROM item_img where Id = ? limit 1) as 'image' FROM item WHERE id = ?;";
 	
 	/** Constant for get new arrivals */
-	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
+	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img, description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
 	
 	/** Constant for get minimum price for new arrivals */
 	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC;";
