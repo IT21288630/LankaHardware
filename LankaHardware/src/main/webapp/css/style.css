@@ -15435,7 +15435,7 @@ textarea.form-control {
 	position: fixed;
 	top: 15%;
 	left: 50%;
-	z-index: 8;
+	z-index: 1051;
 	transform: translate(-50%, -50%) scale(0);
 	transition: 300ms ease-in-out;
 }
@@ -15842,6 +15842,8 @@ input:checked~form {
   display: flex;
   justify-content: flex-start;
   column-gap: 20px;
+  padding-top: 0px;
+  padding-bottom: 2rem;
 }
 
 .quickView-footer {
@@ -15860,6 +15862,7 @@ input:checked~form {
 }
 
 .quickView-description {
+  position: relative;
   width: 60%;
   height: 500px;
   overflow-y: scroll;
@@ -15869,6 +15872,20 @@ input:checked~form {
 
 .quickView-description::-webkit-scrollbar {
   width: 0em;
+}
+
+.quickView-btnSet{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.quickView-margin{
+  margin: 0;
+}
+
+.quickView-ratingAndPrice{
+  align-items: center;
 }
 
 /* *{ */

@@ -16,6 +16,7 @@ import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import model.Cart;
+import model.Customer;
 import model.Item;
 import model.Wishlist;
 import util.CommonConstants;
@@ -122,17 +123,18 @@ public class WishlistServiceImpl implements IWishlistService {
 	}
 
 	@Override
-	public String addToWishlist(String email, String itemID) {
+	public String addToWishlist(Customer customer, Item item) {
 		// TODO Auto-generated method stub
 
 		Wishlist wishlist = new Wishlist();
-		wishlist.setWishlistID(getWishlistIdByEmail(email));
+		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_WISHLIST);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
 
 		} catch (SQLIntegrityConstraintViolationException e) {
@@ -167,17 +169,18 @@ public class WishlistServiceImpl implements IWishlistService {
 	}
 
 	@Override
-	public String removeFromWishlist(String email, String itemID) {
+	public String removeFromWishlist(Customer customer, Item item) {
 		// TODO Auto-generated method stub
 
 		Wishlist wishlist = new Wishlist();
-		wishlist.setWishlistID(getWishlistIdByEmail(email));
+		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_WISHLIST);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
 
 		} catch (SQLException e) {

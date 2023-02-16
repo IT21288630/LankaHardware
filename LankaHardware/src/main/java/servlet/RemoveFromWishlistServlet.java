@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import model.Customer;
+import model.Item;
 import service.IWishlistService;
 import service.WishlistServiceImpl;
 
@@ -49,13 +51,20 @@ public class RemoveFromWishlistServlet extends HttpServlet {
 
 		String email = "a@g.m";
 		String itemID = request.getParameter("itemID");
+		String size = request.getParameter("size");
+		Customer customer = new Customer();
+		Item item = new Item();
 		IWishlistService iWishlistService = new WishlistServiceImpl();
 
+		customer.setEmail(email);
+		item.setItemID(itemID);
+		item.setSize(size);
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iWishlistService.removeFromWishlist(email, itemID));
+		String resp = new Gson().toJson(iWishlistService.removeFromWishlist(customer, item));
 
 		out.print(resp);
 	}

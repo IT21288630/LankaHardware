@@ -36,6 +36,7 @@ public class ShopServiceImpl implements IShopService {
 		ArrayList<Item> items = new ArrayList<>();
 		ArrayList<String> mainCategories = new ArrayList<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
+		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -53,9 +54,15 @@ public class ShopServiceImpl implements IShopService {
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
+				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SEVEN));
+				
 				items.add(item);
 			}
 
+			for (Item item : items) {
+				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
+			}
+			
 			shop.setItems(items);
 
 			st = con.createStatement();
@@ -108,6 +115,7 @@ public class ShopServiceImpl implements IShopService {
 		ArrayList<Item> items = new ArrayList<>();
 		ArrayList<String> brandList = new ArrayList<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
+		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -152,12 +160,14 @@ public class ShopServiceImpl implements IShopService {
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SEVEN));
 				
 				items.add(item);
 			}
 
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
+				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
 			
 			if(!mainCategory.equals("%%")) {
