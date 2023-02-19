@@ -133,6 +133,8 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 		// TODO Auto-generated method stub
 		ArrayList<Item> items = new ArrayList<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
+		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 		
 		try {
@@ -149,9 +151,15 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
-				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
+				
 				items.add(item);
+			}
+			
+			for (Item item : items) {
+				item.setSize(iCartService.getDefaultSizeAndPrice(item.getItemID()));
+				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
 			
 		} catch (SQLException e) {

@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import model.Customer;
 import model.Index;
 import model.Item;
 import util.CommonConstants;
@@ -35,6 +36,8 @@ public class IndexServiceImpl implements IIndexService {
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		ICartService iCartService = new CartServiceImpl();
+		IWishlistService iWishlistService = new WishlistServiceImpl();
+		Customer customer = new Customer();
 		ArrayList<Item> items = new ArrayList<>();
 		Index index = new Index();
 		con = DBConnectionUtil.getDBConnection();
@@ -58,10 +61,13 @@ public class IndexServiceImpl implements IIndexService {
 				items.add(item);
 			}
 
+			customer.setEmail("a@g.m");
+			
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setSize(iCartService.getDefaultSizeAndPrice(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
+				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			}
 
 		} catch (SQLException e) {

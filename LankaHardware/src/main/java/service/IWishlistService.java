@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
 import model.Customer;
@@ -55,5 +56,14 @@ public interface IWishlistService {
 	 * @param itemID
 	 */
 	public String sendBackInStockEmail(String itemID);
+	
+	/**
+	 * send back in stock email to customers
+	 * 
+	 * @param customer
+	 * @param item
+	 * 
+	 */
+	public LinkedHashMap<String, Boolean> checkIfItemIsInWishlist(Customer customer, Item item);
 	
 }

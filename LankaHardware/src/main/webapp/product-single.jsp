@@ -563,6 +563,12 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
+		</div>
+	</div>
+
 	<!-- Core JS -->
 	<!-- build:js assets/vendor/js/core.js -->
 	<script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>

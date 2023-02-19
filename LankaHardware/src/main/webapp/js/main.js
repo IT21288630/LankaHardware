@@ -449,6 +449,7 @@ function callWishlistServlet(){
 
 function buildWishlist(wishlistItems){
 	quickViewsizesAndPrizes = []
+	isInWishlist = []
 	
 	for(var i = 0; i < wishlistItems.length; i++){
 		quickViewsizesAndPrizes.push(wishlistItems[i].sizesAndPrizes)
@@ -515,14 +516,46 @@ function callAddToWishlistServlet(itemID){
 	})
 }
 
+function callAddToWishlistServletFromQuickView(itemID){
+	var size = document.getElementById('quickViewProductSizes').value
+	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID, size: size}, function(response){
+	    
+	    added_msg.innerHTML = response
+	    added_msg.classList.add('active')
+	    setTimeout(function() {
+	    	added_msg.classList.remove('active')
+	  	}, 2000);
+	})
+}
+
 //Remove from wishlist
-function callRemoveFromWishlistServlet(itemID, size){
+function callRemoveFromWishlistServlet(itemID){
+	var size = document.getElementById('ProductSizes').value
+	
 	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID, size: size}, function(response){
 	   
 	   //wishlist_itemList.innerHTML = ""
 	   wishlistItemRemoved = true
 	   callWishlistServlet()
 	   deleteWishlistItemElement(itemID + size)
+	   
+	   added_msg.innerHTML = response
+	   added_msg.classList.add('active')
+	   setTimeout(function() {
+	   	added_msg.classList.remove('active')
+	   }, 2000);
+	})
+}
+
+function callRemoveFromWishlistServletFromQuickView(itemID){
+	var size = document.getElementById('quickViewProductSizes').value
+	
+	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID, size: size}, function(response){
+	   
+	   //wishlist_itemList.innerHTML = ""
+	   wishlistItemRemoved = true
+	   callWishlistServlet()
+	   //deleteWishlistItemElement(itemID + size)
 	   
 	   added_msg.innerHTML = response
 	   added_msg.classList.add('active')
@@ -563,6 +596,7 @@ function callSendBackInStockEmailServlet(){
 //call index servlet
 var newArrivals = []
 var quickViewsizesAndPrizes = []
+var isInWishlist = []
 
 function callIndexServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetIndexServlet", function(response) {
@@ -575,9 +609,11 @@ function callIndexServlet(){
 
 function buildNewArrivalslist(newArrivals){
 	quickViewsizesAndPrizes = []
+	isInWishlist = []
 	
 	for(var i = 0; i < newArrivals.length; i++){
 		quickViewsizesAndPrizes.push(newArrivals[i].sizesAndPrizes)
+		isInWishlist.push(newArrivals[i].isInWishlist)
 		
 		var starID = newArrivals[i].itemID + 'AvgStar'
 
@@ -615,11 +651,14 @@ function buildNewArrivalslist(newArrivals){
     	newArrival_itemList.innerHTML += item
     	buildAverageRating(newArrivals[i], starID)
 	}
+	
+	console.log(isInWishlist)
 }
 
 //build quick view
 function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes, size){
 	var starID = `QuickViewStar`
+	var iconID = `${itemID}${size}Icon`
 	
 	quickViewModal.innerHTML = `<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
 								  <div class="modal-content quickView-modalContent">
@@ -642,7 +681,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 														<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
 														<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
 													</p>
-													<p class="price quickView-margin"><span id="productPrice">Rs${price}</span></p>
+													<p class="price quickView-margin"><span id="quickViewProductPrice">Rs${price}</span></p>
 												</div>
 												
 												<p>${description}</p>
@@ -652,7 +691,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 														<div class="col-md-6">
 															<div class="form-group d-flex">
 																<div class="select-wrap">
-																	<select name="" id="ProductSizes" class="form-control" onchange="displayQuickViewProductPrice(${sizesAndPrizes});">
+																	<select name="" id="quickViewProductSizes" class="form-control" onchange="displayQuickViewProductPrice(${sizesAndPrizes}, '${itemID}', '${iconID}');">
 																	</select>
 																</div>
 															</div>
@@ -664,11 +703,14 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 																	<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
 																</div>
 															</div>
-															<i class="fa-regular fa-heart clickable" style="position: absolute; font-size: larger; top: 34%; right: 3%; transform: translate(-50%, -50%);" onclick="callAddToWishlistServlet('${itemID}'); return false;"></i>
+															
+															<span style="position: absolute; top: 34%; right: 3%; transform: translate(-50%, -50%);" id="${iconID}">	
+															</span>
+
 														</div>
 													</div>
 													
-													<p style="width: 100%;" onclick="addToCartFromSingleProductPage('${itemID}', 0); return false;"><a href="#" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a></p>
+													<p style="width: 100%;" onclick="addToCartFromQuickView('${itemID}', 0); return false;"><a href="#" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a></p>
 												</div>
 												
 												
@@ -681,7 +723,9 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 								  </div>
 								</div>`
 	
-	buildQuickViewSizes(sizesAndPrizes, size)						
+	buildQuickViewSizes(sizesAndPrizes, size)
+	var productSize = document.getElementById('quickViewProductSizes').value
+	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
 	jQuery('select').niceSelect();
 	var item = {"avgRating": avgRating}
     buildAverageRating(item, starID)
@@ -689,8 +733,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 
 //build quick view sizes and prices
 function buildQuickViewSizes(sizesAndPrizes, size){
-	console.log(size)
-	var ProductSizes = document.getElementById('ProductSizes')
+	var ProductSizes = document.getElementById('quickViewProductSizes')
 	ProductSizes.innerHTML = ''
 	
 	for(const [size, price] of Object.entries(quickViewsizesAndPrizes[sizesAndPrizes])){
@@ -703,13 +746,45 @@ function buildQuickViewSizes(sizesAndPrizes, size){
 	$('select').niceSelect('update');
 }
 
+//build wishlist icon
+function buildWishlistIcon(iconID, i, itemID, productSize){
+	var icon = document.getElementById(iconID)
+	
+	for(const [size, val] of Object.entries(isInWishlist[i])){
+		if(productSize == size && val == false){
+			icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="outlineHeart"></button>
+							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+		}
+		else if(productSize == size && val == true){
+			icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="filledHeart"></button>
+							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+		}
+	}
+}
+
+//toggle wishlist icon
+function toggleWishlistIcon(iconID, itemID){
+	var icon = document.getElementById(iconID)
+	var heartButtonValue = document.getElementById('heartButton').value
+	
+	if(heartButtonValue == 'outlineHeart'){
+		icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="filledHeart"></button>
+						  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+	}else if(heartButtonValue == 'filledHeart'){
+		icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="outlineHeart"></button>
+						  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+	}
+}
+
 //display relevant product price
-function displayQuickViewProductPrice(sizesAndPrizes){
-	var productPrice = document.getElementById('productPrice')
-	var productSize = document.getElementById('ProductSizes').value
+function displayQuickViewProductPrice(sizesAndPrizes, itemID, iconID){
+	var productPrice = document.getElementById('quickViewProductPrice')
+	var productSize = document.getElementById('quickViewProductSizes').value
 	var displayPrice = quickViewsizesAndPrizes[sizesAndPrizes][productSize]
 	
 	productPrice.innerHTML = `Rs${displayPrice}`
+	
+	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
 }
 
 //build average rating
@@ -1382,11 +1457,18 @@ function emptyFilteredReviews(text){
 
 //build related products
 function buildRelatedProducts(){
+	relatedProductList.innerHTML = ''
+	quickViewsizesAndPrizes = []
+	isInWishlist = []
+	
 	for(var i = 0; i < relatedProducts.length; i++){
+		console.log(relatedProducts[i])
+		quickViewsizesAndPrizes.push(relatedProducts[i].sizesAndPrizes)
+		
 		var starID = relatedProducts[i].itemID + 'RelatedProductAvgStar'
 		
 		var item = `<div class="item">
-						<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" style="min-width: fit-content;">
+						<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" style="min-width: fit-content;" id="related${relatedProducts[i].itemID}">
 							<div class="product d-flex flex-column">
 								<a href="#" class="img-prod" onclick="return flase;"><img class="img-fluid" src="${relatedProducts[i].mainImg}" alt="Colorlib Template" onclick="toProductSinglePage('${relatedProducts[i].itemID}');">
 									<div class="overlay"></div>
@@ -1410,10 +1492,9 @@ function buildRelatedProducts(){
 									<div class="pricing">
 										<p class="price"><span>${relatedProducts[i].price}</span></p>
 									</div>
-									<p class="bottom-area d-flex px-3">
-		    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${relatedProducts[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-		    							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${relatedProducts[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
-		    						</p>
+									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${relatedProducts[i].itemID}', '${relatedProducts[i].mainImg}', '${relatedProducts[i].name}', '${relatedProducts[i].price}', '${relatedProducts[i].description}', ${relatedProducts[i].avgRating}, ${i}, '${relatedProducts[i].size}');">
+										<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -1421,6 +1502,12 @@ function buildRelatedProducts(){
 		
 		
 		relatedProductList.innerHTML += item
+		
+		if(afterQuestion == true) {
+			var relatedCard = document.getElementById(`related${relatedProducts[i].itemID}`)
+			relatedCard.style = "min-width: initial;"
+		}
+		
 		buildAverageRating(relatedProducts[i], starID)
 	}
 	
@@ -1448,6 +1535,11 @@ function buildRelatedProducts(){
 //call add to cart from single product page
 function addToCartFromSingleProductPage(itemID, quantity){
 	var size = document.getElementById('ProductSizes').value
+	callAddToCartServlet(itemID, quantity, size)
+}
+
+function addToCartFromQuickView(itemID, quantity){
+	var size = document.getElementById('quickViewProductSizes').value
 	callAddToCartServlet(itemID, quantity, size)
 }
 
@@ -1578,6 +1670,7 @@ function callGetShopServlet(){
 function buildShopItems(shopItems){
 	shopItemList.innerHTML = ''
 	quickViewsizesAndPrizes = []
+	isInWishlist = []
 	
 	if(shopItems.length == 0) shopEmpty()
 	else shopItemList.style = "justify-content: inherit;"
@@ -1694,7 +1787,6 @@ function buildPriceRange(){
 
 //call get customized shop servlet
 function callGetCustomizedShopServlet(mainCategory){
-	console.log(`custom`)
 	if(mainCategory == undefined){
 		buildShopCategories()
 		mainCategory = `%%`
@@ -1875,6 +1967,8 @@ function callAddReviewServlet(){
 	
 
 //call AskQuestionServlet
+var afterQuestion = false
+
 openQuestionModal.addEventListener('click', () => {
 	questionModalHeader.innerHTML = `<i class="fa-solid fa-arrow-left" data-bs-dismiss="modal" style="font-size: large;"></i>
 									<h5 style="color: gray;"> Ask a Question </h5>`
@@ -1905,6 +1999,9 @@ function callAskQuestionServlet(question){
 									        <span style="font-size: x-large;">${response}</span>
 									    </div>`
 	    questionModalFooter.style = "display: none;"
+	    
+	    afterQuestion = true
+	    
 	    callGetProductSingleServlet(itemID)
 	    
 	    setTimeout(function() {
