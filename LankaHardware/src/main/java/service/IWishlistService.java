@@ -1,8 +1,10 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
+import model.Customer;
 import model.Item;
 
 public interface IWishlistService {
@@ -26,25 +28,27 @@ public interface IWishlistService {
 	/**
 	 * add to wishlist
 	 * 
-	 * @param email
-	 * @param itemID
+	 * @param customer
+	 * @param item
+	 * 
 	 */
-	public String addToWishlist(String email, String itemID);
+	public String addToWishlist(Customer customer, Item item);
 	
 	/**
 	 * remove from wishlist
 	 * 
-	 * @param email
-	 * @param itemID
+	 * @param customer
+	 * @param item
+	 * 
 	 */
-	public String removeFromWishlist(String email, String itemID);
+	public String removeFromWishlist(Customer customer, Item item);
 	
 	/**
 	 * get wishlist items
 	 * 
-	 * @param email
+	 * @param customer
 	 */
-	public ArrayList<Item> getWishlist(String email);
+	public ArrayList<Item> getWishlist(Customer customer);
 	
 	/**
 	 * send back in stock email to customers
@@ -52,5 +56,14 @@ public interface IWishlistService {
 	 * @param itemID
 	 */
 	public String sendBackInStockEmail(String itemID);
+	
+	/**
+	 * send back in stock email to customers
+	 * 
+	 * @param customer
+	 * @param item
+	 * 
+	 */
+	public LinkedHashMap<String, Boolean> checkIfItemIsInWishlist(Customer customer, Item item);
 	
 }

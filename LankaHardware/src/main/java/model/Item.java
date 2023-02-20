@@ -19,6 +19,7 @@ public class Item {
 	private int ratingCount;
 	private double[][] ratingPercentageList;
 	private LinkedHashMap<String, Double> sizesAndPrizes;
+	private LinkedHashMap<String, Boolean> isInWishlist;
 
 	public int getRatingCount() {
 		return ratingCount;
@@ -138,6 +139,14 @@ public class Item {
 
 	public void setSizesAndPrizes(LinkedHashMap<String, Double> sizesAndPrizes) {
 		this.sizesAndPrizes = sizesAndPrizes;
+	}
+
+	public LinkedHashMap<String, Boolean> getIsInWishlist() {
+		return isInWishlist;
+	}
+
+	public void setIsInWishlist(LinkedHashMap<String, Boolean> isInWishlist) {
+		this.isInWishlist = isInWishlist;
 	}
 
 }
