@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import model.Customer;
 import model.Item;
 import util.CommonConstants;
 import util.DBConnectionUtil;
@@ -34,9 +35,13 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 		Item item = new Item();
 		LinkedHashMap<String, Double> map = getProductSizeAndPriceList(itemID);
 		IReviewService iReviewService = new ReviewServiceImpl();
+		IWishlistService iWishlistService = new WishlistServiceImpl();
+		Customer customer = new Customer();
 		
 		item.setSize(map.entrySet().iterator().next().getKey()); 
 		item.setItemID(itemID);
+		
+		customer.setEmail("a@g.m");
 		
 		con = DBConnectionUtil.getDBConnection();
 
@@ -57,6 +62,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			item.setAvgRating(iReviewService.getAverageRating(itemID));
 			item.setRatingCount(iReviewService.getItemRatingCount(itemID));
 			item.setRatingPercentageList(iReviewService.calculateItemRatingPercentage(itemID));
+			item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
