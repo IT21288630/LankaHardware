@@ -77,3 +77,44 @@ function addemployee(){
 		$.ajax()
 	}
 }
+
+
+function callAddEmployeeServlet(){
+	var inputFile = document.getElementById('inputFile')
+	
+	var empNo = document.getElementById('empNo').value
+	var name = document.getElementById('name').value
+	var email = document.getElementById('email').value
+	var designation = document.getElementById('designation').value
+	var phoneNum = document.getElementById('phoneNum').value
+	var address = document.getElementById('address').value
+	var gender = document.getElementById('gender').value
+	var date = document.getElementById('date').value
+	var wage = document.getElementById('wage').value
+	var salary = document.getElementById('salary').value
+	
+	
+	
+	var endpoint = "http://localhost:8080/LankaHardware/AddEmployeeServlet"
+	var formData = new FormData();
+	
+	for(const file of inputFile.files){
+		formData.append('inputFile', file)
+	}
+	
+	formData.append('empNo',empNo)
+	formData.append('name',name)
+	formData.append('email',email)
+	formData.append('designation',designation)
+	formData.append('address',address)
+	formData.append('gender', gender)
+	formData.append('date',date)
+	formData.append('wage',wage)
+	formData.append('salary',salary)
+
+	
+	fetch(endpoint, {
+		method: "post",
+		body: formData
+	}).catch(console.error)
+}

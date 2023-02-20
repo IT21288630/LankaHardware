@@ -594,7 +594,7 @@
                             <i class="bx bx-upload d-block d-sm-none"></i>
                             <input
                               type="file"
-                              id="upload"
+                              id="inputFile"
                               class="account-file-input"
                               hidden
                               accept="image/png, image/jpeg"
@@ -671,7 +671,7 @@
                   
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="country">Gender</label>
-                            <select id="country" name = "gender"class="select2 form-select">
+                            <select id="gender" name = "gender"class="select2 form-select">
                               <option value="select">Select</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
@@ -705,7 +705,7 @@
                           </div>
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="addemployee()">Add Employee</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
                         </div>
                       </form>
@@ -764,6 +764,9 @@
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
+    
+     <!-- call JS -->
+    <script src="../js/CallServlet.js"></script>
 
     <!-- Page JS -->
     <script src="../assets/js/pages-account-settings-account.js"></script>

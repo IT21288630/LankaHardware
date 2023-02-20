@@ -1,7 +1,10 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Logger;
+
+import javax.servlet.http.Part;
 
 import com.google.gson.JsonElement;
 
@@ -13,7 +16,10 @@ public interface IEmployeeService {
 
 	public ArrayList<Employee> getAllEmployees();
 
-	public String addEmployees(String empNo, String name, String email, String designation, String phoneNum,
-			String address, String gender, String date, String wage, Double salary);
+	public String addEmployees(Employee employee, Collection<Part> parts);
 
+	public String removeEmployees(String empNo);
+
+	
+	
 }

@@ -62,6 +62,10 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employees(empNo) VALUES(?);";
 	
+	
+	/** Constant for clear employees */
+	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employees WHERE empNo = ?";
+	
 	/** Constant for create a cart */
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	
@@ -233,7 +237,14 @@ public class CommonConstants {
 	/** Constant for Column index eight */
 	public static final int COLUMN_INDEX_EIGHT = 8;
 	
+	/** Constant for Column index eight */
+	public static final int COLUMN_INDEX_NINE = 9;
 	
+	/** Constant for Column index eight */
+	public static final int COLUMN_INDEX_TEN = 10;
+	
+	/** Constant for Column index eight */
+	public static final int COLUMN_INDEX_ELEVEN = 11;
 	/*---------------------------------------------------
 	 * 
 	 * 

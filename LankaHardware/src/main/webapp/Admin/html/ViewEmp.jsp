@@ -576,8 +576,8 @@
                   <table class="table">
                     <thead>
                       <tr class="text-nowrap">
-                        <th>#</th>
-                        <th>Employee No.</th>
+                     
+                        <th>Emp No.</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Designation</th>
@@ -586,7 +586,8 @@
                         <th>Gender</th>
                         <th>Appointment Date</th>
                         <th>Wage Type</th>
-                        <th>Salary Amount[Rs]</th>
+                        <th>Salary[Rs]</th>
+                        <th>Edit or Remove</th>
                       </tr>
                     </thead>
                     <tbody id = "employee" >
@@ -660,7 +661,7 @@
         href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
         target="_blank"
         class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
+        >Add employee</a
       >
     </div>
 
