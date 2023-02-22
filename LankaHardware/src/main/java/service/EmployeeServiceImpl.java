@@ -57,7 +57,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 			while (rs.next()) {
 				Employee employee = new Employee();
-				
+
 				employee.setEmpNo(rs.getString(1));
 				employee.setName(rs.getString(2));
 				employee.setEmail(rs.getString(3));
@@ -68,7 +68,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 				employee.setDate(rs.getString(8));
 				employee.setWage(rs.getString(9));
 				employee.setSalary(rs.getDouble(10));
-				
+
 				employees.add(employee);
 			}
 
@@ -79,16 +79,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 		return employees;
 	}
-	
-	public static void main(String[] args) {
-		IEmployeeService iEmployeeService = new EmployeeServiceImpl();
-		iEmployeeService.getAllEmployees();
-	}
 
 	@Override
 	public String addEmployees(Employee employee, Collection<Part> parts) {
 		// TODO Auto-generated method stub
-	
+
 		String status = "There was something wrong";
 		ArrayList<String> imagePathArrayList = new ArrayList<String>();
 
@@ -100,7 +95,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		config.put("api_key", "987952682616387");
 		config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
 		Cloudinary cloudinary = new Cloudinary(config);
-		
+
 		for (Part part : parts) {
 			if (part.getSubmittedFileName() != null) {
 
@@ -129,7 +124,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 				}
 			}
 		}
-		
+
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_EMPLOYEE);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, employee.getEmpNo());
@@ -142,13 +137,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			pst.setString(CommonConstants.COLUMN_INDEX_EIGHT, employee.getDate());
 			pst.setString(CommonConstants.COLUMN_INDEX_NINE, employee.getWage());
 			pst.setDouble(CommonConstants.COLUMN_INDEX_TEN, employee.getSalary());
-			
+
 			for (String string : imagePathArrayList) {
 				pst.setString(CommonConstants.COLUMN_INDEX_ELEVEN, string);
 			}
-			
+
 			pst.executeUpdate();
-			
+
 			status = "Employee Added";
 
 		}
@@ -178,19 +173,28 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 		return status;
 	}
-	
+
+
+	public static void main(String[] args) {
+		IEmployeeService iEmployeeService = new EmployeeServiceImpl();
+		System.out.println(iEmployeeService.removeEmployees("emp9"));
+	}
+
+	@Override
 	public String removeEmployees(String empNo) {
 		// TODO Auto-generated method stub
-
+		
 		Employee employee = new Employee();
-		employee.setEmpNo(getAllEmployees(empNo));
+		employee.setEmpNo(empNo);
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_EMPLOYEES);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, employee.getEmpNo());
-			
+
 			pst.executeUpdate();
+			
+			System.out.println("done");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -218,14 +222,61 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		return "Employees removed";
 	}
 
+	
+	
+	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String gender, String date, String wage, double salary) {
+		// TODO Auto-generated method stub
+
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, empNo);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, name);
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, email);
+			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, designation);
+			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, phoneNum);
+			pst.setString(CommonConstants.COLUMN_INDEX_SIX, address);
+			pst.setString(CommonConstants.COLUMN_INDEX_SEVEN, gender);
+			pst.setString(CommonConstants.COLUMN_INDEX_EIGHT, date);
+			pst.setString(CommonConstants.COLUMN_INDEX_NINE, wage);
+			pst.setDouble(CommonConstants.COLUMN_INDEX_NINE, salary);
+			pst.executeUpdate();
+
+			status = "Employees Updated";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return status;
+	}
+
+	
 
 
 
-		
-		
 	
 	
 	
-
 }
-

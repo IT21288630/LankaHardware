@@ -60,8 +60,11 @@ public class CommonConstants {
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employees(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
+	
 	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employees(empNo) VALUES(?);";
 	
+	/** Constant for update employees */
+	public static final String QUERY_ID_UPDATE_EMPLOYEES = "UPDATE employees SET empNo = ? , name = ?, email = ?, designation = ?, phoneNum = ?, address = ?, gender = ?, date = ?, wage = ?, salary = ?  WHERE empNo = ?;";
 	
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employees WHERE empNo = ?";

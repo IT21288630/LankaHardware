@@ -688,8 +688,8 @@
                             <label for="wage" class="form-label">Wage Type</label>
                             <select id="wage" name = "wage" class="select2 form-select">
                               <option value="">Select Type</option>
-                              <option value="-12">Hourly Wage</option>
-                              <option value="-11">Fixed Salary</option>
+                              <option value="Hourly Wage">Hourly Wage</option>
+                              <option value="Fixed salary">Fixed Salary</option>
                             
                             </select>
                           </div>

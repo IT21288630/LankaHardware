@@ -16,9 +16,10 @@ function callGetAllEmployeesServlet(){
 }
 
 function buildAllEmployees(){
-	
+	employeestable.innerHTML = ''
 	for(var i = 0; i < employees.length; i++){
-		var employee = `<tr><td>
+		var employee = `<tr>
+						<td>
 							${employees[i].empNo}
 						</td>
 						<td>
@@ -37,17 +38,22 @@ function buildAllEmployees(){
 							${employees[i].address}
 						</td>
 						<td>
-							${employees[i].gender}
-						</td>
-						<td>
-							${employees[i].date}
-						</td>
-						<td>
-							${employees[i].wage}
-						</td>
-						<td>
-							${employees[i].salary}
-						</td></tr>`
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                              >
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-trash me-1"></i> Delete</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+						
+						</tr>`
 						
 		
 		employeestable.innerHTML += employee		
@@ -58,25 +64,6 @@ function buildAllEmployees(){
 //Insert Employees
 
 var isNew = true;
-
-function addemployee(){
-	
-	if($(formAccountSettings).validate()){
-		
-		var url = "";
-		var data = "";
-		var method;
-		
-		if (isNew == true){
-			
-			url = 'employeeAdd.jsp';
-			date = $(formAccountSettings).serialize();
-			method = 'POST'
-		}
-		
-		$.ajax()
-	}
-}
 
 
 function callAddEmployeeServlet(){
@@ -116,5 +103,11 @@ function callAddEmployeeServlet(){
 	fetch(endpoint, {
 		method: "post",
 		body: formData
-	}).catch(console.error)
+	}).then(res => {
+		callGetAllEmployeesServlet()
+		setTimeout(function() {
+				$('#AddEmoloyeeModal').modal('hide')
+		}, 2500);	
+	}
+	)
 }
