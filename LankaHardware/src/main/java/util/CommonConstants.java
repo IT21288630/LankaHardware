@@ -69,6 +69,15 @@ public class CommonConstants {
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employees WHERE empNo = ?";
 	
+	/** Constant for select cart id's */
+	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM employees;";
+	
+	/** Constant for add supplier */
+	public static final String QUERY_ID_ADD_TO_SUPPLIER = "INSERT INTO suppliers(supNo, name, email, phoneNum, description, debit) VALUES(?, ?, ?, ?, ?, ?);";
+	
+	/** Constant for clear employees */
+	public static final String QUERY_ID_CLEAR_SUPPLIERS = "DELETE FROM suppliers WHERE supNo = ?";
+	
 	/** Constant for create a cart */
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	
