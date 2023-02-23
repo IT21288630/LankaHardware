@@ -191,7 +191,7 @@ function callAddSupplierServlet(){
 	
 	
 	
-	var endpoint = "http://localhost:8080/LankaHardware/AddEmployeeServlet"
+	var endpoint = "http://localhost:8080/LankaHardware/AddSupplierServlet"
 	var formData = new FormData();
 
 	
@@ -208,7 +208,7 @@ function callAddSupplierServlet(){
 		method: "post",
 		body: formData
 	}).then(res => {
-		callGetAllEmployeesServlet()
+		callGetAllSuppliersServlet()
 		setTimeout(function() {
 				$('#AddSupplierModal').modal('hide')
 		}, 2500);	

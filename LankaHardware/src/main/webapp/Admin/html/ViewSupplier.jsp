@@ -744,7 +744,7 @@
                           </div>
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Supplier</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddSupplierServlet()">Add Supplier</button>
                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
                         </div>
                       </form>
@@ -785,7 +785,7 @@
   <script>
 	
   $(document).ready(function () {
-	  callGetAllEmployeesServlet()
+	  callGetAllSuppliersServlet()
 	});
 
 </script>
