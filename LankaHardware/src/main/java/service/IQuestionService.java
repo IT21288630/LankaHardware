@@ -3,6 +3,8 @@ package service;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import model.Customer;
+import model.Item;
 import model.Question;
 
 public interface IQuestionService {
@@ -20,12 +22,10 @@ public interface IQuestionService {
 	
 	/**
 	 * answer a question
-	 * @param answer
-	 * @param email
-	 * @param questionID
+	 * @param question
 	 * 
 	 */
-	public String answerQuestion(String answer, String email, String questionID);
+	public String answerQuestion(Question question);
 	
 	/**
 	 * get all questions and answers by itemID
@@ -59,4 +59,11 @@ public interface IQuestionService {
 	 * @param answer
 	 */
 	public String deleteQuestion(String questionID);
+	
+	/**
+	 * send an email to the customer
+	 * @param question
+	 * 
+	 */
+	public void sendAnsweredEmail(Question question);
 }

@@ -11,24 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import model.Admin;
-import model.Customer;
-import model.Item;
-import model.Question;
+import service.EmployeeServiceImpl;
+import service.IEmployeeService;
 import service.IQuestionService;
 import service.QuestionServiceImpl;
 
 /**
- * Servlet implementation class AnswerQuestionServlet
+ * Servlet implementation class UpdateEmployee
  */
-@WebServlet("/AnswerQuestionServlet")
-public class AnswerQuestionServlet extends HttpServlet {
+@WebServlet("/UpdateEmployee")
+public class UpdateEmployee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnswerQuestionServlet() {
+    public UpdateEmployee() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +36,7 @@ public class AnswerQuestionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -47,29 +46,24 @@ public class AnswerQuestionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		Question question = new Question();
-		Admin admin = new Admin();
-		Customer customer = new Customer();
-		Item item = new Item();
-		String email = "b@g.m";
-		admin.setEmail(email);
-		customer.setEmail(request.getParameter("customerEmail"));
-		item.setName(request.getParameter("itemName"));
-		item.setMainImg(request.getParameter("mainImg"));
+		String empNo = request.getParameter("empNo");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String designation = request.getParameter("designation");
+		String phoneNum = request.getParameter("phoneNum");
+		String address = request.getParameter("address");
+		String gender = request.getParameter("gender");
+		String date = request.getParameter("date");
+		String wage = request.getParameter("wage");
+		double salary = (Double.parseDouble(request.getParameter("salary")));
 		
-		question.setAdmin(admin);
-		question.setCustomer(customer);
-		question.setItem(item);
-		question.setAnswer(request.getParameter("answer"));
-		question.setQuestionID(request.getParameter("questionID"));
-		question.setQuestion(request.getParameter("question"));
-		IQuestionService iQuestionService = new QuestionServiceImpl();
+		IEmployeeService IEmployeeService = new EmployeeServiceImpl();
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iQuestionService.answerQuestion(question));
+		String resp = new Gson().toJson(IEmployeeService.updateEmployees(empNo,name,email,designation,phoneNum,address,gender,date,wage,salary));
 
 		out.print(resp);
 	}

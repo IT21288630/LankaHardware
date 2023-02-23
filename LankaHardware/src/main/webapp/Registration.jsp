@@ -187,7 +187,8 @@
                     </label>
                   </div>
                 </div>
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
+                 <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomerServlet()">Sign up</button>
+                
               </form>
 
               <p class="text-center">

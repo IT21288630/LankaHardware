@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,21 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import model.Customer;
-import service.IWishlistService;
-import service.WishlistServiceImpl;
+import model.Employee;
+import service.EmployeeServiceImpl;
+import service.IEmployeeService;
 
 /**
- * Servlet implementation class GetWishlistServlet
+ * Servlet implementation class GetAllEmployeesServlet
  */
-@WebServlet("/GetWishlistServlet")
-public class GetWishlistServlet extends HttpServlet {
+@WebServlet("/GetAllEmployeesServlet")
+public class GetAllEmployeesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetWishlistServlet() {
+    public GetAllEmployeesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,20 +37,25 @@ public class GetWishlistServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = "a@g.m";
+		ArrayList<Employee>  employees = new ArrayList();
+		IEmployeeService iEmployeeService = new EmployeeServiceImpl();
 		
-		Customer customer = new Customer();
-		IWishlistService iWishlistService = new WishlistServiceImpl();
-		
-		customer.setEmail(email);
-		
+		employees = iEmployeeService.getAllEmployees();
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-
-		String resp = new Gson().toJson(iWishlistService.getWishlist(customer));
-
+		String resp = new Gson().toJson(employees);
+		
 		out.print(resp);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

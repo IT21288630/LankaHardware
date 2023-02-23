@@ -14,6 +14,8 @@
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
+	<link rel="stylesheet" href="nice select/css/nice-select.css">
+
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
     
@@ -32,6 +34,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="quantity/style.css">
+    
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-black">
@@ -542,9 +546,35 @@
 	</div>
 	<!-- Search End -->
 
-	<!--Search Js Plugins -->
-	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
-	<script src="ashion-master/js/main.js"></script>
+	<!-- Modal -->
+	<div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
+		</div>
+	</div>
+
+	<!-- build:js assets/vendor/js/core.js -->
+	<script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="Admin/assets/vendor/libs/popper/popper.js"></script>
+	<script src="Admin/assets/vendor/js/bootstrap.js"></script>
+	<script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+	<script src="Admin/assets/vendor/js/menu.js"></script>
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+
+	<!-- Main JS -->
+	<script src="Admin/assets/js/main.js"></script>
+
+	<!-- Page JS -->
+	<script src="Admin/assets/js/ui-modals.js"></script>
+
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <!--Search Js Plugins -->
+  <script src="ashion-master/js/jquery-3.3.1.min.js"></script>
+  <script src="ashion-master/js/main.js"></script>
 
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -563,12 +593,16 @@
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
   <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
-    
+  <script defer src="quantity/script.js"></script>
+  <script src="nice select/js/jquery.js"></script> 
+  <script src="nice select/js/jquery.nice-select.js"></script>
+	
     <script>
 	//Call index servlet
 		$(document).ready(function () {
 			callIndexServlet()
 			callCartServlet()
+			jQuery('select').niceSelect();
 		});
 	</script>
   </body>

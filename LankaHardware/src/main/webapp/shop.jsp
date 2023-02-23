@@ -3,42 +3,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!--Search css Styles -->
-<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="ashion-master/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="css/search.css" type="text/css">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="nice select/css/nice-select.css">
-
-<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="css/animate.css">
-
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-
-<link rel="stylesheet" href="css/aos.css">
-
-<link rel="stylesheet" href="css/ionicons.min.css">
-
-<link rel="stylesheet" href="css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/style.css">
+	<title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!--Search css Styles -->
+	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
+	<link rel="stylesheet" href="css/search.css" type="text/css">
+	
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+	
+	<link rel="stylesheet" href="nice select/css/nice-select.css">
+	
+	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+	
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	
+	<link rel="stylesheet" href="css/aos.css">
+	
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="css/jquery.timepicker.css">
+	
+	
+	<link rel="stylesheet" href="css/flaticon.css">
+	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="quantity/style.css">
 </head>
 <body class="goto-here">
 	<div class="py-1 bg-black">
@@ -422,6 +418,32 @@
 	</div>
 	<!-- Search End -->
 
+	<!-- Modal -->
+	<div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
+		</div>
+	</div>
+
+	<!-- build:js assets/vendor/js/core.js -->
+	<script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="Admin/assets/vendor/libs/popper/popper.js"></script>
+	<script src="Admin/assets/vendor/js/bootstrap.js"></script>
+	<script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+	<script src="Admin/assets/vendor/js/menu.js"></script>
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+
+	<!-- Main JS -->
+	<script src="Admin/assets/js/main.js"></script>
+
+	<!-- Page JS -->
+	<script src="Admin/assets/js/ui-modals.js"></script>
+
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
 	<!--Search Js Plugins -->
 	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
 	<script src="ashion-master/js/main.js"></script>
@@ -444,10 +466,11 @@
 	<script src="js/google-map.js"></script>
 	<script src="js/priceRange.js"></script>
 	<script src="js/main.js"></script>
-	<script src="https://kit.fontawesome.com/339febfaad.js"
-		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
+	<script defer src="quantity/script.js"></script>	
 	<script src="nice select/js/jquery.js"></script> 
 	<script src="nice select/js/jquery.nice-select.js"></script>
+	
 	<script>
 		//Call cart servlet
 		$(document).ready(function() {
@@ -459,8 +482,7 @@
 			const urlParam = new URLSearchParams(keyValue)
 			var itemName = urlParam.get('search')
 
-			if(itemName == null) callGetShopServlet()
-			else customizedSearch(itemName)
+			customizedSearch(itemName)
 		});
 	</script>
 </body>

@@ -16,9 +16,7 @@
 	type="text/css">
 <link rel="stylesheet" href="css/search.css" type="text/css">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
 <link rel="stylesheet" href="nice select/css/nice-select.css">
 
@@ -562,6 +560,12 @@
 					<button type="button" class="btn btn-primary" id="questionSubmitBtn">Submit</button>
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
 		</div>
 	</div>
 

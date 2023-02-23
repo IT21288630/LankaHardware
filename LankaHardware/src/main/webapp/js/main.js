@@ -386,6 +386,7 @@ var openQuestionModal = document.getElementById('openQuestionModal')
 var questionModalHeader = document.getElementById('questionModalHeader')
 var questionModalBody = document.getElementById('questionModalBody')
 var questionModalFooter = document.getElementById('questionModalFooter')
+var quickViewModal = document.getElementById('quickViewModal')
 
 function stopScrollingToTop(){
 	return false
@@ -447,15 +448,21 @@ function callWishlistServlet(){
 }
 
 function buildWishlist(wishlistItems){
+	quickViewsizesAndPrizes = []
+	isInWishlist = []
+	
 	for(var i = 0; i < wishlistItems.length; i++){
-		var starID = wishlistItems[i].itemID + 'wishlistStar'
+		quickViewsizesAndPrizes.push(wishlistItems[i].sizesAndPrizes)
 		
-		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" id="${wishlistItems[i].itemID}ProductCard">
+		var starID = `${wishlistItems[i].itemID + wishlistItems[i].size}wishlistStar`
+		
+		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" id="${wishlistItems[i].itemID + wishlistItems[i].size}ProductCard">
     				<div class="product d-flex flex-column">
     					<a href="#" class="img-prod"><img class="img-fluid" src="${wishlistItems[i].mainImg}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3">
+    					
     						<div class="d-flex">
     							<div class="cat">
 		    						<span>${wishlistItems[i].brand}</span>
@@ -472,16 +479,25 @@ function buildWishlist(wishlistItems){
 	    					</div>
     						<h3><a href="#">${wishlistItems[i].name}</a></h3>
     						<div class="pricing">
-	    						<p class="price"><span>${wishlistItems[i].price}</span></p>
+	    						<p class="price" style="display: flex; justify-content: space-between;">
+		    						<span>Rs${wishlistItems[i].price}</span>
+		    						<span style="color: grey;">${wishlistItems[i].size}</span>
+	    						</p>
 	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1, 'notSpecified'); return false;"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2" onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}'); return false;"><span>Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
-    						</p>
+    						
+    						<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${wishlistItems[i].itemID}', '${wishlistItems[i].mainImg}', '${wishlistItems[i].name}', '${wishlistItems[i].price}', '${wishlistItems[i].description}', ${wishlistItems[i].avgRating}, ${i}, '${wishlistItems[i].size}');">
+								<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
+							</p>
+							
     					</div>
     				</div>
     			</div>`
     			
+    			
+//    			<p class="bottom-area d-flex px-3">
+//					<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1, 'notSpecified'); return false;"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+//					<a href="#" class="buy-now text-center py-2" onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}', '${wishlistItems[i].size}'); return false;"><span>Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
+//				</p>
     	wishlist_itemList.innerHTML += item
     	buildAverageRating(wishlistItems[i], starID)
 	}
@@ -489,7 +505,20 @@ function buildWishlist(wishlistItems){
 
 //Add to wishlist
 function callAddToWishlistServlet(itemID){
-	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID}, function(response){
+	var size = document.getElementById('ProductSizes').value
+	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID, size: size}, function(response){
+	    
+	    added_msg.innerHTML = response
+	    added_msg.classList.add('active')
+	    setTimeout(function() {
+	    	added_msg.classList.remove('active')
+	  	}, 2000);
+	})
+}
+
+function callAddToWishlistServletFromQuickView(itemID){
+	var size = document.getElementById('quickViewProductSizes').value
+	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID, size: size}, function(response){
 	    
 	    added_msg.innerHTML = response
 	    added_msg.classList.add('active')
@@ -501,12 +530,32 @@ function callAddToWishlistServlet(itemID){
 
 //Remove from wishlist
 function callRemoveFromWishlistServlet(itemID){
-	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID}, function(response){
+	var size = document.getElementById('ProductSizes').value
+	
+	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID, size: size}, function(response){
 	   
 	   //wishlist_itemList.innerHTML = ""
 	   wishlistItemRemoved = true
 	   callWishlistServlet()
-	   deleteWishlistItemElement(itemID)
+	   deleteWishlistItemElement(itemID + size)
+	   
+	   added_msg.innerHTML = response
+	   added_msg.classList.add('active')
+	   setTimeout(function() {
+	   	added_msg.classList.remove('active')
+	   }, 2000);
+	})
+}
+
+function callRemoveFromWishlistServletFromQuickView(itemID){
+	var size = document.getElementById('quickViewProductSizes').value
+	
+	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID, size: size}, function(response){
+	   
+	   //wishlist_itemList.innerHTML = ""
+	   wishlistItemRemoved = true
+	   callWishlistServlet()
+	   //deleteWishlistItemElement(itemID + size)
 	   
 	   added_msg.innerHTML = response
 	   added_msg.classList.add('active')
@@ -546,6 +595,8 @@ function callSendBackInStockEmailServlet(){
 
 //call index servlet
 var newArrivals = []
+var quickViewsizesAndPrizes = []
+var isInWishlist = []
 
 function callIndexServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetIndexServlet", function(response) {
@@ -557,7 +608,13 @@ function callIndexServlet(){
 }
 
 function buildNewArrivalslist(newArrivals){
-	for(var i = 0; i < newArrivals.length; i++){	
+	quickViewsizesAndPrizes = []
+	isInWishlist = []
+	
+	for(var i = 0; i < newArrivals.length; i++){
+		quickViewsizesAndPrizes.push(newArrivals[i].sizesAndPrizes)
+		isInWishlist.push(newArrivals[i].isInWishlist)
+		
 		var starID = newArrivals[i].itemID + 'AvgStar'
 
 		var item = `<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated">
@@ -584,10 +641,9 @@ function buildNewArrivalslist(newArrivals){
     						<div class="pricing">
 	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
-	    					<p class="bottom-area d-flex px-3">
-    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${newArrivals[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-    							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${newArrivals[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
-    						</p>
+	    					<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${newArrivals[i].itemID}', '${newArrivals[i].mainImg}', '${newArrivals[i].name}', '${newArrivals[i].price}', '${newArrivals[i].description}', ${newArrivals[i].avgRating}, ${i}, '${newArrivals[i].size}');">
+								<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
+							</p>
     					</div>
     				</div>
     			</div>`
@@ -595,6 +651,140 @@ function buildNewArrivalslist(newArrivals){
     	newArrival_itemList.innerHTML += item
     	buildAverageRating(newArrivals[i], starID)
 	}
+	
+	console.log(isInWishlist)
+}
+
+//build quick view
+function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes, size){
+	var starID = `QuickViewStar`
+	var iconID = `${itemID}${size}Icon`
+	
+	quickViewModal.innerHTML = `<div class="modal-dialog modal-dialog-centered quickView-modal" role="document">
+								  <div class="modal-content quickView-modalContent">
+									<div class="modal-header quickView-header" style="justify-content: flex-end; padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">
+									  <button data-bs-dismiss="modal" style="border: none; outline: none; background: none; font-size: 1.25rem; font-weight: bold; color: rgb(0, 0, 0);">&times;</button>
+									</div>
+									<div class="modal-body quickView-body">
+											<div class="quickView-imgContainer">
+												<img src="${mainImg}" class="quickView-img" alt="Colorlib Template">
+											</div>
+						
+											<div class="product-details ftco-animate fadeInUp ftco-animated quickView-description">
+												<h3 class="quickView-margin">${name}</h3>
+												<div class="rating d-flex quickView-ratingAndPrice">
+													<p class="text-left mr-4 quickView-margin">
+														<a href="#" class="mr-2">${Math.round(avgRating * 10) / 10}</a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}2"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}3"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}4"></span></a>
+														<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
+													</p>
+													<p class="price quickView-margin"><span id="quickViewProductPrice">Rs${price}</span></p>
+												</div>
+												
+												<p>${description}</p>
+												
+												<div class="quickView-btnSet">
+													<div class="row mt-4">
+														<div class="col-md-6">
+															<div class="form-group d-flex">
+																<div class="select-wrap">
+																	<select name="" id="quickViewProductSizes" class="form-control" onchange="displayQuickViewProductPrice(${sizesAndPrizes}, '${itemID}', '${iconID}');">
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="w-100"></div>
+														<div style="position: relative; display: flex; justify-content: flex-start; align-items: start; width: 100%;">
+															<div class="input-group col-md-6 d-flex mb-3">
+																<div class="quantity buttons_added">
+																	<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
+																</div>
+															</div>
+															
+															<span style="position: absolute; top: 34%; right: 3%; transform: translate(-50%, -50%);" id="${iconID}">	
+															</span>
+
+														</div>
+													</div>
+													
+													<p style="width: 100%;" onclick="addToCartFromQuickView('${itemID}', 0); return false;"><a href="#" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a></p>
+												</div>
+												
+												
+											</div>
+										
+									</div>
+									<div class="modal-footer quickView-footer" style="display: none;">
+									  
+									</div>
+								  </div>
+								</div>`
+	
+	buildQuickViewSizes(sizesAndPrizes, size)
+	var productSize = document.getElementById('quickViewProductSizes').value
+	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
+	jQuery('select').niceSelect();
+	var item = {"avgRating": avgRating}
+    buildAverageRating(item, starID)
+}
+
+//build quick view sizes and prices
+function buildQuickViewSizes(sizesAndPrizes, size){
+	var ProductSizes = document.getElementById('quickViewProductSizes')
+	ProductSizes.innerHTML = ''
+	
+	for(const [size, price] of Object.entries(quickViewsizesAndPrizes[sizesAndPrizes])){
+		var productSize = `<option value="${size}">${size}</option>`
+		
+		ProductSizes.innerHTML += productSize
+	}
+	
+	ProductSizes.value = size
+	$('select').niceSelect('update');
+}
+
+//build wishlist icon
+function buildWishlistIcon(iconID, i, itemID, productSize){
+	var icon = document.getElementById(iconID)
+	
+	for(const [size, val] of Object.entries(isInWishlist[i])){
+		if(productSize == size && val == false){
+			icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="outlineHeart"></button>
+							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+		}
+		else if(productSize == size && val == true){
+			icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="filledHeart"></button>
+							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+		}
+	}
+}
+
+//toggle wishlist icon
+function toggleWishlistIcon(iconID, itemID){
+	var icon = document.getElementById(iconID)
+	var heartButtonValue = document.getElementById('heartButton').value
+	
+	if(heartButtonValue == 'outlineHeart'){
+		icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="filledHeart"></button>
+						  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+	}else if(heartButtonValue == 'filledHeart'){
+		icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="outlineHeart"></button>
+						  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+	}
+}
+
+//display relevant product price
+function displayQuickViewProductPrice(sizesAndPrizes, itemID, iconID){
+	var productPrice = document.getElementById('quickViewProductPrice')
+	var productSize = document.getElementById('quickViewProductSizes').value
+	var displayPrice = quickViewsizesAndPrizes[sizesAndPrizes][productSize]
+	
+	productPrice.innerHTML = `Rs${displayPrice}`
+	
+	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
 }
 
 //build average rating
@@ -916,7 +1106,6 @@ function callGetProductSingleServlet(itemID){
 		relatedProducts = response[3]
 		productQuestions = response[4]
 		itemIDForQuestion = product.itemID
-		console.log(productQuestions)
 		
 		buildProductSingle(product)
 		buildProductSizes()
@@ -984,7 +1173,7 @@ function buildProductSingle(product){
 						<div class="col-md-6">
 							<div class="form-group d-flex">
 								<div class="select-wrap">
-									<select name="" id="ProductSizes" class="form-control" onchange="displayProductPrice()">
+									<select name="" id="ProductSizes" class="form-control" onchange="displayProductPrice();">
 									</select>
 								</div>
 							</div>
@@ -1140,7 +1329,7 @@ function buildAllReviewImages(images, containerID){
 	for(var i = 0; i < images.length; i++){
 		var image = `<div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated" style="max-width: 20%;">
 						<a href="${images[i]}" class="image-popup">
-							<img src="${images[i]}" class="img-fluid" alt="Colorlib Template">
+							<img src="${images[i]}" class="img-fluid-ratings" alt="Colorlib Template">
 						</a>
 					</div>`
 		
@@ -1161,6 +1350,13 @@ function buildAllReviewImages(images, containerID){
 
 //build review filtered list
 function filterReviews(){
+	fiveStarReviews = []
+	fourStarReviews = []
+	threeStarReviews = []
+	twoStarReviews = []
+	oneStarReviews = []
+	reviewsWithImages = []
+	
 	for(var i = 0; i < allReviews.length; i++){
 		if(allReviews[i].stars == 5){
 			fiveStarReviews.push(allReviews[i])
@@ -1261,11 +1457,18 @@ function emptyFilteredReviews(text){
 
 //build related products
 function buildRelatedProducts(){
+	relatedProductList.innerHTML = ''
+	quickViewsizesAndPrizes = []
+	isInWishlist = []
+	
 	for(var i = 0; i < relatedProducts.length; i++){
+		console.log(relatedProducts[i])
+		quickViewsizesAndPrizes.push(relatedProducts[i].sizesAndPrizes)
+		
 		var starID = relatedProducts[i].itemID + 'RelatedProductAvgStar'
 		
 		var item = `<div class="item">
-						<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" style="min-width: fit-content;">
+						<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex fadeInUp ftco-animated" style="min-width: fit-content;" id="related${relatedProducts[i].itemID}">
 							<div class="product d-flex flex-column">
 								<a href="#" class="img-prod" onclick="return flase;"><img class="img-fluid" src="${relatedProducts[i].mainImg}" alt="Colorlib Template" onclick="toProductSinglePage('${relatedProducts[i].itemID}');">
 									<div class="overlay"></div>
@@ -1289,10 +1492,9 @@ function buildRelatedProducts(){
 									<div class="pricing">
 										<p class="price"><span>${relatedProducts[i].price}</span></p>
 									</div>
-									<p class="bottom-area d-flex px-3">
-		    							<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${relatedProducts[i].itemID}', 1, 'notSpecified'); return false;"><span> Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-		    							<a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${relatedProducts[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
-		    						</p>
+									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${relatedProducts[i].itemID}', '${relatedProducts[i].mainImg}', '${relatedProducts[i].name}', '${relatedProducts[i].price}', '${relatedProducts[i].description}', ${relatedProducts[i].avgRating}, ${i}, '${relatedProducts[i].size}');">
+										<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -1300,6 +1502,12 @@ function buildRelatedProducts(){
 		
 		
 		relatedProductList.innerHTML += item
+		
+		if(afterQuestion == true) {
+			var relatedCard = document.getElementById(`related${relatedProducts[i].itemID}`)
+			relatedCard.style = "min-width: initial;"
+		}
+		
 		buildAverageRating(relatedProducts[i], starID)
 	}
 	
@@ -1327,6 +1535,11 @@ function buildRelatedProducts(){
 //call add to cart from single product page
 function addToCartFromSingleProductPage(itemID, quantity){
 	var size = document.getElementById('ProductSizes').value
+	callAddToCartServlet(itemID, quantity, size)
+}
+
+function addToCartFromQuickView(itemID, quantity){
+	var size = document.getElementById('quickViewProductSizes').value
 	callAddToCartServlet(itemID, quantity, size)
 }
 
@@ -1411,11 +1624,8 @@ function searchToShop(){
 
 //customized search
 function customizedSearch(itemName){
-	if(itemName != undefined){
-		isFromSearch = true
-		itemNameForShop = itemName
-		callGetShopServlet()
-	}
+	itemNameForShop = itemName
+	callGetShopServlet()
 }
 
 //Call get shop servlet
@@ -1434,7 +1644,7 @@ var currentBrand = ''
 
 function callGetShopServlet(){
 	var itemName
-	if(itemNameForShop != undefined){
+	if(itemNameForShop != undefined || itemNameForShop != null){
 		itemName = itemNameForShop
 		itemName = `%${itemName}%`
 	} else{
@@ -1459,11 +1669,15 @@ function callGetShopServlet(){
 //Build items in shop page
 function buildShopItems(shopItems){
 	shopItemList.innerHTML = ''
+	quickViewsizesAndPrizes = []
+	isInWishlist = []
 	
 	if(shopItems.length == 0) shopEmpty()
 	else shopItemList.style = "justify-content: inherit;"
 	
 	for(var i = 0; i < shopItems.length; i++){
+		quickViewsizesAndPrizes.push(shopItems[i].sizesAndPrizes)
+		console.log(`here`)
 		var starID = shopItems[i].itemID + 'shopStar'
 		
 		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
@@ -1494,10 +1708,8 @@ function buildShopItems(shopItems){
 											<span>Rs${shopItems[i].price}</span>
 										</p>
 									</div>
-									<p class="bottom-area d-flex px-3">
-										<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${shopItems[i].itemID}', 1, '${shopItems[i].size}'); return false;"><span>Add
-												to cart <i class="ion-ios-add ml-1"></i>
-										</span></a> <a href="#" class="buy-now text-center py-2" onclick="callAddToWishlistServlet('${shopItems[i].itemID}'); return false;"><span> Wishlist <i class="fa-solid fa-eye" style="line-height: 1.8;"></i></span></a>
+									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${shopItems[i].itemID}', '${shopItems[i].mainImg}', '${shopItems[i].name}', '${shopItems[i].price}', '${shopItems[i].description}', ${shopItems[i].avgRating}, ${i}, '${shopItems[i].size}');">
+										<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
 									</p>
 								</div>
 							</div>
@@ -1755,6 +1967,8 @@ function callAddReviewServlet(){
 	
 
 //call AskQuestionServlet
+var afterQuestion = false
+
 openQuestionModal.addEventListener('click', () => {
 	questionModalHeader.innerHTML = `<i class="fa-solid fa-arrow-left" data-bs-dismiss="modal" style="font-size: large;"></i>
 									<h5 style="color: gray;"> Ask a Question </h5>`
@@ -1785,6 +1999,9 @@ function callAskQuestionServlet(question){
 									        <span style="font-size: x-large;">${response}</span>
 									    </div>`
 	    questionModalFooter.style = "display: none;"
+	    
+	    afterQuestion = true
+	    
 	    callGetProductSingleServlet(itemID)
 	    
 	    setTimeout(function() {
