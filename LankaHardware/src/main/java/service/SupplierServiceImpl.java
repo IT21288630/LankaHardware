@@ -26,7 +26,7 @@ import model.Supplier;
 import util.CommonConstants;
 import util.DBConnectionUtil;
 
-public interface SupplierServiceImpl extends ISupplierService {
+public class SupplierServiceImpl implements ISupplierService {
 	
 	private static Connection con;
 

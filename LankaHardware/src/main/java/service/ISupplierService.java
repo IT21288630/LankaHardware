@@ -7,7 +7,7 @@ import model.Supplier;
 
 public interface ISupplierService {
 	
-	public static final Logger log = Logger.getLogger(ICartService.class.getName());
+	public static final Logger log = Logger.getLogger(ISupplierService.class.getName());
 	
 	public ArrayList<Supplier> getAllSuppliers();
 	
