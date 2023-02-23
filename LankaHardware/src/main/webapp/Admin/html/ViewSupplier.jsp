@@ -1,3 +1,9 @@
+<%@page import="model.*"%>
+<%@page import="service.*"%>
+<%@page import="java.util.ArrayList"%>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 
 <html
@@ -15,12 +21,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Supplier settings - Add Supplier</title>
+    <title>Container - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -59,8 +65,15 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-      
-             
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <svg
+                  width="25"
+                  viewBox="0 0 25 42"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
                   <defs>
                     <path
                       d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
@@ -108,7 +121,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Lanka Hardware</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -128,7 +141,7 @@
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Layouts</div>
@@ -145,7 +158,7 @@
                     <div data-i18n="Without navbar">Without navbar</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="layouts-container.html" class="menu-link">
                     <div data-i18n="Container">Container</div>
                   </a>
@@ -166,13 +179,13 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Pages</span>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Account Settings</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
                     <div data-i18n="Account">Account</div>
                   </a>
@@ -503,7 +516,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"></span>
+                            <span class="fw-semibold d-block">John Doe</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -553,43 +566,118 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
+          <h5 class="card-header">Suppliers</h5>
             <!-- Content -->
+            <div class="layout-demo-wrapper">
+               <div class="card">
+                
+                <div class="table-responsive text-nowrap">
+                
+                  <table class="table">
+                    <thead>
+                      <tr class="text-nowrap">
+                     
+                        <th>Supplier No.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                     	<th>Action</th>
+                      
+                      </tr>
+                    </thead>
+                    <tbody id = "supplier" >
+                    	
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--/ Responsive Table -->
+            </div>
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Add Employee Account /</span> Account</h4>
+              <!-- Layout Demo -->
+              
+                <div class="layout-demo-info">
+                 
+                
+                </div>
+              </div>
+              <!--/ Layout Demo -->
+            </div>
+            <!-- / Content -->
 
-              <div class="row">
-                <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-notifications.html"
-                        ><i class="bx bx-bell me-1"></i> Notifications</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-connections.html"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                      >
-                    </li>
-                  </ul>
-                  <div class="card mb-4">
-                    <h5 class="card-header">Add Supplier/Profile</h5>
-                    <!-- Account -->
-                    <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img
-                          src="../assets/img/avatars/1.png"
-                          alt="user-avatar"
-                          class="d-block rounded"
-                          height="100"
-                          width="100"
-                          id="uploadedAvatar"
-                        />
-                        <div class="button-wrapper">
-                      
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  ,  Lanka Hardware 
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                </div>
+                <div>
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                  <a
+                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Documentation</a
+                  >
+
+                  <a
+                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Support</a
+                  >
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <div class="buy-now">
+      <a
+        href="#"
+        onclick="return false;"
+        class="btn btn-danger btn-buy-now"
+        data-bs-toggle="modal" data-bs-target="#AddSupplierModal" 
+        >Add Supplier</a
+      >
+    </div>
+    
+    
+    <div class="modal fade" id="AddSupplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="AddSupplierModalHeader">
+              <h5 class="modal-title" id="modalCenterTitle">Add Supplier</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="AddSupplierModalBody">
+              <div>
+              	 <div class="button-wrapper">
+                
 
                           <p class="text-muted mb-0"></p>
                         </div>
@@ -626,7 +714,7 @@
                               placeholder="123@gmail.com"
                             />
                           </div>
-                    
+                 
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="phoneNumber">Phone Number</label>
                             <div class="input-group input-group-merge">
@@ -640,70 +728,49 @@
                               />
                             </div>
                           </div>
-                   <div class="mb-3 col-md-6">
-                   <label class="form-label" for="description">Supplier Description</label>
-                	<textarea name="description" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
-              		</div>
-                          
-                            <div class="mb-3 col-md-6">
-                            <label for="wage" class="form-label">Debit Or Credit</label>
-                            <select id="wage" name = "wage" class="select2 form-select">
+              
+                           <div class="mb-3 col-md-6">
+                   			<label class="form-label" for="description">Supplier Description</label>
+                			<textarea name="description" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              			  </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="debit" class="form-label">Debit Or Credit</label>
+                            <select id="debit" name = "wage" class="select2 form-select">
                               <option value="">Select Type</option>
                               <option value="Debit">Debit</option>
                               <option value="Credit">Credit</option>
                             
                             </select>
                           </div>
-                     
+                        </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Supplier</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddSupplierServlet()">Add Supplier</button>
+<<<<<<< Updated upstream
                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+=======
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearsupplier()">Cancel</button>
+>>>>>>> Stashed changes
                         </div>
                       </form>
                     </div>
-                    <!-- /Account -->
-                 
-            <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                 
-                 
-                  Lanka Hardware
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">LK</a>
-                </div>
-         
-            </footer>
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
+              </div>
+            </div>
+            <div class="modal-footer" id="AddSupplierFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
           </div>
-          <!-- Content wrapper -->
         </div>
-        <!-- / Layout page -->
       </div>
-
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- / Layout wrapper -->
-
-    <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >View Supplier List</a
-      >
-    </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../js/CallServlet.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="../assets/vendor/js/menu.js"></script>
@@ -713,14 +780,18 @@
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
-    
-     <!-- call JS -->
-    <script src="../js/CallServlet.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/pages-account-settings-account.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
+  <script>
+	
+  $(document).ready(function () {
+	  callGetAllSuppliersServlet()
+	});
+
+</script>
 </html>
+

@@ -111,3 +111,107 @@ function callAddEmployeeServlet(){
 	}
 	)
 }
+
+//Suppliers
+
+var suppliers = []
+var supplierstable = document.getElementById('employee')
+
+function callGetAllSuppliersServlet(){
+	$.get("http://localhost:8080/LankaHardware/GetAllSuppliersServlet", function(response) {
+				
+		suppliers = response
+		
+		console.log(suppliers)
+		
+		buildAllSuppliers();
+	})
+}
+
+function buildAllSuppliers(){
+	supplierstable.innerHTML = ''
+	for(var i = 0; i < suppliers.length; i++){
+		var supplier = `<tr>
+						<td>
+							${suppliers[i].supNo}
+						</td>
+						<td>
+							${suppliers[i].name}
+						</td>
+						<td>
+							${suppliers[i].email}
+						</td>
+						<td>
+							${suppliers[i].phoneNum}
+						</td>
+						<td>
+							${suppliers[i].description}
+						</td>
+						<td>
+							${suppliers[i].debit}
+						</td>
+						<td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                              >
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="bx bx-trash me-1"></i> Delete</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+						
+						</tr>`
+						
+		
+		supplierstable.innerHTML += supplier		
+	}
+}
+
+
+//Insert Suppliers
+
+var isNew = true;
+
+
+function callAddSupplierServlet(){
+	
+	
+	var supNo = document.getElementById('supNo').value
+	var name = document.getElementById('name').value
+	var email = document.getElementById('email').value
+	var phoneNum = document.getElementById('phoneNum').value
+	var description = document.getElementById('description').value
+	var debit = document.getElementById('debit').value
+	
+	
+	
+	var endpoint = "http://localhost:8080/LankaHardware/AddSupplierServlet"
+	var formData = new FormData();
+
+	
+	formData.append('supNo',empNo)
+	formData.append('name',name)
+	formData.append('email',email)
+	formData.append('phoneNum',designation)
+	formData.append('description',address)
+	formData.append('debit', gender)
+
+
+	
+	fetch(endpoint, {
+		method: "post",
+		body: formData
+	}).then(res => {
+		callGetAllSuppliersServlet()
+		setTimeout(function() {
+				$('#AddSupplierModal').modal('hide')
+		}, 2500);	
+	}
+	)
+}
