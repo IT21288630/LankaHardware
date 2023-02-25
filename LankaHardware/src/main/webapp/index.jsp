@@ -85,7 +85,7 @@
 	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
 							class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
-			  <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
+			  <li class="nav-item"><a href="profile.jsp" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 	        </ul>
 	      </div>
 	    </div>

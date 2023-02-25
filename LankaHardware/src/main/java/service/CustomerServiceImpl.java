@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,49 +80,12 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public String addCustomers( Customer  customer, Collection<Part> parts) {
+	public String register( Customer  customer) {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
-		ArrayList<String> imagePathArrayList = new ArrayList<String>();
 
 		con = DBConnectionUtil.getDBConnection();
-
-		// Configure to upload to cloudinary
-		Map config = new HashMap();
-		config.put("cloud_name", "dqgiitni2");
-		config.put("api_key", "987952682616387");
-		config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
-		Cloudinary cloudinary = new Cloudinary(config);
-
-		for (Part part : parts) {
-			if (part.getSubmittedFileName() != null) {
-
-				try {
-					InputStream is = part.getInputStream();
-
-					File tempFile = File.createTempFile("javaMyfile", ".xls");
-					FileUtils.copyToFile(is, tempFile);
-
-					System.out.println(tempFile.getName());
-					System.out.println(tempFile.exists());
-
-					// Upload to cloudinary
-					try {
-						Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
-						imagePathArrayList.add(map.get("url"));
-					} catch (IOException exception) {
-						System.out.println(exception.getMessage());
-					}
-
-					System.out.println("deleting " + tempFile.getAbsolutePath() + " " + tempFile.delete());
-					System.out.println(tempFile.exists());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_CUSTOMER);
@@ -129,15 +93,10 @@ public class CustomerServiceImpl implements ICustomerService {
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, customer.getPassword());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, customer.getPhone());
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, customer.getAddress());
-			
-
-			for (String string : imagePathArrayList) {
-				pst.setString(CommonConstants.COLUMN_INDEX_ELEVEN, string);
-			}
 
 			pst.executeUpdate();
 
-			status = "Employee Added";
+			status = "login.jsp";
 
 		}
 
@@ -167,11 +126,6 @@ public class CustomerServiceImpl implements ICustomerService {
 		return status;
 	}
 
-
-	public static void main(String[] args) {
-		ICustomerService iCustonerService = new CustomerServiceImpl();
-		System.out.println(iCustomerService.removeCustomers("emp9"));
-	}
 
 	@Override
 	public String removeCustomers(String email) {
@@ -260,7 +214,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public String updateCustomers(String email, String PAssword, String phone, String address) {
+	public String updateCustomers(String email, String Password, String phone, String address) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -270,7 +224,18 @@ public class CustomerServiceImpl implements ICustomerService {
 
 
 
-	
+	public static void main(String[] args) {
+		ICustomerService customerService = new CustomerServiceImpl();
+		
+		Customer customer = new Customer();
+		customer.setAddress("sdfsd");
+		customer.setEmail("dfs");
+		customer.setPassword("dcs");
+		customer.setPhone("dvs");
+		
+		System.out.println(customerService.register(customer));
+		
+	}
 	
 	
 }

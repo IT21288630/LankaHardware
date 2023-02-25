@@ -17,7 +17,7 @@ public interface ICustomerService {
 
 	public ArrayList<Customer> getAllCustomers();
 
-	public String addCustomers(Customer customer, Collection<Part> parts);
+	public String register(Customer customer);
 
 	public String removeCustomers(String email);
 

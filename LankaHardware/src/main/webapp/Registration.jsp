@@ -138,22 +138,22 @@
               <h4 class="mb-2">Adventure starts here 🚀</h4>
               <p class="mb-4">Make your app management easy and fun!</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3">
                
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
                 </div>
                 <div class="mb-3 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
+                  <label class="form-label" for="Password">Password</label>
                   <div class="input-group input-group-merge">
                     <input
-                      type="password"
-                      id="password"
+                      type="Password"
+                      id="Password"
                       class="form-control"
-                      name="password"
+                      name="Password"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
+                      aria-describedby="Password"
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
@@ -161,17 +161,17 @@
                  <div class="mb-3">
                  <label for="phone"class="form-label">Enter a phone number</label>
                  
-                                   <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                                   <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" />
 
                    
                  </div>
                  <div class="mb-3">
-                 <label for="Address"class="form-label">Address</label>
+                 <label for="address"class="form-label">Address</label>
                  <div class="form-group">
-  					<input type="Address" 
+  					<input type="address" 
  			        class="form-control" 
-			         id="autocomplete" 
-			         placeholder="Street">
+			         id="address" 
+			         placeholder="address">
   
  		
                 
@@ -187,7 +187,7 @@
                     </label>
                   </div>
                 </div>
-                 <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomerServlet()">Sign up</button>
+                 <button type="button" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomersServlet();">Sign up</button>
                 
               </form>
 
@@ -229,6 +229,7 @@
 
     <!-- Main JS -->
     <script src="Admin/assets/js/main.js"></script>
+    <script src="js/callServlet.js"></script>
 
     <!-- Page JS -->
 

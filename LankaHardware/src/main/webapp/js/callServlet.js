@@ -11,10 +11,10 @@ function callLoginServlet() {
 
 	$.post("http://localhost:8080/LankaHardware/LoginServlet", { email: email, password: password }, function(response) {
 
-		
+		console.log(response)
 
-		if (response == "customers") {
-			window.location.href = "Lankahardware/src/webapp/WEB-INF/viewcustomer";
+		if (response == "customer") {
+			window.location.href = "index.jsp";
 
 		}
 		else if(response == "sysAdmin"){
@@ -94,19 +94,17 @@ var isNew = true;
 
 
 function callAddCustomersServlet(){
-	var inputFile = document.getElementById('inputFile')
 	
 	var email = document.getElementById('email').value
 	var Password = document.getElementById('Password').value
 	var phone = document.getElementById('phone').value
 	var address = document.getElementById('address').value
 		
+	console.log(Password)
 	
 	var endpoint = "http://localhost:8080/LankaHardware/AddCustomerServlet"
 
-	
-	
-	
+	var formData = new FormData();
 	
 	formData.append('email',email)
 	formData.append('Password',Password)
@@ -118,11 +116,7 @@ function callAddCustomersServlet(){
 	fetch(endpoint, {
 		method: "post",
 		body: formData
-	}).then(res => {
-		callGetAllCustomersServlet()
-		setTimeout(function() {
-				$('#AddCustomerModal').modal('hide')
-		}, 2500);	
-	}
+	}).then(res => res.json()
+	.then(data => window.location.href = data)
 	)
 }

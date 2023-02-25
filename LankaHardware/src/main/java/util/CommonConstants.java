@@ -58,7 +58,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
 	
 	/** Constant for add customer details */
-	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?, ?);";	
+	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
 	
 	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customerlogin(email) VALUES(?);";
 	

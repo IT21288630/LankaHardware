@@ -42,7 +42,6 @@ public class AddCustomerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -55,12 +54,9 @@ public class AddCustomerServlet extends HttpServlet {
 		Customer customer = new Customer();
 		
 		customer.setEmail(request.getParameter("email"));
-		customer.setPassword(request.getParameter("password"));
+		customer.setPassword(request.getParameter("Password"));
 		customer.setPhone(request.getParameter("phone"));
 		customer.setAddress(request.getParameter("address"));
-	
-		
-		Collection<Part> parts = request.getParts();
 		
 		ICustomerService iCustomerService = new CustomerServiceImpl();
 		
@@ -68,7 +64,7 @@ public class AddCustomerServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iCustomerService.addCustomers( customer, parts ));
+		String resp = new Gson().toJson(iCustomerService.register( customer));
 
 		out.print(resp);
 	}
