@@ -237,6 +237,10 @@ public class WishlistServiceImpl implements IWishlistService {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
+			
+			for (Item item : items) {
+				item.setIsInWishlist(checkIfItemIsInWishlist(customer, item));
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import model.Customer;
 import model.Item;
 import model.Shop;
 import util.CommonConstants;
@@ -37,6 +38,8 @@ public class ShopServiceImpl implements IShopService {
 		ArrayList<String> mainCategories = new ArrayList<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
+		IWishlistService iWishlistService = new WishlistServiceImpl();
+		Customer customer = new Customer();
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -68,6 +71,12 @@ public class ShopServiceImpl implements IShopService {
 				
 				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
+			}
+			
+			customer.setEmail("a@g.m");
+			
+			for (Item item : items) {
+				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			}
 			
 			shop.setItems(items);
