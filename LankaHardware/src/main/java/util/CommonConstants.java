@@ -64,7 +64,24 @@ public class CommonConstants {
 	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employees(empNo) VALUES(?);";
 	
 	/** Constant for update employees */
-	public static final String QUERY_ID_UPDATE_EMPLOYEES = "UPDATE employees SET empNo = ? , name = ?, email = ?, designation = ?, phoneNum = ?, address = ?, gender = ?, date = ?, wage = ?, salary = ?  WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_NAME = "UPDATE employees SET name = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_EMAIL = "UPDATE employees SET email = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_DESIGNATION = "UPDATE employees SET designation = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_PHONENUM = "UPDATE employees SET phoneNum = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_ADDRESS = "UPDATE employees SET address = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_GENDER = "UPDATE employees SET gender = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_DATE = "UPDATE employees SET date = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_WAGE = "UPDATE employees SET wage = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_SALARY = "UPDATE employees SET salary = ? WHERE empNo = ?;";
 	
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employees WHERE empNo = ?";

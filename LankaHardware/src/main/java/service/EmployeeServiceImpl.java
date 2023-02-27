@@ -224,25 +224,71 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	
 	
-	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String gender, String date, String wage, double salary) {
+	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String gender, String date, String wage, String salary) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, empNo);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, name);
-			pst.setString(CommonConstants.COLUMN_INDEX_THREE, email);
-			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, designation);
-			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, phoneNum);
-			pst.setString(CommonConstants.COLUMN_INDEX_SIX, address);
-			pst.setString(CommonConstants.COLUMN_INDEX_SEVEN, gender);
-			pst.setString(CommonConstants.COLUMN_INDEX_EIGHT, date);
-			pst.setString(CommonConstants.COLUMN_INDEX_NINE, wage);
-			pst.setDouble(CommonConstants.COLUMN_INDEX_NINE, salary);
-			pst.executeUpdate();
+			if(!name.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_NAME);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!email.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_EMAIL);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, email);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!designation.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DESIGNATION);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, designation);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!phoneNum.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PHONENUM);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, phoneNum);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!address.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_ADDRESS);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, address);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!gender.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_GENDER);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, gender);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!date.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DATE);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, date);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!wage.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_WAGE);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, wage);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			if(!salary.equals("null")) {
+				double sal =Double.parseDouble(salary);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_SALARY);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_ONE, sal);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+				pst.executeUpdate();
+			}
+			
+		
+			
 
 			status = "Employees Updated";
 

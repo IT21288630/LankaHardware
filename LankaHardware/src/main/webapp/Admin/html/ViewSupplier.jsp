@@ -571,7 +571,7 @@
             <div class="layout-demo-wrapper">
                <div class="card">
                 
-                <div class="table-responsive text-nowrap">
+                <div class="text-nowrap">
                 
                   <table class="table">
                     <thead>
@@ -735,7 +735,7 @@
               			  </div>
                           <div class="mb-3 col-md-6">
                             <label for="debit" class="form-label">Debit Or Credit</label>
-                            <select id="debit" name = "wage" class="select2 form-select">
+                            <select id="debit" name = "debit" class="select2 form-select">
                               <option value="">Select Type</option>
                               <option value="Debit">Debit</option>
                               <option value="Credit">Credit</option>
@@ -745,11 +745,10 @@
                         </div>
                         <div class="mt-2">
                           <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddSupplierServlet()">Add Supplier</button>
-<<<<<<< Updated upstream
+
                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
-=======
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearsupplier()">Cancel</button>
->>>>>>> Stashed changes
+
+
                         </div>
                       </form>
                     </div>
