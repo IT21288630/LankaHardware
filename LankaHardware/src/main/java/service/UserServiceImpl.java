@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
+import model.Admin;
 import util.CommonConstants;
 import util.DBConnectionUtil;
 
@@ -35,6 +36,7 @@ public class UserServiceImpl implements IUserService {
 			rs = pst.executeQuery();
 			
 			if(rs.next()) {
+				
 				return "customer";
 			}
 			
@@ -44,7 +46,11 @@ public class UserServiceImpl implements IUserService {
 			rs = pst.executeQuery();
 			
 			if(rs.next()) {
-				return "Admin";
+				Admin admin = new Admin();
+				
+				admin.setRole(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				
+				return admin.getRole();
 			}
 			
 			
@@ -55,7 +61,7 @@ public class UserServiceImpl implements IUserService {
 		
 		
 		
-		return "wrong user name or password";
+		return "Email or Password is incorrect";
 	}
 
 	

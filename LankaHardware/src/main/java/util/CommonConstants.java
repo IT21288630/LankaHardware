@@ -54,6 +54,20 @@ public class CommonConstants {
 	/** Constant for select employee id's */
 	public static final String QUERY_ID_SELECT_EMPLOYEE_IDS = "select empNo from cart;";
 	
+	/** Constant for select customer id's*/
+	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
+	
+	/** Constant for add customer details */
+	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
+	
+	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customerlogin(email) VALUES(?);";
+	
+	/** Constant for update customer */
+	public static final String QUERY_ID_UPDATE_CUSTOMERS = "UPDATE customerlogin SET email = ?, Password = ?, phone = ? , address = ?, WHERE = email = ? ";
+	
+	/** Constant for clear customer */
+	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customerlogin WHERE email = ?";
+	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employees;";
 	
@@ -292,6 +306,8 @@ public class CommonConstants {
 	 */
 	/** Constant for get item by id */
 	public static final String QUERY_ID_GET_ITEM_BY_ID = "SELECT * FROM item i, item_img img, item_size size where i.id = img.Id and i.id = size.Id and i.id = ?;";
+
+
 	
 	
 }

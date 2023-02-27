@@ -141,6 +141,8 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		ICartService iCartService = new CartServiceImpl();
+		IWishlistService iWishlistService = new WishlistServiceImpl();
+		Customer customer = new Customer();
 		con = DBConnectionUtil.getDBConnection();
 		
 		try {
@@ -166,6 +168,12 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			for (Item item : items) {
 				item.setSize(iCartService.getDefaultSizeAndPrice(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
+			}
+			
+			customer.setEmail("a@g.m");
+			
+			for (Item item : items) {
+				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			}
 			
 		} catch (SQLException e) {

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Lanka Hardware </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -85,7 +85,7 @@
 	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
 							class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
-			  <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
+			  <li class="nav-item"><a href="profile.jsp" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -98,7 +98,7 @@
 	      	<div class="overlay"></div>
 	        <div class="container-fluid p-0">
 	          <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-	          	<img class="one-third order-md-last img-fluid" src="images/bg_1.png" alt="">
+	          	<img class="one-third order-md-last img-fluid" src="#" alt="">
 		          <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
 		          		<span class="subheading">#New Arrival</span>
@@ -118,7 +118,7 @@
 	      	<div class="overlay"></div>
 	        <div class="container-fluid p-0">
 	          <div class="row d-flex no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-	          	<img class="one-third order-md-last img-fluid" src="images/bg_2.png" alt="">
+	          	<img class="one-third order-md-last img-fluid" src="#" alt="">
 		          <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
 		          		<span class="subheading">#New Arrival</span>

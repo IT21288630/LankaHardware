@@ -453,6 +453,7 @@ function buildWishlist(wishlistItems){
 	
 	for(var i = 0; i < wishlistItems.length; i++){
 		quickViewsizesAndPrizes.push(wishlistItems[i].sizesAndPrizes)
+		isInWishlist.push(wishlistItems[i].isInWishlist)
 		
 		var starID = `${wishlistItems[i].itemID + wishlistItems[i].size}wishlistStar`
 		
@@ -651,8 +652,6 @@ function buildNewArrivalslist(newArrivals){
     	newArrival_itemList.innerHTML += item
     	buildAverageRating(newArrivals[i], starID)
 	}
-	
-	console.log(isInWishlist)
 }
 
 //build quick view
@@ -749,6 +748,8 @@ function buildQuickViewSizes(sizesAndPrizes, size){
 //build wishlist icon
 function buildWishlistIcon(iconID, i, itemID, productSize){
 	var icon = document.getElementById(iconID)
+	
+	console.log(isInWishlist)
 	
 	for(const [size, val] of Object.entries(isInWishlist[i])){
 		if(productSize == size && val == false){
@@ -1459,11 +1460,10 @@ function emptyFilteredReviews(text){
 function buildRelatedProducts(){
 	relatedProductList.innerHTML = ''
 	quickViewsizesAndPrizes = []
-	isInWishlist = []
 	
 	for(var i = 0; i < relatedProducts.length; i++){
-		console.log(relatedProducts[i])
 		quickViewsizesAndPrizes.push(relatedProducts[i].sizesAndPrizes)
+		isInWishlist.push(relatedProducts[i].isInWishlist)
 		
 		var starID = relatedProducts[i].itemID + 'RelatedProductAvgStar'
 		
@@ -1670,14 +1670,14 @@ function callGetShopServlet(){
 function buildShopItems(shopItems){
 	shopItemList.innerHTML = ''
 	quickViewsizesAndPrizes = []
-	isInWishlist = []
 	
 	if(shopItems.length == 0) shopEmpty()
 	else shopItemList.style = "justify-content: inherit;"
 	
 	for(var i = 0; i < shopItems.length; i++){
 		quickViewsizesAndPrizes.push(shopItems[i].sizesAndPrizes)
-		console.log(`here`)
+		isInWishlist.push(shopItems[i].isInWishlist)
+		
 		var starID = shopItems[i].itemID + 'shopStar'
 		
 		var item = `<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex fadeInUp ftco-animated">
