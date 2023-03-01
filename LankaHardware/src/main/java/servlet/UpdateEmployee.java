@@ -55,7 +55,7 @@ public class UpdateEmployee extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String date = request.getParameter("date");
 		String wage = request.getParameter("wage");
-		double salary = (Double.parseDouble(request.getParameter("salary")));
+		String salary = request.getParameter("salary");
 		
 		IEmployeeService IEmployeeService = new EmployeeServiceImpl();
 		
