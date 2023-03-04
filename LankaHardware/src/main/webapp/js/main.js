@@ -749,45 +749,71 @@ function buildQuickViewSizes(sizesAndPrizes, size){
 function buildWishlistIcon(iconID, i, itemID, productSize){
 	var icon = document.getElementById(iconID)
 	
-	console.log(isInWishlist)
-	
 	for(const [size, val] of Object.entries(isInWishlist[i])){
 		if(productSize == size && val == false){
 			icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="outlineHeart"></button>
-							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}', ${i}); return false;"></i>`
 		}
 		else if(productSize == size && val == true){
 			icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="filledHeart"></button>
-							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}', ${i}); return false;"></i>`
 		}
 	}
 }
+
 function buildWishlistIconProductSingle(iconID, itemID, productSize){
 	var icon = document.getElementById(iconID)
 	
 	for(const [size, val] of Object.entries(isInWishlistProductSingle[0])){
 		if(productSize == size && val == false){
 			icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="outlineHeart"></button>
-							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
 		}
 		else if(productSize == size && val == true){
 			icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="filledHeart"></button>
-							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
 		}
 	}
 }
 
 //toggle wishlist icon
-function toggleWishlistIcon(iconID, itemID){
+function toggleWishlistIcon(iconID, itemID, i){
 	var icon = document.getElementById(iconID)
 	var heartButtonValue = document.getElementById('heartButton').value
+	var productSize = document.getElementById('quickViewProductSizes').value
 	
 	if(heartButtonValue == 'outlineHeart'){
 		icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="filledHeart"></button>
-						  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+						  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}', ${i}); return false;"></i>`
+			  
+		for(const [size, val] of Object.entries(isInWishlist[i])){
+			if(size == productSize) {
+				isInWishlist[i][size] = true
+			}
+		}
+		
 	}else if(heartButtonValue == 'filledHeart'){
 		icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="outlineHeart"></button>
-						  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+						  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}', ${i}); return false;"></i>`
+	
+		for(const [size, val] of Object.entries(isInWishlist[i])){
+			if(size == productSize) {
+				isInWishlist[i][size] = false
+			}
+		}
+	}
+}
+
+function toggleWishlistIconProductSingle(iconID, itemID){
+	var icon = document.getElementById(iconID)
+	var heartButtonValue = document.getElementById('heartButtonSingle').value
+	
+	if(heartButtonValue == 'outlineHeart'){
+		icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="filledHeart"></button>
+						  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
+	}else if(heartButtonValue == 'filledHeart'){
+		icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="outlineHeart"></button>
+						  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
 	}
 }
 
@@ -942,7 +968,7 @@ function buildMiniCart(cartItems){
 	if(cartItems.length == 0) miniCart_itemList.innerHTML = '<p style="text-align: center; font-size: large; color: gray;">Your cart is empty. Add some items to the cart.</p>'
 	
 	for(var i = 0; i < cartItems.length; i++){
-		var item = `<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
+		var item = `<tr class="text-center" style="display: flex; column-gap: 5px; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
 						<td class="image-prod clickable" style="border: none; padding: 0px;" onclick="toProductSinglePage('${cartItems[i].itemID}');">
 							<div class="img"
 								style="background-image:url(${cartItems[i].mainImg}); margin: 0px;">

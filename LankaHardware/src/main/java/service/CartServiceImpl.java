@@ -115,6 +115,8 @@ public class CartServiceImpl implements ICartService {
 		// TODO Auto-generated method stub
 
 		Cart cart = getCart(email);
+		String status = "There is a problem";
+		
 		if (size.equals("notSpecified")) {
 			size = getDefaultSizeAndPrice(itemID);
 		}
@@ -129,6 +131,8 @@ public class CartServiceImpl implements ICartService {
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, size);
 			pst.executeUpdate();
 
+			status = "Added to cart";
+			
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO: handle exception
 
@@ -143,6 +147,8 @@ public class CartServiceImpl implements ICartService {
 			}
 
 			changeQuantity(email, itemID, quantity, size);
+			
+			status = "Added to cart";
 		}
 
 		catch (SQLException e) {
@@ -168,7 +174,7 @@ public class CartServiceImpl implements ICartService {
 			}
 		}
 
-		return "Added to cart";
+		return status;
 	}
 
 	@Override
@@ -219,7 +225,7 @@ public class CartServiceImpl implements ICartService {
 
 		Cart cart = new Cart();
 		cart.setCartID(getCartIdByEmail(email));
-
+		String status = "There is a problem";
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -229,6 +235,8 @@ public class CartServiceImpl implements ICartService {
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, size);
 			pst.executeUpdate();
 
+			status = "Removed from cart";
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -252,7 +260,7 @@ public class CartServiceImpl implements ICartService {
 			}
 		}
 
-		return "Item removed";
+		return status;
 	}
 
 	@Override
@@ -261,7 +269,7 @@ public class CartServiceImpl implements ICartService {
 
 		Cart cart = new Cart();
 		cart.setCartID(getCartIdByEmail(email));
-
+		String status = "There is a problem";
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -269,6 +277,8 @@ public class CartServiceImpl implements ICartService {
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
 			pst.executeUpdate();
 
+			status = "Cart cleared";
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -292,7 +302,7 @@ public class CartServiceImpl implements ICartService {
 			}
 		}
 
-		return "Cart cleared";
+		return status;
 	}
 
 	@Override
