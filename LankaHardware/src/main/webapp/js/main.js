@@ -437,19 +437,22 @@ function closeModal(modal) {
 
 //Call wishlist servlet
 var wishlistItems = []
-var wishlistItemRemoved = false
+var fromWishlist = false
 
 function callWishlistServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetWishlistServlet", function(response) {
 				
 		wishlistItems = response
-		if(wishlistItemRemoved == false) buildWishlist(wishlistItems)
+		buildWishlist(wishlistItems)
+		fromWishlist = true
 	})
 }
 
 function buildWishlist(wishlistItems){
 	quickViewsizesAndPrizes = []
 	isInWishlist = []
+	
+	wishlist_itemList.innerHTML = ''
 	
 	for(var i = 0; i < wishlistItems.length; i++){
 		quickViewsizesAndPrizes.push(wishlistItems[i].sizesAndPrizes)
@@ -521,6 +524,10 @@ function callAddToWishlistServletFromQuickView(itemID){
 	var size = document.getElementById('quickViewProductSizes').value
 	$.post("http://localhost:8080/LankaHardware/AddToWishlistServlet", {itemID : itemID, size: size}, function(response){
 	    
+	    if(fromWishlist == true){
+			callWishlistServlet()
+		}
+	    
 	    added_msg.innerHTML = response
 	    added_msg.classList.add('active')
 	    setTimeout(function() {
@@ -535,11 +542,6 @@ function callRemoveFromWishlistServlet(itemID){
 	
 	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID, size: size}, function(response){
 	   
-	   //wishlist_itemList.innerHTML = ""
-	   wishlistItemRemoved = true
-	   callWishlistServlet()
-	   deleteWishlistItemElement(itemID + size)
-	   
 	   added_msg.innerHTML = response
 	   added_msg.classList.add('active')
 	   setTimeout(function() {
@@ -553,17 +555,15 @@ function callRemoveFromWishlistServletFromQuickView(itemID){
 	
 	$.post("http://localhost:8080/LankaHardware/RemoveFromWishlistServlet", {itemID : itemID, size: size}, function(response){
 	   
-	   //wishlist_itemList.innerHTML = ""
-	   wishlistItemRemoved = true
-	   callWishlistServlet()
-	   //deleteWishlistItemElement(itemID + size)
-	   
-	   added_msg.innerHTML = response
-	   added_msg.classList.add('active')
-	   setTimeout(function() {
-	   	added_msg.classList.remove('active')
-	   }, 2000);
-	})
+		if(fromWishlist == true){
+			deleteWishlistItemElement(itemID + size)
+		}
+		
+		added_msg.innerHTML = response
+		added_msg.classList.add('active')
+		setTimeout(function() {
+			added_msg.classList.remove('active')
+		}, 2000);})
 }
 
 //delete wishlist item element
@@ -767,11 +767,11 @@ function buildWishlistIconProductSingle(iconID, itemID, productSize){
 	for(const [size, val] of Object.entries(isInWishlistProductSingle[0])){
 		if(productSize == size && val == false){
 			icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="outlineHeart"></button>
-							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
+							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServlet('${itemID}'); toggleWishlistIconProductSingle('${iconID}', '${itemID}', 0); return false;"></i>`
 		}
 		else if(productSize == size && val == true){
 			icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="filledHeart"></button>
-							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
+							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServlet('${itemID}'); toggleWishlistIconProductSingle('${iconID}', '${itemID}', 0); return false;"></i>`
 		}
 	}
 }
@@ -804,16 +804,30 @@ function toggleWishlistIcon(iconID, itemID, i){
 	}
 }
 
-function toggleWishlistIconProductSingle(iconID, itemID){
+function toggleWishlistIconProductSingle(iconID, itemID, i){
 	var icon = document.getElementById(iconID)
 	var heartButtonValue = document.getElementById('heartButtonSingle').value
+	var productSize = document.getElementById('ProductSizes').value
 	
 	if(heartButtonValue == 'outlineHeart'){
 		icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="filledHeart"></button>
-						  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
+						  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServlet('${itemID}'); toggleWishlistIconProductSingle('${iconID}', '${itemID}', 0); return false;"></i>`
+	
+		for(const [size, val] of Object.entries(isInWishlistProductSingle[i])){
+			if(size == productSize) {
+				isInWishlistProductSingle[i][size] = true
+			}
+		}
+	
 	}else if(heartButtonValue == 'filledHeart'){
 		icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="outlineHeart"></button>
-						  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick=" toggleWishlistIconProductSingle('${iconID}', '${itemID}'); return false;"></i>`
+						  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServlet('${itemID}'); toggleWishlistIconProductSingle('${iconID}', '${itemID}', 0); return false;"></i>`
+	
+		for(const [size, val] of Object.entries(isInWishlistProductSingle[i])){
+			if(size == productSize) {
+				isInWishlistProductSingle[i][size] = false
+			}
+		}
 	}
 }
 
