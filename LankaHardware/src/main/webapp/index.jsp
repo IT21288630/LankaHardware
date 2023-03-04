@@ -74,13 +74,13 @@
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="shop.jsp">Shop</a>
                 <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
+                <a class="dropdown-item" href="cart.jsp">Cart</a>
                 <a class="dropdown-item" href="checkout.html">Checkout</a>
                 <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
               </div>
             </li>
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"

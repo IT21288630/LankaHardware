@@ -699,7 +699,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 														<div style="position: relative; display: flex; justify-content: flex-start; align-items: start; width: 100%;">
 															<div class="input-group col-md-6 d-flex mb-3">
 																<div class="quantity buttons_added">
-																	<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
+																	<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="quickViewQuantity"><input type="button" value="+" class="plus">
 																</div>
 															</div>
 															
@@ -709,7 +709,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 														</div>
 													</div>
 													
-													<p style="width: 100%;" onclick="addToCartFromQuickView('${itemID}', 0); return false;"><a href="#" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a></p>
+													<p style="width: 100%;" onclick="addToCartFromQuickView('${itemID}'); return false;"><a href="#" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a></p>
 												</div>
 												
 												
@@ -758,6 +758,20 @@ function buildWishlistIcon(iconID, i, itemID, productSize){
 		}
 		else if(productSize == size && val == true){
 			icon.innerHTML = `<button type="button" style="display: none;" id="heartButton" value="filledHeart"></button>
+							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+		}
+	}
+}
+function buildWishlistIconProductSingle(iconID, itemID, productSize){
+	var icon = document.getElementById(iconID)
+	
+	for(const [size, val] of Object.entries(isInWishlistProductSingle[0])){
+		if(productSize == size && val == false){
+			icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="outlineHeart"></button>
+							  <i class="fa-regular fa-heart clickable" style="font-size: larger;" onclick="callAddToWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
+		}
+		else if(productSize == size && val == true){
+			icon.innerHTML = `<button type="button" style="display: none;" id="heartButtonSingle" value="filledHeart"></button>
 							  <i class="fa-solid fa-heart clickable" style="font-size: larger;" onclick="callRemoveFromWishlistServletFromQuickView('${itemID}'); toggleWishlistIcon('${iconID}', '${itemID}'); return false;"></i>`
 		}
 	}
@@ -988,7 +1002,7 @@ function buildMainCart(cartItems, Total){
 						<td class="price">Rs${cartItems[i].price}</td>
 
 						<td>
-						    <div class="quantity buttons_added">
+						    <div class="quantity buttons_added" style="display: inline-flex;">
 								<input type="button" value="-" class="minus">
 								<input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')">
 								<input type="button" value="+" class="plus">
@@ -1097,6 +1111,7 @@ var fiveStarReviews = []
 var reviewsWithImages = []
 var productQuestions = []
 var itemIDForQuestion
+var isInWishlistProductSingle = []
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
@@ -1120,6 +1135,10 @@ function callGetProductSingleServlet(itemID){
 
 function buildProductSingle(product){
 	var starID = 'productStar'
+	var iconID = `${product.itemID}${product.size}ProductSingleIcon`
+	
+	isInWishlistProductSingle.push(product.isInWishlist)
+	
 	productDetails.innerHTML = ''
 	
 	var details = `<div class="col-lg-5">
@@ -1174,17 +1193,24 @@ function buildProductSingle(product){
 						<div class="col-md-6">
 							<div class="form-group d-flex">
 								<div class="select-wrap">
-									<select name="" id="ProductSizes" class="form-control" onchange="displayProductPrice();">
+									<select name="" id="ProductSizes" class="form-control" onchange="displayProductPrice('${iconID}', '${product.itemID}');">
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="w-100"></div>
-						<div class="input-group col-md-6 d-flex mb-3">
-							<div class="quantity buttons_added">
-								<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
+						
+						<div style="position: relative; display: flex; justify-content: flex-start; align-items: start; width: 100%;">
+							<div class="input-group col-md-6 d-flex mb-3">
+								<div class="quantity buttons_added">
+									<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="productSingleQuantity"><input type="button" value="+" class="plus">
+								</div>
 							</div>
+							
+							<span style="position: absolute; top: 34%; right: 3%; transform: translate(-50%, -50%);" id="${iconID}">	
+							</span>
 						</div>
+						
 						<div class="w-100"></div>
 						<div class="col-md-12">
 							<p style="color: #000;">80 piece available</p>
@@ -1196,6 +1222,7 @@ function buildProductSingle(product){
     	productDetails.innerHTML += details
     	buildAverageRating(product, starID)
     	mainImg = document.getElementById('mainImg')
+    	buildWishlistIconProductSingle(iconID, product.itemID, product.size)
 }
 
 //buiding product images
@@ -1538,18 +1565,21 @@ function addToCartFromSingleProductPage(itemID, quantity){
 	callAddToCartServlet(itemID, quantity, size)
 }
 
-function addToCartFromQuickView(itemID, quantity){
+function addToCartFromQuickView(itemID){
 	var size = document.getElementById('quickViewProductSizes').value
+	var quantity = document.getElementById('quickViewQuantity').value
 	callAddToCartServlet(itemID, quantity, size)
 }
 
 //display relevant product price
-function displayProductPrice(){
+function displayProductPrice(iconID, itemID){
 	var productPrice = document.getElementById('productPrice')
 	var productSize = document.getElementById('ProductSizes').value
 	var displayPrice = productSizeAndPriceList[productSize]
 	
 	productPrice.innerHTML = `Rs${displayPrice}`
+	
+	buildWishlistIconProductSingle(iconID, itemID, productSize)
 }
 
 
