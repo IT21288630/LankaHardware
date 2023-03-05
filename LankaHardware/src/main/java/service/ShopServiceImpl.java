@@ -100,14 +100,14 @@ public class ShopServiceImpl implements IShopService {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SUB_CATEGORIES_FOR_SHOP);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, main);
 				rs = pst.executeQuery();
-				
+
 				while (rs.next()) {
 					subList.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				}
-				
+
 				subCategories.put(main, subList);
 			}
-			
+
 			shop.setSubCategories(subCategories);
 
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_MAX_AND_MIN_ITEM_PRICE_FOR_SHOP);
@@ -144,7 +144,7 @@ public class ShopServiceImpl implements IShopService {
 
 	@Override
 	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue,
-			String itemName, String brand, String subType) {
+			String itemName, String brand, String subType, boolean includeOutOfStock) {
 		// TODO Auto-generated method stub
 
 		Shop shop = new Shop();
@@ -156,37 +156,81 @@ public class ShopServiceImpl implements IShopService {
 
 		try {
 			if (sortByValue.equals("Price: Low To High")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_ASC);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
-				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
-				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
-				pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				if (includeOutOfStock == true) {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_ASC_INCLUDING_OUTOFSTOCK);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				} else {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_ASC);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				}
+
 			} else if (sortByValue.equals("Price: High To Low")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
-				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
-				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
-				pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				if (includeOutOfStock == true) {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC_INCLUDING_OUTOFSTOCK);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				} else {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				}
+
 			} else if (sortByValue.equals("Avg. Customer Review")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
-				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
-				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
-				pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				if (includeOutOfStock == true) {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC_INCLUDING_OUTOFSTOCK);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				} else {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				}
+
 			} else if (sortByValue.equals("Newest Arrivals")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
-				pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
-				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
-				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
-				pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				if (includeOutOfStock == true) {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS_INCLUDING_OUTOFSTOCK);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				} else {
+					pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS);
+					pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, lowerPrice);
+					pst.setDouble(CommonConstants.COLUMN_INDEX_THREE, higherPrice);
+					pst.setString(CommonConstants.COLUMN_INDEX_FOUR, itemName);
+					pst.setString(CommonConstants.COLUMN_INDEX_FIVE, brand);
+					pst.setString(CommonConstants.COLUMN_INDEX_SIX, subType);
+				}
+
 			}
 
 			rs = pst.executeQuery();

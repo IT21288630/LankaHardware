@@ -27,9 +27,10 @@ public interface IShopService {
 	 * @param itemName
 	 * @param brand
 	 * @param subType
+	 * @param includeOutOfStock
 	 * 
 	 */
-	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName, String brand, String subType);
+	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName, String brand, String subType, boolean includeOutOfStock);
 	
 	/**
 	 * get item size list to shop page

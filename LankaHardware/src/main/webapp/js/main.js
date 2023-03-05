@@ -1713,6 +1713,7 @@ var sortByValue
 var sortByFilterOpen = false
 var brandList = []
 var currentBrand = ''
+var includeOutOfStock = false
 
 function callGetShopServlet(){
 	var itemName
@@ -1848,6 +1849,7 @@ function buildShopSubCategories(){
 function setCurrentMainCategory(mainCategory){
 	currentMainCategory = mainCategory
 	currentBrand = ''
+	currentSubCategory = undefined
 }
 
 //Set current sub category
@@ -1859,6 +1861,12 @@ function setCurrentSubCategory(subCategory){
 //set current brand
 function setCurrentBrand(){
 	currentBrand = document.querySelector('input[name="brand"]:checked').value
+	callGetCustomizedShopServlet(currentMainCategory, currentSubCategory)
+}
+
+//set availability
+function setAvailability(){
+	includeOutOfStock = document.querySelector('input[name="availability"]:checked').value
 	callGetCustomizedShopServlet(currentMainCategory, currentSubCategory)
 }
 
@@ -1912,7 +1920,7 @@ function callGetCustomizedShopServlet(mainCategory, subCategory){
 	var lowerPrice = priceMin.value
 	var higherPrice = priceMax.value
 	
-	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName, brand: brand, subType: subCategory}, function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName, brand: brand, subType: subCategory, includeOutOfStock: includeOutOfStock}, function(response) {
 		
 		customizedShopItems = response[0]
 		brandList = response[1]
