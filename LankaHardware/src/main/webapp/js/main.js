@@ -1701,10 +1701,12 @@ function customizedSearch(itemName){
 //Call get shop servlet
 var shopItems = []
 var mainCategories = []
+var subCategories = []
 var highestPrice
 var lowestPrice
 var customizedShopItems = []
 var currentMainCategory
+var currentSubCategory
 var priceRangeChanged = false
 var clickedCategory = false
 var sortByValue
@@ -1727,6 +1729,7 @@ function callGetShopServlet(){
 		mainCategories = response[1]
 		highestPrice = response[2]
 		lowestPrice = response[3]
+		subCategories = response[4]
 		
 		buildShopItems(shopItems)
 		buildShopCategories()
@@ -1791,9 +1794,11 @@ function buildShopItems(shopItems){
 }
 
 //Buils main categories in the shop page
-function buildShopCategories(){	
+function buildShopCategories(){
 	shopMainCategoryList.innerHTML = ''
 	for(var i = 0; i < mainCategories.length; i++){
+		var subCategoryID = `${mainCategories[i]}SubType`
+		
 		var headingID = `heading${numberToWord(i + 1)}`
 		var collapseID = `collapse${numberToWord(i + 1)}`
 		
@@ -1806,14 +1811,7 @@ function buildShopCategories(){
                          </div>
                          <div id="${collapseID}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="${headingID}">
                              <div class="panel-body">
-                                <ul>
-                                 	<li><a href="#">Sport</a></li>
-                                 	<li><a href="#">Casual</a></li>
-                                 	<li><a href="#">Running</a></li>
-                                 	<li><a href="#">Jordan</a></li>
-                                 	<li><a href="#">Soccer</a></li>
-                                 	<li><a href="#">Football</a></li>
-                                 	<li><a href="#">Lifestyle</a></li>
+                                <ul id="${subCategoryID}">
                                 </ul>
                              </div>
                          </div>
@@ -1821,6 +1819,29 @@ function buildShopCategories(){
     			
     	shopMainCategoryList.innerHTML += category
 	}
+	
+	buildShopSubCategories()
+}
+
+function buildShopSubCategories(){
+	
+//	console.log(subCategories[mainCategories[0]])
+	
+	for(var i = 0; i < mainCategories.length; i++){
+		var subCategoryID = `${mainCategories[i]}SubType`
+		var subCategoryElement = document.getElementById(subCategoryID)
+		subCategoryElement.innerHTML = ''
+		
+		for(var j = 0; j < subCategories[mainCategories[i]].length; j++){
+			var subType = `<li onclick="setCurrentSubCategory('${subCategories[mainCategories[i]][j]}'); buildCurrentFilters();"><a href="javascript: stopScrollingToTop();">${subCategories[mainCategories[i]][j]}</a></li>`
+	    	//subCategoryElement.innerHTML += `<li>${subCategories[mainCategories[i]][j]}</li>`
+	    	
+	    	subCategoryElement.innerHTML += subType
+		}
+		
+		//console.log(subCategoryElement)
+	}
+
 }
 
 //Set current main category
@@ -1829,10 +1850,16 @@ function setCurrentMainCategory(mainCategory){
 	currentBrand = ''
 }
 
+//Set current sub category
+function setCurrentSubCategory(subCategory){
+	currentSubCategory = subCategory
+	currentBrand = ''
+}
+
 //set current brand
 function setCurrentBrand(){
 	currentBrand = document.querySelector('input[name="brand"]:checked').value
-	callGetCustomizedShopServlet(currentMainCategory)
+	callGetCustomizedShopServlet(currentMainCategory, currentSubCategory)
 }
 
 //Build price range
@@ -1856,11 +1883,16 @@ function buildPriceRange(){
 }
 
 //call get customized shop servlet
-function callGetCustomizedShopServlet(mainCategory){
+function callGetCustomizedShopServlet(mainCategory, subCategory){
 	if(mainCategory == undefined){
 		buildShopCategories()
 		mainCategory = `%%`
 	}else mainCategory = `%${mainCategory}%`
+	
+	if(subCategory == undefined){
+		buildShopCategories()
+		subCategory = `%%`
+	}else subCategory = `%${subCategory}%`
 	
 	var itemName
 	if(itemNameForShop != undefined){
@@ -1880,7 +1912,7 @@ function callGetCustomizedShopServlet(mainCategory){
 	var lowerPrice = priceMin.value
 	var higherPrice = priceMax.value
 	
-	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName, brand: brand}, function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetCustomizedShopServlet", {mainCategory : mainCategory, lowerPrice : lowerPrice, higherPrice : higherPrice, sortByValue: sortByValue, itemName: itemName, brand: brand, subType: subCategory}, function(response) {
 		
 		customizedShopItems = response[0]
 		brandList = response[1]
@@ -1937,6 +1969,12 @@ function buildCurrentFilters(){
 									</div>`
 	}
 	
+	if(currentSubCategory != null){
+		currentFilters.innerHTML += `<div class="cat" style="padding: 10px; text-transform: capitalize;">
+										<a href="" onclick="removeSubCategory(); return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">${currentSubCategory}<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
+									</div>`
+	}
+	
 	if(itemNameForShop != null){
 		currentFilters.innerHTML += `<div class="cat" style="padding: 10px; text-transform: capitalize;">
 										<a href="" onclick="removeSearchedName(); return false;" class="btn btn-outline-secondary filter" style="display: flex; align-items: center; height: 33px;">"${itemNameForShop}"<span style="font-size: x-large; margin-left: 5px;">&times;</i></span></a>
@@ -1949,19 +1987,25 @@ function buildCurrentFilters(){
 								</div>`
 	}
 	
-	if(currentMainCategory != null || itemNameForShop != null || sortByFilterOpen != false){
+	if(currentMainCategory != null || itemNameForShop != null || sortByFilterOpen != false || currentSubCategory != null){
 		currentFilters.innerHTML += `<div class="cat" style="padding: 10px;">
 									<button type="reset" class="btn btn-outline-secondary filterReset" onclick="resetCurrentFilters();">Reset Filters	</button>
 								</div>`
 	}
 				
-	callGetCustomizedShopServlet(currentMainCategory)
+	callGetCustomizedShopServlet(currentMainCategory, currentSubCategory)
 }
 
 //remove main category
 function removeMainCategory(){
 	currentMainCategory = null
 	currentBrand = ''
+	buildCurrentFilters()
+}
+
+//remove sub category
+function removeSubCategory(){
+	currentSubCategory = null
 	buildCurrentFilters()
 }
 
@@ -1988,6 +2032,7 @@ function removeSortBy(){
 function resetCurrentFilters(){
 	currentFilters.innerHTML = ``
 	currentMainCategory = null
+	currentSubCategory = null
 	currentBrand = ''
 	brandList = null
 	itemNameForShop = null

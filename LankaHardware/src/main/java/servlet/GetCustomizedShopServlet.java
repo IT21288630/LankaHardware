@@ -42,9 +42,10 @@ public class GetCustomizedShopServlet extends HttpServlet {
 		double higherPrice = Double.parseDouble(request.getParameter("higherPrice"));
 		String sortByValue = request.getParameter("sortByValue");
 		String itemName = request.getParameter("itemName");
+		String subType = request.getParameter("subType");
 		
 		IShopService iShopService = new ShopServiceImpl();
-		Shop shop = iShopService.getCustomizedItemList(mainCategory, lowerPrice, higherPrice, sortByValue, itemName, brand);
+		Shop shop = iShopService.getCustomizedItemList(mainCategory, lowerPrice, higherPrice, sortByValue, itemName, brand, subType);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

@@ -26,9 +26,10 @@ public interface IShopService {
 	 * @param sortByValue
 	 * @param itemName
 	 * @param brand
+	 * @param subType
 	 * 
 	 */
-	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName, String brand);
+	public Shop getCustomizedItemList(String mainCategory, double lowerPrice, double higherPrice, String sortByValue, String itemName, String brand, String subType);
 	
 	/**
 	 * get item size list to shop page
