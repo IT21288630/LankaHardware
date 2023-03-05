@@ -1163,6 +1163,8 @@ function callGetProductSingleServlet(itemID){
 		productQuestions = response[4]
 		itemIDForQuestion = product.itemID
 		
+		console.log(product)
+		
 		buildProductSingle(product)
 		buildProductSizes()
 		buildReviewPercentagesAndCounts(product, product.ratingCount)
@@ -1184,7 +1186,7 @@ function buildProductSingle(product){
 	var details = `<div class="col-lg-5">
                     <img src="${product.mainImg}" class="img-fluid pb-1" alt="Colorlib Template" id="mainImg">
 
-					<div class="small-img-group">
+					<div class="small-img-group" id="allImages">
 						<div class="small-img-col">
 							<img src="${product.mainImg}" alt="" width="100%" class="small-img" onclick="changeMainImage(this)">
 						</div>
@@ -1263,10 +1265,23 @@ function buildProductSingle(product){
     	buildAverageRating(product, starID)
     	mainImg = document.getElementById('mainImg')
     	buildWishlistIconProductSingle(iconID, product.itemID, product.size)
+    	buildAllImages()
 }
 
-//buiding product images
+//building product images
+function buildAllImages(){
+	var allImagesElement = document.getElementById('allImages')
+	allImagesElement.innerHTML = ''
+	
+	for(var i = 0; i < product.allImages.length; i++){
+		allImagesElement.innerHTML += `<div class="small-img-col">
+											<img src="${product.allImages[i]}" alt="" width="100%" class="small-img" onclick="changeMainImage(this)">
+										</div>`
+	}
+}
+
 function changeMainImage(element){
+	console.log(mainImg)
 	mainImg.src = element.src
 }
 
@@ -1287,8 +1302,8 @@ function buildProductSizes(){
 function buildReviewPercentagesAndCounts(product, ratingCount){
 	totalRatings.innerHTML = ratingCount
 	averageProductRating.innerHTML = product.avgRating.toFixed(1)
+	
 	for(var i = 5; i >= 1; i--){
-		
 		var percentageElement = document.getElementById(`${numberToWord(i)}StarPercentage`)
 		var countElement = document.getElementById(`${numberToWord(i)}StarCount`)
 		updateProgressBar(percentageElement, product.ratingPercentageList[i - 1][0]);

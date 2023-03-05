@@ -36,6 +36,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 		LinkedHashMap<String, Double> map = getProductSizeAndPriceList(itemID);
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IWishlistService iWishlistService = new WishlistServiceImpl();
+		ArrayList<String> allImages = new ArrayList<>();
 		Customer customer = new Customer();
 		
 		item.setSize(map.entrySet().iterator().next().getKey()); 
@@ -64,6 +65,16 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			item.setRatingPercentageList(iReviewService.calculateItemRatingPercentage(itemID));
 			item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ALL_ITEM_IMAGES);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				allImages.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+			
+			item.setAllImages(allImages);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,9 +97,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
 		
-
 		return item;
 	}
 

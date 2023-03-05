@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class Item {
@@ -22,6 +23,15 @@ public class Item {
 	private LinkedHashMap<String, Boolean> isInWishlist;
 	private String type;
 	private String subType;
+	private ArrayList<String> allImages;
+
+	public ArrayList<String> getAllImages() {
+		return allImages;
+	}
+
+	public void setAllImages(ArrayList<String> allImages) {
+		this.allImages = allImages;
+	}
 
 	public String getType() {
 		return type;

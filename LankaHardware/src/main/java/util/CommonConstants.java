@@ -183,6 +183,9 @@ public class CommonConstants {
 	/** Constant for get related items for product single page */
 	public static final String QUERY_ID_GET_RELATED_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type = (select type from item where id = ?) and i.id != ? GROUP BY i.id ORDER BY s.unit_price;";
 	
+	/** Constant for get all item images for product single page */
+	public static final String QUERY_ID_GET_ALL_ITEM_IMAGES = "SELECT img FROM item_img WHERE Id = ?;";
+	
 	/** Constant for get main search results */
 	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id, name, description FROM item WHERE name LIKE ?;";
 	
