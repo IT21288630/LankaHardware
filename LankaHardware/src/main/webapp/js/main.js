@@ -603,7 +603,7 @@ function callIndexServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetIndexServlet", function(response) {
 				
 		newArrivals = response
-		
+		console.log(newArrivals)
 		buildNewArrivalslist(newArrivals)
 	})
 }

@@ -336,6 +336,8 @@ public class CartServiceImpl implements ICartService {
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
 				pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getItemID());
+				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, item.getSize());
+				pst.setString(CommonConstants.COLUMN_INDEX_SIX, item.getItemID());
 				rs = pst.executeQuery();
 				rs.next();
 
