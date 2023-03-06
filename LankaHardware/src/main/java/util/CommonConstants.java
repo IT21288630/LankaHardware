@@ -138,6 +138,9 @@ public class CommonConstants {
 	/** Constant for get items sizes and relevant prices */
 	public static final String QUERY_ID_GET_SIZES_AND_PRICES = "SELECT size, unit_price FROM item_size WHERE Id = ? ORDER BY unit_price;";
 	
+	/** Constant for get items sizes and relevant stock */
+	public static final String QUERY_ID_GET_SIZES_AND_STOCK = "SELECT size, stock FROM item_size WHERE Id = ? ORDER BY unit_price;";
+	
 	/** Constant for get other item details for cart */
 	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART = "SELECT name, brand, description, (SELECT img FROM item_img WHERE Id = ? limit 1) as 'img', (SELECT unit_price FROM item_size WHERE id = ? and size = ?) as 'price', (SELECT stock FROM item_size WHERE id = ? and size = ?) as 'stock' FROM item WHERE id = ?;";
 	

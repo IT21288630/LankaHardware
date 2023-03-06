@@ -43,6 +43,7 @@ public class ShopServiceImpl implements IShopService {
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		IWishlistService iWishlistService = new WishlistServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
 		Customer customer = new Customer();
 		con = DBConnectionUtil.getDBConnection();
 
@@ -84,6 +85,10 @@ public class ShopServiceImpl implements IShopService {
 				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			}
 
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
+			}
+			
 			shop.setItems(items);
 
 			st = con.createStatement();
@@ -153,6 +158,7 @@ public class ShopServiceImpl implements IShopService {
 		ArrayList<String> brandList = new ArrayList<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -263,6 +269,10 @@ public class ShopServiceImpl implements IShopService {
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
 
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
+			}
+			
 			if (!mainCategory.equals("%%")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_BRAND_LIST_FOR_SHOP);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mainCategory);

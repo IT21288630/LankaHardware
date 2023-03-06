@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Item {
@@ -25,6 +26,15 @@ public class Item {
 	private String subType;
 	private ArrayList<String> allImages;
 	private int stock;
+	private HashMap<String, Integer> sizesAndStock;
+
+	public HashMap<String, Integer> getSizesAndStock() {
+		return sizesAndStock;
+	}
+
+	public void setSizesAndStock(HashMap<String, Integer> sizesAndStock) {
+		this.sizesAndStock = sizesAndStock;
+	}
 
 	public int getStock() {
 		return stock;

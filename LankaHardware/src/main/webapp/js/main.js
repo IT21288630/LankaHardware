@@ -489,7 +489,7 @@ function buildWishlist(wishlistItems){
 	    						</p>
 	    					</div>
     						
-    						<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${wishlistItems[i].itemID}', '${wishlistItems[i].mainImg}', '${wishlistItems[i].name}', '${wishlistItems[i].price}', '${wishlistItems[i].description}', ${wishlistItems[i].avgRating}, ${i}, '${wishlistItems[i].size}');">
+    						<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${wishlistItems[i].itemID}', '${wishlistItems[i].mainImg}', '${wishlistItems[i].name}', '${wishlistItems[i].price}', '${wishlistItems[i].description}', ${wishlistItems[i].avgRating}, ${i}, '${wishlistItems[i].size}', ${wishlistItems[i].stock});">
 								<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
 							</p>
 							
@@ -642,7 +642,7 @@ function buildNewArrivalslist(newArrivals){
     						<div class="pricing">
 	    						<p class="price"><span>Rs${newArrivals[i].price}</span></p>
 	    					</div>
-	    					<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${newArrivals[i].itemID}', '${newArrivals[i].mainImg}', '${newArrivals[i].name}', '${newArrivals[i].price}', '${newArrivals[i].description}', ${newArrivals[i].avgRating}, ${i}, '${newArrivals[i].size}');">
+	    					<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${newArrivals[i].itemID}', '${newArrivals[i].mainImg}', '${newArrivals[i].name}', '${newArrivals[i].price}', '${newArrivals[i].description}', ${newArrivals[i].avgRating}, ${i}, '${newArrivals[i].size}', ${newArrivals[i].stock});">
 								<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
 							</p>
     					</div>
@@ -655,7 +655,7 @@ function buildNewArrivalslist(newArrivals){
 }
 
 //build quick view
-function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes, size){
+function buildQuickView(itemID, mainImg, name, price, description, avgRating, sizesAndPrizes, size, stock){
 	var starID = `QuickViewStar`
 	var iconID = `${itemID}${size}Icon`
 	
@@ -709,7 +709,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 														</div>
 													</div>
 													
-													<p style="width: 100%;" onclick="addToCartFromQuickView('${itemID}'); return false;"><a href="#" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a></p>
+													<p style="width: 100%;" id="quickViewAddToCartButton"></p>
 												</div>
 												
 												
@@ -722,6 +722,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 								  </div>
 								</div>`
 	
+	buildAddToCartButton(itemID, stock)
 	buildQuickViewSizes(sizesAndPrizes, size)
 	var productSize = document.getElementById('quickViewProductSizes').value
 	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
@@ -1061,6 +1062,21 @@ function buildMainCart(cartItems, Total){
 //Cart total
 function cartTotal(Total){
 	cartTotals.innerHTML = 'Rs' + Total
+}
+
+//build add to cart button
+function buildAddToCartButton(itemID, stock){
+	var quickViewAddToCartButton = document.getElementById('quickViewAddToCartButton')
+	
+	
+	if(stock <= 0){
+		var button = `<a href="#" onclick="return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
+		quickViewAddToCartButton.style = "opacity: 0.5;"
+	}else{
+		var button = `<a href="#" onclick="addToCartFromQuickView('${itemID}'); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
+	}
+	
+	quickViewAddToCartButton.innerHTML = button
 }
 
 //Add to cart
@@ -1574,7 +1590,7 @@ function buildRelatedProducts(){
 									<div class="pricing">
 										<p class="price"><span>${relatedProducts[i].price}</span></p>
 									</div>
-									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${relatedProducts[i].itemID}', '${relatedProducts[i].mainImg}', '${relatedProducts[i].name}', '${relatedProducts[i].price}', '${relatedProducts[i].description}', ${relatedProducts[i].avgRating}, ${i}, '${relatedProducts[i].size}');">
+									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${relatedProducts[i].itemID}', '${relatedProducts[i].mainImg}', '${relatedProducts[i].name}', '${relatedProducts[i].price}', '${relatedProducts[i].description}', ${relatedProducts[i].avgRating}, ${i}, '${relatedProducts[i].size}', ${relatedProducts[i].stock});">
 										<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
 									</p>
 								</div>
@@ -1797,7 +1813,7 @@ function buildShopItems(shopItems){
 											<span>Rs${shopItems[i].price}</span>
 										</p>
 									</div>
-									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${shopItems[i].itemID}', '${shopItems[i].mainImg}', '${shopItems[i].name}', '${shopItems[i].price}', '${shopItems[i].description}', ${shopItems[i].avgRating}, ${i}, '${shopItems[i].size}');">
+									<p class="bottom-area d-flex px-3" data-bs-toggle="modal" data-bs-target="#quickViewModal" onclick="buildQuickView('${shopItems[i].itemID}', '${shopItems[i].mainImg}', '${shopItems[i].name}', '${shopItems[i].price}', '${shopItems[i].description}', ${shopItems[i].avgRating}, ${i}, '${shopItems[i].size}', ${shopItems[i].stock});">
 										<a href="#" onclick="return false;" class="add-to-cart text-center py-2 mr-1"><span>Quick View <i class="fa-regular fa-eye ml-1"></i></span></a>
 									</p>
 								</div>

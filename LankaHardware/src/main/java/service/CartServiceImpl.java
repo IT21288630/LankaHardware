@@ -2,6 +2,7 @@ package service;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -116,7 +117,7 @@ public class CartServiceImpl implements ICartService {
 
 		Cart cart = getCart(email);
 		String status = "There is a problem";
-		
+
 		if (size.equals("notSpecified")) {
 			size = getDefaultSizeAndPrice(itemID);
 		}
@@ -132,7 +133,7 @@ public class CartServiceImpl implements ICartService {
 			pst.executeUpdate();
 
 			status = "Added to cart";
-			
+
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO: handle exception
 
@@ -147,7 +148,7 @@ public class CartServiceImpl implements ICartService {
 			}
 
 			changeQuantity(email, itemID, quantity, size);
-			
+
 			status = "Added to cart";
 		}
 
@@ -236,7 +237,7 @@ public class CartServiceImpl implements ICartService {
 			pst.executeUpdate();
 
 			status = "Removed from cart";
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -278,7 +279,7 @@ public class CartServiceImpl implements ICartService {
 			pst.executeUpdate();
 
 			status = "Cart cleared";
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -431,17 +432,58 @@ public class CartServiceImpl implements ICartService {
 		return size;
 	}
 
+	@Override
+	public HashMap<String, Integer> getSizesAndStock(String itemID) {
+		// TODO Auto-generated method stub
+		HashMap<String, Integer> sizesAndStock = new HashMap<>();
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SIZES_AND_STOCK);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				sizesAndStock.put(rs.getString(CommonConstants.COLUMN_INDEX_ONE), rs.getInt(CommonConstants.COLUMN_INDEX_TWO));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return sizesAndStock;
+	}
+
 	public static void main(String[] args) {
 		ICartService iCartService = new CartServiceImpl();
 		Cart cart = iCartService.getCart("a@g.m");
-		
+
 		System.out.println(cart.getCartID());
 		System.out.println(cart.getTotal());
-		
+
 		ArrayList<Item> items = cart.getItems();
-		
+
 		System.out.println();
-		
+
 		for (Item item : items) {
 			System.out.println(item.getBrand());
 		}

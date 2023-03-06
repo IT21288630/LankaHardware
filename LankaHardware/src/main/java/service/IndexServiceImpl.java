@@ -71,6 +71,10 @@ public class IndexServiceImpl implements IIndexService {
 				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			}
 
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

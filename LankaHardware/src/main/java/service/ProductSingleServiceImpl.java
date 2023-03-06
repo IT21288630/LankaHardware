@@ -172,6 +172,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SEVEN));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				
 				items.add(item);
@@ -186,6 +187,10 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			
 			for (Item item : items) {
 				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
+			}
+			
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
 			}
 			
 		} catch (SQLException e) {

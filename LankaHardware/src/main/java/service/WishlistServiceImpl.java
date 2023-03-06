@@ -211,6 +211,7 @@ public class WishlistServiceImpl implements IWishlistService {
 		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 		ArrayList<Item> items = new ArrayList<>();
 
@@ -250,6 +251,11 @@ public class WishlistServiceImpl implements IWishlistService {
 			for (Item item : items) {
 				item.setIsInWishlist(checkIfItemIsInWishlist(customer, item));
 			}
+			
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
