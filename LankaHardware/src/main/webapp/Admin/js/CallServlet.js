@@ -430,3 +430,186 @@ function callAddSupplierServlet(){
 	}
 	)
 }
+//
+//update Suppliers
+var isNew = true;
+
+var editSupplierModalHeader = document.getElementById('EditSupplierModalHeader')
+var editSupplierModalBody = document.getElementById('EditSupplierModalBody')
+var editSupplierModalFooter = document.getElementById('EditSupplierModalFooter')
+var editCard = document.getElementById('card-body-edit')
+
+function BuildEditEmployeeModal(empNo,name,email,designation,debit){
+	editSupplierModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">Edit Supplier</h5>
+							              <button
+							                type="button"
+							                class="btn-close"
+							                data-bs-dismiss="modal"
+							                aria-label="Close"
+							              ></button>`
+
+	
+	editSupplierModalBody.innerHTML = `<div>
+						              	 <div class="button-wrapper">
+						                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+						                            <span class="d-none d-sm-block">Upload new photo</span>
+						                            <i class="bx bx-upload d-block d-sm-none"></i>
+						                            <input
+						                              type="file"
+						                              id="inputFile"
+						                              class="account-file-input"
+						                              hidden
+						                              accept="image/png, image/jpeg"
+						                            />
+						                          </label>
+						                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+						                            <i class="bx bx-reset d-block d-sm-none"></i>
+						                            <span class="d-none d-sm-block">Reset</span>
+						                          </button>
+						
+						                          <p class="text-muted mb-0"></p>
+						                        </div>
+						                      </div>`
+
+	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Supplier No.</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="supNo"
+                              name="supNo"
+                   				value="${supNo}"
+                              autofocus
+							readonly
+                            />
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Name</label>
+                            <input class="form-control" type="text" name="name" value="${name}" id="name"/>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="email"
+                              name="email"
+								value="${email}"
+                             
+                              placeholder="123@gmail.com"
+                            />
+                          </div>
+                           <div class="mb-3 col-md-6">
+                   			<label class="form-label" for="description">Supplier Description</label>
+                			<textarea name="description" value="${description}" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              			  </div>
+                            <div class="mb-3 col-md-6">
+                            <label for="debit" class="form-label">Debit Or Credit</label>
+                            <select value="${debit}" id="debit" name = "debit" class="select2 form-select">
+                              <option value="">Select Type</option>
+                              <option value="Debit">Debit</option>
+                              <option value="Credit">Credit</option>
+                            
+                            </select>
+                          </div>
+                        </div>
+                         
+                          
+                   
+                        <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+                        </div>
+                      </form>`
+
+	editEmployeeModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+							                Close
+							              </button>
+							              <button type="button" class="btn btn-primary">Submit</button>`
+	
+}
+
+function callupdateEmployee(){
+	var inputFile = document.getElementById('inputFile')
+	
+	var empNo = document.getElementById('empNo').value
+	var name = document.getElementById('name').value
+	var email = document.getElementById('email').value
+	var designation = document.getElementById('designation').value
+	var phoneNum = document.getElementById('phoneNum').value
+	var address = document.getElementById('address').value
+	var gender = document.getElementById('gender').value
+	var date = document.getElementById('date').value
+	var wage = document.getElementById('wage').value
+	var salary = document.getElementById('salary').value
+	
+	
+	if(name == null)
+	{
+		name = "null";
+	}
+	if(email == null)
+	{
+		email = "null";
+	}
+	if(designation == null)
+	{
+		designation = "null";
+	}
+	if(phoneNum == null)
+	{
+		phoneNum = "null";
+	}
+	if(address == null)
+	{
+		address = "null";
+	}
+	if(gender == null)
+	{
+		gender = "null";
+	}
+	if(date == null)
+	{
+		date = "null";
+	}
+	if(wage == null)
+	{
+		wage = "null";
+	}
+	if(salary == null)
+	{
+		salary = "null";
+	}
+	
+	
+	var endpoint = "http://localhost:8080/LankaHardware/updateEmployee"
+	var formData = new FormData();
+	
+	for(const file of inputFile.files){
+		formData.append('inputFile', file)
+	}
+	
+	formData.append('empNo',empNo)
+	formData.append('name',name)
+	formData.append('email',email)
+	formData.append('designation',designation)
+	formData.append('address',address)
+	formData.append('gender', gender)
+	formData.append('date',date)
+	formData.append('wage',wage)
+	formData.append('salary',salary)
+
+	
+	fetch(endpoint, {
+		method: "post",
+		body: formData
+	}).then(res => {
+		callGetAllEmployeesServlet()
+		setTimeout(function() {
+				$('#AddEmoloyeeModal').modal('hide')
+		}, 2500);	
+	}
+	)
+}

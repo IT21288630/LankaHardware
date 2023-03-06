@@ -172,6 +172,71 @@ public class SupplierServiceImpl implements ISupplierService {
 
 	
 	
-	
+	public String updateSuppliers(String supNo, String name, String email, String description, String debit) {
+		// TODO Auto-generated method stub
+
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			if(!name.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_SUPPLIERS_NAME);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, supNo);
+				pst.executeUpdate();
+			}
+			if(!email.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_SUPPLIERS_EMAIL);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, email);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, supNo);
+				pst.executeUpdate();
+			}
+			if(!description.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_SUPPLIERS_DESCRIPTION);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, description);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, supNo);
+				pst.executeUpdate();
+			}
+			if(!debit.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_SUPPLIERS_DEBIT);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, debit);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, supNo);
+				pst.executeUpdate();
+			}
+		
+			
+		
+			
+
+			status = "Suppliers Updated";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return status;
+	}
+
 
 }
+
+

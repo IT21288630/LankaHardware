@@ -105,22 +105,22 @@
           <div class="w-100"></div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+	            <p><span>Address:</span> Katugastota Kandy</p>
 	          </div>
           </div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+	            <p><span>Phone:</span> <a href="tel://1234567920">+076 3456789</a></p>
 	          </div>
           </div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+	            <p><span>Email:</span> <a href="mailto:info@yoursite.com">lankahaedare@gmail.com</a></p>
 	          </div>
           </div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+	            <p><span>Facebook</span> <a href="#">lankaHardware</a></p>
 	          </div>
           </div>
         </div>
@@ -148,15 +148,17 @@
           </div>
 
           <div class="col-md-6 d-flex">
+          <a href="images/hardware.jpg"></a>
           
           	
           </div>
         </div>
       </div>
     </section> 
-    <section class="ftco-gallery ftco-section ftco-no-pb">
+    <section class="ftco-gallery ftco-section ftco-no-pb" >
     	<div class="container">
-    		<div class="row justify-content-center">
+    	
+    		<div class="row justify-content-center" href ="images/hardware.jpg">
     			<div class="col-md-8 heading-section text-center mb-4 ftco-animate">
             <h2 class="mb-4">Follow Us On Instagram</h2>
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>

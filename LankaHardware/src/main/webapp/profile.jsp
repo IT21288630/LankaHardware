@@ -125,14 +125,14 @@
                            
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" name="email" value="john.doe@example.com" placeholder="john.doe@example.com">
+                            <input class="form-control" type="text" id="email" name="email" value="" placeholder="">
                           </div>
                           
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="phoneNumber">Phone Number</label>
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text">US (+1)</span>
-                              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="202 555 0111">
+                              <span class="input-group-text">LK (+94)</span>
+                              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="">
                             </div>
                           </div>
                           <div class="mb-3 col-md-6">

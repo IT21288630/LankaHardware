@@ -566,29 +566,26 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          <h5 class="card-header">Employees Attendance</h5>
+          <h5 class="card-header">Feedbacks</h5>
             <!-- Content -->
             <div class="layout-demo-wrapper">
                <div class="card">
                 
-                <div class="table-responsive text-nowrap">
+                <div class="text-nowrap">
                 
                   <table class="table">
                     <thead>
                       <tr class="text-nowrap">
                      
-                        <th>Emp No.</th>
-                        <td>1000</td>
-                        <th>Name</th>
-                        <th>Attendance Status</th>
-                        <th>Attendance Date</th>
-                        <th>Attendance Percentage</th>
-                        <th>Action</th>
-                      	
+                        <th>Feedback Id.</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Feedback</th>
+                     	<th>Action</th>
                       
                       </tr>
                     </thead>
-                    <tbody id = "employee" >
+                    <tbody id = "feedback" >
                     	
                     </tbody>
                   </table>
@@ -659,17 +656,17 @@
         href="#"
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddEmoloyeeModal" 
-        >Add employee</a
+        data-bs-toggle="modal" data-bs-target="#AddSupplierModal" 
+        >Add Supplier</a
       >
     </div>
     
     
-    <div class="modal fade" id="AddEmoloyeeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="AddSupplierModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="AddEmoloyeeModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add Employee</h5>
+            <div class="modal-header" id="AddSupplierModalHeader">
+              <h5 class="modal-title" id="modalCenterTitle">Add Supplier</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -677,24 +674,10 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" id="AddEmoloyeeModalBody">
+            <div class="modal-body" id="AddSupplierModalBody">
               <div>
               	 <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                              type="file"
-                              id="inputFile"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg"
-                            />
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+                
 
                           <p class="text-muted mb-0"></p>
                         </div>
@@ -706,12 +689,12 @@
                       <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="row">
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Employee No.</label>
+                            <label for="firstName" class="form-label">Supplier No.</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="empNo"
-                              name="empNo"
+                              id="supNo"
+                              name="supNo"
                    
                               autofocus
                             />
@@ -731,16 +714,7 @@
                               placeholder="123@gmail.com"
                             />
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Designation</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="designation"
-                              name="designation"
-                              placeholder = "Assistant Manager"
-                            />
-                          </div>
+                 
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="phoneNumber">Phone Number</label>
                             <div class="input-group input-group-merge">
@@ -750,215 +724,45 @@
                                 id="phoneNum"
                                 name="phoneNum"
                                 class="form-control"
-                                placeholder="07********"
+                                
                               />
                             </div>
                           </div>
+              
+                           <div class="mb-3 col-md-6">
+                   			<label class="form-label" for="description">Supplier Description</label>
+                			<textarea name="description" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              			  </div>
                           <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
-                          </div>
-               
-                  
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">Gender</label>
-                            <select id="gender" name = "gender"class="select2 form-select">
-                              <option value="select">Select</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                            
-                  
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="language" class="form-label">Appointment Date</label><br>
-                           <input name = date type="date" id="date" name = "date">
-
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="wage" class="form-label">Wage Type</label>
-                            <select id="wage" name = "wage" class="select2 form-select">
+                            <label for="debit" class="form-label">Debit Or Credit</label>
+                            <select id="debit" name = "debit" class="select2 form-select">
                               <option value="">Select Type</option>
-                              <option value="Hourly Wage">Hourly Wage</option>
-                              <option value="Fixed salary">Fixed Salary</option>
+                              <option value="Debit">Debit</option>
+                              <option value="Credit">Credit</option>
                             
                             </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="currency" class="form-label">Salary Amount[Rs]</label>
-                         <input
-                              type="text"
-                              class="form-control"
-                              id="salary"
-                              name="salary"
-                              placeholder = "Rs 50000"
-                            />
                           </div>
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddSupplierServlet()">Add Supplier</button>
+
                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+
+
                         </div>
                       </form>
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="AddEmoloyeeModalFooter">
+            <div class="modal-footer" id="AddSupplierFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-primary" onclick ="callAddSupplierServlet()">Submit</button>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- edit modal -->
-      <div class="modal fade" id="EditEmoloyeeModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="EditEmoloyeeModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add Employee</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body" id="EditEmoloyeeModalBody">
-              <div>
-              	 <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                              type="file"
-                              id="inputFile"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg"
-                            />
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
-
-                          <p class="text-muted mb-0"></p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr class="my-0" />
-                    
-                    <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Employee No.</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="empNo"
-                              name="empNo"
-                   
-                              autofocus
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
-                             
-                              placeholder="123@gmail.com"
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Designation</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="designation"
-                              name="designation"
-                              placeholder = "Assistant Manager"
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">LK (+94)</span>
-                              <input
-                                type="text"
-                                id="phoneNum"
-                                name="phoneNum"
-                                class="form-control"
-                                placeholder="07********"
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
-                          </div>
-               
-                  
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">Gender</label>
-                            <select id="gender" name = "gender"class="select2 form-select">
-                              <option value="select">Select</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                            
-                  
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="language" class="form-label">Appointment Date</label><br>
-                           <input name = date type="date" id="date" name = "date">
-
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="wage" class="form-label">Wage Type</label>
-                            <select id="wage" name = "wage" class="select2 form-select">
-                              <option value="">Select Type</option>
-                              <option value="Hourly Wage">Hourly Wage</option>
-                              <option value="Fixed salary">Fixed Salary</option>
-                            
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="currency" class="form-label">Salary Amount[Rs]</label>
-                         <input
-                              type="text"
-                              class="form-control"
-                              id="salary"
-                              name="salary"
-                              placeholder = "Rs 50000"
-                            />
-                          </div>
-                        </div>
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
-                        </div>
-                      </form>
-                    </div>
-              </div>
-            </div>
-            <div class="modal-footer" id="EditEmoloyeeModalFooter">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -983,8 +787,8 @@
   </body>
   <script>
 	
-  //$(document).ready(function () {
-	 // callGetAllEmployeesServlet()
+  $(document).ready(function () {
+	  callGetAllSuppliersServlet()
 	});
 
 </script>

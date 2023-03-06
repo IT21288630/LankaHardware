@@ -111,6 +111,29 @@ public class CommonConstants {
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_SUPPLIERS = "DELETE FROM suppliers WHERE supNo = ?";
 	
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_NAME = "UPDATE employees SET name = ? WHERE supNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_EMAIL = "UPDATE employees SET email = ? WHERE supNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_DESCRIPTION = "UPDATE employees SET description = ? WHERE supNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_DEBIT = "UPDATE employees SET debit = ? WHERE supNo = ?;";
+	
+	/** Constant for select feedback id's */
+	public static final String QUERY_ID_SELECT_FEEDBACK_IDS = "select feedid from feedback;";
+	
+	public static final String QUERY_ID_SELECT_ALL_FEEDBACKS = "SELECT * FROM feedback;";
+	
+	/** Constant for add to feedback */
+	public static final String QUERY_ID_ADD_TO_FEEDBACKS = "INSERT INTO feedback(feedid, email, subject, feedback) VALUES(?, ?, ?, ?);";
+	
+	public static final String QUERY_ID_CREATE_FEEDBACKS = "INSERT INTO feedback(feedid) VALUES(?);";
+	
+	/** Constant for clear feedback */
+	public static final String QUERY_ID_CLEAR_FEEDBACKS = "DELETE FROM feedback WHERE feedid = ?";
+	
+	
 	/** Constant for create a cart */
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	

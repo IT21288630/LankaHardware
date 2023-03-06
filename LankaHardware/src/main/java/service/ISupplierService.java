@@ -3,6 +3,8 @@ package service;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import com.google.gson.JsonElement;
+
 import model.Supplier;
 
 public interface ISupplierService {
@@ -14,6 +16,8 @@ public interface ISupplierService {
 	public String addSuppliers(Supplier supplier);
 
 	public String removeSuppliers(String supNo);
+
+	public String updateSuppliers(String supNo, String name, String email, String description, String debit);
 
 	
 
