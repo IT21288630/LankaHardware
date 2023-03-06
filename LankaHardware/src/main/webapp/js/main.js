@@ -451,12 +451,14 @@ function callWishlistServlet(){
 function buildWishlist(wishlistItems){
 	quickViewsizesAndPrizes = []
 	isInWishlist = []
+	quickViewsizesAndStock = []
 	
 	wishlist_itemList.innerHTML = ''
 	
 	for(var i = 0; i < wishlistItems.length; i++){
 		quickViewsizesAndPrizes.push(wishlistItems[i].sizesAndPrizes)
 		isInWishlist.push(wishlistItems[i].isInWishlist)
+		quickViewsizesAndStock.push(wishlistItems[i].sizesAndStock)
 		
 		var starID = `${wishlistItems[i].itemID + wishlistItems[i].size}wishlistStar`
 		
@@ -1087,6 +1089,24 @@ function buildQuickViewAddToCartButton(itemID, index, productSize){
 	}
 }
 
+function buildProductSingleAddToCartButton(itemID, index, productSize){
+	var quickViewAddToCartButton = document.getElementById('productSingleAddToCartButton')
+	
+	for(const [size, stock] of Object.entries(sizesAndStockProductSingle[index])){
+		if(productSize == size && stock <= 0){
+			var button = `<a href="#" onclick="return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
+			quickViewAddToCartButton.style = "opacity: 0.5;"
+			quickViewAddToCartButton.innerHTML = button
+			return
+		}else if(productSize == size && stock > 0){
+			var button = `<a href="#" onclick="addToCartFromSingleProductPage('${itemID}', 0); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
+			quickViewAddToCartButton.style = "opacity: 1;"
+			quickViewAddToCartButton.innerHTML = button
+			return
+		}
+	}
+}
+
 //Add to cart
 function callAddToCartServlet(itemID, quantity, size){
 	if(quantity == 0){
@@ -1176,6 +1196,7 @@ var reviewsWithImages = []
 var productQuestions = []
 var itemIDForQuestion
 var isInWishlistProductSingle = []
+var sizesAndStockProductSingle = []
 
 function callGetProductSingleServlet(itemID){
 	$.get("http://localhost:8080/LankaHardware/GetProductSingleServlet", {itemID : itemID}, function(response) {
@@ -1204,6 +1225,7 @@ function buildProductSingle(product){
 	var iconID = `${product.itemID}${product.size}ProductSingleIcon`
 	
 	isInWishlistProductSingle.push(product.isInWishlist)
+	sizesAndStockProductSingle.push(product.sizesAndStock)
 	
 	productDetails.innerHTML = ''
 	
@@ -1282,10 +1304,11 @@ function buildProductSingle(product){
 							<p style="color: #000;">80 piece available</p>
 						</div>
 					</div>
-					<p><a href="#" onclick="addToCartFromSingleProductPage('${product.itemID}', 0); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>
+					<p id="productSingleAddToCartButton"></p>
 				</div>`
     			
     	productDetails.innerHTML += details
+    	buildProductSingleAddToCartButton(product.itemID, 0, product.size)
     	buildAverageRating(product, starID)
     	mainImg = document.getElementById('mainImg')
     	buildWishlistIconProductSingle(iconID, product.itemID, product.size)
@@ -1566,10 +1589,12 @@ function emptyFilteredReviews(text){
 function buildRelatedProducts(){
 	relatedProductList.innerHTML = ''
 	quickViewsizesAndPrizes = []
+	quickViewsizesAndStock = []
 	
 	for(var i = 0; i < relatedProducts.length; i++){
 		quickViewsizesAndPrizes.push(relatedProducts[i].sizesAndPrizes)
 		isInWishlist.push(relatedProducts[i].isInWishlist)
+		quickViewsizesAndStock.push(relatedProducts[i].sizesAndStock)
 		
 		var starID = relatedProducts[i].itemID + 'RelatedProductAvgStar'
 		
@@ -1659,6 +1684,7 @@ function displayProductPrice(iconID, itemID){
 	productPrice.innerHTML = `Rs${displayPrice}`
 	
 	buildWishlistIconProductSingle(iconID, itemID, productSize)
+	buildProductSingleAddToCartButton(itemID, 0, productSize)
 }
 
 
@@ -1783,6 +1809,7 @@ function callGetShopServlet(){
 function buildShopItems(shopItems){
 	shopItemList.innerHTML = ''
 	quickViewsizesAndPrizes = []
+	quickViewsizesAndStock = []
 	
 	if(shopItems.length == 0) shopEmpty()
 	else shopItemList.style = "justify-content: inherit;"
@@ -1790,6 +1817,7 @@ function buildShopItems(shopItems){
 	for(var i = 0; i < shopItems.length; i++){
 		quickViewsizesAndPrizes.push(shopItems[i].sizesAndPrizes)
 		isInWishlist.push(shopItems[i].isInWishlist)
+		quickViewsizesAndStock.push(shopItems[i].sizesAndStock)
 		
 		var starID = shopItems[i].itemID + 'shopStar'
 		

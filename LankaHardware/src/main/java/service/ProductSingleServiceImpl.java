@@ -36,6 +36,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 		LinkedHashMap<String, Double> map = getProductSizeAndPriceList(itemID);
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IWishlistService iWishlistService = new WishlistServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
 		ArrayList<String> allImages = new ArrayList<>();
 		Customer customer = new Customer();
 		
@@ -77,6 +78,8 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			}
 			
 			item.setAllImages(allImages);
+			
+			item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
