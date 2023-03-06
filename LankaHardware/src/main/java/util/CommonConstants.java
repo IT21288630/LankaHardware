@@ -117,6 +117,12 @@ public class CommonConstants {
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty, size) VALUES(?, ?, ?, ?);";
 	
+	/** Constant for get stock */
+	public static final String QUERY_ID_GET_STOCK = "SELECT stock FROM item_size WHERE Id = ? AND size = ?;";
+	
+	/** Constant for edit stock */
+	public static final String QUERY_ID_EDIT_STOCK = "UPDATE item_size SET stock = ? WHERE Id = ? AND size = ?;";
+	
 	/** Constant for get specific cart id */
 	public static final String QUERY_ID_GET_SPECIFIC_CART_ID = "SELECT cid FROM cart WHERE email = ?;";
 	

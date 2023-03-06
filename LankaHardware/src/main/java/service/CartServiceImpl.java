@@ -116,6 +116,7 @@ public class CartServiceImpl implements ICartService {
 		// TODO Auto-generated method stub
 
 		Cart cart = getCart(email);
+		int stock;
 		String status = "There is a problem";
 
 		if (size.equals("notSpecified")) {
@@ -125,6 +126,21 @@ public class CartServiceImpl implements ICartService {
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_STOCK);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			rs = pst.executeQuery();
+			rs.next();
+
+			stock = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
+
+			stock = stock - quantity;
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
+			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			pst.executeUpdate();
+
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_CART);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
@@ -184,10 +200,26 @@ public class CartServiceImpl implements ICartService {
 
 		Cart cart = new Cart();
 		cart.setCartID(getCartIdByEmail(email));
+		int stock;
 
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_STOCK);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			rs = pst.executeQuery();
+			rs.next();
+
+			stock = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
+
+			stock = stock - quantity;
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
+			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			pst.executeUpdate();
+			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_QUANTITY);
 			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, quantity);
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, cart.getCartID());
@@ -347,6 +379,7 @@ public class CartServiceImpl implements ICartService {
 				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SIX));
 			}
 
 		} catch (SQLException e) {
@@ -444,7 +477,8 @@ public class CartServiceImpl implements ICartService {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				sizesAndStock.put(rs.getString(CommonConstants.COLUMN_INDEX_ONE), rs.getInt(CommonConstants.COLUMN_INDEX_TWO));
+				sizesAndStock.put(rs.getString(CommonConstants.COLUMN_INDEX_ONE),
+						rs.getInt(CommonConstants.COLUMN_INDEX_TWO));
 			}
 
 		} catch (SQLException e) {
