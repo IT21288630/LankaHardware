@@ -598,23 +598,26 @@ function callSendBackInStockEmailServlet(){
 var newArrivals = []
 var quickViewsizesAndPrizes = []
 var isInWishlist = []
+var quickViewsizesAndStock = []
 
 function callIndexServlet(){
 	$.get("http://localhost:8080/LankaHardware/GetIndexServlet", function(response) {
 				
 		newArrivals = response
-		console.log(newArrivals)
 		buildNewArrivalslist(newArrivals)
+		console.log(quickViewsizesAndStock)
 	})
 }
 
 function buildNewArrivalslist(newArrivals){
 	quickViewsizesAndPrizes = []
 	isInWishlist = []
+	quickViewsizesAndStock = []
 	
 	for(var i = 0; i < newArrivals.length; i++){
 		quickViewsizesAndPrizes.push(newArrivals[i].sizesAndPrizes)
 		isInWishlist.push(newArrivals[i].isInWishlist)
+		quickViewsizesAndStock.push(newArrivals[i].sizesAndStock)
 		
 		var starID = newArrivals[i].itemID + 'AvgStar'
 
@@ -722,7 +725,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 								  </div>
 								</div>`
 	
-	buildAddToCartButton(itemID, stock)
+	buildQuickViewAddToCartButton(itemID, sizesAndPrizes, size)
 	buildQuickViewSizes(sizesAndPrizes, size)
 	var productSize = document.getElementById('quickViewProductSizes').value
 	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
@@ -841,6 +844,7 @@ function displayQuickViewProductPrice(sizesAndPrizes, itemID, iconID){
 	productPrice.innerHTML = `Rs${displayPrice}`
 	
 	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
+	buildQuickViewAddToCartButton(itemID, sizesAndPrizes, productSize)
 }
 
 //build average rating
@@ -1065,18 +1069,22 @@ function cartTotal(Total){
 }
 
 //build add to cart button
-function buildAddToCartButton(itemID, stock){
+function buildQuickViewAddToCartButton(itemID, index, productSize){
 	var quickViewAddToCartButton = document.getElementById('quickViewAddToCartButton')
 	
-	
-	if(stock <= 0){
-		var button = `<a href="#" onclick="return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
-		quickViewAddToCartButton.style = "opacity: 0.5;"
-	}else{
-		var button = `<a href="#" onclick="addToCartFromQuickView('${itemID}'); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
+	for(const [size, stock] of Object.entries(quickViewsizesAndStock[index])){
+		if(productSize == size && stock <= 0){
+			var button = `<a href="#" onclick="return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
+			quickViewAddToCartButton.style = "opacity: 0.5;"
+			quickViewAddToCartButton.innerHTML = button
+			return
+		}else if(productSize == size && stock > 0){
+			var button = `<a href="#" onclick="addToCartFromQuickView('${itemID}'); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
+			quickViewAddToCartButton.style = "opacity: 1;"
+			quickViewAddToCartButton.innerHTML = button
+			return
+		}
 	}
-	
-	quickViewAddToCartButton.innerHTML = button
 }
 
 //Add to cart
