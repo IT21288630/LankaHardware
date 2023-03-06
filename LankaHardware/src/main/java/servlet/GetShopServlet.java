@@ -50,7 +50,8 @@ public class GetShopServlet extends HttpServlet {
 		String resp2 = new Gson().toJson(shop.getMainCategories());
 		String resp3 = new Gson().toJson(shop.getHighestPrice());
 		String resp4 = new Gson().toJson(shop.getLowestPrice());
-		String allJson = "[" + resp + "," + resp2 + ", " + resp3 + "," + resp4 + "]";
+		String resp5 = new Gson().toJson(shop.getSubCategories());
+		String allJson = "[" + resp + "," + resp2 + ", " + resp3 + "," + resp4 + ", " + resp5 + "]";
 
 		out.print(allJson);
 	}

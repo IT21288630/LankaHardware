@@ -179,11 +179,11 @@
 											<div style="display: flex; flex-direction: column;">
 												<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
 													<span style="width: fit-content;">in stock</span>
-													<input class="brand-check-input" type="radio" value="" name="brand" checked>
+													<input class="brand-check-input" type="radio" value="false" name="availability" checked onclick="setAvailability();">
 												</label>
 												<label style="display: flex; color: gray; margin-bottom: 0px; justify-content: space-between;">
 													<span style="width: fit-content;">include out of stock</span>
-													<input class="brand-check-input" type="radio" value="" name="brand">
+													<input class="brand-check-input" type="radio" value="true" name="availability" onclick="setAvailability();">
 												</label>
 											</div>
 

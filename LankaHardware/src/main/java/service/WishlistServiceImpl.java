@@ -114,6 +114,7 @@ public class WishlistServiceImpl implements IWishlistService {
 
 		Wishlist wishlist = new Wishlist();
 		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
+		String status = "There is a problem";	
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -123,10 +124,13 @@ public class WishlistServiceImpl implements IWishlistService {
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
 
+			status = "Added to wishlist";
+			
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO: handle exception
 
-			return "Item is already in whislist";
+			status = "Already in whislist";
+			return status;
 		}
 
 		catch (SQLException e) {
@@ -151,7 +155,8 @@ public class WishlistServiceImpl implements IWishlistService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		return "Added to wishlist";
+		
+		return status;
 	}
 
 	@Override
@@ -160,6 +165,7 @@ public class WishlistServiceImpl implements IWishlistService {
 
 		Wishlist wishlist = new Wishlist();
 		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
+		String status = "There is a problem";
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -169,6 +175,8 @@ public class WishlistServiceImpl implements IWishlistService {
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
 
+			status = "Removed from wishlist";
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -192,7 +200,7 @@ public class WishlistServiceImpl implements IWishlistService {
 			}
 		}
 
-		return "Item removed";
+		return status;
 	}
 
 	@Override
@@ -203,6 +211,7 @@ public class WishlistServiceImpl implements IWishlistService {
 		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
 		con = DBConnectionUtil.getDBConnection();
 		ArrayList<Item> items = new ArrayList<>();
 
@@ -234,6 +243,7 @@ public class WishlistServiceImpl implements IWishlistService {
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SIX));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
@@ -241,6 +251,11 @@ public class WishlistServiceImpl implements IWishlistService {
 			for (Item item : items) {
 				item.setIsInWishlist(checkIfItemIsInWishlist(customer, item));
 			}
+			
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

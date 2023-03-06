@@ -36,6 +36,8 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 		LinkedHashMap<String, Double> map = getProductSizeAndPriceList(itemID);
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IWishlistService iWishlistService = new WishlistServiceImpl();
+		ICartService iCartService = new CartServiceImpl();
+		ArrayList<String> allImages = new ArrayList<>();
 		Customer customer = new Customer();
 		
 		item.setSize(map.entrySet().iterator().next().getKey()); 
@@ -51,6 +53,8 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, item.getSize());
+			pst.setString(CommonConstants.COLUMN_INDEX_SIX, item.getItemID());
 			rs = pst.executeQuery();
 			rs.next();
 
@@ -59,10 +63,23 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 			item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 			item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
+			item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SIX));
 			item.setAvgRating(iReviewService.getAverageRating(itemID));
 			item.setRatingCount(iReviewService.getItemRatingCount(itemID));
 			item.setRatingPercentageList(iReviewService.calculateItemRatingPercentage(itemID));
 			item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
+			
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ALL_ITEM_IMAGES);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				allImages.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+			
+			item.setAllImages(allImages);
+			
+			item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,9 +103,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
 		
-
 		return item;
 	}
 
@@ -160,6 +175,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SEVEN));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				
 				items.add(item);
@@ -174,6 +190,10 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			
 			for (Item item : items) {
 				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
+			}
+			
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
 			}
 			
 		} catch (SQLException e) {

@@ -140,6 +140,12 @@ public class CommonConstants {
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty, size) VALUES(?, ?, ?, ?);";
 	
+	/** Constant for get stock */
+	public static final String QUERY_ID_GET_STOCK = "SELECT stock FROM item_size WHERE Id = ? AND size = ?;";
+	
+	/** Constant for edit stock */
+	public static final String QUERY_ID_EDIT_STOCK = "UPDATE item_size SET stock = ? WHERE Id = ? AND size = ?;";
+	
 	/** Constant for get specific cart id */
 	public static final String QUERY_ID_GET_SPECIFIC_CART_ID = "SELECT cid FROM cart WHERE email = ?;";
 	
@@ -161,8 +167,11 @@ public class CommonConstants {
 	/** Constant for get items sizes and relevant prices */
 	public static final String QUERY_ID_GET_SIZES_AND_PRICES = "SELECT size, unit_price FROM item_size WHERE Id = ? ORDER BY unit_price;";
 	
+	/** Constant for get items sizes and relevant stock */
+	public static final String QUERY_ID_GET_SIZES_AND_STOCK = "SELECT size, stock FROM item_size WHERE Id = ? ORDER BY unit_price;";
+	
 	/** Constant for get other item details for cart */
-	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART = "SELECT name, brand, description, (SELECT img FROM item_img WHERE Id = ? limit 1) as 'img', (SELECT unit_price FROM item_size WHERE id = ? and size = ?) as 'price' FROM item WHERE id = ?;";
+	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART = "SELECT name, brand, description, (SELECT img FROM item_img WHERE Id = ? limit 1) as 'img', (SELECT unit_price FROM item_size WHERE id = ? and size = ?) as 'price', (SELECT stock FROM item_size WHERE id = ? and size = ?) as 'stock' FROM item WHERE id = ?;";
 	
 	/** Constant for select wishlist id's */
 	public static final String QUERY_ID_SELECT_WISHLIST_IDS = "select wid from wishlist;";
@@ -186,7 +195,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_WISHLIST = "SELECT name, brand, img, (SELECT min(unit_price) FROM item_size where id = ?) as 'price' FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.id = ? GROUP BY i.id;";
 	
 	/** Constant for get all other item details for wishlist */
-	public static final String QUERY_ID_GET_OTHER_DETAILS_FOR_WISHLIST = "SELECT name, brand, img, (SELECT unit_price FROM item_size where id = ? AND size = ?) as 'price', description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.id = ? GROUP BY i.id;";
+	public static final String QUERY_ID_GET_OTHER_DETAILS_FOR_WISHLIST = "SELECT name, brand, img, (SELECT unit_price FROM item_size where id = ? AND size = ?) as 'price', description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.id = ? GROUP BY i.id;";
 	
 	/** Constant for get emails of customers for wishlist */
 	public static final String QUERY_ID_GET_CUSTOMER_EMAILS_FOR_WISHLIST = "SELECT w.email FROM wishlist w, wishlist_item wi WHERE w.wid = wi.wid AND wi.itId = ?;";
@@ -198,13 +207,16 @@ public class CommonConstants {
 	public static final String QUERY_ID_CHECK_WISHLIST = "SELECT size FROM wishlist_item WHERE wid = ? AND itId = ?;";
 	
 	/** Constant for get new arrivals */
-	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img, description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
+	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img, description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
 	
 	/** Constant for get minimum price for new arrivals */
 	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC limit 8;";
 	
 	/** Constant for get related items for product single page */
-	public static final String QUERY_ID_GET_RELATED_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type = (select type from item where id = ?) and i.id != ? GROUP BY i.id ORDER BY s.unit_price;";
+	public static final String QUERY_ID_GET_RELATED_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type = (select type from item where id = ?) and i.id != ? GROUP BY i.id ORDER BY s.unit_price;";
+	
+	/** Constant for get all item images for product single page */
+	public static final String QUERY_ID_GET_ALL_ITEM_IMAGES = "SELECT img FROM item_img WHERE Id = ?;";
 	
 	/** Constant for get main search results */
 	public static final String QUERY_ID_GET_MAIN_SEARCH_RESULTS = "SELECT id, name, description FROM item WHERE name LIKE ?;";
@@ -222,7 +234,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_ADD_REVIEW_IMAGES = "INSERT INTO review_img(reviewID, img) VALUES(?, ?);";
 	
 	/** Constant for get items for shop page */
-	public static final String QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.name LIKE ? GROUP BY i.id ORDER BY s.unit_price;";
+	public static final String QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.name LIKE ? GROUP BY i.id ORDER BY s.unit_price;";
 	
 	/** Constant for get relevant item size for shop page */
 	public static final String QUERY_ID_GET_RELEVANT_ITEM_SIZE_FOR_SHOP = "SELECT size FROM item_size WHERE Id = ? AND unit_price = ?;";
@@ -230,26 +242,41 @@ public class CommonConstants {
 	/** Constant for get main categories for shop page */
 	public static final String QUERY_ID_GET_MAIN_CATEGORIES_FOR_SHOP = "SELECT type FROM item;";
 	
+	/** Constant for get sub categories for shop page */
+	public static final String QUERY_ID_GET_SUB_CATEGORIES_FOR_SHOP = "SELECT subType FROM item WHERE type = ?;";
+	
 	/** Constant for get maximum item price and minimum item price */
 	public static final String QUERY_ID_GET_MAX_AND_MIN_ITEM_PRICE_FOR_SHOP = "SELECT max(unit_price), min(unit_price) FROM item_size;";
 	
 	/** Constant for get main categories for shop page order by price asc */
-	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_ASC = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? GROUP BY i.id ORDER BY s.unit_price;";
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_ASC = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock > 0 GROUP BY i.id ORDER BY s.unit_price;";
 	
 	/** Constant for get main categories for shop page order by price desc */
-	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? GROUP BY i.id ORDER BY s.unit_price DESC;";
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock > 0 GROUP BY i.id ORDER BY s.unit_price DESC;";
 	
 	/** Constant for get main categories for shop page newest arrivals */
-	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? GROUP BY i.id ORDER BY i.id DESC;";
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock > 0 GROUP BY i.id ORDER BY i.id DESC;";
 	
 	/** Constant for get main categories for shop page ratings desc */
-	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC = "SELECT i.id, min(s.unit_price), name, brand, img, i.description FROM item i, item_img img, item_size s, review r where i.id = img.id and i.id = s.id and i.id = r.ItID and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? GROUP BY i.id ORDER BY avg(r.stars) DESC;";
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s, review r where i.id = img.id and i.id = s.id and i.id = r.ItID and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock > 0 GROUP BY i.id ORDER BY avg(r.stars) DESC;";
+	
+	/** Constant for get main categories for shop page order by price asc including outof stock */
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_ASC_INCLUDING_OUTOFSTOCK = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock >= 0 GROUP BY i.id ORDER BY s.unit_price;";
+	
+	/** Constant for get main categories for shop page order by price desc including outof stock */
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_PRICE_DESC_INCLUDING_OUTOFSTOCK = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock >= 0 GROUP BY i.id ORDER BY s.unit_price DESC;";
+	
+	/** Constant for get main categories for shop page newest arrivals including outof stock */
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_NEWEST_ARRIVALS_INCLUDING_OUTOFSTOCK = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock >= 0 GROUP BY i.id ORDER BY i.id DESC;";
+	
+	/** Constant for get main categories for shop page ratings desc including outof stock */
+	public static final String QUERY_ID_GET_ITEMS_BY_MAIN_CATEGORY_RATING_DESC_INCLUDING_OUTOFSTOCK = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s, review r where i.id = img.id and i.id = s.id and i.id = r.ItID and i.type like ? and s.unit_price BETWEEN ? AND ? AND i.name LIKE ? AND i.brand LIKE ? and i.subType like ? and s.stock >= 0 GROUP BY i.id ORDER BY avg(r.stars) DESC;";
 	
 	/** Constant for get item size list for shop page */
 	public static final String QUERY_ID_GET_ITEM_SIZE_LIST_FOR_SHOP = "select size from item_size where Id = ? order by unit_price;";
 	
 	/** Constant for get main categories for shop page */
-	public static final String QUERY_ID_GET_BRAND_LIST_FOR_SHOP = "SELECT brand FROM item WHERE type LIKE ?;";
+	public static final String QUERY_ID_GET_BRAND_LIST_FOR_SHOP = "SELECT brand FROM item WHERE type LIKE ? AND subType LIKE ?;";
 	
 	/** Constant for get average item rating */
 	public static final String QUERY_ID_GET_ITEM_AVERAGE_RATING = "select avg(stars) from review where itID = ?;";

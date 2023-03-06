@@ -46,7 +46,7 @@
 <style>
 		.small-img-group {
 			display: flex;
-			justify-content: space-between;
+			column-gap: 10px;
 		}
 
 		.small-img-col {

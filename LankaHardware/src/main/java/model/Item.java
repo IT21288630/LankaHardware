@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Item {
@@ -20,6 +22,51 @@ public class Item {
 	private double[][] ratingPercentageList;
 	private LinkedHashMap<String, Double> sizesAndPrizes;
 	private LinkedHashMap<String, Boolean> isInWishlist;
+	private String type;
+	private String subType;
+	private ArrayList<String> allImages;
+	private int stock;
+	private HashMap<String, Integer> sizesAndStock;
+
+	public HashMap<String, Integer> getSizesAndStock() {
+		return sizesAndStock;
+	}
+
+	public void setSizesAndStock(HashMap<String, Integer> sizesAndStock) {
+		this.sizesAndStock = sizesAndStock;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public ArrayList<String> getAllImages() {
+		return allImages;
+	}
+
+	public void setAllImages(ArrayList<String> allImages) {
+		this.allImages = allImages;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSubType() {
+		return subType;
+	}
+
+	public void setSubType(String subType) {
+		this.subType = subType;
+	}
 
 	public int getRatingCount() {
 		return ratingCount;

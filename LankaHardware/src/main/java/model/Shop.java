@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Shop {
 
 	private ArrayList<String> mainCategories;
-	private ArrayList<String> subCategories;
+	private Map<String, ArrayList<String>> subCategories;
 	private ArrayList<Item> items;
 	private ArrayList<String> brandList;
 	private double lowestPrice;
@@ -19,11 +20,11 @@ public class Shop {
 		this.mainCategories = mainCategories;
 	}
 
-	public ArrayList<String> getSubCategories() {
+	public Map<String, ArrayList<String>> getSubCategories() {
 		return subCategories;
 	}
 
-	public void setSubCategories(ArrayList<String> subCategories) {
+	public void setSubCategories(Map<String, ArrayList<String>> subCategories) {
 		this.subCategories = subCategories;
 	}
 

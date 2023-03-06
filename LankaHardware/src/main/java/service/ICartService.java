@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import model.Cart;
@@ -70,4 +71,10 @@ public interface ICartService {
 	 * @param itemID
 	 */
 	public String getDefaultSizeAndPrice(String itemID);
+	
+	/**
+	 * get sizes and their stock
+	 * @param itemID
+	 */
+	public HashMap<String, Integer> getSizesAndStock(String itemID);
 }

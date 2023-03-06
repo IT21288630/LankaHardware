@@ -57,6 +57,7 @@ public class IndexServiceImpl implements IIndexService {
 				item.setBrand(rs2.getString(CommonConstants.COLUMN_INDEX_TWO));
 				item.setMainImg(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setDescription(rs2.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setStock(rs2.getInt(CommonConstants.COLUMN_INDEX_FIVE));
 
 				items.add(item);
 			}
@@ -70,6 +71,10 @@ public class IndexServiceImpl implements IIndexService {
 				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			}
 
+			for (Item item : items) {
+				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
