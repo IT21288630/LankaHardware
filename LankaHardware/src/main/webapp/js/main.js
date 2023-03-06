@@ -714,6 +714,11 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 														</div>
 													</div>
 													
+													<div class="w-100"></div>
+													<div class="col-md-12" id="quickViewAvailableStock">
+														
+													</div>
+													
 													<p style="width: 100%;" id="quickViewAddToCartButton"></p>
 												</div>
 												
@@ -1073,17 +1078,26 @@ function cartTotal(Total){
 //build add to cart button
 function buildQuickViewAddToCartButton(itemID, index, productSize){
 	var quickViewAddToCartButton = document.getElementById('quickViewAddToCartButton')
+	var quickViewAvailableStock = document.getElementById('quickViewAvailableStock')
+	quickViewAvailableStock.style = "padding-left: 0;"
+	quickViewAvailableStock.innerHTML = ''
 	
 	for(const [size, stock] of Object.entries(quickViewsizesAndStock[index])){
 		if(productSize == size && stock <= 0){
 			var button = `<a href="#" onclick="return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
 			quickViewAddToCartButton.style = "opacity: 0.5;"
 			quickViewAddToCartButton.innerHTML = button
+			
+			quickViewAvailableStock.innerHTML = `<p style="color: #000;">This product is currently out of stock.</p>`
+			
 			return
 		}else if(productSize == size && stock > 0){
 			var button = `<a href="#" onclick="addToCartFromQuickView('${itemID}'); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
 			quickViewAddToCartButton.style = "opacity: 1;"
 			quickViewAddToCartButton.innerHTML = button
+			
+			if(stock <= 10) quickViewAvailableStock.innerHTML = `<p style="color: #000;">Only ${stock} available. Buy this soon before it's gone!</p>`
+			
 			return
 		}
 	}
@@ -1091,17 +1105,25 @@ function buildQuickViewAddToCartButton(itemID, index, productSize){
 
 function buildProductSingleAddToCartButton(itemID, index, productSize){
 	var quickViewAddToCartButton = document.getElementById('productSingleAddToCartButton')
+	var availableStock = document.getElementById('availableStock')
+	availableStock.innerHTML = ''
 	
 	for(const [size, stock] of Object.entries(sizesAndStockProductSingle[index])){
 		if(productSize == size && stock <= 0){
 			var button = `<a href="#" onclick="return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
 			quickViewAddToCartButton.style = "opacity: 0.5;"
 			quickViewAddToCartButton.innerHTML = button
+			
+			availableStock.innerHTML = `<p style="color: #000;">This product is currently out of stock.</p>`
+			
 			return
 		}else if(productSize == size && stock > 0){
 			var button = `<a href="#" onclick="addToCartFromSingleProductPage('${itemID}', 0); return false;" class="btn btn-black py-3 px-5 mr-2" style="width: 100%;">Add to Cart</a>`
 			quickViewAddToCartButton.style = "opacity: 1;"
 			quickViewAddToCartButton.innerHTML = button
+			
+			if(stock <= 10) availableStock.innerHTML = `<p style="color: #000;">Only ${stock} available. Buy this soon before it's gone!</p>`
+			
 			return
 		}
 	}
@@ -1300,8 +1322,8 @@ function buildProductSingle(product){
 						</div>
 						
 						<div class="w-100"></div>
-						<div class="col-md-12">
-							<p style="color: #000;">80 piece available</p>
+						<div class="col-md-12" id="availableStock">
+							
 						</div>
 					</div>
 					<p id="productSingleAddToCartButton"></p>
