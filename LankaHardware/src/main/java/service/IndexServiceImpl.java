@@ -57,6 +57,7 @@ public class IndexServiceImpl implements IIndexService {
 				item.setBrand(rs2.getString(CommonConstants.COLUMN_INDEX_TWO));
 				item.setMainImg(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setDescription(rs2.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setStock(rs2.getInt(CommonConstants.COLUMN_INDEX_FIVE));
 
 				items.add(item);
 			}

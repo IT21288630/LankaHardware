@@ -52,6 +52,8 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, item.getSize());
+			pst.setString(CommonConstants.COLUMN_INDEX_SIX, item.getItemID());
 			rs = pst.executeQuery();
 			rs.next();
 
@@ -60,6 +62,7 @@ public class ProductSingleServiceImpl implements IProductSingleService {
 			item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 			item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 			item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
+			item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SIX));
 			item.setAvgRating(iReviewService.getAverageRating(itemID));
 			item.setRatingCount(iReviewService.getItemRatingCount(itemID));
 			item.setRatingPercentageList(iReviewService.calculateItemRatingPercentage(itemID));

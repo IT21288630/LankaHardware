@@ -61,6 +61,7 @@ public class ShopServiceImpl implements IShopService {
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SEVEN));
 
 				items.add(item);
 			}
@@ -244,6 +245,7 @@ public class ShopServiceImpl implements IShopService {
 				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
 				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_SIX));
+				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SEVEN));
 
 				items.add(item);
 			}

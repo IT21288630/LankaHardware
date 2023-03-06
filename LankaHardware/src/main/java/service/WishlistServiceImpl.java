@@ -242,6 +242,7 @@ public class WishlistServiceImpl implements IWishlistService {
 				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
 				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FOUR));
 				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SIX));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
