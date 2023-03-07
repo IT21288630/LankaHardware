@@ -69,6 +69,18 @@ public class CommonUtil {
 				next++;
 				id = CommonConstants.QUESTION_ID_PREFIX + next;
 			}
+		} else if (idType.equals("employee")) {
+			id = CommonConstants.EMPLOYEE_ID_PREFIX + next;
+			while (arrayList.contains(id)) {
+				next++;
+				id = CommonConstants.EMPLOYEE_ID_PREFIX + next;
+			}
+		} else if (idType.equals("feedback")) {
+			id = CommonConstants.FEEDBACK_ID_PREFIX + next;
+			while (arrayList.contains(id)) {
+				next++;
+				id = CommonConstants.FEEDBACK_ID_PREFIX + next;
+			}
 		}
 
 		return id;

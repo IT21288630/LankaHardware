@@ -37,6 +37,12 @@ public class CommonConstants {
 	
 	/** Constant for question id prefix */
 	public static final String QUESTION_ID_PREFIX = "Q300";
+
+	/** Constant for employee id prefix */
+	public static final String EMPLOYEE_ID_PREFIX = "E300";
+	
+	/** Constant for feedback id prefix */
+	public static final String FEEDBACK_ID_PREFIX = "F300";
 	
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
@@ -69,47 +75,74 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customerlogin WHERE email = ?";
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employees;";
+	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";
 	
 	/** Constant for add to cart */
-	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employees(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
+	/** Constant for select cart id's */
+	public static final String QUERY_ID_SELECT_ALL_EMPLOYEE_IDS = "SELECT empNo FROM employee;";
 	
-	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employees(empNo) VALUES(?);";
+	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employee(empNo) VALUES(?);";
 	
 	/** Constant for update employees */
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_NAME = "UPDATE employees SET name = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_NAME = "UPDATE employee SET name = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_EMAIL = "UPDATE employees SET email = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_EMAIL = "UPDATE employee SET email = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_DESIGNATION = "UPDATE employees SET designation = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_DESIGNATION = "UPDATE employee SET designation = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_PHONENUM = "UPDATE employees SET phoneNum = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_PHONENUM = "UPDATE employee SET phoneNum = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_ADDRESS = "UPDATE employees SET address = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_ADDRESS = "UPDATE employee SET address = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_GENDER = "UPDATE employees SET gender = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_GENDER = "UPDATE employee SET gender = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_DATE = "UPDATE employees SET date = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_DATE = "UPDATE employee SET date = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_WAGE = "UPDATE employees SET wage = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_WAGE = "UPDATE employee SET wage = ? WHERE empNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_EMPLOYEES_SALARY = "UPDATE employees SET salary = ? WHERE empNo = ?;";
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_SALARY = "UPDATE employee SET salary = ? WHERE empNo = ?;";
 	
 	/** Constant for clear employees */
-	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employees WHERE empNo = ?";
+	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM suppliers;";
+	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM supplier;";
 	
 	/** Constant for add supplier */
-	public static final String QUERY_ID_ADD_TO_SUPPLIER = "INSERT INTO suppliers(supNo, name, email, phoneNum, description, debit) VALUES(?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_SUPPLIER = "INSERT INTO supplier(supNo, name, email, phoneNum, description, supplier_type) VALUES(?, ?, ?, ?, ?, ?);";
 	
-	public static final String QUERY_ID_CREATE_SUPPLIER = "INSERT INTO suppliers(supNo) VALUES(?);";
+	public static final String QUERY_ID_CREATE_SUPPLIER = "INSERT INTO supplier(supNo) VALUES(?);";
 	
 	/** Constant for clear employees */
-	public static final String QUERY_ID_CLEAR_SUPPLIERS = "DELETE FROM suppliers WHERE supNo = ?";
+	public static final String QUERY_ID_CLEAR_SUPPLIERS = "DELETE FROM supplier WHERE supNo = ?";
+	
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_NAME = "UPDATE supplier SET name = ? WHERE supNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_EMAIL = "UPDATE supplier SET email = ? WHERE supNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_DESCRIPTION = "UPDATE supplier SET description = ? WHERE supNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_DEBIT = "UPDATE supplier SET debit = ? WHERE supNo = ?;";
+	
+	/** Constant for select feedback id's */
+	public static final String QUERY_ID_SELECT_FEEDBACK_IDS = "select feedid from feedback;";
+	
+	public static final String QUERY_ID_SELECT_ALL_FEEDBACKS = "SELECT * FROM feedback;";
+	
+	public static final String QUERY_ID_SELECT_ALL_FEEDBACK_IDS = "SELECT feedid FROM feedback;";
+	
+	/** Constant for add to feedback */
+	public static final String QUERY_ID_ADD_TO_FEEDBACKS = "INSERT INTO feedback(feedid, email, subject, feedback) VALUES(?, ?, ?, ?);";
+	
+	public static final String QUERY_ID_CREATE_FEEDBACKS = "INSERT INTO feedback(feedid) VALUES(?);";
+	
+	/** Constant for clear feedback */
+	public static final String QUERY_ID_CLEAR_FEEDBACKS = "DELETE FROM feedback WHERE feedid = ?";
+	
 	
 	/** Constant for create a cart */
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";

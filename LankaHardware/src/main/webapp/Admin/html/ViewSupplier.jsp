@@ -581,6 +581,8 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Description</th>
+                        <th>Supplier Type</th>
                      	<th>Action</th>
                       
                       </tr>
@@ -731,11 +733,11 @@
               
                            <div class="mb-3 col-md-6">
                    			<label class="form-label" for="description">Supplier Description</label>
-                			<textarea name="description" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+                			<textarea name="description" id="description" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
               			  </div>
                           <div class="mb-3 col-md-6">
                             <label for="debit" class="form-label">Debit Or Credit</label>
-                            <select id="debit" name = "debit" class="select2 form-select">
+                            <select id="supplier_type" name = "debit" class="select2 form-select">
                               <option value="">Select Type</option>
                               <option value="Debit">Debit</option>
                               <option value="Credit">Credit</option>
@@ -758,7 +760,7 @@
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-primary" onclick ="callAddSupplierServlet()">Submit</button>
             </div>
           </div>
         </div>

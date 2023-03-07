@@ -11,24 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import service.CartServiceImpl;
-import service.EmployeeServiceImpl;
-import service.ICartService;
-import service.IEmployeeService;
-import service.IWishlistService;
-import service.WishlistServiceImpl;
+import service.FeedbackServiceImpl;
+import service.IFeedbackService;
+
+
 
 /**
- * Servlet implementation class RemoveEmployees
+ * Servlet implementation class RemoveFeedback
  */
-@WebServlet("/RemoveEmployees")
-public class RemoveEmployees extends HttpServlet {
+@WebServlet("/RemoveFeedback")
+public class RemoveFeedback extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RemoveEmployees() {
+    public RemoveFeedback() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +36,7 @@ public class RemoveEmployees extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -47,14 +46,14 @@ public class RemoveEmployees extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String empNo = request.getParameter("empNo");
-		IEmployeeService iEmployeeService = new EmployeeServiceImpl();
+		String feedid = request.getParameter("feedid");
+		IFeedbackService iFeedbackService = new FeedbackServiceImpl();
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iEmployeeService.removeEmployees(empNo));
+		String resp = new Gson().toJson(iFeedbackService.removeFeedbacks(feedid));
 
 		out.print(resp);
 	}

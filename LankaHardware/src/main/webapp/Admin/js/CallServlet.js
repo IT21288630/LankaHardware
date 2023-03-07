@@ -9,8 +9,6 @@ function callGetAllEmployeesServlet(){
 				
 		employees = response
 		
-		console.log(employees)
-		
 		buildAllEmployees();
 	})
 }
@@ -46,7 +44,7 @@ function buildAllEmployees(){
                               <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditEmoloyeeModal" onclick="BuildEditEmployeeModal('${employees[i].empNo}', '${employees[i].name}','${employees[i].email}','${employees[i].designation}','${employees[i].phoneNum}','${employees[i].address}','${employees[i].gender}','${employees[i].date}','${employees[i].wage}','${employees[i].salary}');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"  onclick="createDeleteModal('${employees[i].empNo}')"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -69,7 +67,6 @@ var isNew = true;
 function callAddEmployeeServlet(){
 	var inputFile = document.getElementById('inputFile')
 	
-	var empNo = document.getElementById('empNo').value
 	var name = document.getElementById('name').value
 	var email = document.getElementById('email').value
 	var designation = document.getElementById('designation').value
@@ -80,7 +77,7 @@ function callAddEmployeeServlet(){
 	var wage = document.getElementById('wage').value
 	var salary = document.getElementById('salary').value
 	
-	
+	console.log(phoneNum)
 	
 	var endpoint = "http://localhost:8080/LankaHardware/AddEmployeeServlet"
 	var formData = new FormData();
@@ -89,10 +86,10 @@ function callAddEmployeeServlet(){
 		formData.append('inputFile', file)
 	}
 	
-	formData.append('empNo',empNo)
 	formData.append('name',name)
 	formData.append('email',email)
 	formData.append('designation',designation)
+	formData.append('phoneNum',phoneNum)
 	formData.append('address',address)
 	formData.append('gender', gender)
 	formData.append('date',date)
@@ -159,7 +156,7 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
                             <input
                               class="form-control"
                               type="text"
-                              id="empNo"
+                              id="empNoModal"
                               name="empNo"
                    				value="${empNo}"
                               autofocus
@@ -168,14 +165,14 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" value="${name}" id="name"/>
+                            <input class="form-control" type="text"  id="nameModal" name="name" value="${name}" id="name"/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="email"
+                              id="emailModal"
                               name="email"
 								value="${email}"
                              
@@ -187,7 +184,7 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
                             <input
                               type="text"
                               class="form-control"
-                              id="designation"
+                              id="designationModal"
                               name="designation"
 								value="${designation}"
                               placeholder = "Assistant Manager"
@@ -199,7 +196,7 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
                               <span class="input-group-text">LK (+94)</span>
                               <input
                                 type="text"
-                                id="phoneNum"
+                                id="phoneNumModal"
                                 name="phoneNum"
                                 class="form-control"
 								value="${phoneNum}"
@@ -209,12 +206,12 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" value="${address}"placeholder="Address" />
+                            <input type="text" class="form-control" id="addressModal" name="address" value="${address}"placeholder="Address" />
                           </div>
                
                           <div class="mb-3 col-md-6">
                             <label for="language" class="form-label">Appointment Date</label><br>
-                           <input name = date type="date" id="date" name = "date" value="${date}">
+                           <input name = date type="date" id="dateModal" name = "date" value="${date}">
 
                           </div>
                           
@@ -223,7 +220,7 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
                          <input
                               type="text"
                               class="form-control"
-                              id="salary"
+                              id="salaryModal"
                               name="salary"
 							  value="${salary}"
                               placeholder = "Rs 50000"
@@ -231,31 +228,26 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
                           </div>
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callupdateEmployee()">Edit Employee</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" data-bs-dismiss="modal">Cancel</button>
                         </div>
                       </form>`
 
-	editEmployeeModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-							                Close
-							              </button>
-							              <button type="button" class="btn btn-primary">Submit</button>`
+	editEmployeeModalFooter.innerHTML = ``
 	
 }
 
 function callupdateEmployee(){
-	var inputFile = document.getElementById('inputFile')
+	var inputFile = document.getElementById('inputFileModal')
 	
-	var empNo = document.getElementById('empNo').value
-	var name = document.getElementById('name').value
-	var email = document.getElementById('email').value
-	var designation = document.getElementById('designation').value
-	var phoneNum = document.getElementById('phoneNum').value
-	var address = document.getElementById('address').value
-	var gender = document.getElementById('gender').value
-	var date = document.getElementById('date').value
-	var wage = document.getElementById('wage').value
-	var salary = document.getElementById('salary').value
+	var empNo = document.getElementById('empNoModal').value
+	var name = document.getElementById('nameModal').value
+	var email = document.getElementById('emailModal').value
+	var designation = document.getElementById('designationModal').value
+	var phoneNum = document.getElementById('phoneNumModal').value
+	var address = document.getElementById('addressModal').value
+	var date = document.getElementById('dateModal').value
+	var salary = document.getElementById('salaryModal').value
 	
 	
 	if(name == null)
@@ -278,53 +270,108 @@ function callupdateEmployee(){
 	{
 		address = "null";
 	}
-	if(gender == null)
-	{
-		gender = "null";
-	}
+
 	if(date == null)
 	{
 		date = "null";
 	}
-	if(wage == null)
-	{
-		wage = "null";
-	}
+	
 	if(salary == null)
 	{
 		salary = "null";
 	}
 	
+	//console.log(empNo+name+email+designation+phoneNum+address+date+salary )
 	
-	var endpoint = "http://localhost:8080/LankaHardware/updateEmployee"
+	var endpoint = "http://localhost:8080/LankaHardware/UpdateEmployee"
 	var formData = new FormData();
 	
-	for(const file of inputFile.files){
-		formData.append('inputFile', file)
-	}
-	
-	formData.append('empNo',empNo)
-	formData.append('name',name)
-	formData.append('email',email)
-	formData.append('designation',designation)
-	formData.append('address',address)
-	formData.append('gender', gender)
-	formData.append('date',date)
-	formData.append('wage',wage)
-	formData.append('salary',salary)
+//	for(const file of inputFile.files){
+//		formData.append('inputFileModal', file)
+//	}
+
+//	formData.append('empNoModal',empNo)
+//	formData.append('nameModal',name)
+//	formData.append('emailModal',email)
+//	formData.append('designationModal',designation)
+//	formData.append('addressModal',address)
+//	formData.append('dateModal',date)
+//	formData.append('salaryModal',salary)
 
 	
-	fetch(endpoint, {
-		method: "post",
-		body: formData
-	}).then(res => {
+//	fetch(endpoint, {
+//		method: "post",
+//		body: formData
+//	}).then(res => {
+//		callGetAllEmployeesServlet()
+//		setTimeout(function() {
+//				$('#AddEmoloyeeModal').modal('hide')
+//		}, 2500);	
+//	}
+//	)
+	
+	$.post(endpoint, {empNoModal : empNo,nameModal : name,emailModal : email,designationModal : designation,phoneNumModal : phoneNum,addressModal : address,dateModal : date,salaryModal : salary }, function(response) {
+		
 		callGetAllEmployeesServlet()
 		setTimeout(function() {
-				$('#AddEmoloyeeModal').modal('hide')
-		}, 2500);	
-	}
-	)
+				$('#EditEmoloyeeModal').modal('hide')
+		}, 1500);	
+	})
 }
+
+var deleteModalHeader = document.getElementById('deleteModalHeader')
+var deleteModalBody = document.getElementById('deleteModalBody')
+var deleteModalFooter = document.getElementById('deleteModalFooter')
+
+function createDeleteModal(empNo) {
+	deleteModalHeader.innerHTML = `<button
+					                type="button"
+					                class="btn-close"
+					                data-bs-dismiss="modal"
+					                aria-label="Close"
+					              ></button>`
+	deleteModalHeader.style.display = ""
+
+	deleteModalBody.innerHTML = `<div style="display: flex; flex-direction: column; text-align: center;">
+					                <div class="icon-box">
+					                  <i class="material-icons">&times;</i>
+					                </div>						
+					                <h4 class="modal-title w-100">Are you sure?</h4>
+					                <p style="margin-top: 10px;">Do you really want to delete these records? This process cannot be undone.</p>
+					              </div>`
+	deleteModalBody.style.padding = ""
+
+	deleteModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					                Close
+					              </button>
+					              <button type="button" class="btn btn-danger" onclick="callDeleteEmployeeServlet('${empNo}')">Delete</button>`
+	deleteModalFooter.style.display = ""
+}
+
+function callDeleteEmployeeServlet(empNo) {
+	deleteModalHeader.style = "display: none;"
+	deleteModalBody.style = "text-align: center;"
+	deleteModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
+			                          <span class="visually-hidden">Loading...</span>
+			                        </div>`
+	deleteModalFooter.style = "display: none;"
+	$.post("http://localhost:8080/LankaHardware/RemoveEmployees", { empNo: empNo }, function(response) {
+
+		deleteModalBody.style = "padding: 1rem;"
+		deleteModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									    </div>`
+
+		callGetAllEmployeesServlet()
+
+		setTimeout(function() {
+			$('#deleteModal').modal('hide')
+		}, 2500);
+	})
+}
+
+
 
 
 //Suppliers
@@ -363,7 +410,7 @@ function buildAllSuppliers(){
 							${suppliers[i].description}
 						</td>
 						<td>
-							${suppliers[i].debit}
+							${suppliers[i].supplier_type}
 						</td>
 						<td>
                           <div class="dropdown">
@@ -402,7 +449,7 @@ function callAddSupplierServlet(){
 	var email = document.getElementById('email').value
 	var phoneNum = document.getElementById('phoneNum').value
 	var description = document.getElementById('description').value
-	var debit = document.getElementById('debit').value
+	var debit = document.getElementById('supplier_type').value
 	
 	
 	
@@ -430,3 +477,186 @@ function callAddSupplierServlet(){
 	}
 	)
 }
+//
+//update Suppliers
+var isNew = true;
+
+var editSupplierModalHeader = document.getElementById('EditSupplierModalHeader')
+var editSupplierModalBody = document.getElementById('EditSupplierModalBody')
+var editSupplierModalFooter = document.getElementById('EditSupplierModalFooter')
+var editCard = document.getElementById('card-body-edit')
+
+function BuildEditSupplierModal(empNo,name,email,designation,debit){
+	editSupplierModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">Edit Supplier</h5>
+							              <button
+							                type="button"
+							                class="btn-close"
+							                data-bs-dismiss="modal"
+							                aria-label="Close"
+							              ></button>`
+
+	
+	editSupplierModalBody.innerHTML = `<div>
+						              	 <div class="button-wrapper">
+						                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+						                            <span class="d-none d-sm-block">Upload new photo</span>
+						                            <i class="bx bx-upload d-block d-sm-none"></i>
+						                            <input
+						                              type="file"
+						                              id="inputFile"
+						                              class="account-file-input"
+						                              hidden
+						                              accept="image/png, image/jpeg"
+						                            />
+						                          </label>
+						                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+						                            <i class="bx bx-reset d-block d-sm-none"></i>
+						                            <span class="d-none d-sm-block">Reset</span>
+						                          </button>
+						
+						                          <p class="text-muted mb-0"></p>
+						                        </div>
+						                      </div>`
+
+	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Supplier No.</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="supNo"
+                              name="supNo"
+                   				value="${supNo}"
+                              autofocus
+							readonly
+                            />
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Name</label>
+                            <input class="form-control" type="text" name="name" value="${name}" id="name"/>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="email"
+                              name="email"
+								value="${email}"
+                             
+                              placeholder="123@gmail.com"
+                            />
+                          </div>
+                           <div class="mb-3 col-md-6">
+                   			<label class="form-label" for="description">Supplier Description</label>
+                			<textarea name="description" value="${description}" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              			  </div>
+                            <div class="mb-3 col-md-6">
+                            <label for="debit" class="form-label">Debit Or Credit</label>
+                            <select value="${debit}" id="debit" name = "debit" class="select2 form-select">
+                              <option value="">Select Type</option>
+                              <option value="Debit">Debit</option>
+                              <option value="Credit">Credit</option>
+                            
+                            </select>
+                          </div>
+                        </div>
+                         
+                          
+                   
+                        <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+                        </div>
+                      </form>`
+
+	editEmployeeModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+							                Close
+							              </button>
+							              <button type="button" class="btn btn-primary">Submit</button>`
+	
+}
+
+//function callupdateEmployee(){
+//	var inputFile = document.getElementById('inputFile')
+//	
+//	var empNo = document.getElementById('empNo').value
+//	var name = document.getElementById('name').value
+//	var email = document.getElementById('email').value
+//	var designation = document.getElementById('designation').value
+//	var phoneNum = document.getElementById('phoneNum').value
+//	var address = document.getElementById('address').value
+//	var gender = document.getElementById('gender').value
+//	var date = document.getElementById('date').value
+//	var wage = document.getElementById('wage').value
+//	var salary = document.getElementById('salary').value
+//	
+//	
+//	if(name == null)
+//	{
+//		name = "null";
+//	}
+//	if(email == null)
+//	{
+//		email = "null";
+//	}
+//	if(designation == null)
+//	{
+//		designation = "null";
+//	}
+//	if(phoneNum == null)
+//	{
+//		phoneNum = "null";
+//	}
+//	if(address == null)
+//	{
+//		address = "null";
+//	}
+//	if(gender == null)
+//	{
+//		gender = "null";
+//	}
+//	if(date == null)
+//	{
+//		date = "null";
+//	}
+//	if(wage == null)
+//	{
+//		wage = "null";
+//	}
+//	if(salary == null)
+//	{
+//		salary = "null";
+//	}
+//	
+//	
+//	var endpoint = "http://localhost:8080/LankaHardware/updateEmployee"
+//	var formData = new FormData();
+//	
+//	for(const file of inputFile.files){
+//		formData.append('inputFile', file)
+//	}
+//	
+//	formData.append('empNo',empNo)
+//	formData.append('name',name)
+//	formData.append('email',email)
+//	formData.append('designation',designation)
+//	formData.append('address',address)
+//	formData.append('gender', gender)
+//	formData.append('date',date)
+//	formData.append('wage',wage)
+//	formData.append('salary',salary)
+//
+//	
+//	fetch(endpoint, {
+//		method: "post",
+//		body: formData
+//	}).then(res => {
+//		callGetAllEmployeesServlet()
+//		setTimeout(function() {
+//				$('#AddEmoloyeeModal').modal('hide')
+//		}, 2500);	
+//	}
+//	)
+//}
