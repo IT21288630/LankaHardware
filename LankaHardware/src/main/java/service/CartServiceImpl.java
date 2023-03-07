@@ -118,7 +118,7 @@ public class CartServiceImpl implements ICartService {
 		Cart cart = getCart(email);
 		int stock;
 		String status = "There is a problem";
-
+		
 		if (size.equals("notSpecified")) {
 			size = getDefaultSizeAndPrice(itemID);
 		}
@@ -134,11 +134,17 @@ public class CartServiceImpl implements ICartService {
 
 			stock = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
 
+			if(quantity > stock) {
+				status = "Only " + stock + " items are available";
+				return status;
+			}
+			
 			stock = stock - quantity;
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
 			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, size);
 			pst.executeUpdate();
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_CART);
@@ -197,10 +203,10 @@ public class CartServiceImpl implements ICartService {
 	@Override
 	public void changeQuantity(String email, String itemID, int quantity, String size) {
 		// TODO Auto-generated method stub
-
 		Cart cart = new Cart();
 		cart.setCartID(getCartIdByEmail(email));
 		int stock;
+		int previousQuantity;
 
 		con = DBConnectionUtil.getDBConnection();
 
@@ -213,13 +219,27 @@ public class CartServiceImpl implements ICartService {
 
 			stock = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
 
-			stock = stock - quantity;
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_QUANTITY);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, size);
+			rs = pst.executeQuery();
+			rs.next();
+
+			previousQuantity = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
+
+			if(quantity > stock) {
+				return;
+			}
+			
+			stock = stock - (quantity - previousQuantity);
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
 			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, size);
 			pst.executeUpdate();
-			
+
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_QUANTITY);
 			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, quantity);
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, cart.getCartID());

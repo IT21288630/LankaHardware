@@ -120,6 +120,9 @@ public class CommonConstants {
 	/** Constant for get stock */
 	public static final String QUERY_ID_GET_STOCK = "SELECT stock FROM item_size WHERE Id = ? AND size = ?;";
 	
+	/** Constant for get quantity */
+	public static final String QUERY_ID_GET_QUANTITY = "SELECT qty FROM cart_item WHERE cid = ? AND itId = ? AND size = ?;";
+	
 	/** Constant for edit stock */
 	public static final String QUERY_ID_EDIT_STOCK = "UPDATE item_size SET stock = ? WHERE Id = ? AND size = ?;";
 	
