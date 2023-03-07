@@ -128,12 +128,7 @@
           <div class="col-md-6 order-md-last d-flex">
             <form action="#" class="bg-white p-5 contact-form">
             <h1>Add your Feedbacks</h1>
-              <div class="form-group">
-                <input type="text" name= "feedid" class="form-control" placeholder="Your ID">
-              </div>
-              <div class="form-group">
-                <input type="text" name= "email" class="form-control" placeholder="Your Email">
-              </div>
+           
               <div class="form-group">
                 <input type="text" name= "subject" class="form-control" placeholder="Subject">
               </div>
@@ -148,8 +143,7 @@
           </div>
 
           <div class="col-md-6 d-flex">
-          <a href="images/hardware.jpg"></a>
-          
+          <img alt="" src="images/hardware.jpg">
           	
           </div>
         </div>

@@ -13,11 +13,9 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
-
 import model.Feedback;
 import service.FeedbackServiceImpl;
 import service.IFeedbackService;
-
 
 /**
  * Servlet implementation class AddFeedbackServlet
@@ -25,47 +23,46 @@ import service.IFeedbackService;
 @WebServlet("/AddFeedbackServlet")
 public class AddFeedbackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddFeedbackServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public AddFeedbackServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
+
 		Feedback feedback = new Feedback();
-		
-		feedback.setFeedid(request.getParameter("feedid"));
-		feedback.setEmail(request.getParameter("email"));
+
 		feedback.setSubject(request.getParameter("subject"));
 		feedback.setFeedback(request.getParameter("feedback"));
-		
-		
-		
+		feedback.setEmail("a@g.m");
 		
 		IFeedbackService iFeedbackService = new FeedbackServiceImpl();
-		
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iFeedbackService.addFeedbacks( feedback));
+		String resp = new Gson().toJson(iFeedbackService.addFeedbacks(feedback));
 
 		out.print(resp);
 	}

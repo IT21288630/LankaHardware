@@ -86,6 +86,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 		String status = "There was something wrong";
 		ArrayList<String> imagePathArrayList = new ArrayList<String>();
+		ArrayList<String> empIds = new ArrayList<String>();
 
 		con = DBConnectionUtil.getDBConnection();
 
@@ -126,6 +127,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		}
 
 		try {
+			st = con.createStatement();
+			rs= st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_EMPLOYEE_IDS);
+			
+			while (rs.next()) {
+				empIds.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+			
+			employee.setEmpNo(CommonUtil.generateIDs(empIds, "employee"));
+			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_EMPLOYEE);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, employee.getEmpNo());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, employee.getName());
@@ -224,7 +234,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	
 	
-	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String gender, String date, String wage, String salary) {
+	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address,  String date, String salary) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
@@ -261,24 +271,14 @@ public class EmployeeServiceImpl implements IEmployeeService {
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
 				pst.executeUpdate();
 			}
-			if(!gender.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_GENDER);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, gender);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
-				pst.executeUpdate();
-			}
+		
 			if(!date.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DATE);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, date);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
 				pst.executeUpdate();
 			}
-			if(!wage.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_WAGE);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, wage);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
-				pst.executeUpdate();
-			}
+		
 			if(!salary.equals("null")) {
 				double sal =Double.parseDouble(salary);
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_SALARY);

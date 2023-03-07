@@ -54,7 +54,6 @@ public class AddEmployeeServlet extends HttpServlet {
 		
 		Employee employee = new Employee();
 		
-		employee.setEmpNo(request.getParameter("empNo"));
 		employee.setName(request.getParameter("name"));
 		employee.setEmail(request.getParameter("email"));
 		employee.setDesignation(request.getParameter("designation"));

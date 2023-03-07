@@ -36,7 +36,6 @@ public class UpdateEmployee extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -46,16 +45,17 @@ public class UpdateEmployee extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String empNo = request.getParameter("empNo");
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		String designation = request.getParameter("designation");
-		String phoneNum = request.getParameter("phoneNum");
-		String address = request.getParameter("address");
-		String gender = request.getParameter("gender");
-		String date = request.getParameter("date");
-		String wage = request.getParameter("wage");
-		String salary = request.getParameter("salary");
+		String empNo = request.getParameter("empNoModal");
+		String name = request.getParameter("nameModal");
+		String email = request.getParameter("emailModal");
+		String designation = request.getParameter("designationModal");
+		String phoneNum = request.getParameter("phoneNumModal");
+		String address = request.getParameter("addressModal");
+		
+		String date = request.getParameter("dateModal");
+		String salary = request.getParameter("salaryModal");
+		
+		System.out.println(empNo+name+email+designation+phoneNum+address);
 		
 		IEmployeeService IEmployeeService = new EmployeeServiceImpl();
 		
@@ -63,7 +63,7 @@ public class UpdateEmployee extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(IEmployeeService.updateEmployees(empNo,name,email,designation,phoneNum,address,gender,date,wage,salary));
+		String resp = new Gson().toJson(IEmployeeService.updateEmployees(empNo,name,email,designation,phoneNum,address,date,salary));
 
 		out.print(resp);
 	}

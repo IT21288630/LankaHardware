@@ -55,6 +55,44 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+  
+  	<style>
+        .cutoff-text{
+            display: block;
+            width: 150px;
+            overflow: hidden;
+            margin: 0px;
+            position: relative;
+        }
+
+        .cutoff-text::before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            content: '';
+            background: linear-gradient(to right, transparent, #ffffff);
+        }
+
+		.icon-box {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  width: 80px;
+		  height: 80px;
+		  margin: 0 auto;
+		  border-radius: 50%;
+		  border: 3px solid #f15e5e;
+		}
+		
+		.icon-box i {
+		  font-style: initial;
+		  color: #f15e5e;
+		  font-size: 46px;
+		  display: inline-block;
+		}
+    </style>
   </head>
 
   <body>
@@ -571,7 +609,7 @@
             <div class="layout-demo-wrapper">
                <div class="card">
                 
-                <div class="table-responsive text-nowrap">
+                <div class="text-nowrap">
                 
                   <table class="table">
                     <thead>
@@ -705,17 +743,6 @@
                       <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="row">
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Employee No.</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="empNo"
-                              name="empNo"
-                   
-                              autofocus
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Name</label>
                             <input class="form-control" type="text" name="name" id="name"/>
                           </div>
@@ -836,6 +863,20 @@
               <button type="button" class="btn btn-primary">Submit</button>
             </div>
           </div>
+
+<!-- Modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

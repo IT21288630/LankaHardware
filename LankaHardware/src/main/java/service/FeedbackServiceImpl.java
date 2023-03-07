@@ -24,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 
 import model.Feedback;
 import util.CommonConstants;
+import util.CommonUtil;
 import util.DBConnectionUtil;
 
 public class FeedbackServiceImpl implements IFeedbackService {
@@ -74,12 +75,22 @@ public class FeedbackServiceImpl implements IFeedbackService {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
-		
+		ArrayList<String> feedIds = new ArrayList<String>();
 
 		con = DBConnectionUtil.getDBConnection();
 
 		
 		try {
+			st = con.createStatement();
+			rs= st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_FEEDBACK_IDS);
+			
+			while (rs.next()) {
+				feedIds.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+			
+			feedback.setFeedid(CommonUtil.generateIDs(feedIds, "feedback"));
+			
+			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_FEEDBACKS);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, feedback.getFeedid());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, feedback.getEmail());
@@ -90,7 +101,7 @@ public class FeedbackServiceImpl implements IFeedbackService {
 
 			pst.executeUpdate();
 
-			status = "Supplier Added";
+			status = "Feedback Added";
 
 		}
 
@@ -164,6 +175,15 @@ public class FeedbackServiceImpl implements IFeedbackService {
 		return "Feedback removed";
 	}
 
+	public static void main(String[] args) {
+		IFeedbackService feedbackService = new FeedbackServiceImpl();
+		Feedback feedback = new Feedback();
+		
+		feedback.setFeedback("dsvvsv");
+		feedback.setSubject("vdsvsvd");
+		
+		System.out.println(feedbackService.addFeedbacks(feedback));
+	}
 	
 
 }
