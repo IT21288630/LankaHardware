@@ -172,7 +172,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_CART = "DELETE FROM cart_item WHERE cid = ?;";
 
 	/** Constant for get items in cart */
-	public static final String QUERY_ID_GET_CART = "SELECT * FROM cart_item WHERE cid = ?;";
+	public static final String QUERY_ID_GET_CART = "SELECT itId, qty, size FROM cart_item WHERE cid = ?;";
 	
 	/** Constant for get default size */
 	public static final String QUERY_ID_GET_DEFAULT_SIZE = "SELECT size FROM item_size WHERE Id = ? ORDER BY unit_price LIMIT 1;";

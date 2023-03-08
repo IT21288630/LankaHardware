@@ -77,4 +77,10 @@ public interface ICartService {
 	 * @param itemID
 	 */
 	public HashMap<String, Integer> getSizesAndStock(String itemID);
+	
+	/**
+	 * get item stock
+	 * @param item
+	 */
+	public int getItemStock(Item item);
 }

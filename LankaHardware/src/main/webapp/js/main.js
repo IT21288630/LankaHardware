@@ -703,7 +703,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 														<div style="position: relative; display: flex; justify-content: flex-start; align-items: start; width: 100%;">
 															<div class="input-group col-md-6 d-flex mb-3">
 																<div class="quantity buttons_added">
-																	<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="${quickViewsizesAndStock[sizesAndPrizes][size]}" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="quickViewQuantity"><input type="button" value="+" class="plus">
+																	<input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="quickViewQuantity"><input type="button" value="+" class="plus">
 																</div>
 															</div>
 															
@@ -1038,9 +1038,8 @@ function buildMainCart(cartItems, Total){
 	
 	calculateSubTotal(cartItems)
 	cartTotal(Total)
+	
 	for(var i = 0; i < cartItems.length; i++){
-		console.log(cartItems[i].stock)
-		
 		var item = `<tr class="text-center" id="${cartItems[i].itemID}TableRow">
 						<td class="image-prod clickable" onclick="toProductSinglePage('${cartItems[i].itemID}');">
 							<div class="img" style="background-image:url(${cartItems[i].mainImg});"></div>
@@ -1057,7 +1056,7 @@ function buildMainCart(cartItems, Total){
 						<td>
 						    <div class="quantity buttons_added" style="display: inline-flex;">
 								<input type="button" value="-" class="minus">
-								<input type="number" step="1" min="1" max="${cartItems[i].stock}" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')">
+								<input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')">
 								<input type="button" value="+" class="plus">
 							</div>
 					    </td>
@@ -1147,10 +1146,17 @@ function callAddToCartServlet(itemID, quantity, size){
 	    	added_msg.classList.remove('active')
 	  	}, 2000);
 	  	
+	  	callGetItemStockForCartServlet(itemID, size)
 	})
 }
 
 //update stock
+function callGetItemStockForCartServlet(itemID, size){
+	$.get("http://localhost:8080/LankaHardware/GetItemStockForCartServlet", {itemID : itemID, size : size}, function(response) {
+		console.log(response)
+	})
+}
+
 function updateStock(index, size, quantity){
 	if(quantity > quickViewsizesAndStock[index][size]) return
 	var newStock = quickViewsizesAndStock[index][size] - quantity
@@ -1709,7 +1715,7 @@ function addToCartFromQuickView(itemID, index){
 	var quantity = document.getElementById('quickViewQuantity').value
 	callAddToCartServlet(itemID, quantity, size)
 	
-	updateStock(index, size, quantity)
+	//updateStock(index, size, quantity)
 	buildQuickViewAddToCartButton(itemID, index, size)
 }
 
