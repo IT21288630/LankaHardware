@@ -139,6 +139,7 @@
               <p class="mb-4">Make your app management easy and fun!</p>
 
               <form id="formAuthentication" class="mb-3">
+           
                
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
@@ -157,6 +158,9 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                   <label>Confirm Password:</label>
+                    <input type="password" name="confirmPassword"><br>
+                  
                 </div>
                  <div class="mb-3">
                  <label for="phone"class="form-label">Enter a phone number</label>
