@@ -499,11 +499,6 @@ function buildWishlist(wishlistItems){
     				</div>
     			</div>`
     			
-    			
-//    			<p class="bottom-area d-flex px-3">
-//					<a href="#" class="add-to-cart text-center py-2 mr-1" onclick="callAddToCartServlet('${wishlistItems[i].itemID}', 1, 'notSpecified'); return false;"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-//					<a href="#" class="buy-now text-center py-2" onclick="callRemoveFromWishlistServlet('${wishlistItems[i].itemID}', '${wishlistItems[i].size}'); return false;"><span>Remove<i class="fa-solid fa-eye-slash ml-1" style="line-height: 1.8;"></i></span></a>
-//				</p>
     	wishlist_itemList.innerHTML += item
     	buildAverageRating(wishlistItems[i], starID)
 	}
@@ -731,8 +726,7 @@ function buildQuickView(itemID, mainImg, name, price, description, avgRating, si
 								  </div>
 								</div>`
 	
-	callGetItemStockForCartServlet(itemID, size, sizesAndPrizes)
-	buildQuickViewAddToCartButton(itemID, sizesAndPrizes, size)
+	callGetItemStockForCartServlet(itemID, size, sizesAndPrizes, true)
 	buildQuickViewSizes(sizesAndPrizes, size)
 	var productSize = document.getElementById('quickViewProductSizes').value
 	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
@@ -850,9 +844,10 @@ function displayQuickViewProductPrice(sizesAndPrizes, itemID, iconID){
 	
 	productPrice.innerHTML = `Rs${displayPrice}`
 	
+	console.log('here bra')
+	
 	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
-	buildQuickViewAddToCartButton(itemID, sizesAndPrizes, productSize)
-	callGetItemStockForCartServlet(itemID, productSize, sizesAndPrizes)
+	callGetItemStockForCartServlet(itemID, productSize, sizesAndPrizes, true)
 }
 
 //build average rating
@@ -1084,7 +1079,7 @@ function buildQuickViewAddToCartButton(itemID, index, productSize){
 	quickViewAvailableStock.style = "padding-left: 0;"
 	quickViewAvailableStock.innerHTML = ''
 	
-	console.log(quickViewsizesAndStock[index][productSize])
+	console.log('im here')
 	
 	for(const [size, stock] of Object.entries(quickViewsizesAndStock[index])){
 		if(productSize == size && stock <= 0){
@@ -1136,17 +1131,17 @@ function buildProductSingleAddToCartButton(itemID, index, productSize){
 //call add to cart from single product page
 function addToCartFromSingleProductPage(itemID, quantity, index){
 	var size = document.getElementById('ProductSizes').value
-	callAddToCartServlet(itemID, quantity, size, index)
+	callAddToCartServlet(itemID, quantity, size, index, false)
 }
 
 function addToCartFromQuickView(itemID, index){
 	var size = document.getElementById('quickViewProductSizes').value
 	var quantity = document.getElementById('quickViewQuantity').value
-	callAddToCartServlet(itemID, quantity, size, index)
+	callAddToCartServlet(itemID, quantity, size, index, true)
 }
 
 //Add to cart
-function callAddToCartServlet(itemID, quantity, size, index){
+function callAddToCartServlet(itemID, quantity, size, index, fromQuick){
 	if(quantity == 0){
 		var productSingleQuantity = document.getElementById('productSingleQuantity').value
 		quantity = productSingleQuantity
@@ -1162,26 +1157,36 @@ function callAddToCartServlet(itemID, quantity, size, index){
 	    	added_msg.classList.remove('active')
 	  	}, 2000);
 	  	
-	  	callGetItemStockForCartServlet(itemID, size, index)
+	  	callGetItemStockForCartServlet(itemID, size, index, fromQuick)
 	})
 }
 
 //update stock
-function callGetItemStockForCartServlet(itemID, size, index){
+function callGetItemStockForCartServlet(itemID, size, index, fromQuick){
 	var newStock
 	$.get("http://localhost:8080/LankaHardware/GetItemStockForCartServlet", {itemID : itemID, size : size}, function(response) {
 		
 		newStock = response
-		updateStock(index, size, newStock, itemID)
+		updateStock(index, size, newStock, itemID, fromQuick)
 	})
 	
 }
 
-function updateStock(index, size, newStock, itemID){
-	console.log('old ' + quickViewsizesAndStock[index][size])
-	quickViewsizesAndStock[index][size] = newStock
-	buildQuickViewAddToCartButton(itemID, index, size)
-	console.log('new ' + quickViewsizesAndStock[index][size])
+function updateStock(index, size, newStock, itemID, fromQuick){
+	if(fromQuick == true) {
+		console.log('old ' + quickViewsizesAndStock[index][size])
+		quickViewsizesAndStock[index][size] = newStock
+		buildQuickViewAddToCartButton(itemID, index, size)
+		console.log('new ' + quickViewsizesAndStock[index][size])
+	}
+	else {
+		console.log('old ' + sizesAndStockProductSingle[index][size])
+		sizesAndStockProductSingle[index][size] = newStock
+		buildProductSingleAddToCartButton(itemID, index, size)
+		console.log('new ' + sizesAndStockProductSingle[index][size])
+	}
+	
+	
 }
 
 
@@ -1266,8 +1271,6 @@ function callGetProductSingleServlet(itemID){
 		relatedProducts = response[3]
 		productQuestions = response[4]
 		itemIDForQuestion = product.itemID
-		
-		console.log(product)
 		
 		buildProductSingle(product)
 		buildProductSizes()
@@ -1367,7 +1370,7 @@ function buildProductSingle(product){
 				</div>`
     			
     	productDetails.innerHTML += details
-    	buildProductSingleAddToCartButton(product.itemID, 0, product.size)
+    	callGetItemStockForCartServlet(product.itemID, product.size, 0, false)
     	buildAverageRating(product, starID)
     	mainImg = document.getElementById('mainImg')
     	buildWishlistIconProductSingle(iconID, product.itemID, product.size)
@@ -1731,7 +1734,7 @@ function displayProductPrice(iconID, itemID){
 	productPrice.innerHTML = `Rs${displayPrice}`
 	
 	buildWishlistIconProductSingle(iconID, itemID, productSize)
-	buildProductSingleAddToCartButton(itemID, 0, productSize)
+	callGetItemStockForCartServlet(itemID, productSize, 0, false)
 }
 
 
