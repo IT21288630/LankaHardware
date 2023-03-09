@@ -18,7 +18,7 @@ public class CartServiceImpl implements ICartService {
 
 	private static Statement st;
 
-	private static PreparedStatement pst, pst2, pst3;
+	private static PreparedStatement pst, pst2, pst3, pst4;
 
 	private static ResultSet rs, rs2, rs3, rs4;
 
@@ -153,7 +153,9 @@ public class CartServiceImpl implements ICartService {
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
-
+			
+			setTotal(email);
+			
 			status = "Added to cart";
 
 		} catch (SQLIntegrityConstraintViolationException e) {
@@ -242,6 +244,8 @@ public class CartServiceImpl implements ICartService {
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getSize());
 			pst.executeUpdate();
 
+			setTotal(email);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -272,17 +276,46 @@ public class CartServiceImpl implements ICartService {
 		// TODO Auto-generated method stub
 
 		Cart cart = new Cart();
+		Item item = new Item();
 		cart.setCartID(getCartIdByEmail(email));
 		String status = "There is a problem";
+		int stock;
+		int quantity;
+		item.setItemID(itemID);
+		item.setSize(size);
+		
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
+			stock = getItemStock(item);
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_QUANTITY);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
+			rs = pst.executeQuery();
+			rs.next();
+
+			quantity = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
+			
+			stock = stock + quantity;
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
+			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
+			pst.executeUpdate();
+			
+			pst.close();
+			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_CART);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, size);
 			pst.executeUpdate();
 
+			setTotal(email);
+			
 			status = "Removed from cart";
 
 		} catch (SQLException e) {
@@ -325,6 +358,8 @@ public class CartServiceImpl implements ICartService {
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
 			pst.executeUpdate();
 
+			setTotal(email);
+			
 			status = "Cart cleared";
 
 		} catch (SQLException e) {
@@ -441,8 +476,39 @@ public class CartServiceImpl implements ICartService {
 		for (Item item : items) {
 			total += item.getPrice() * item.getQuantity();
 		}
-
+		
 		return total;
+	}
+
+	@Override
+	public void setTotal(String email) {
+		// TODO Auto-generated method stub
+		Cart cart = getCart(email);
+		con = DBConnectionUtil.getDBConnection();
+		
+		try {
+			pst4 = con.prepareStatement(CommonConstants.QUERY_ID_SET_CART_TOTAL);
+			pst4.setDouble(CommonConstants.COLUMN_INDEX_ONE, cart.getTotal());
+			pst4.setString(CommonConstants.COLUMN_INDEX_TWO, cart.getCartID());
+			pst4.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst4 != null) {
+					pst4.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		
 	}
 
 	@Override
@@ -545,21 +611,5 @@ public class CartServiceImpl implements ICartService {
 		}
 		
 		return stock;
-	}
-
-	public static void main(String[] args) {
-		ICartService iCartService = new CartServiceImpl();
-		Cart cart = iCartService.getCart("a@g.m");
-
-		System.out.println(cart.getCartID());
-		System.out.println(cart.getTotal());
-
-		ArrayList<Item> items = cart.getItems();
-
-		System.out.println();
-
-		for (Item item : items) {
-			System.out.println(item.getBrand());
-		}
 	}
 }
