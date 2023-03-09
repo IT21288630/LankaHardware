@@ -20,7 +20,7 @@ public class CartServiceImpl implements ICartService {
 
 	private static PreparedStatement pst, pst2, pst3;
 
-	private static ResultSet rs, rs2, rs3;
+	private static ResultSet rs, rs2, rs3, rs4;
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(CartServiceImpl.class.getName());
@@ -378,8 +378,6 @@ public class CartServiceImpl implements ICartService {
 				items.add(item);
 			}
 			
-			pst.close();
-			
 			for (Item item : items) {
 				pst2 = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART);
 				pst2.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
@@ -388,15 +386,15 @@ public class CartServiceImpl implements ICartService {
 				pst2.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getItemID());
 				pst2.setString(CommonConstants.COLUMN_INDEX_FIVE, item.getSize());
 				pst2.setString(CommonConstants.COLUMN_INDEX_SIX, item.getItemID());
-				rs = pst2.executeQuery();
-				rs.next();
+				rs4 = pst2.executeQuery();
+				rs4.next();
 
-				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
-				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
-				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
-				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
-				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
-				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SIX));
+				item.setName(rs4.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setBrand(rs4.getString(CommonConstants.COLUMN_INDEX_TWO));
+				item.setDescription(rs4.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setMainImg(rs4.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setPrice(rs4.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setStock(rs4.getInt(CommonConstants.COLUMN_INDEX_SIX));
 			}
 
 		} catch (SQLException e) {
@@ -526,12 +524,24 @@ public class CartServiceImpl implements ICartService {
 			
 			stock = rs3.getInt(CommonConstants.COLUMN_INDEX_ONE);
 			
-			pst3.close();
-			rs3.close();
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst3 != null) {
+					pst3.close();
+				}
+				if (rs3 != null) {
+					rs3.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
 		}
 		
 		return stock;
