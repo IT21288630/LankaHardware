@@ -44,6 +44,9 @@ public class CommonConstants {
 	/** Constant for feedback id prefix */
 	public static final String FEEDBACK_ID_PREFIX = "F300";
 	
+	/** Constant for Supplier id prefix */
+	public static final String SUPPLIER_ID_PREFIX = "S300";
+	
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
 	
@@ -109,10 +112,13 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
 	
 	/** Constant for select cart id's */
+	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";
+	
+	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM supplier;";
 	
 	/** Constant for add supplier */
-	public static final String QUERY_ID_ADD_TO_SUPPLIER = "INSERT INTO supplier(supNo, name, email, phoneNum, description, supplier_type) VALUES(?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_SUPPLIER = "INSERT INTO supplier(supNo, name, email, phoneNum, description, sup_type) VALUES(?, ?, ?, ?, ?, ?);";
 	
 	public static final String QUERY_ID_CREATE_SUPPLIER = "INSERT INTO supplier(supNo) VALUES(?);";
 	
