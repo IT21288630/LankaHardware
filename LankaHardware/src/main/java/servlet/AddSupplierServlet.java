@@ -51,12 +51,12 @@ public class AddSupplierServlet extends HttpServlet {
 
 		Supplier supplier = new Supplier();
 		
-		supplier.setSupNo(request.getParameter("supNo"));
+		
 		supplier.setName(request.getParameter("name"));
 		supplier.setEmail(request.getParameter("email"));
 		supplier.setPhoneNum(request.getParameter("phoneNum"));
 		supplier.setDescription(request.getParameter("description"));
-		supplier.setDebit(request.getParameter("debit"));
+		supplier.setSup_type(request.getParameter("sup_type"));
 		
 		
 
