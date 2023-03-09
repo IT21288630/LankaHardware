@@ -22,8 +22,10 @@ import org.apache.commons.io.FileUtils;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
+import model.Employee;
 import model.Supplier;
 import util.CommonConstants;
+import util.CommonUtil;
 import util.DBConnectionUtil;
 
 public class SupplierServiceImpl implements ISupplierService {
@@ -57,7 +59,7 @@ public class SupplierServiceImpl implements ISupplierService {
 				supplier.setEmail(rs.getString(3));
 				supplier.setPhoneNum(rs.getString(4));
 				supplier.setDescription(rs.getString(5));
-				supplier.setDebit(rs.getString(6));
+				supplier.setSup_type(rs.getString(6));
 			
 
 				suppliers.add(supplier);
@@ -76,23 +78,36 @@ public class SupplierServiceImpl implements ISupplierService {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
+		
+		ArrayList<String> supIds = new ArrayList<String>();
+
 		con = DBConnectionUtil.getDBConnection();
+
+
 	
 
 		try {
+			st = con.createStatement();
+			rs= st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_SUPPLIER_IDS);
+			
+			while (rs.next()) {
+				supIds.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+			
+			supplier.setSupNo(CommonUtil.generateIDs(supIds, "supplier"));
+			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_SUPPLIER);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, supplier.getSupNo());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, supplier.getName());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, supplier.getEmail());
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, supplier.getPhoneNum());
 			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, supplier.getDescription());
-			pst.setString(CommonConstants.COLUMN_INDEX_SIX, supplier.getDebit());
-			
-
+			pst.setString(CommonConstants.COLUMN_INDEX_SIX, supplier.getSup_type());
+	
 
 			pst.executeUpdate();
 
-			status = "Supplier Added";
+			status = "Employee Added";
 
 		}
 
@@ -121,6 +136,7 @@ public class SupplierServiceImpl implements ISupplierService {
 
 		return status;
 	}
+
 
 
 	public static void main(String[] args) {
