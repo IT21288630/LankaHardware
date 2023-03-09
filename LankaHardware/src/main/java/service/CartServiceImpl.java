@@ -18,9 +18,9 @@ public class CartServiceImpl implements ICartService {
 
 	private static Statement st;
 
-	private static PreparedStatement pst;
+	private static PreparedStatement pst, pst2, pst3;
 
-	private static ResultSet rs;
+	private static ResultSet rs, rs2, rs3, rs4;
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(CartServiceImpl.class.getName());
@@ -116,36 +116,42 @@ public class CartServiceImpl implements ICartService {
 		// TODO Auto-generated method stub
 
 		Cart cart = getCart(email);
+		Item item = new Item();
 		int stock;
 		String status = "There is a problem";
-
-		if (size.equals("notSpecified")) {
-			size = getDefaultSizeAndPrice(itemID);
+		
+		item.setItemID(itemID);
+		item.setQuantity(quantity);
+		item.setSize(size);
+		
+		if (item.getSize().equals("notSpecified")) {
+			item.setSize(getDefaultSizeAndPrice(item.getItemID()));
 		}
 
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_STOCK);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
-			rs = pst.executeQuery();
-			rs.next();
 
-			stock = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
+			stock = getItemStock(item);
 
+			if(quantity > stock) {
+				status = "Only " + stock + " items are available";
+				return status;
+			}
+			
 			stock = stock - quantity;
-
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
-			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
-			pst.executeUpdate();
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_CART);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
-			pst.setInt(CommonConstants.COLUMN_INDEX_THREE, quantity);
-			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, size);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setInt(CommonConstants.COLUMN_INDEX_THREE, item.getQuantity());
+			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getSize());
+			pst.executeUpdate();
+			
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
+			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
 
 			status = "Added to cart";
@@ -155,9 +161,9 @@ public class CartServiceImpl implements ICartService {
 
 			ArrayList<Item> items = cart.getItems();
 
-			for (Item item : items) {
-				if (item.getItemID().equals(itemID) && item.getSize().equals(size)) {
-					quantity += item.getQuantity();
+			for (Item currentItem : items) {
+				if (currentItem.getItemID().equals(itemID) && currentItem.getSize().equals(size)) {
+					quantity += currentItem.getQuantity();
 
 					break;
 				}
@@ -197,34 +203,43 @@ public class CartServiceImpl implements ICartService {
 	@Override
 	public void changeQuantity(String email, String itemID, int quantity, String size) {
 		// TODO Auto-generated method stub
-
 		Cart cart = new Cart();
 		cart.setCartID(getCartIdByEmail(email));
+		Item item = new Item();
 		int stock;
+		int previousQuantity;
 
+		item.setItemID(itemID);
+		item.setQuantity(quantity);
+		item.setSize(size);
+		
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_STOCK);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			stock = getItemStock(item);
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_QUANTITY);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			rs = pst.executeQuery();
 			rs.next();
 
-			stock = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
-
-			stock = stock - quantity;
+			previousQuantity = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
+			
+			stock = stock - (quantity - previousQuantity);
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
 			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
-			
+
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_QUANTITY);
-			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, quantity);
+			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, item.getQuantity());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, cart.getCartID());
-			pst.setString(CommonConstants.COLUMN_INDEX_THREE, itemID);
-			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, size);
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getSize());
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
@@ -351,40 +366,40 @@ public class CartServiceImpl implements ICartService {
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CART);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
-			rs = pst.executeQuery();
+			rs2 = pst.executeQuery();
 
-			while (rs.next()) {
+			while (rs2.next()) {
 				Item item = new Item();
 
-				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
-				item.setQuantity(rs.getInt(CommonConstants.COLUMN_INDEX_THREE));
-				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setItemID(rs2.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setQuantity(rs2.getInt(CommonConstants.COLUMN_INDEX_TWO));
+				item.setSize(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
 
 				items.add(item);
 			}
-
+			
 			for (Item item : items) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
-				pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
-				pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getItemID());
-				pst.setString(CommonConstants.COLUMN_INDEX_FIVE, item.getSize());
-				pst.setString(CommonConstants.COLUMN_INDEX_SIX, item.getItemID());
-				rs = pst.executeQuery();
-				rs.next();
+				pst2 = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART);
+				pst2.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+				pst2.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+				pst2.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
+				pst2.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getItemID());
+				pst2.setString(CommonConstants.COLUMN_INDEX_FIVE, item.getSize());
+				pst2.setString(CommonConstants.COLUMN_INDEX_SIX, item.getItemID());
+				rs4 = pst2.executeQuery();
+				rs4.next();
 
-				item.setName(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
-				item.setBrand(rs.getString(CommonConstants.COLUMN_INDEX_TWO));
-				item.setDescription(rs.getString(CommonConstants.COLUMN_INDEX_THREE));
-				item.setMainImg(rs.getString(CommonConstants.COLUMN_INDEX_FOUR));
-				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
-				item.setStock(rs.getInt(CommonConstants.COLUMN_INDEX_SIX));
+				item.setName(rs4.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setBrand(rs4.getString(CommonConstants.COLUMN_INDEX_TWO));
+				item.setDescription(rs4.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setMainImg(rs4.getString(CommonConstants.COLUMN_INDEX_FOUR));
+				item.setPrice(rs4.getDouble(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setStock(rs4.getInt(CommonConstants.COLUMN_INDEX_SIX));
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
 		} finally {
 			/*
 			 * Close prepared statement and database connectivity at the end of transaction
@@ -394,11 +409,17 @@ public class CartServiceImpl implements ICartService {
 				if (pst != null) {
 					pst.close();
 				}
+				if (pst2 != null) {
+					pst2.close();
+				}
 				if (st != null) {
 					st.close();
 				}
 				if (rs != null) {
 					rs.close();
+				}
+				if (rs2 != null) {
+					rs2.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());
@@ -442,24 +463,6 @@ public class CartServiceImpl implements ICartService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
-		} finally {
-			/*
-			 * Close prepared statement and database connectivity at the end of transaction
-			 */
-
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (SQLException e) {
-				log.log(Level.SEVERE, e.getMessage());
-			}
 		}
 
 		return size;
@@ -505,6 +508,43 @@ public class CartServiceImpl implements ICartService {
 		}
 
 		return sizesAndStock;
+	}
+
+	@Override
+	public int getItemStock(Item item) {
+		// TODO Auto-generated method stub
+		int stock = 0;
+		
+		try {
+			pst3 = con.prepareStatement(CommonConstants.QUERY_ID_GET_STOCK);
+			pst3.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+			pst3.setString(CommonConstants.COLUMN_INDEX_TWO, item.getSize());
+			rs3 = pst3.executeQuery();
+			rs3.next();
+			
+			stock = rs3.getInt(CommonConstants.COLUMN_INDEX_ONE);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst3 != null) {
+					pst3.close();
+				}
+				if (rs3 != null) {
+					rs3.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		
+		return stock;
 	}
 
 	public static void main(String[] args) {

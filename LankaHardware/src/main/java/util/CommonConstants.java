@@ -159,6 +159,9 @@ public class CommonConstants {
 	/** Constant for get stock */
 	public static final String QUERY_ID_GET_STOCK = "SELECT stock FROM item_size WHERE Id = ? AND size = ?;";
 	
+	/** Constant for get quantity */
+	public static final String QUERY_ID_GET_QUANTITY = "SELECT qty FROM cart_item WHERE cid = ? AND itId = ? AND size = ?;";
+	
 	/** Constant for edit stock */
 	public static final String QUERY_ID_EDIT_STOCK = "UPDATE item_size SET stock = ? WHERE Id = ? AND size = ?;";
 	
@@ -175,7 +178,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_CART = "DELETE FROM cart_item WHERE cid = ?;";
 
 	/** Constant for get items in cart */
-	public static final String QUERY_ID_GET_CART = "SELECT * FROM cart_item WHERE cid = ?;";
+	public static final String QUERY_ID_GET_CART = "SELECT itId, qty, size FROM cart_item WHERE cid = ?;";
 	
 	/** Constant for get default size */
 	public static final String QUERY_ID_GET_DEFAULT_SIZE = "SELECT size FROM item_size WHERE Id = ? ORDER BY unit_price LIMIT 1;";
