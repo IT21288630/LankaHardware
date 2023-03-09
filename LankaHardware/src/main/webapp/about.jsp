@@ -507,7 +507,7 @@
     <script>
 	//Call cart servlet
 		$(document).ready(function () {
-			callCartServlet()
+			callCartServlet(false)
 		});
 	</script>
   </body>

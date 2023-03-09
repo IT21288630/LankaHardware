@@ -10,7 +10,7 @@
     <!--Search css Styles -->
 	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
-	<link rel="stylesheet" href="ashion-master/css/style.css" type="text/css">
+	<link rel="stylesheet" href="css/search.css" type="text/css">
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -77,9 +77,9 @@
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          <li class="nav-item active"><a href="blog.html" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item"><a href="#" class="nav-link"><i class="icon_search search-switch"></i></a></li>
-			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="#"
-							class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
+			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
+							class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
 	    	  <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 	        </ul>
 	      </div>
@@ -143,7 +143,7 @@
           </div>
 
           <div class="col-md-6 d-flex">
-          <img alt="" src="images/hardware.jpg">
+          <img alt="" src="images/hardware.jpg" style="width: 100%;">
           	
           </div>
         </div>
@@ -301,31 +301,7 @@
 						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
 							<div class="cart-list">
 								<table class="table">
-									<tbody>
-										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
-									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
-											<td class="image-prod" style="border: none; padding: 0px;">
-												<div class="img"
-													style="background-image:url(images/product-3.jpg); margin: 0px;">
-												</div>
-											</td>
-											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-												<h3>Nike Free RN 2019 iD</h3>
-												<p>Far far away, behind the word mountains, far from the countries</p>
-											</td>
-										</tr><!-- END TR-->
-										<tr class="text-center" style="display: flex; align-items: center; border: 1px solid transparent !important;
-									border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
-											<td class="image-prod" style="border: none;  padding: 0px;">
-												<div class="img"
-													style="background-image:url(images/product-3.jpg); margin: 0px;">
-												</div>
-											</td>
-											<td class="product-name" style="width: auto; border: none;  padding: 0px;">
-												<h3>Nike Free RN 2019 iD</h3>
-												<p>Far far away, behind the word mountains, far from the countries</p>
-											</td>
-										</tr><!-- END TR-->
+									<tbody id="miniCart_itemList">
 									</tbody>
 								</table>
 							</div>
@@ -333,7 +309,7 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.jsp" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>
@@ -343,9 +319,27 @@
 	<!-- Search Begin -->
 	<div class="search-model">
 	    <div class="h-100 d-flex align-items-center justify-content-center">
-	        <div class="search-close-switch">+</div>
+	        <div class="search-close-switch" id="mainSearchClose">+</div>
 	        <form class="search-model-form">
-	            <input type="text" id="search-input" placeholder="Search here.....">
+	            <div>
+	                <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	                <i class="fa-solid fa-magnifying-glass searchFormBtn clickable" onclick="searchToShop();"></i>
+	            </div>
+	            
+	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody id="result">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 	        </form>
 	    </div>
 	</div>
@@ -372,6 +366,11 @@
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
   <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
-    
+  
+  <script>
+  $(document).ready(function () {
+		callCartServlet(false)
+	});
+  </script>
   </body>
 </html>

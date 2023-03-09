@@ -321,7 +321,7 @@
 	//Call wishlist servlet
 		$(document).ready(function () {
 			callWishlistServlet()
-			callCartServlet()
+			callCartServlet(false)
 		});
 	</script>
 

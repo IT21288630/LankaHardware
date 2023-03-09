@@ -601,7 +601,7 @@
 	//Call index servlet
 		$(document).ready(function () {
 			callIndexServlet()
-			callCartServlet()
+			callCartServlet(false)
 			jQuery('select').niceSelect();
 		});
 	</script>

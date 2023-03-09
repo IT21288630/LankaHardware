@@ -476,7 +476,7 @@
 		$(document).ready(function() {
 			jQuery('select').niceSelect();
 			
-			callCartServlet()
+			callCartServlet(false)
 			
 			const keyValue = window.location.search
 			const urlParam = new URLSearchParams(keyValue)

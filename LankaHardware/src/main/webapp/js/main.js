@@ -399,7 +399,7 @@ const overlay = document.getElementById('mini-cart-overlay')
 
 openModalButtons.forEach(button => {
   button.addEventListener('click', () => {
-	callCartServlet()
+	callCartServlet(false)
     const modal = document.querySelector(button.dataset.modalTarget)
     openModal(modal)
   })
@@ -967,7 +967,7 @@ var cartItems = []
 var itemRemoved = false
 var quantityChanged = false
 
-function callCartServlet(){
+function callCartServlet(fromCart){
 	$.get("http://localhost:8080/LankaHardware/GetCartServlet", function(response) {
 		
 		cartItems = response[0]
@@ -976,11 +976,16 @@ function callCartServlet(){
 		var Total = response[1]
 
 		buildMiniCart(cartItems)
-		//if(itemRemoved == true) buildMainCart(cartItems, Total)
-		if(quantityChanged == true || itemRemoved == true){
+		
+//		if(quantityChanged == true || itemRemoved == true){
+//			calculateSubTotal(cartItems)
+//			cartTotal(Total)
+//			buildMainCart(cartItems, Total)
+//		}
+		
+		if(fromCart == true){
 			calculateSubTotal(cartItems)
 			cartTotal(Total)
-			buildMainCart(cartItems, Total)
 		}
 	})
 }
@@ -1037,6 +1042,9 @@ function buildMainCart(cartItems, Total){
 	cartTotal(Total)
 	
 	for(var i = 0; i < cartItems.length; i++){
+		var plusID = `${cartItems[i].itemID + cartItems[i].size}Plus`
+		var qtyElementID = `${cartItems[i].itemID + cartItems[i].size}Qty`
+		
 		var item = `<tr class="text-center" id="${cartItems[i].itemID}TableRow">
 						<td class="image-prod clickable" onclick="toProductSinglePage('${cartItems[i].itemID}');">
 							<div class="img" style="background-image:url(${cartItems[i].mainImg});"></div>
@@ -1053,8 +1061,8 @@ function buildMainCart(cartItems, Total){
 						<td>
 						    <div class="quantity buttons_added" style="display: inline-flex;">
 								<input type="button" value="-" class="minus">
-								<input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}')">
-								<input type="button" value="+" class="plus">
+								<input type="number" step="1" min="1" max="" name="quantity" value="${cartItems[i].quantity}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" onchange="callChangeQuantityServlet('${cartItems[i].itemID}', this, ${cartItems[i].price}, '${cartItems[i].size}', '${plusID}')" id="${qtyElementID}">
+								<input type="button" value="+" class="plus" id="${plusID}">
 							</div>
 					    </td>
 
@@ -1064,6 +1072,9 @@ function buildMainCart(cartItems, Total){
 					</tr><!-- END TR-->`
     			
     	mainCart_itemList.innerHTML += item
+    	
+    	var qtyElement = document.getElementById(qtyElementID)
+    	callGetItemStockForCartServletForMax(cartItems[i].itemID, cartItems[i].size, qtyElement, plusID)
 	}
 }
 
@@ -1078,8 +1089,6 @@ function buildQuickViewAddToCartButton(itemID, index, productSize){
 	var quickViewAvailableStock = document.getElementById('quickViewAvailableStock')
 	quickViewAvailableStock.style = "padding-left: 0;"
 	quickViewAvailableStock.innerHTML = ''
-	
-	console.log('im here')
 	
 	for(const [size, stock] of Object.entries(quickViewsizesAndStock[index])){
 		if(productSize == size && stock <= 0){
@@ -1149,7 +1158,7 @@ function callAddToCartServlet(itemID, quantity, size, index, fromQuick){
 	
 	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity, size : size}, function(response){
 	    
-	    callCartServlet()
+	    callCartServlet(false)
 	    
 	    added_msg.innerHTML = response
 	    added_msg.classList.add('active')
@@ -1197,7 +1206,7 @@ function callRemoveFromCartServlet(itemID, operation, size){
 	   itemRemoved = true
 	   quantityChanged = true
 	   //mainCart_itemList.innerHTML="";
-	   callCartServlet()
+	   callCartServlet(true)
 	   
 	   added_msg.innerHTML = response
 	   added_msg.classList.add('active')
@@ -1215,16 +1224,41 @@ function deleteTableRow(id){
 }
 
 //call change quantity servlet
-function callChangeQuantityServlet(itemID, element, price, size){
+function callChangeQuantityServlet(itemID, element, price, size, plusID){
 	var quantity = element.value
 	
 	$.post("http://localhost:8080/LankaHardware/ChangeQuantityServlet", {itemID : itemID, quantity : quantity, size : size}, function(response) {
 
 	   quantityChanged = true
-	   callCartServlet()
+	   callCartServlet(true)
 	   calculateItemtotal(quantity, price, itemID, size)
+	   callGetItemStockForCartServletForMax(itemID, size, element, plusID)
 	})
 }
+
+function callGetItemStockForCartServletForMax(itemID, size, element, plusID){
+	var newStock
+	$.get("http://localhost:8080/LankaHardware/GetItemStockForCartServlet", {itemID : itemID, size : size}, function(response) {
+		
+		newStock = response
+		setMaxQuantity(element, newStock, plusID)
+	})
+	
+}
+
+function setMaxQuantity(element, newStock, plusID){
+	var newMax = parseInt(element.value) + parseInt(newStock)
+	var plusBtn = document.getElementById(plusID)
+	
+	element.max = newMax
+	
+	if(newStock <= 0) {
+		plusBtn.disabled = true
+	}else {
+		plusBtn.disabled = false
+	}
+}
+
 
 //calculate item total
 function calculateItemtotal(quantity, price, itemID, size){
