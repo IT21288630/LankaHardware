@@ -17,7 +17,7 @@ public interface ISupplierService {
 
 	public String removeSuppliers(String supNo);
 
-	public String updateSuppliers(String supNo, String name, String email, String description, String sup_type);
+	public String updateSuppliers(String supNo, String name, String email, String description, String debit);
 
 	
 

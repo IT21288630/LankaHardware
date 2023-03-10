@@ -737,7 +737,7 @@
               			  </div>
                           <div class="mb-3 col-md-6">
                             <label for="debit" class="form-label">Debit Or Credit</label>
-                            <select id="sup_type" name = "debit" class="select2 form-select">
+                            <select id="supplier_type" name = "debit" class="select2 form-select">
                               <option value="">Select Type</option>
                               <option value="Debit">Debit</option>
                               <option value="Credit">Credit</option>

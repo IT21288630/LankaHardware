@@ -67,12 +67,6 @@ public interface ICartService {
 	public double calculateTotal(ArrayList<Item> items);
 	
 	/**
-	 * set total
-	 * @param email
-	 */
-	public void setTotal(String email);
-	
-	/**
 	 * get a default size
 	 * @param itemID
 	 */

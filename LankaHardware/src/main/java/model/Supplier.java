@@ -7,7 +7,7 @@ public class Supplier {
 	private String email;
 	private String phoneNum;
 	private String description;
-	private String sup_type;
+	private String debit;
 	
 	
 	public String getSupNo() {
@@ -40,11 +40,11 @@ public class Supplier {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getSup_type() {
-		return sup_type;
+	public String getDebit() {
+		return debit;
 	}
-	public void setSup_type(String debit) {
-		this.sup_type = debit;
+	public void setDebit(String debit) {
+		this.debit = debit;
 	}
 	
 	
