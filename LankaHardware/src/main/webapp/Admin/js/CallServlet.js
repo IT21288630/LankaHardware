@@ -318,7 +318,7 @@ function callupdateEmployee(){
 		}, 1500);	
 	})
 }
-
+//delete employee
 var deleteModalHeader = document.getElementById('deleteModalHeader')
 var deleteModalBody = document.getElementById('deleteModalBody')
 var deleteModalFooter = document.getElementById('deleteModalFooter')
@@ -410,7 +410,7 @@ function buildAllSuppliers(){
 							${suppliers[i].description}
 						</td>
 						<td>
-							${suppliers[i].supplier_type}
+							${suppliers[i].debit}
 						</td>
 						<td>
                           <div class="dropdown">
@@ -418,10 +418,10 @@ function buildAllSuppliers(){
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
+                              <a class="dropdown-item" href="javascript:void(0);data-bs-toggle="modal" data-bs-target="#EditSupplierModal" onclick="BuildEditSupplierModal('${suppliers[i].supNo}', '${suppliers[i].name}','${suppliers[i].email}','${suppliers[i].phoneNum}','${suppliers[i].description}','${suppliers[i].debit}');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);"
+                              <a class="dropdown-item" href="javascript:void(0);data-bs-toggle="modal" data-bs-target="#deleteModal1"  onclick="createDeleteModal('${suppliers[i].supNo}')"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -444,38 +444,42 @@ var isNew = true;
 function callAddSupplierServlet(){
 	
 	
-	var supNo = document.getElementById('supNo').value
 	var name = document.getElementById('name').value
 	var email = document.getElementById('email').value
 	var phoneNum = document.getElementById('phoneNum').value
 	var description = document.getElementById('description').value
 	var debit = document.getElementById('supplier_type').value
 	
-	
-	
 	var endpoint = "http://localhost:8080/LankaHardware/AddSupplierServlet"
-	var formData = new FormData();
-
+//	var formData = new FormData();
+//
+//	
+//	formData.append('name',name)
+//	formData.append('email',email)
+//	formData.append('phoneNum',phoneNum)
+//	formData.append('description',description)
+//	formData.append('supplier_type', debit)
+//
+//
+//	
+//	fetch(endpoint, {
+//		method: "post",
+//		body: formData
+//	}).then(res => {
+//		callGetAllSuppliersServlet()
+//		setTimeout(function() {
+//				$('#AddSupplierModal').modal('hide')
+//		}, 2500);	
+//	}
+//	)
 	
-	formData.append('supNo',empNo)
-	formData.append('name',name)
-	formData.append('email',email)
-	formData.append('phoneNum',designation)
-	formData.append('description',address)
-	formData.append('debit', gender)
-
-
-	
-	fetch(endpoint, {
-		method: "post",
-		body: formData
-	}).then(res => {
+	$.post(endpoint, {name : name,email : email,phoneNum : phoneNum,description : description,supplier_type : debit }, function(response) {
+		
 		callGetAllSuppliersServlet()
 		setTimeout(function() {
 				$('#AddSupplierModal').modal('hide')
 		}, 2500);	
-	}
-	)
+	})
 }
 //
 //update Suppliers
@@ -486,8 +490,8 @@ var editSupplierModalBody = document.getElementById('EditSupplierModalBody')
 var editSupplierModalFooter = document.getElementById('EditSupplierModalFooter')
 var editCard = document.getElementById('card-body-edit')
 
-function BuildEditSupplierModal(empNo,name,email,designation,debit){
-	editSupplierModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">Edit Supplier</h5>
+function BuildEditSupplierModal(supNo,name,email,description,debit){
+	editSupplierModalHeader.innerHTML = `<h5 class="modal-title1" id="modalCenterTitle1">Edit Supplier</h5>
 							              <button
 							                type="button"
 							                class="btn-close"
@@ -496,27 +500,58 @@ function BuildEditSupplierModal(empNo,name,email,designation,debit){
 							              ></button>`
 
 	
-	editSupplierModalBody.innerHTML = `<div>
-						              	 <div class="button-wrapper">
-						                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-						                            <span class="d-none d-sm-block">Upload new photo</span>
-						                            <i class="bx bx-upload d-block d-sm-none"></i>
-						                            <input
-						                              type="file"
-						                              id="inputFile"
-						                              class="account-file-input"
-						                              hidden
-						                              accept="image/png, image/jpeg"
-						                            />
-						                          </label>
-						                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-						                            <i class="bx bx-reset d-block d-sm-none"></i>
-						                            <span class="d-none d-sm-block">Reset</span>
-						                          </button>
-						
-						                          <p class="text-muted mb-0"></p>
-						                        </div>
-						                      </div>`
+	editSupplierModalBody.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Supplier No.</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="supNo"
+                              name="supNo"
+                   				value="${supNo}"
+                              autofocus
+							readonly
+                            />
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Name</label>
+                            <input class="form-control" type="text" name="name" value="${name}" id="name"/>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="email"
+                              name="email"
+								value="${email}"
+                             
+                              placeholder="123@gmail.com"
+                            />
+                          </div>
+                           <div class="mb-3 col-md-6">
+                   			<label class="form-label" for="description">Supplier Description</label>
+                			<textarea name="description" value="${description}" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              			  </div>
+                            <div class="mb-3 col-md-6">
+                            <label for="debit" class="form-label">Debit Or Credit</label>
+                            <select value="${debit}" id="debit" name = "debit" class="select2 form-select">
+                              <option value="">Select Type</option>
+                              <option value="Debit">Debit</option>
+                              <option value="Credit">Credit</option>
+                            
+                            </select>
+                          </div>
+                        </div>
+                         
+                          
+                   
+                        <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callSupplierServlet()">Add Employee</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+                        </div>
+                      </form>`
 
 	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="row">
@@ -566,72 +601,53 @@ function BuildEditSupplierModal(empNo,name,email,designation,debit){
                           
                    
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callSupplierServlet()">Add Employee</button>
                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
                         </div>
                       </form>`
 
-	editEmployeeModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+	editSupplierModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 							                Close
 							              </button>
 							              <button type="button" class="btn btn-primary">Submit</button>`
 	
 }
 
-//function callupdateEmployee(){
-//	var inputFile = document.getElementById('inputFile')
-//	
-//	var empNo = document.getElementById('empNo').value
-//	var name = document.getElementById('name').value
-//	var email = document.getElementById('email').value
-//	var designation = document.getElementById('designation').value
-//	var phoneNum = document.getElementById('phoneNum').value
-//	var address = document.getElementById('address').value
-//	var gender = document.getElementById('gender').value
-//	var date = document.getElementById('date').value
-//	var wage = document.getElementById('wage').value
-//	var salary = document.getElementById('salary').value
+function callupdateSupplier(){
+
+	
+	var supNo = document.getElementById('supNo').value
+	var name = document.getElementById('name').value
+	var email = document.getElementById('email').value
+	var phoneNum = document.getElementById('phoneNum').value
+	var description= document.getElementById('description').value
+	var debit = document.getElementById('sup_type').value
+
 //	
 //	
-//	if(name == null)
-//	{
-//		name = "null";
-//	}
-//	if(email == null)
-//	{
-//		email = "null";
-//	}
-//	if(designation == null)
-//	{
-//		designation = "null";
-//	}
-//	if(phoneNum == null)
-//	{
-//		phoneNum = "null";
-//	}
-//	if(address == null)
-//	{
-//		address = "null";
-//	}
-//	if(gender == null)
-//	{
-//		gender = "null";
-//	}
-//	if(date == null)
-//	{
-//		date = "null";
-//	}
-//	if(wage == null)
-//	{
-//		wage = "null";
-//	}
-//	if(salary == null)
-//	{
-//		salary = "null";
-//	}
-//	
-//	
-//	var endpoint = "http://localhost:8080/LankaHardware/updateEmployee"
+	if(name == null)
+	{
+		name = "null";
+	}
+	if(email == null)
+	{
+		email = "null";
+	}
+	if(phoneNum == null)
+	{
+		phoneNum = "null";
+	}
+	if(description == null)
+	{
+		description = "null";
+	}
+	if(debit == null)
+	{
+		debit = "null";
+	}
+	
+	
+	var endpoint = "http://localhost:8080/LankaHardware/updateSupplier"
 //	var formData = new FormData();
 //	
 //	for(const file of inputFile.files){
@@ -649,14 +665,159 @@ function BuildEditSupplierModal(empNo,name,email,designation,debit){
 //	formData.append('salary',salary)
 //
 //	
+$.post(endpoint, {name : name,email : email,phoneNum : phoneNum,description : description,supplier_type : debit }, function(response) {
+		
+		callGetAllSuppliersServlet()
+		setTimeout(function() {
+				$('#AddSupplierModal').modal('hide')
+		}, 2500);	
+	})
+}
+//delete supplier
+var deleteModalHeader1 = document.getElementById('deleteModalHeader1')
+var deleteModalBody1 = document.getElementById('deleteModalBody1')
+var deleteModalFooter1 = document.getElementById('deleteModalFooter1')
+
+function createDeleteModal(supNo) {
+	deleteModalHeader1.innerHTML = `<button
+					                type="button"
+					                class="btn-close"
+					                data-bs-dismiss="modal"
+					                aria-label="Close"
+					              ></button>`
+	deleteModalHeader1.style.display = ""
+
+	deleteModalBody1.innerHTML = `<div style="display: flex; flex-direction: column; text-align: center;">
+					                <div class="icon-box">
+					                  <i class="material-icons">&times;</i>
+					                </div>						
+					                <h4 class="modal-title w-100">Are you sure?</h4>
+					                <p style="margin-top: 10px;">Do you really want to delete these records? This process cannot be undone.</p>
+					              </div>`
+	deleteModalBody1.style.padding = ""
+
+	deleteModalFooter1.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					                Close
+					              </button>
+					              <button type="button" class="btn btn-danger" onclick="callDeleteSupplierServlet('${supNo}')">Delete</button>`
+	deleteModalFooter1.style.display = ""
+}
+
+function callDeleteSupplierServlet(supNo) {
+	deleteModalHeader1.style = "display: none;"
+	deleteModalBody1.style = "text-align: center;"
+	deleteModalBody1.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
+			                          <span class="visually-hidden">Loading...</span>
+			                        </div>`
+	deleteModalFooter.style = "display: none;"
+	$.post("http://localhost:8080/LankaHardware/RemoveSupplier", { supNo: supNo }, function(response) {
+
+		deleteModalBody1.style = "padding: 1rem;"
+		deleteModalBody1.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									    </div>`
+
+		callGetAllSuppliersServlet()
+
+		setTimeout(function() {
+			$('#deleteModal1').modal('hide')
+		}, 2500);
+	})
+}
+// Feedbacks
+var feedbacks = []
+var feedbackstable = document.getElementById('feedback')
+
+function callGetAllFeedbacksServlet(){
+	$.get("http://localhost:8080/LankaHardware/GetAllFeedbacksServlet", function(response) {
+				
+		feedbacks = response
+		
+		buildAllFeedbacks();
+	})
+}
+
+function buildAllFeedbacks(){
+	feedbackstable.innerHTML = ''
+	for(var i = 0; i < feedbacks.length; i++){
+		var feedback = `<tr>
+						<td>
+							${feedbacks[i].feedid}
+						</td>
+						<td>
+							${feedbacks[i].email}
+						</td>
+						<td>
+							${feedbacks[i].subject}
+						</td>
+						<td>
+							${feedbacks[i].feedback}
+						</td>
+						
+						<td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditFeedbackModal" onclick="BuildEditFeedbackModal('');"
+                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                              >
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"  onclick="createDeleteModal('${feedbacks[i].feedid}')"
+                                ><i class="bx bx-trash me-1"></i> Delete</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+						
+						</tr>`
+						
+		
+		feedbackstable.innerHTML += feedback		
+	}
+}
+//Add Feedbacks
+
+var isNew = true;
+
+
+function callAddFeedbackServlet(){
+	
+	var email = document.getElementById('email').value
+	var subject = document.getElementById('subject').value
+	var feedback = document.getElementById('feedback').value
+
+	
+	var endpoint = "http://localhost:8080/LankaHardware/AddFeedbackServlet"
+//	var formData = new FormData();
+//
+//	
+//	formData.append('name',name)
+//	formData.append('email',email)
+//	formData.append('phoneNum',phoneNum)
+//	formData.append('description',description)
+//	formData.append('supplier_type', debit)
+//
+//
+//	
 //	fetch(endpoint, {
 //		method: "post",
 //		body: formData
 //	}).then(res => {
-//		callGetAllEmployeesServlet()
+//		callGetAllSuppliersServlet()
 //		setTimeout(function() {
-//				$('#AddEmoloyeeModal').modal('hide')
+//				$('#AddSupplierModal').modal('hide')
 //		}, 2500);	
 //	}
 //	)
-//}
+	
+	$.post(endpoint, {email : email,subject : subject,feedback : feedback }, function(response) {
+		
+		callGetAllFeedbacksServlet()
+		setTimeout(function() {
+				$('#Feedback.jsp').modal('hide')
+		}, 2500);	
+	})
+}
+

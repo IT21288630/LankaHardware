@@ -24,6 +24,7 @@ import com.cloudinary.utils.ObjectUtils;
 
 import model.Supplier;
 import util.CommonConstants;
+import util.CommonUtil;
 import util.DBConnectionUtil;
 
 public class SupplierServiceImpl implements ISupplierService {
@@ -76,10 +77,21 @@ public class SupplierServiceImpl implements ISupplierService {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
+		
 		con = DBConnectionUtil.getDBConnection();
-	
-
+		
+		ArrayList<String> supIds = new ArrayList();
+			
 		try {
+			st = con.createStatement();
+			rs= st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_SUPPLIER_IDS);
+			
+			while (rs.next()) {
+				supIds.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+			
+			supplier.setSupNo(CommonUtil.generateIDs(supIds, "supplier"));
+			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_SUPPLIER);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, supplier.getSupNo());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, supplier.getName());
@@ -108,11 +120,11 @@ public class SupplierServiceImpl implements ISupplierService {
 				if (pst != null) {
 					pst.close();
 				}
-				if (rs != null) {
-					rs.close();
-				}
 				if (st != null) {
 					st.close();
+				}
+				if (rs != null) {
+					rs.close();
 				}
 			} catch (SQLException e) {
 				log.log(Level.SEVERE, e.getMessage());

@@ -38,7 +38,7 @@ public class AddSupplierServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -51,15 +51,14 @@ public class AddSupplierServlet extends HttpServlet {
 
 		Supplier supplier = new Supplier();
 		
-		supplier.setSupNo(request.getParameter("supNo"));
 		supplier.setName(request.getParameter("name"));
 		supplier.setEmail(request.getParameter("email"));
 		supplier.setPhoneNum(request.getParameter("phoneNum"));
 		supplier.setDescription(request.getParameter("description"));
-		supplier.setDebit(request.getParameter("debit"));
+		supplier.setDebit(request.getParameter("supplier_type"));
 		
 		
-
+		System.out.println(supplier.getDebit()+supplier.getDescription()+supplier.getEmail()+supplier.getPhoneNum()+supplier.getName());
 		
 		ISupplierService iSupplierService = new SupplierServiceImpl();
 		

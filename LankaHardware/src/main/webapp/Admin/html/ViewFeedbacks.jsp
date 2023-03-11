@@ -788,7 +788,7 @@
   <script>
 	
   $(document).ready(function () {
-	  callGetAllSuppliersServlet()
+	  callGetAllFeedbacksServlet()
 	});
 
 </script>
