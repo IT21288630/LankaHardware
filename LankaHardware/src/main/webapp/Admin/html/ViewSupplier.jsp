@@ -765,6 +765,32 @@
           </div>
         </div>
       </div>
+      
+       <!-- edit modal -->
+      <div class="modal fade" id="EditSupplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="editSupplierModalHeader">
+              
+            </div>
+            <div class="modal-body" id="editSupplierModalBody">
+              
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="editSupplierModalFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+      
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

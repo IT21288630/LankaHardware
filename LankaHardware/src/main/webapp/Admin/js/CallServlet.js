@@ -128,25 +128,24 @@ function BuildEditEmployeeModal(empNo,name,email,designation,phoneNum,address,ge
 
 	
 	editEmployeeModalBody.innerHTML = `<div>
-						              	 <div class="button-wrapper">
-						                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-						                            <span class="d-none d-sm-block">Upload new photo</span>
-						                            <i class="bx bx-upload d-block d-sm-none"></i>
-						                            <input
-						                              type="file"
-						                              id="inputFile"
-						                              class="account-file-input"
-						                              hidden
-						                              accept="image/png, image/jpeg"
-						                            />
-						                          </label>
-						                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-						                            <i class="bx bx-reset d-block d-sm-none"></i>
-						                            <span class="d-none d-sm-block">Reset</span>
-						                          </button>
-						
-						                          <p class="text-muted mb-0"></p>
-						                        </div>
+						              	 <div class="card-body">
+                      <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                        <div class="button-wrapper">
+                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                            <span class="d-none d-sm-block">Upload new photo</span>
+                            <i class="bx bx-upload d-block d-sm-none"></i>
+                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
+                          </label>
+                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                            <i class="bx bx-reset d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Reset</span>
+                          </button>
+
+                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                        </div>
+                      </div>
+                    </div>
 						                      </div>`
 
 	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
@@ -418,10 +417,11 @@ function buildAllSuppliers(){
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);data-bs-toggle="modal" data-bs-target="#EditSupplierModal" onclick="BuildEditSupplierModal('${suppliers[i].supNo}', '${suppliers[i].name}','${suppliers[i].email}','${suppliers[i].phoneNum}','${suppliers[i].description}','${suppliers[i].debit}');"
+                            
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditSupplierModal" onclick="BuildEditSupplierModal('${suppliers[i].supNo}', '${suppliers[i].name}','${suppliers[i].email}','${suppliers[i].phoneNum}','${suppliers[i].description}','${suppliers[i].debit}');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);data-bs-toggle="modal" data-bs-target="#deleteModal1"  onclick="createDeleteModal('${suppliers[i].supNo}')"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal1"  onclick="createDeleteModal('${suppliers[i].supNo}')"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -485,9 +485,9 @@ function callAddSupplierServlet(){
 //update Suppliers
 var isNew = true;
 
-var editSupplierModalHeader = document.getElementById('EditSupplierModalHeader')
-var editSupplierModalBody = document.getElementById('EditSupplierModalBody')
-var editSupplierModalFooter = document.getElementById('EditSupplierModalFooter')
+var editSupplierModalHeader = document.getElementById('editSupplierModalHeader')
+var editSupplierModalBody = document.getElementById('editSupplierModalBody')
+var editSupplierModalFooter = document.getElementById('editSupplierModalFooter')
 var editCard = document.getElementById('card-body-edit')
 
 function BuildEditSupplierModal(supNo,name,email,description,debit){
@@ -532,7 +532,7 @@ function BuildEditSupplierModal(supNo,name,email,description,debit){
                           </div>
                            <div class="mb-3 col-md-6">
                    			<label class="form-label" for="description">Supplier Description</label>
-                			<textarea name="description" value="${description}" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+                			<textarea name="description" value="${description}" id="" cols="30" rows="7" class="form-control" placeholder="Description">${description}</textarea>
               			  </div>
                             <div class="mb-3 col-md-6">
                             <label for="debit" class="form-label">Debit Or Credit</label>
@@ -553,58 +553,7 @@ function BuildEditSupplierModal(supNo,name,email,description,debit){
                         </div>
                       </form>`
 
-	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Supplier No.</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="supNo"
-                              name="supNo"
-                   				value="${supNo}"
-                              autofocus
-							readonly
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" value="${name}" id="name"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
-								value="${email}"
-                             
-                              placeholder="123@gmail.com"
-                            />
-                          </div>
-                           <div class="mb-3 col-md-6">
-                   			<label class="form-label" for="description">Supplier Description</label>
-                			<textarea name="description" value="${description}" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
-              			  </div>
-                            <div class="mb-3 col-md-6">
-                            <label for="debit" class="form-label">Debit Or Credit</label>
-                            <select value="${debit}" id="debit" name = "debit" class="select2 form-select">
-                              <option value="">Select Type</option>
-                              <option value="Debit">Debit</option>
-                              <option value="Credit">Credit</option>
-                            
-                            </select>
-                          </div>
-                        </div>
-                         
-                          
-                   
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callSupplierServlet()">Add Employee</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
-                        </div>
-                      </form>`
+
 
 	editSupplierModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 							                Close
@@ -821,3 +770,6 @@ function callAddFeedbackServlet(){
 	})
 }
 
+function buildProfileImage(){
+	
+}
