@@ -9,20 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.User;
-import service.IEmailService;
 import service.IRegisterWithEmailOTPService;
 import service.IUserService;
-import service.RegisterWithEmailOTPServiceImpl;
 
 public class RegisterServlet extends HttpServlet {
     
     private IRegisterWithEmailOTPService registerService;
-
-    public void init() {
-        IUserService iuserservice = new IUserService(); // create a UserDAO object
-        IEmailService iemailService = new IEmailService(); // create an EmailService object
-        registerService = new RegisterWithEmailOTPServiceImpl(iuserservice, iemailService); // create a RegisterWithEmailOTPServiceImpl object
-    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {

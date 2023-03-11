@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.logging.Logger;
 
 import model.Admin;
+import model.User;
 import util.CommonConstants;
 import util.DBConnectionUtil;
 
@@ -68,5 +69,19 @@ public class UserServiceImpl implements IUserService {
 	public static void main(String[] args) {
 		IUserService iUserService = new UserServiceImpl();
 		System.out.println(iUserService.login("kasun@gmail.com", "2020kasun"));
+	}
+
+
+	@Override
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void saveUser(User user) {
+		// TODO Auto-generated method stub
+		
 	}
 }
