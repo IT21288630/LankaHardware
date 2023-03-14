@@ -978,11 +978,7 @@ function callCartServlet(fromCart){
 
 		buildMiniCart(cartItems)
 		
-//		if(quantityChanged == true || itemRemoved == true){
-//			calculateSubTotal(cartItems)
-//			cartTotal(Total)
-//			buildMainCart(cartItems, Total)
-//		}
+		if(cartItems.length == 0 && fromCart == true) emptyMainCart()
 		
 		if(fromCart == true){
 			calculateSubTotal(cartItems)
@@ -993,7 +989,7 @@ function callCartServlet(fromCart){
 
 function buildMiniCart(cartItems){
 	miniCart_itemList.innerHTML = ''
-	if(cartItems.length == 0) miniCart_itemList.innerHTML = '<p style="text-align: center; font-size: large; color: gray;">Your cart is empty. Add some items to the cart.</p>'
+	if(cartItems.length == 0) emptyMiniCart()
 	
 	for(var i = 0; i < cartItems.length; i++){
 		var item = `<tr class="text-center" style="display: flex; column-gap: 5px; align-items: center; border: 1px solid transparent !important; border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;">
@@ -1028,16 +1024,20 @@ function getCartQuantity(){
 	cartQuantity.innerHTML = no_of_Items
 }
 
+function emptyMainCart(){
+	console.log('main here')
+	mainCart_itemList.innerHTML = `<p style="position: absolute; right: 0; left: 0; font-size: large; color: gray; margin-top: 20px;">Your cart is empty. Add some items to the cart.</p>`
+	var cartSummery = document.getElementById('cartSummery')
+	cartSummery.style = "transform: scale(0);"
+}
+
+function emptyMiniCart(){
+	console.log('mini here')
+	miniCart_itemList.innerHTML = '<p style="text-align: center; font-size: large; color: gray;">Your cart is empty. Add some items to the cart.</p>'
+}
+
 function buildMainCart(cartItems, Total){
 	mainCart_itemList.innerHTML = ''
-	
-	if(cartItems.length == 0) {
-		mainCart_itemList.innerHTML = `<p style="position: absolute; right: 0; left: 0; font-size: large; color: gray; margin-top: 20px;">Your cart is empty. Add some items to the cart.</p>`
-		var cartSummery = document.getElementById('cartSummery')
-		cartSummery.style = "transform: scale(0);"
-		
-		return
-	}
 	
 	calculateSubTotal(cartItems)
 	cartTotal(Total)
