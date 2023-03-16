@@ -581,17 +581,18 @@
                     <div class="card-body">
                       <form>
                         <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">Name</label>
+                          <label class="form-label" for="basic-default-fullname" id="stockName">Name</label>
                           <input type="text" class="form-control" id="basic-default-fullname" placeholder="Product Name" />
                         </div>
             
                         <div class="mb-3">
                          <label class="form-label" for="basic-default-fullname">Category</label>
                         <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-                          <option selected="">Open this select menu</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                          <option selected>Open this select menu</option>
+                          <option value="building hardware">Building hardware</option>
+                          <option value="electrical hardware">Electrical hardware</option>
+                          <option value="general accessories">General accessories</option>
+                          <option value="hardware tools">Hardware tools</opt ion>
                         </select>
                          </div>
                         
@@ -611,6 +612,19 @@
                           />
                         </div>
                         <div class="form-text">You can use only numbers</div><br>
+                        
+                         <div class="mb-3">
+                          <label class="form-label" for="basic-default-phone">Quantity</label>
+                          <input
+                            type="text"
+                            id="basic-default-phone"
+                            class="form-control phone-mask"
+                            placeholder="item quantity."
+                          />
+                        </div>
+                        
+                        <div class="form-text">You can use only numbers</div><br>
+                        
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-message">Description</label>
                           <textarea
@@ -662,10 +676,7 @@
                           <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Stock</button>
                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
                         </div>
-                        
-                        
-                      
-                        
+
                         
                         
                       </form>

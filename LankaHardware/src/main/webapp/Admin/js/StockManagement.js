@@ -74,7 +74,7 @@ function callAddStockServlet(){
 	
 	
 	var supNo = document.getElementById('supNo').value
-	var name = document.getElementById('name').value
+	var name = document.getElementById('stockName').value
 	var email = document.getElementById('email').value
 	var phoneNum = document.getElementById('phoneNum').value
 	var description = document.getElementById('description').value
