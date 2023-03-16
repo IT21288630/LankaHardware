@@ -44,8 +44,9 @@ public class CommonConstants {
 	/** Constant for feedback id prefix */
 	public static final String FEEDBACK_ID_PREFIX = "F300";
 	
-	/** Constant for supplier id prefix */
+	/** Constant for Supplier id prefix */
 	public static final String SUPPLIER_ID_PREFIX = "S300";
+	
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
 	
@@ -77,7 +78,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customerlogin WHERE email = ?";
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee order by empNo desc;";
+	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";
 	
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -111,10 +112,10 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM supplier;";
+	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";
+	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM supplier;";
 	
 	/** Constant for add supplier */
 	public static final String QUERY_ID_ADD_TO_SUPPLIER = "INSERT INTO supplier(supNo, name, email, phoneNum, description, sup_type) VALUES(?, ?, ?, ?, ?, ?);";
@@ -176,6 +177,9 @@ public class CommonConstants {
 	/** Constant for clear cart */
 	public static final String QUERY_ID_CLEAR_CART = "DELETE FROM cart_item WHERE cid = ?;";
 
+	/** Constant for set cart total */
+	public static final String QUERY_ID_SET_CART_TOTAL = "UPDATE cart SET total = ? WHERE cid = ?;";
+	
 	/** Constant for get items in cart */
 	public static final String QUERY_ID_GET_CART = "SELECT itId, qty, size FROM cart_item WHERE cid = ?;";
 	
