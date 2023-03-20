@@ -1,7 +1,10 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Logger;
+
+import javax.servlet.http.Part;
 
 import model.Item;
 
@@ -10,7 +13,7 @@ public interface IStockService {
 
 	public ArrayList<Item> getAllSuppliers();
 	
-	public String addStockItems(Item item); 
+	public String addStockItems(Item item, Collection<Part> parts); 
 
 	public String removeStockItems(String itemID);
 
