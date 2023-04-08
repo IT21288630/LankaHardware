@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
 
 import model.Cart;
 import model.Customer;
+import model.Employee;
 import model.Item;
 import model.Wishlist;
 import util.CommonConstants;
@@ -43,7 +44,7 @@ public class IStockServiceImpl implements IStockService {
 
 	private static ResultSet rs;
 
-	private static IStockServiceImpl iStockService;
+
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(CartServiceImpl.class.getName());
@@ -52,23 +53,28 @@ public class IStockServiceImpl implements IStockService {
 	public ArrayList<Item> getAllStockItems() {
 		// TODO Auto-generated method stub
 
-		ArrayList<Item> items = new ArrayList();
+		ArrayList<Item> items = new ArrayList<>();
 		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery(CommonConstants. QUERY_ID_SELECT_ALL_CUSTOMERS);
+			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Stock);
 
 			while (rs.next()) {
 				Item item = new Item();
-
-				 item.setEmail(rs.getString(1));
-				 item.setPassword(rs.getString(2));
-				 item.setPhone(rs.getString(3));
-				 item.setAddress(rs.getString(4));
+			
+				 item.setName(rs.getString(2));
+				 item.setType(rs.getString(3));
+				 item.setBrand(rs.getString(4));
+				 item.setPrice(rs.getDouble(5));
+				 item.setQuantity(rs.getInt(6));
+				 item.setDescription(rs.getString(7));
+				 item.setMfDate(rs.getString(8));
+				 item.setExpDate(rs.getString(9));
+				 item.setWarranty(rs.getString(10));
 				
 			
 
-				items.add( item);
+				items.add(item);
 			}
 
 		} catch (SQLException e) {
@@ -80,23 +86,81 @@ public class IStockServiceImpl implements IStockService {
 	}
 
 	@Override
-	public String register( Item  item) {
+	public String addStockItems(Item  item, Collection<Part> parts) {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
+		ArrayList<String> imagePathArrayList = new ArrayList<String>();
+		ArrayList<String> stockIds = new ArrayList<String>();
 
-		con = DBConnectionUtil.getDBConnection();
+		Map<String, String> config = new HashMap<String, String>();
+		config.put("cloud_name", "dqgiitni2");
+		config.put("api_key", "987952682616387");
+		config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
+		Cloudinary cloudinary = new Cloudinary(config);
+
+		for (Part part : parts) {
+			if (part.getSubmittedFileName() != null) {
+
+				try {
+					InputStream is = part.getInputStream();
+
+					File tempFile = File.createTempFile("javaMyfile", ".xls");
+					FileUtils.copyToFile(is, tempFile);
+
+					System.out.println(tempFile.getName());
+					System.out.println(tempFile.exists());
+
+					// Upload to cloudinary
+					try {
+						Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
+						imagePathArrayList.add(map.get("url"));
+					} catch (IOException exception) {
+						System.out.println(exception.getMessage());
+					}
+
+					System.out.println("deleting " + tempFile.getAbsolutePath() + " " + tempFile.delete());
+					System.out.println(tempFile.exists());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_CUSTOMER);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, customer.getEmail());
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, customer.getPassword());
-			pst.setString(CommonConstants.COLUMN_INDEX_THREE, customer.getPhone());
-			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, customer.getAddress());
+			st = con.createStatement();
+			rs= st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Stock_IDS);
+			
+			while (rs.next()) {
+				stockIds.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+			
+			item.setItemID(CommonUtil.generateIDs(stockIds, "stock"));
+			
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_stock);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getName());
+			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getType());
+			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getBrand());
+			pst.setDouble(CommonConstants.COLUMN_INDEX_FIVE, item.getPrice());
+			pst.setInt(CommonConstants.COLUMN_INDEX_SIX, item.getQuantity());
+			pst.setString(CommonConstants.COLUMN_INDEX_SEVEN, item.getDescription());
+			pst.setString(CommonConstants.COLUMN_INDEX_EIGHT, item.getMfDate());
+			pst.setString(CommonConstants.COLUMN_INDEX_NINE, item.getExpDate());
+			pst.setString(CommonConstants.COLUMN_INDEX_TEN, item.getWarranty());
+
+	
+			
+			
+			
+			for (String string : imagePathArrayList) {
+				pst.setString(CommonConstants.COLUMN_INDEX_ELEVEN, string);
+			}
 
 			pst.executeUpdate();
 
-			status = "login.jsp";
+			status = "Stock Item Added";
 
 		}
 
@@ -127,17 +191,20 @@ public class IStockServiceImpl implements IStockService {
 	}
 
 
+
+
 	@Override
-	public String removeCustomers(String email) {
+	public String removeStockItems(String stockId) {
 		// TODO Auto-generated method stub
 		
-		Customer customer = new Customer();
-		customer.setEmail(email);
+		Item item = new Item();
+		item.setItemID(stockId);
+		
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_CUSTOMER);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, customer.getEmail());
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_StockItem);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
 
 			pst.executeUpdate();
 			
@@ -166,26 +233,77 @@ public class IStockServiceImpl implements IStockService {
 			}
 		}
 
-		return "Customer removed";
+		return "Stock Item removed";
 	}
 
 	
-	
-	public String updateCustomer(String email, String Password, String phone , String address) {
+	@Override
+	public String updateStockItems(String itemID, String p_name, String cat, String Brand,double U_price, String Des, String mf,String exp,String Warranty) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
+		
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_SELECT_ALL_CUSTOMERS);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, email);
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, Password);
-			pst.setString(CommonConstants.COLUMN_INDEX_THREE, phone);
-			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, address);
-			pst.executeUpdate();
+			if(!p_name.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_NAME);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, p_name);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+			if(!cat.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_EMAIL);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, cat);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+			if(!Brand.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DESIGNATION);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Brand);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+			
+			String price = Double.toString(U_price);
+			
+			if(!price.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PHONENUM);
+				pst.setDouble(CommonConstants.COLUMN_INDEX_ONE, U_price);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+			if(!Des.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_ADDRESS);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Des);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+		
+			if(!mf.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DATE);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mf);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+		
+			if(!exp.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_SALARY);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, exp);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+			
+			if(!Warranty.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_SALARY);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Warranty);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.executeUpdate();
+			}
+			
+	
 
-			status = "Customer Updated";
+			status = "Stock Item Updated";
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -213,54 +331,8 @@ public class IStockServiceImpl implements IStockService {
 		return status;
 	}
 
-	@Override
-	public String updateCustomers(String email, String Password, String phone, String address) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
 
 
-
-	public static void main(String[] args) {
-		ICustomerService customerService = new IStockServiceImpl();
-		
-		Customer customer = new Customer();
-		customer.setAddress("sdfsd");
-		customer.setEmail("dfs");
-		customer.setPassword("dcs");
-		customer.setPhone("dvs");
-		
-		System.out.println(customerService.register(customer));
-		
-	}
-
-	@Override
-	public ArrayList<Item> getAllSuppliers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String addStockItems(Item item) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String removeStockItems(String itemID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String updateStockItems(String p_name, String cat, String Brand, int U_price, String Des, String mf,
-			String exp, String Warranty) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 }
+
+	

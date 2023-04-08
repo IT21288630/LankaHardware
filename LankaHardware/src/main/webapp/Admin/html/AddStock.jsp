@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 
 <html
   lang="en"
@@ -190,20 +190,12 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Stock Management/</span> Add New Stock</h4>
 
-              <div class="row">
-                <div class="col-md-12">
-                  
-                  <div class="card mb-4">
-                   
-                    <!-- Account -->
+          <!-- Account -->
                     
                     
                   
                     <hr class="my-0" />
-                    
-                    <div class="card-body">
-                     
-                   
+ 
     
                   <div class="row">
                 <div class="col-xl">
@@ -212,24 +204,26 @@
                       <h5 class="mb-0">STOCK ITEM</h5>
                       <small class="text-muted float-end">Barcode will generate automatically</small>
                     </div>
+                    
                     <div class="card-body">
-                      <form method="POST" onsubmit="return false">
-                      
+                    
+                    
+                      <form method="POST" onsubmit="return false" id="AddStock">
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Stock ID</label>
-                          <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." name="stockID">
+                          <input type="text" class="form-control" id="stockID" placeholder="ACME Inc." name="stockID">
                         </div>
                         
                         
                         <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname" id="stockName">Name</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="Product Name" />
-                               <p class ="erroruser"></p>
+                          <label class="form-label" for="basic-default-fullname">Name</label>
+                          <input type="text" class="form-control" id="stockName" placeholder="Product Name" name="stockName"/>
+                               <p id ="erroruser"></p>
                         </div>
             
                         <div class="mb-3">
                          <label class="form-label" for="basic-default-fullname">Category</label>
-                        <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="stockCat">
+                        <select class="form-select" id="stockCat" aria-label="Default select example" name="stockCat">
                           <option selected>Open this select menu</option>
                           <option value="building hardware">Building hardware</option>
                           <option value="electrical hardware">Electrical hardware</option>
@@ -305,22 +299,22 @@
                         <div class="mb-3">
                          <div class="col-md">
                           <label class="form-label" for="basic-default-message" name="warranty">Warranty</label>
+                          
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="radio" value="none" id="defaultRadio1" checked name="worrentyCheckRadio" />
+                            <label class="form-check-label" for="defaultRadio1"> None </label>
+                          </div>
                        
                           <div class="form-check">
-                            <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2" checked>
-                            <label class="form-check-label" for="defaultRadio2"> None </label>
+                            <input class="form-check-input" type="radio" value="WarAvailable" id="defaultRadio2" name="worrentyCheckRadio" />
+                            <label class="form-check-label" for="defaultRadio2"> Available </label>
                           </div>
                           <br>
-                           <div class="form-check">
-                            <input name="warranty-available" class="form-check-input" type="radio" value="" id="defaultRadio2" >
-                            <label for="html5-number-input" class="col-md-2 col-form-label">Available</label>
-	                        <div class="col-md-10">
+                           
 	                        
-
+								<div class="warrent-available-detail">
 	                        
-	                        <div class="warrent-available-detail">
-	                        
-	                          <input class="form-control" type="number" value="0" id="html5-number-input" name="warrenty-number">
+	                          <input class="form-control" type="number" value="0" id="html5-number-input" name="warrentyNumber">
                       		
                       		<br>
                       		   <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="warPeriod">
@@ -328,36 +322,38 @@
 		                          <option>Day</option>
 		                          <option>Week</option>
 		                          <option>Month</option>
-		                          <option>Year</option>
+		                          <option>Year</option> 
 		                        </select>
 		                        
 		                        </div>
-		                         <p class ="errorWar"></p>
+		                        
+	                  
+		                        
+		                         </div> 
                           </div>
-                                                    
-                    
                           
-                        </div>
-                        </div>
-                        
-                        
-                        <br>
+                          <br>
                         <div class="mt-2">
-                          <button type="submit" name="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddStockServlet()">Add Stock</button>
+                          <button type="submit" name="submit" class="btn btn-primary me-2" onclick="callAddStockServlet()">Add Stock</button>
                           
                         </div>
-
-                        
-                        
                       </form>
+                                                    
+                  
+                          
+                       </div>
+                       
+                        
+
+      
                       
                     </div>
                   </div>
                 </div>
                
-              </div>
+              
                      
-                        
+                    </div>   
                     
                     <!-- /Account -->
                  
@@ -399,6 +395,10 @@
         >View Stock</a
       >
     </div>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -410,11 +410,6 @@
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
-    
      <!-- call JS -->
     <script src="../js/StockManagement.js"></script>
 
@@ -423,7 +418,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-      <div class="modal-content">
+     
                               
   </body>
 </html>

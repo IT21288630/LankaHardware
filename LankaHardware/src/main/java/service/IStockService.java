@@ -11,13 +11,14 @@ import model.Item;
 public interface IStockService {
 	public static final Logger log = Logger.getLogger(IStockService.class.getName());
 
-	public ArrayList<Item> getAllSuppliers();
+	public ArrayList<Item> getAllStockItems();
 	
 	public String addStockItems(Item item, Collection<Part> parts); 
 
 	public String removeStockItems(String itemID);
 
-	public String updateStockItems(String p_name, String cat, String Brand,int U_price, String Des, String mf,String exp,String Warranty);
+	public String updateStockItems(String itemID, String p_name, String cat, String Brand,double U_price, String Des, String mf,String exp,String Warranty);
+
 	
 	
 
