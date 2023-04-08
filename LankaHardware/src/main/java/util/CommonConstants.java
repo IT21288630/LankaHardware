@@ -69,8 +69,16 @@ public class CommonConstants {
 	/** Constant for select customer id's*/
 	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
 	
+	/** Constant for select customer id's*/
+	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT * FROM item;";
+	
+	
 	/** Constant for add customer details */
 	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
+	
+	/** Constant for add stock details */
+	public static final String QUERY_ID_ADD_TO_Stock = "INSERT INTO item(id, name, category, brand, unit_price, description, mf_date, exp_date, warrenty) VALUES(?, ?, ?, ?, ?, ?, ?, ?. ?);";	
+	
 	
 	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customerlogin(email) VALUES(?);";
 	
@@ -86,8 +94,15 @@ public class CommonConstants {
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
+	/** Constant for add id to stock */
+	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO employee(id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrenty) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	
+	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEE_IDS = "SELECT empNo FROM employee;";
+	
+	/** Constant for select stock id's */
+	public static final String QUERY_ID_SELECT_ALL_Stock_IDS = "SELECT empNo FROM employee;";
 	
 	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employee(empNo) VALUES(?);";
 	
@@ -113,6 +128,9 @@ public class CommonConstants {
 	
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
+	
+	/** Constant for clear employees */
+	public static final String QUERY_ID_CLEAR_StockItem = "DELETE FROM item WHERE id = ?";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";
