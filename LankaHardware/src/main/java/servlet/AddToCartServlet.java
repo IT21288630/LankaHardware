@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -46,17 +47,27 @@ public class AddToCartServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
+		HttpSession session = request.getSession();
+		
+		//String email = (String) session.getAttribute("email");
 		String email = "a@g.m";
-		String itemID = request.getParameter("itemID");
-		String size = request.getParameter("size");
-		int quantity = Integer.parseInt(request.getParameter("quantity")) ;
-		ICartService iCartService = new CartServiceImpl();
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-
-		String resp = new Gson().toJson(iCartService.addToCart(email, itemID, quantity, size));
+		String resp;
+		
+		if(email != null) {
+			String itemID = request.getParameter("itemID");
+			String size = request.getParameter("size");
+			int quantity = Integer.parseInt(request.getParameter("quantity")) ;
+			ICartService iCartService = new CartServiceImpl();
+			
+			resp = new Gson().toJson(iCartService.addToCart(email, itemID, quantity, size));
+		}
+		else {
+			resp = new Gson().toJson("Login message");
+		}
 
 		out.print(resp);
 	}

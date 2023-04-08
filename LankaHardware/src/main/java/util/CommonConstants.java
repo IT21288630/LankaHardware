@@ -50,6 +50,9 @@ public class CommonConstants {
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
 	
+	/** Constant for get all items */
+	public static final String QUERY_ID_GET_ALL_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.name;";
+	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_LOGIN = "SELECT * FROM customerlogin where email=? and Password=?;";
 	
@@ -154,13 +157,19 @@ public class CommonConstants {
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	
 	/** Constant for add to cart */
-	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty, size) VALUES(?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty, size, date) VALUES(?, ?, ?, ?, CURDATE());";
 	
 	/** Constant for get stock */
 	public static final String QUERY_ID_GET_STOCK = "SELECT stock FROM item_size WHERE Id = ? AND size = ?;";
 	
 	/** Constant for get quantity */
 	public static final String QUERY_ID_GET_QUANTITY = "SELECT qty FROM cart_item WHERE cid = ? AND itId = ? AND size = ?;";
+	
+	/** Constant for get all item sizes */
+	public static final String QUERY_ID_GET_ITEM_SIZES = "SELECT size FROM item_size WHERE Id = ? ORDER BY unit_price ASC;";
+	
+	/** Constant for get all item counts for  */
+	public static final String QUERY_ID_GET_ITEM_COUNT = "SELECT SUM(qty) FROM cart_chart WHERE itId = ? AND size = ? AND month(date) = ?;";
 	
 	/** Constant for edit stock */
 	public static final String QUERY_ID_EDIT_STOCK = "UPDATE item_size SET stock = ? WHERE Id = ? AND size = ?;";

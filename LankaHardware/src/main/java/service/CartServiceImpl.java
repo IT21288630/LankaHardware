@@ -3,10 +3,12 @@ package service;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.Cart;
+import model.CartChart;
 import model.Item;
 import util.CommonConstants;
 import util.CommonUtil;
@@ -18,9 +20,9 @@ public class CartServiceImpl implements ICartService {
 
 	private static Statement st;
 
-	private static PreparedStatement pst, pst2, pst3, pst4;
+	private static PreparedStatement pst, pst2, pst3, pst4, pst5, pst6;
 
-	private static ResultSet rs, rs2, rs3, rs4;
+	private static ResultSet rs, rs2, rs3, rs4, rs5;
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(CartServiceImpl.class.getName());
@@ -119,11 +121,11 @@ public class CartServiceImpl implements ICartService {
 		Item item = new Item();
 		int stock;
 		String status = "There is a problem";
-		
+
 		item.setItemID(itemID);
 		item.setQuantity(quantity);
 		item.setSize(size);
-		
+
 		if (item.getSize().equals("notSpecified")) {
 			item.setSize(getDefaultSizeAndPrice(item.getItemID()));
 		}
@@ -134,11 +136,11 @@ public class CartServiceImpl implements ICartService {
 
 			stock = getItemStock(item);
 
-			if(quantity > stock) {
+			if (quantity > stock) {
 				status = "Only " + stock + " items are available";
 				return status;
 			}
-			
+
 			stock = stock - quantity;
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_CART);
@@ -147,15 +149,15 @@ public class CartServiceImpl implements ICartService {
 			pst.setInt(CommonConstants.COLUMN_INDEX_THREE, item.getQuantity());
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, item.getSize());
 			pst.executeUpdate();
-			
+
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
 			pst.setInt(CommonConstants.COLUMN_INDEX_ONE, stock);
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
-			
+
 			setTotal(email);
-			
+
 			status = "Added to cart";
 
 		} catch (SQLIntegrityConstraintViolationException e) {
@@ -214,7 +216,7 @@ public class CartServiceImpl implements ICartService {
 		item.setItemID(itemID);
 		item.setQuantity(quantity);
 		item.setSize(size);
-		
+
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -228,7 +230,7 @@ public class CartServiceImpl implements ICartService {
 			rs.next();
 
 			previousQuantity = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
-			
+
 			stock = stock - (quantity - previousQuantity);
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
@@ -245,7 +247,7 @@ public class CartServiceImpl implements ICartService {
 			pst.executeUpdate();
 
 			setTotal(email);
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -283,7 +285,7 @@ public class CartServiceImpl implements ICartService {
 		int quantity;
 		item.setItemID(itemID);
 		item.setSize(size);
-		
+
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -297,7 +299,7 @@ public class CartServiceImpl implements ICartService {
 			rs.next();
 
 			quantity = rs.getInt(CommonConstants.COLUMN_INDEX_ONE);
-			
+
 			stock = stock + quantity;
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_EDIT_STOCK);
@@ -305,9 +307,9 @@ public class CartServiceImpl implements ICartService {
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, item.getSize());
 			pst.executeUpdate();
-			
+
 			pst.close();
-			
+
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_SPECIFIC_ITEM_FROM_CART);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, cart.getCartID());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
@@ -315,7 +317,7 @@ public class CartServiceImpl implements ICartService {
 			pst.executeUpdate();
 
 			setTotal(email);
-			
+
 			status = "Removed from cart";
 
 		} catch (SQLException e) {
@@ -359,7 +361,7 @@ public class CartServiceImpl implements ICartService {
 			pst.executeUpdate();
 
 			setTotal(email);
-			
+
 			status = "Cart cleared";
 
 		} catch (SQLException e) {
@@ -412,7 +414,7 @@ public class CartServiceImpl implements ICartService {
 
 				items.add(item);
 			}
-			
+
 			for (Item item : items) {
 				pst2 = con.prepareStatement(CommonConstants.QUERY_ID_GET_OTHER_ITEM_DETAILS_FOR_CART);
 				pst2.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
@@ -476,7 +478,7 @@ public class CartServiceImpl implements ICartService {
 		for (Item item : items) {
 			total += item.getPrice() * item.getQuantity();
 		}
-		
+
 		return total;
 	}
 
@@ -485,13 +487,13 @@ public class CartServiceImpl implements ICartService {
 		// TODO Auto-generated method stub
 		Cart cart = getCart(email);
 		con = DBConnectionUtil.getDBConnection();
-		
+
 		try {
 			pst4 = con.prepareStatement(CommonConstants.QUERY_ID_SET_CART_TOTAL);
 			pst4.setDouble(CommonConstants.COLUMN_INDEX_ONE, cart.getTotal());
 			pst4.setString(CommonConstants.COLUMN_INDEX_TWO, cart.getCartID());
 			pst4.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -508,7 +510,7 @@ public class CartServiceImpl implements ICartService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -580,16 +582,16 @@ public class CartServiceImpl implements ICartService {
 	public int getItemStock(Item item) {
 		// TODO Auto-generated method stub
 		int stock = 0;
-		
+
 		try {
 			pst3 = con.prepareStatement(CommonConstants.QUERY_ID_GET_STOCK);
 			pst3.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
 			pst3.setString(CommonConstants.COLUMN_INDEX_TWO, item.getSize());
 			rs3 = pst3.executeQuery();
 			rs3.next();
-			
+
 			stock = rs3.getInt(CommonConstants.COLUMN_INDEX_ONE);
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -609,7 +611,73 @@ public class CartServiceImpl implements ICartService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		
+
 		return stock;
+	}
+
+	@Override
+	public CartChart getChartDetails(String itemID) {
+		// TODO Auto-generated method stub
+
+		ArrayList<String> sizes = new ArrayList<>();
+		LinkedHashMap<String, ArrayList<Integer>> counts = new LinkedHashMap<>();
+		CartChart cartChart = new CartChart();
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst5 = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEM_SIZES);
+			pst5.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			rs5 = pst5.executeQuery();
+
+			while (rs5.next()) {
+				sizes.add(rs5.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+
+			pst6 = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEM_COUNT);
+			pst6.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+
+			for (String size : sizes) {
+				ArrayList<Integer> count = new ArrayList<>();
+				pst6.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+				count.add(0);
+				
+				for (int i = 1; i < 13; i++) {
+					pst6.setInt(CommonConstants.COLUMN_INDEX_THREE, i);
+					rs5 = pst6.executeQuery();
+					rs5.next();
+
+					count.add(rs5.getInt(CommonConstants.COLUMN_INDEX_ONE));
+				}
+
+				counts.put(size, count);
+			}
+
+			cartChart.setSizes(sizes);
+			cartChart.setCounts(counts);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst5 != null) {
+					pst5.close();
+				}
+				if (pst6 != null) {
+					pst6.close();
+				}
+				if (rs5 != null) {
+					rs5.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return cartChart;
 	}
 }
