@@ -1159,15 +1159,25 @@ function callAddToCartServlet(itemID, quantity, size, index, fromQuick){
 	
 	$.post("http://localhost:8080/LankaHardware/AddToCartServlet", {itemID : itemID, quantity : quantity, size : size}, function(response){
 	    
-	    callCartServlet(false)
+	    if(response == "Login message"){
+			$('#loginMsgModal').modal('show');
+			
+			if(fromQuick){
+				$('#quickViewModal').modal('hide');
+			}
+		}
+		else{
+			callCartServlet(false)
 	    
-	    added_msg.innerHTML = response
-	    added_msg.classList.add('active')
-	    setTimeout(function() {
-	    	added_msg.classList.remove('active')
-	  	}, 2000);
-	  	
-	  	callGetItemStockForCartServlet(itemID, size, index, fromQuick)
+		    added_msg.innerHTML = response
+		    added_msg.classList.add('active')
+		    setTimeout(function() {
+		    	added_msg.classList.remove('active')
+		  	}, 2000);
+		  	
+		  	callGetItemStockForCartServlet(itemID, size, index, fromQuick)
+		}
+	    
 	})
 }
 
