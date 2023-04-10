@@ -92,7 +92,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	/** Constant for add id to stock */
-	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO employee(id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrenty) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrenty) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	
 	/** Constant for select cart id's */
