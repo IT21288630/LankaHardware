@@ -303,6 +303,7 @@ button.list-group-item-primary.active {
   background-color: #dbcc8f;
   color: #fff;
   box-shadow: 0 2px 4px 0 rgba(219, 204, 143, 0.4);
+  border-radius: 100vh;
 }
 
 .form-control:focus,

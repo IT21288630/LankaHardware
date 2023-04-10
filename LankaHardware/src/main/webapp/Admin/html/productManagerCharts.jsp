@@ -349,26 +349,6 @@
                   <div class="card">
                     <div class="card-header">
                       <ul class="nav nav-pills" role="tablist" id="sizeList">
-                      	
-                        <li class="nav-item">
-                          <button
-                            type="button"
-                            class="nav-link active"
-                            role="tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#navs-tabs-line-card-income"
-                            aria-controls="navs-tabs-line-card-income"
-                            aria-selected="true"
-                          >
-                            Income
-                          </button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab">Expenses</button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab">Profit</button>
-                        </li>
                       </ul>
                     </div>
                     <div class="card-body px-0">
@@ -381,11 +361,7 @@
                             <div>
                               <small class="text-muted d-block">Total Count</small>
                               <div class="d-flex align-items-center">
-                                <h6 class="mb-0 me-1">$459.10</h6>
-                                <small class="text-success fw-semibold">
-                                  <i class="bx bx-chevron-up"></i>
-                                  42.9%
-                                </small>
+                                <h6 class="mb-0 me-1" id="totalCount">0</h6>
                               </div>
                             </div>
                           </div>
