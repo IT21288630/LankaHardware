@@ -221,6 +221,8 @@ function createCompareChart() {
 	var allData = []
 	var randomColor = []
 	var colorNum = []
+	var colorNum2 = []
+	var colorNum3 = []
 	var allDescrete = []
 	const d = new Date()
 	let month = d.getMonth() + 1
@@ -230,6 +232,8 @@ function createCompareChart() {
 								"data": [${counts[sizes[i]]}]}`))
 
 		colorNum.push(Math.floor((Math.random() * 255) + 1))
+		colorNum2.push(Math.floor((Math.random() * 255) + 1))
+		colorNum3.push(Math.floor((Math.random() * 255) + 1))
 	}
 
 	for (var i = 0; i < colorNum.length; i++) {
@@ -239,11 +243,23 @@ function createCompareChart() {
 				colorNum[i + 1] = Math.floor((Math.random() * 255) + 1)
 			}
 		}
+		
+		if (i != colorNum2.length - 1) {
+			while (colorNum2[i + 1] == colorNum2[i]) {
+				colorNum2[i + 1] = Math.floor((Math.random() * 255) + 1)
+			}
+		}
+		
+		if (i != colorNum3.length - 1) {
+			while (colorNum3[i + 1] == colorNum3[i]) {
+				colorNum3[i + 1] = Math.floor((Math.random() * 255) + 1)
+			}
+		}
 
 	}
 
 	for (var i = 0; i < sizes.length; i++) {
-		randomColor.push(`rgb(${colorNum[i]}, 69, 255)`)
+		randomColor.push(`rgb(${colorNum[i]}, ${colorNum2[i]}, ${colorNum3[i]})`)
 		allDescrete.push(JSON.parse(`{"fillColor": "rgb(255, 255, 255)",
 									"seriesIndex": ${i},
 						            "dataPointIndex": ${month},
