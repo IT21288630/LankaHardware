@@ -25,15 +25,10 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.JsonElement;
 
-import model.Cart;
-import model.Customer;
-import model.Employee;
 import model.Item;
-import model.Wishlist;
 import util.CommonConstants;
 import util.CommonUtil;
-import util.DBConnectionUtil;
-import util.DBconnect;
+import util.DBConnectionIsuru;
 
 public class IStockServiceImpl implements IStockService {
 	private static Connection con;
@@ -47,21 +42,22 @@ public class IStockServiceImpl implements IStockService {
 
 
 	/** Initialize logger */
-	public static final Logger log = Logger.getLogger(CartServiceImpl.class.getName());
+	public static final Logger log = Logger.getLogger(IStockServiceImpl.class.getName());
 
 	@Override
 	public ArrayList<Item> getAllStockItems() {
 		// TODO Auto-generated method stub
 
 		ArrayList<Item> items = new ArrayList<>();
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Stock);
 
 			while (rs.next()) {
 				Item item = new Item();
-			
+				
+				 item.setItemID(rs.getString(1));
 				 item.setName(rs.getString(2));
 				 item.setType(rs.getString(3));
 				 item.setBrand(rs.getString(4));
@@ -70,7 +66,9 @@ public class IStockServiceImpl implements IStockService {
 				 item.setDescription(rs.getString(7));
 				 item.setMfDate(rs.getString(8));
 				 item.setExpDate(rs.getString(9));
-				 item.setWarranty(rs.getString(10));
+				 item.setWarrentyNumber(10);
+				 item.setWarrentyNumber(rs.getInt(11));
+				 item.setWarrantyPeriod(rs.getString(12));
 				
 			
 
@@ -148,16 +146,17 @@ public class IStockServiceImpl implements IStockService {
 			pst.setString(CommonConstants.COLUMN_INDEX_SEVEN, item.getDescription());
 			pst.setString(CommonConstants.COLUMN_INDEX_EIGHT, item.getMfDate());
 			pst.setString(CommonConstants.COLUMN_INDEX_NINE, item.getExpDate());
-			pst.setString(CommonConstants.COLUMN_INDEX_TEN, item.getWarranty());
-
+			pst.setString(CommonConstants.COLUMN_INDEX_TEN, item.getWarrentyType());
+			pst.setInt(CommonConstants.COLUMN_INDEX_ELEVEN, item.getWarrentyNumber());
+			pst.setString(CommonConstants.COLUMN_INDEX_TWELVE, item.getWarrantyPeriod());
 	
 			
 			
 			
-			for (String string : imagePathArrayList) {
+			/*for (String string : imagePathArrayList) {
 				pst.setString(CommonConstants.COLUMN_INDEX_ELEVEN, string);
 			}
-
+*/
 			pst.executeUpdate();
 
 			status = "Stock Item Added";
@@ -200,7 +199,7 @@ public class IStockServiceImpl implements IStockService {
 		Item item = new Item();
 		item.setItemID(stockId);
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_StockItem);
@@ -238,66 +237,88 @@ public class IStockServiceImpl implements IStockService {
 
 	
 	@Override
-	public String updateStockItems(String itemID, String p_name, String cat, String Brand,double U_price, String Des, String mf,String exp,String Warranty) {
+	public String updateStockItems(String id, String name, String cat, String Brand, double U_price, int quantity, String Des, String mf,String exp,String WarrantyType, int warrentyNum, String warPeriod) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
-			if(!p_name.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_NAME);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, p_name);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			if(!id.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_NAME);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 			if(!cat.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_EMAIL);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_CAT);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, cat);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 			if(!Brand.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DESIGNATION);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_BRAND);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Brand);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 			
 			String price = Double.toString(U_price);
 			
 			if(!price.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PHONENUM);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_PRICE);
 				pst.setDouble(CommonConstants.COLUMN_INDEX_ONE, U_price);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
+			
+			if(quantity > 0) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_QUANTITY);
+				pst.setInt(CommonConstants.COLUMN_INDEX_ONE, quantity);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
+				pst.executeUpdate();
+			}
+		
 			if(!Des.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_ADDRESS);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_DESCRIPTION);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Des);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 		
 			if(!mf.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DATE);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_MF);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, mf);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
-				pst.executeUpdate();
-			}
-		
-			if(!exp.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_SALARY);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, exp);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 			
-			if(!Warranty.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_SALARY);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Warranty);
-				pst.setString(CommonConstants.COLUMN_INDEX_TWO, itemID);
+			if(!exp.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_EXP);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, exp);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
+				pst.executeUpdate();
+			}
+			
+			if(!WarrantyType.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_WARTYPE);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, WarrantyType);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
+				pst.executeUpdate();
+			}
+			
+			if(warrentyNum != 0) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_WARNUM);
+				pst.setInt(CommonConstants.COLUMN_INDEX_ONE, warrentyNum);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
+				pst.executeUpdate();
+			}
+			
+			if(!warPeriod.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_WARPERIOD);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, warPeriod);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 			
@@ -331,6 +352,7 @@ public class IStockServiceImpl implements IStockService {
 		return status;
 	}
 
+	
 
 
 }

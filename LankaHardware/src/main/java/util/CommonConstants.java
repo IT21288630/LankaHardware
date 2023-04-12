@@ -77,7 +77,8 @@ public class CommonConstants {
 	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
 	
 	/** Constant for add stock details */
-	public static final String QUERY_ID_ADD_TO_Stock = "INSERT INTO item(id, name, category, brand, unit_price, description, mf_date, exp_date, warrenty) VALUES(?, ?, ?, ?, ?, ?, ?, ?. ?);";	
+	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	
 	
 	
 	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customerlogin(email) VALUES(?);";
@@ -94,17 +95,43 @@ public class CommonConstants {
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
-	/** Constant for add id to stock */
-	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrenty) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-	
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEE_IDS = "SELECT empNo FROM employee;";
 	
 	/** Constant for select stock id's */
-	public static final String QUERY_ID_SELECT_ALL_Stock_IDS = "SELECT empNo FROM employee;";
+	public static final String QUERY_ID_SELECT_ALL_Stock_IDS = "SELECT id FROM item;";
 	
 	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employee(empNo) VALUES(?);";
+	
+	
+	
+	/** Constant for update item */
+	
+	public static final String QUERY_ID_UPDATE_ITEM_NAME = "UPDATE item SET name = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_CAT = "UPDATE item SET category = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_BRAND = "UPDATE item SET brand = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_PRICE = "UPDATE item SET unit_price = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_QUANTITY = "UPDATE item SET quantity = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_DESCRIPTION = "UPDATE item SET description = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_MF = "UPDATE item SET mf_date = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_EXP = "UPDATE item SET exp_date = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_WARTYPE = "UPDATE item SET warrentyType = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_WARNUM = "UPDATE item SET warrentyNum = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_WARPERIOD = "UPDATE item SET warrentyPeriod = ? WHERE id = ?;";
+	
+	
+	
 	
 	/** Constant for update employees */
 	
@@ -398,6 +425,9 @@ public class CommonConstants {
 	
 	/** Constant for Column index eight */
 	public static final int COLUMN_INDEX_ELEVEN = 11;
+	
+	/** Constant for Column index twelve */
+	public static final int COLUMN_INDEX_TWELVE = 12;
 	/*---------------------------------------------------
 	 * 
 	 * 

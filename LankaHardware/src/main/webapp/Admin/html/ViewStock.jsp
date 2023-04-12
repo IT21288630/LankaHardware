@@ -590,60 +590,13 @@
                         <th>Category</th>
                         <th>Brand</th>
                         <th>Unit_price</th>
-                        <th>Description</th>
-                        <th>Mf_Date</th>
-                        <th>Exp_Date</th>
-                        <th>Warranty</th>
                         
+                 
+                      
                       </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0">
-                    
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>BD5078739</strong></td>
-                        <td>507 Door Pull Handle 12″ (300mm)</td>
-                        <td>
-                          building
-                        </td>
-                        <td>Brand-less</td>
-                        <td>Rs.4650</td>
-                        <td style="overflow-x:scroll; max-width:10px;">Length:12' *width:35mm(slim type). 2pcs(1Set). Can be fixed for single door and double door. One handle also can be fixed on front side if its a double door. Very high quality and water proof.</td>
-							
-                        <td>2020-02-02</td>
-                        <td>Not required</td>
-                        <td>5 years</td>
+                    <tbody id="stock">
                        
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                            
-                            <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="fa-regular fa-eye"></i> View</a
-                              >
-                              
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                    
-                       
-       
-       
-       
-       
-       
-       
-       
                       
                     </tbody>
                   </table>
@@ -726,6 +679,7 @@
                 aria-label="Close"
               ></button>
             </div>
+            
             <div class="modal-body" id="AddStockModalBody">
               <div>
               	 <div class="button-wrapper">
@@ -738,7 +692,7 @@
                     <hr class="my-0" />
                     
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                      <form id="StockAddForm" method="POST">
                       
                       
                         <div class="row">
@@ -747,17 +701,18 @@
                             <input
                               class="form-control"
                               type="text"
-                              id="supNo"
-                              name="supNo"
+                              id="stockName"
+                              name="stockName"
                    
                               autofocus
                             />
+                            <span id="name-error"></span>
                           </div>
                           
                           <div class="mb-3 col-md-6">
-                            <label for="debit" class="form-label">Category</label>
-                            <select id="debit" name = "wage" class="select2 form-select">
-                            	 <option selected="">Open this</option>
+                            <label for="stockCat" class="form-label">Category</label>
+                            <select id="stockCat" name = "stockCat" class="select2 form-select">
+                            	 <option selected>Open this</option>
                                <option value="mechanical">mechanical</option>
 		                        <option value="building">building</option>
 		                        <option value="electrical">electronics & electrical</option>
@@ -765,11 +720,14 @@
 		                        <option value="general">general</option>
 		                            
                             </select>
+                             <span id="cat-error"></span>
+
                           </div>
                           
                           <div class="mb-3 col-md-6">
                           	 <label class="form-label" for="basic-default-company">Brand</label>
-                         	 <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                         	 <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." name="stockBrand" id="stockBrand"/>
+                         	  <span id="Brand-error"></span>
                           </div>
                           
                           <div class="mb-3 col-md-6">
@@ -779,58 +737,101 @@
                             id="basic-default-phone"
                             class="form-control phone-mask"
                             placeholder="Rs."
+                            name="stockPrice"
                           />
+                           <span id="price-error"></span>
                           </div>
+                          
+                          <div class="mmb-3 col-md-6">
+                          <label class="form-label" for="basic-default-phone">Quantity</label>
+                          <input type="text" id="stockQ" class="form-control phone-mask" placeholder="item quantity." name="stockQ">
+                            <span id="quantity-error"></span>
+                        </div>
       
               
                            <div class="mb-3 col-md-6">
                    			<label class="form-label" for="description">Description</label>
-                			<textarea name="description" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+                			<textarea name="stockDes" id="stockDes" cols="30" rows="3" class="form-control" placeholder="Description"></textarea>
+                			 <span id="disc-error"></span>
               			  </div>
               			  
-              			  <div class="mb-3 col-md-6">
-                       		 <label for="formFile" class="form-label">Image</label>
-                        	<input class="form-control" type="file" id="formFile">
-                     	 </div>
+
               			  
                           <div class="mb-3 col-md-6">
                              <label class="form-label" for="basic-default-message">Modify Date</label>
-                         	 <input class="form-control" type="date" value="2021-06-18" id="html5-date-input">
+                         	 <input class="form-control" type="d2ate" id="stockMf" name="stockMf">
+                         	  <span id="mf-error"></span>
                                        
                           </div>
                           
                            <div class="mb-3 col-md-6">
                              <label class="form-label" for="basic-default-message">Expire Date</label>
-                         	 <input class="form-control" type="date" value="2024-06-18" id="html5-date-input">
+                         	 <input class="form-control" type="date" id="html5-date-input" name="stockExp">
+                         	  <span id="exp-error"></span>
                           </div>
                           
-                           
+                       <div class="card-body">
+	                      <div class="d-flex align-items-start align-items-sm-center gap-4">
+	                        <img src="../assets/img/elements/lankaHardwareLogo.png" alt="lanka_hardware" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+	                        <div class="button-wrapper">
+	                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+	                            <span class="d-none d-sm-block">Product Image</span>
+	                            <i class="bx bx-upload d-block d-sm-none"></i>
+	                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildStockImage();">
+	                          </label>
+	                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+	                            <i class="bx bx-reset d-block d-sm-none"></i>
+	                            <span class="d-none d-sm-block">Reset</span>
+	                          </button>
+	
+	                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+	                        </div>
+	                      </div>
+                    	</div>
                      	 
-                     	  <div class="mb-3 col-md-6">
-                               <label class="form-label" for="basic-default-message">Warranty</label>
+                     	  <div class="mb-3">
                          <div class="col-md">
-                          <small class="text-light fw-semibold">Select</small>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked="">
-                            <label class="form-check-label" for="defaultCheck1"> None </label>
+                          <label class="form-label" for="basic-default-message" name="warranty">Warranty</label>
+                          
+                          <div class="form-check mt-3 col-md-6">
+                            <input class="form-check-input" type="radio" value="None" id="defaultRadio1" checked name="warrentyType">
+                            
+                            <label class="form-check-label" for="defaultRadio1"> None </label>
                           </div>
+                       
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                            <label class="form-check-label" for="defaultCheck2"> Available </label>
+                            <input class="form-check-input" type="radio" value="Available" id="defaultRadio2" name="warrentyType">
+                            <label class="form-check-label" for="defaultRadio2"> Available </label>
                           </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" >
-                            <label class="form-check-label" for="defaultCheck3"> Limited </label>
-                          </div>
-                        
-                        </div>
+                          <br>
+                           
+	                        
+								<div class="warrent-available-detail">
+	                        
+	                          <input class="form-control" type="number" value="0" id="html5-number-input" name="warNum">
+	                           <span id="warNum-error"></span>
+                      		
+                      		<br>
+                      		   <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="warPeriod">
+		                          <option selected="">Time Period</option>
+		                          <option>Day</option>
+		                          <option>Week</option>
+		                          <option>Month</option>
+		                          <option>Year</option> 
+		                        </select>
+		                         <span id="warPeriod-error"></span>
+		                        </div>
+		                        
+	                  
+		                        
+		                         </div> 
                           </div>
                         
                          <div class="modal-footer" id="AddStockFooter">
 			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 			                Close
 			              </button>
-			              <button type="button" class="btn btn-primary">Submit</button>
+			              <button type="submit" class="btn btn-primary" onclick="callAddStockServlet()">Submit</button>
 			            </div>
                         </div>
                       </form>
@@ -840,27 +841,105 @@
             </div>
            
           </div>
+          
+            
+     <!--    
+          view modal
+      <div class="modal fade" id="EditEmoloyeeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="EditEmoloyeeModalHeader">
+              
+            </div>
+            <div class="modal-body" id="EditEmoloyeeModalBody">
+              
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="EditEmoloyeeModalFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+           -->
+          
+          <!-- edit modal -->
+      <div class="modal fade" id="EditStockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="EditStockModalHeader">
+              
+            </div>
+            <div class="modal-body" id="EditStockModalBody">
+              
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="EditStockModalFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+
+<!-- Delete Modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
+            </div>
+          </div>
+        </div>
+      </div>
+          
     
 
 
     
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    
 
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <!-- Call JS -->
+      <script src="../js/StockManagement.js"></script>
 
     <!-- Page JS -->
+      <script>
+	
+	  $(document).ready(function () {
+		  callGetAllItemsServlet()
+		});
+
+</script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
