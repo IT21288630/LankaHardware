@@ -35,6 +35,7 @@ function buildItemList(allItems) {
 function setItemName(name) {
 	var selectBtnText = document.getElementById('selectBtnText')
 	selectBtnText.innerHTML = name
+	wrapper.classList.remove("active")
 }
 
 function searchItem() {
@@ -72,11 +73,11 @@ function buildSizes() {
 		var btnID = `${sizes[i]}Btn`
 
 		if (i == 0) {
-			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}'); setTotalCount();" id="firstSize">
+			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}', 'sizeBtn'); setTotalCount();" id="firstSize">
                           <button type="button" class="nav-link active" role="tab" id="${btnID}">${sizes[i]}</button>
                 		</li>`
 		} else {
-			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}'); setTotalCount();">
+			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}', 'sizeBtn'); setTotalCount();">
                           <button type="button" class="nav-link" role="tab" id="${btnID}">${sizes[i]}</button>
                    		 </li>`
 		}
@@ -84,25 +85,41 @@ function buildSizes() {
 		sizeList.innerHTML += size
 	}
 
-	sizeList.innerHTML += `<li class="nav-item" onclick="createCompareChart();" style="position: absolute; right: 0;">
-                          	<button type="button" class="nav-link" role="tab" id="${btnID}">Compare</button>
+	sizeList.innerHTML += `<li class="nav-item" onclick="createCompareChart(); setCompareTotalCount(); toggleButton('${sizes[i]}', 'compareBtn');" style="position: absolute; right: 0;">
+                          	<button type="button" class="nav-link" role="tab" id="cartCompBtn">Compare</button>
                    		 </li>`
 
 	$('#firstSize').click()
 }
 
-function toggleButton(size) {
+function toggleButton(size, type) {
 
-	for (var i = 0; i < sizes.length; i++) {
-		var btn = document.getElementById(`${sizes[i]}Btn`)
+	var compBtn = document.getElementById('cartCompBtn')
 
-		if (sizes[i] == size) {
-			btn.classList.add('active')
+	if (type == 'sizeBtn') {
+
+		compBtn.classList.remove('active')
+
+		for (var i = 0; i < sizes.length; i++) {
+			var btn = document.getElementById(`${sizes[i]}Btn`)
+
+			if (sizes[i] == size) {
+				btn.classList.add('active')
+			}
+			else {
+				if (btn.classList.contains('active')) btn.classList.remove('active')
+			}
 		}
-		else {
-			if (btn.classList.contains('active')) btn.classList.remove('active')
+	} else {
+		for (var i = 0; i < sizes.length; i++) {
+			var btn = document.getElementById(`${sizes[i]}Btn`)
+
+			btn.classList.remove('active')
 		}
+		
+		compBtn.classList.add('active')
 	}
+
 
 
 }
@@ -243,13 +260,13 @@ function createCompareChart() {
 				colorNum[i + 1] = Math.floor((Math.random() * 255) + 1)
 			}
 		}
-		
+
 		if (i != colorNum2.length - 1) {
 			while (colorNum2[i + 1] == colorNum2[i]) {
 				colorNum2[i + 1] = Math.floor((Math.random() * 255) + 1)
 			}
 		}
-		
+
 		if (i != colorNum3.length - 1) {
 			while (colorNum3[i + 1] == colorNum3[i]) {
 				colorNum3[i + 1] = Math.floor((Math.random() * 255) + 1)
@@ -366,7 +383,18 @@ function setTotalCount() {
 	totalElement.innerHTML = total
 }
 
+function setCompareTotalCount() {
+	var totalElement = document.getElementById('totalCount')
+	var total = 0
 
+	for (var i = 0; i < sizes.length; i++) {
+		for (var j = 0; j < counts[sizes[i]].length; j++) {
+			total += counts[sizes[i]][j]
+		}
+	}
+
+	totalElement.innerHTML = total
+}
 
 
 
