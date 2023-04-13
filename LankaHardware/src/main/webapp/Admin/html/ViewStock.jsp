@@ -1,3 +1,7 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -589,8 +593,8 @@
                         <th>Name</th>
                         <th>Category</th>
                         <th>Brand</th>
-                        <th>Unit_price</th>
-                        
+                        <th>quantity</th>
+                        <th>Unit_price</th>      
                  
                       
                       </tr>
@@ -692,7 +696,7 @@
                     <hr class="my-0" />
                     
                     <div class="card-body">
-                      <form id="StockAddForm" method="POST">
+                      <form id="StockAddForm" method="POST" onsubmit="return false">
                       
                       
                         <div class="row">
@@ -759,7 +763,7 @@
               			  
                           <div class="mb-3 col-md-6">
                              <label class="form-label" for="basic-default-message">Modify Date</label>
-                         	 <input class="form-control" type="d2ate" id="stockMf" name="stockMf">
+                         	 <input class="form-control" type="date" id="stockMf" name="stockMf"> 
                          	  <span id="mf-error"></span>
                                        
                           </div>
@@ -788,41 +792,26 @@
 	                        </div>
 	                      </div>
                     	</div>
+                    	
+                    	 
                      	 
-                     	  <div class="mb-3">
+                     	  <div class="mb-3 col-md-6" >
                          <div class="col-md">
                           <label class="form-label" for="basic-default-message" name="warranty">Warranty</label>
                           
                           <div class="form-check mt-3 col-md-6">
-                            <input class="form-check-input" type="radio" value="None" id="defaultRadio1" checked name="warrentyType">
+                            <input name="default-radio-1" class="form-check-input" type="radio" value="None" id="WorNone" name="warrentyTypeNone" onclick="callwarrentyDetails()">
                             
                             <label class="form-check-label" for="defaultRadio1"> None </label>
                           </div>
                        
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" value="Available" id="defaultRadio2" name="warrentyType">
-                            <label class="form-check-label" for="defaultRadio2"> Available </label>
+                            <input name="default-radio-1" class="form-check-input" type="radio" value="Available" id="WorAvail" name="warrentyTypeAvailable" onclick="callwarrentyDetails()">
+                            <label class="form-check-label" for="defaultRadio1"> Available </label>
                           </div>
                           <br>
                            
-	                        
-								<div class="warrent-available-detail">
-	                        
-	                          <input class="form-control" type="number" value="0" id="html5-number-input" name="warNum">
-	                           <span id="warNum-error"></span>
-                      		
-                      		<br>
-                      		   <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="warPeriod">
-		                          <option selected="">Time Period</option>
-		                          <option>Day</option>
-		                          <option>Week</option>
-		                          <option>Month</option>
-		                          <option>Year</option> 
-		                        </select>
-		                         <span id="warPeriod-error"></span>
-		                        </div>
-		                        
-	                  
+                           <div id="WarrentyDetailstoPage"> </div>
 		                        
 		                         </div> 
                           </div>
@@ -842,16 +831,16 @@
            
           </div>
           
-            
-     <!--    
-          view modal
-      <div class="modal fade" id="EditEmoloyeeModal" tabindex="-1" aria-hidden="true">
+
+       <!-- view modal -->
+          
+      <div class="modal fade" id="ViewStockModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="EditEmoloyeeModalHeader">
+            <div class="modal-header" id="ViewStockModalHeader">
               
             </div>
-            <div class="modal-body" id="EditEmoloyeeModalBody">
+            <div class="modal-body" id="ViewStockModalBody">
               
                     </div>
                     <hr class="my-0" />
@@ -861,14 +850,14 @@
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="EditEmoloyeeModalFooter">
+            <div class="modal-footer" id="ViewStockModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-primary">View</button>
             </div>
           </div>
-           -->
+         
           
           <!-- edit modal -->
       <div class="modal fade" id="EditStockModal" tabindex="-1" aria-hidden="true">
@@ -930,14 +919,19 @@
     <!-- Vendors JS -->
 
     <!-- Call JS -->
-      <script src="../js/StockManagement.js"></script>
+      <script src="../js/StockHandle.js"></script>
 
     <!-- Page JS -->
       <script>
 	
 	  $(document).ready(function () {
-		  callGetAllItemsServlet()
+		  callGetAllStockServlet();
+		  callwarrentyDetails();
+		  BuildEditStockModal();
+		  BuildViewStockModal();
 		});
+	  
+	  
 
 </script>
 

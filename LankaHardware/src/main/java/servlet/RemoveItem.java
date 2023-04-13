@@ -15,7 +15,7 @@ import service.IStockService;
 import service.IStockServiceImpl;
 
 
-@WebServlet("/RemoveEmployees")
+@WebServlet("/RemoveItem")
 public class RemoveItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

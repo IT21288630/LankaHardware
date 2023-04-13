@@ -8,12 +8,16 @@ public class Item {
 
 	private String itemID;
 	private String name;
+	private String type;
 	private String brand;
 	private int quantity;
 	private double price;
 	private String description;
 	private String mfDate;
 	private String expDate;
+	private String WarrantyPeriod;
+	private int warNum;
+	private String warrentyType;
 	private String size;
 	private String mainImg;
 	private double avgRating;
@@ -21,14 +25,11 @@ public class Item {
 	private double[][] ratingPercentageList;
 	private LinkedHashMap<String, Double> sizesAndPrizes;
 	private LinkedHashMap<String, Boolean> isInWishlist;
-	private String type;
 	private String subType;
 	private ArrayList<String> allImages;
 	private int stock;
 	private HashMap<String, Integer> sizesAndStock;
-	private String WarrantyPeriod;
-	private int warNum;
-	private String warrentyType;
+
 
 
 	public String getWarrentyType() {

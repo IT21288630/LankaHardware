@@ -7,12 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,11 +64,10 @@ public class IStockServiceImpl implements IStockService {
 				 item.setDescription(rs.getString(7));
 				 item.setMfDate(rs.getString(8));
 				 item.setExpDate(rs.getString(9));
-				 item.setWarrentyNumber(10);
+				 item.setWarrentyType(rs.getString(10));
 				 item.setWarrentyNumber(rs.getInt(11));
 				 item.setWarrantyPeriod(rs.getString(12));
-				
-			
+
 
 				items.add(item);
 			}

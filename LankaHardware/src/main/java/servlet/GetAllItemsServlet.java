@@ -41,7 +41,7 @@ public class GetAllItemsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<Item> item = new ArrayList();
+		ArrayList<Item> item = new ArrayList<Item>();
 		IStockService iStockService = new IStockServiceImpl();
 
 		item = iStockService.getAllStockItems();

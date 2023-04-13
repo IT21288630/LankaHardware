@@ -1,5 +1,5 @@
 
-console.log("this is the js file")
+console.log("this is the stock management file")
 //User input Validation
 
 

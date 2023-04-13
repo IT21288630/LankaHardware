@@ -70,7 +70,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
 	
 	/** Constant for select customer id's*/
-	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT * FROM item;";
+	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM lanka_hardware.item;";
 	
 	
 	/** Constant for add customer details */
@@ -157,7 +157,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
 	
 	/** Constant for clear employees */
-	public static final String QUERY_ID_CLEAR_StockItem = "DELETE FROM item WHERE id = ?";
+	public static final String QUERY_ID_CLEAR_StockItem = "DELETE FROM item WHERE ('id' = ?)";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";
