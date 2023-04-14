@@ -85,7 +85,7 @@ function buildSizes() {
 		sizeList.innerHTML += size
 	}
 
-	sizeList.innerHTML += `<li class="nav-item" onclick="createCompareChart(); setCompareTotalCount(); toggleButton('${sizes[i]}', 'compareBtn');" style="position: absolute; right: 0;">
+	sizeList.innerHTML += `<li class="nav-item" onclick="createCompareChart(); setCompareTotalCount(); toggleButton('${sizes[i]}', 'compareBtn');" style="position: absolute; right: 5px;">
                           	<button type="button" class="nav-link" role="tab" id="cartCompBtn">Compare</button>
                    		 </li>`
 
