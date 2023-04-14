@@ -812,18 +812,18 @@
         href="#"
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddSupplierModal" 
+        data-bs-toggle="modal" data-bs-target="#AddVouchersModal" 
         >Add Voucher</a
       >
     </div>
     
     
         
-        <div class="modal fade" id="AddSupplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="AddVouchersModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="AddSupplierModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Update Voucher</h5>
+            <div class="modal-header" id="AddVouchersModalHeader">
+              <h5 class="modal-title" id="modalCenterTitle">Add Voucher</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -831,7 +831,7 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" id="AddSupplierModalBody">
+            <div class="modal-body" id="AddVouchersModalBody">
               <div>
               	 <div class="button-wrapper">
                 
@@ -887,11 +887,11 @@
                      	 
                    
                         
-                         <div class="modal-footer" id="AddStockFooter">
+                         <div class="modal-footer" id="AddVoucherFooter">
 			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 			                Close
 			              </button>
-			              <button type="button" class="btn btn-primary">Submit</button>
+			              <button type="button" class="btn btn-primary" onclick="callAddVoucherServlet()">Submit</button>
 			            </div>
                         </div>
                       </form>
