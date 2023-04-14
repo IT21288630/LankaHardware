@@ -398,7 +398,7 @@
     		newMessagesCount.innerHTML = newQuestions.length
     		
     		function callGetAllItemsServlet(){
-    			$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
+    			$.get("http://localhost:8080/LankaHardware/GetDataForChartServlet", function(response) {
 
     				allItems = response
     				setItems(allItems)
