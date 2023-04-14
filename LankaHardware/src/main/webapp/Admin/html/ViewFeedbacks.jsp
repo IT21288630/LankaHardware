@@ -48,7 +48,43 @@
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
+<style>
+        .cutoff-text{
+            display: block;
+            width: 150px;
+            overflow: hidden;
+            margin: 0px;
+            position: relative;
+        }
 
+        .cutoff-text::before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            content: '';
+            background: linear-gradient(to right, transparent, #ffffff);
+        }
+
+		.icon-box {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  width: 80px;
+		  height: 80px;
+		  margin: 0 auto;
+		  border-radius: 50%;
+		  border: 3px solid #f15e5e;
+		}
+		
+		.icon-box i {
+		  font-style: initial;
+		  color: #f15e5e;
+		  font-size: 46px;
+		  display: inline-block;
+		}
+    </style>
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -650,126 +686,28 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
-    <div class="buy-now">
-      <a
-        href="#"
-        onclick="return false;"
-        class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddSupplierModal" 
-        >Add Supplier</a
-      >
-    </div>
-    
-    
-    <div class="modal fade" id="AddSupplierModal" tabindex="-1" aria-hidden="true">
+<!-- Modal -->
+      <div class="modal fade" id="FeedbackdeleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="AddSupplierModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add Supplier</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+            <div class="modal-header" id="feedbackdeleteModalHeader">
             </div>
-            <div class="modal-body" id="AddSupplierModalBody">
-              <div>
-              	 <div class="button-wrapper">
-                
-
-                          <p class="text-muted mb-0"></p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr class="my-0" />
-                    
-                    <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Supplier No.</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="supNo"
-                              name="supNo"
-                   
-                              autofocus
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
-                             
-                              placeholder="123@gmail.com"
-                            />
-                          </div>
-                 
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">LK (+94)</span>
-                              <input
-                                type="text"
-                                id="phoneNum"
-                                name="phoneNum"
-                                class="form-control"
-                                
-                              />
-                            </div>
-                          </div>
-              
-                           <div class="mb-3 col-md-6">
-                   			<label class="form-label" for="description">Supplier Description</label>
-                			<textarea name="description" id="" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
-              			  </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="debit" class="form-label">Debit Or Credit</label>
-                            <select id="debit" name = "debit" class="select2 form-select">
-                              <option value="">Select Type</option>
-                              <option value="Debit">Debit</option>
-                              <option value="Credit">Credit</option>
-                            
-                            </select>
-                          </div>
-                        </div>
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddSupplierServlet()">Add Supplier</button>
-
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
-
-
-                        </div>
-                      </form>
-                    </div>
-              </div>
+            <div class="modal-body" id="feedbackdeleteModalBody">
             </div>
-            <div class="modal-footer" id="AddSupplierFooter">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary" onclick ="callAddSupplierServlet()">Submit</button>
+            <div class="modal-footer" style="justify-content: center;" id="feedbackdeleteModalFooter">
             </div>
           </div>
         </div>
       </div>
+   
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../js/CallServlet.js"></script>
+    
+    <script src="../../js/feedback.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="../assets/vendor/js/menu.js"></script>
@@ -784,6 +722,9 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
   </body>
   <script>
 	

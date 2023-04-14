@@ -48,7 +48,43 @@
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
+    <style>
+        .cutoff-text{
+            display: block;
+            width: 150px;
+            overflow: hidden;
+            margin: 0px;
+            position: relative;
+        }
 
+        .cutoff-text::before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            content: '';
+            background: linear-gradient(to right, transparent, #ffffff);
+        }
+
+		.icon-box {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  width: 80px;
+		  height: 80px;
+		  margin: 0 auto;
+		  border-radius: 50%;
+		  border: 3px solid #f15e5e;
+		}
+		
+		.icon-box i {
+		  font-style: initial;
+		  color: #f15e5e;
+		  font-size: 46px;
+		  display: inline-block;
+		}
+    </style>
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -690,17 +726,7 @@
                     <div class="card-body">
                       <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Supplier No.</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="supNo"
-                              name="supNo"
-                   
-                              autofocus
-                            />
-                          </div>
+                         
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Name</label>
                             <input class="form-control" type="text" name="name" id="name"/>
@@ -790,6 +816,21 @@
               <button type="button" class="btn btn-primary">Submit</button>
             </div>
           </div>
+       
+   
+<!-- Modal -->
+      <div class="modal fade" id="deleteSupplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteSupplierModalHeader">
+            </div>
+            <div class="modal-body" id="deleteSupplierModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteSupplierModalFooter">
+            </div>
+          </div>
+        </div>
+      </div>
       
 
     <!-- Core JS -->
@@ -812,6 +853,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </body>
   <script>
 	

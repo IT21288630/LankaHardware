@@ -81,7 +81,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public String addEmployees(Employee employee, Collection<Part> parts) {
+	public String addEmployees(Employee employee) {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
@@ -90,41 +90,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 		con = DBConnectionUtil.getDBConnection();
 
-		// Configure to upload to cloudinary
-		Map config = new HashMap();
-		config.put("cloud_name", "dqgiitni2");
-		config.put("api_key", "987952682616387");
-		config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
-		Cloudinary cloudinary = new Cloudinary(config);
+		
 
-		for (Part part : parts) {
-			if (part.getSubmittedFileName() != null) {
-
-				try {
-					InputStream is = part.getInputStream();
-
-					File tempFile = File.createTempFile("javaMyfile", ".xls");
-					FileUtils.copyToFile(is, tempFile);
-
-					System.out.println(tempFile.getName());
-					System.out.println(tempFile.exists());
-
-					// Upload to cloudinary
-					try {
-						Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
-						imagePathArrayList.add(map.get("url"));
-					} catch (IOException exception) {
-						System.out.println(exception.getMessage());
-					}
-
-					System.out.println("deleting " + tempFile.getAbsolutePath() + " " + tempFile.delete());
-					System.out.println(tempFile.exists());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+	
 
 		try {
 			st = con.createStatement();

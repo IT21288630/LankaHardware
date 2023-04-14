@@ -41,8 +41,7 @@ public class AddEmployeeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -64,7 +63,7 @@ public class AddEmployeeServlet extends HttpServlet {
 		employee.setWage(request.getParameter("wage"));
 		employee.setSalary(Double.parseDouble(request.getParameter("salary")));
 		
-		Collection<Part> parts = request.getParts();
+		//Collection<Part> parts = request.getParts();
 		
 		IEmployeeService iEmployeeService = new EmployeeServiceImpl();
 		
@@ -72,7 +71,7 @@ public class AddEmployeeServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iEmployeeService.addEmployees( employee, parts ));
+		String resp = new Gson().toJson(iEmployeeService.addEmployees( employee ));
 
 		out.print(resp);
 	}
