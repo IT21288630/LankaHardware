@@ -8,13 +8,16 @@ public class Item {
 
 	private String itemID;
 	private String name;
+	private String type;
 	private String brand;
 	private int quantity;
 	private double price;
 	private String description;
 	private String mfDate;
 	private String expDate;
-	private String Warranty;
+	private String WarrantyPeriod;
+	private int warNum;
+	private String warrentyType;
 	private String size;
 	private String mainImg;
 	private double avgRating;
@@ -22,11 +25,20 @@ public class Item {
 	private double[][] ratingPercentageList;
 	private LinkedHashMap<String, Double> sizesAndPrizes;
 	private LinkedHashMap<String, Boolean> isInWishlist;
-	private String type;
 	private String subType;
 	private ArrayList<String> allImages;
 	private int stock;
 	private HashMap<String, Integer> sizesAndStock;
+
+
+
+	public String getWarrentyType() {
+		return warrentyType;
+	}
+
+	public void setWarrentyType(String warrentyType) {
+		this.warrentyType = warrentyType;
+	}
 
 	public HashMap<String, Integer> getSizesAndStock() {
 		return sizesAndStock;
@@ -132,12 +144,12 @@ public class Item {
 		this.expDate = expDate;
 	}
 
-	public String getWarranty() {
-		return Warranty;
+	public String getWarrantyPeriod() {
+		return WarrantyPeriod;
 	}
 
-	public void setWarranty(String warranty) {
-		Warranty = warranty;
+	public void setWarrantyPeriod(String WarrantyPeriod) {
+		this.WarrantyPeriod = WarrantyPeriod;
 	}
 
 	public double getPrice() {
@@ -194,6 +206,14 @@ public class Item {
 
 	public void setIsInWishlist(LinkedHashMap<String, Boolean> isInWishlist) {
 		this.isInWishlist = isInWishlist;
+	}
+
+	public int getWarrentyNumber() {
+		return warNum;
+	}
+
+	public void setWarrentyNumber(int warNum) {
+		this.warNum = warNum;
 	}
 
 }

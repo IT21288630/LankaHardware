@@ -44,10 +44,14 @@ public class CommonConstants {
 	/** Constant for feedback id prefix */
 	public static final String FEEDBACK_ID_PREFIX = "F300";
 	
-	/** Constant for supplier id prefix */
+	/** Constant for Supplier id prefix */
 	public static final String SUPPLIER_ID_PREFIX = "S300";
+	
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
+	
+	/** Constant for get all items */
+	public static final String QUERY_ID_GET_ALL_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.name;";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_LOGIN = "SELECT * FROM customerlogin where email=? and Password=?;";
@@ -65,8 +69,17 @@ public class CommonConstants {
 	/** Constant for select customer id's*/
 	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
 	
+	/** Constant for select customer id's*/
+	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM lanka_hardware.item;";
+	
+	
 	/** Constant for add customer details */
 	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
+	
+	/** Constant for add stock details */
+	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	
+	
 	
 	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customerlogin(email) VALUES(?);";
 	
@@ -77,15 +90,48 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customerlogin WHERE email = ?";
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee order by empNo desc;";
+	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";
 	
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
+	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEE_IDS = "SELECT empNo FROM employee;";
 	
+	/** Constant for select stock id's */
+	public static final String QUERY_ID_SELECT_ALL_Stock_IDS = "SELECT id FROM item;";
+	
 	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employee(empNo) VALUES(?);";
+	
+	
+	
+	/** Constant for update item */
+	
+	public static final String QUERY_ID_UPDATE_ITEM_NAME = "UPDATE item SET name = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_CAT = "UPDATE item SET category = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_BRAND = "UPDATE item SET brand = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_PRICE = "UPDATE item SET unit_price = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_QUANTITY = "UPDATE item SET quantity = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_DESCRIPTION = "UPDATE item SET description = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_MF = "UPDATE item SET mf_date = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_EXP = "UPDATE item SET exp_date = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_WARTYPE = "UPDATE item SET warrentyType = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_WARNUM = "UPDATE item SET warrentyNum = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_WARPERIOD = "UPDATE item SET warrentyPeriod = ? WHERE id = ?;";
+	
+	
+	
 	
 	/** Constant for update employees */
 	
@@ -110,11 +156,14 @@ public class CommonConstants {
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
 	
-	/** Constant for select cart id's */
-	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM supplier;";
+	/** Constant for clear employees */
+	public static final String QUERY_ID_CLEAR_StockItem = "DELETE FROM item WHERE ('id' = ?)";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";
+	
+	/** Constant for select cart id's */
+	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM supplier;";
 	
 	/** Constant for add supplier */
 	public static final String QUERY_ID_ADD_TO_SUPPLIER = "INSERT INTO supplier(supNo, name, email, phoneNum, description, sup_type) VALUES(?, ?, ?, ?, ?, ?);";
@@ -153,13 +202,19 @@ public class CommonConstants {
 	public static final String QUERY_ID_CREATE_CART = "INSERT INTO cart(cid,email) VALUES(?,?);";
 	
 	/** Constant for add to cart */
-	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty, size) VALUES(?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_CART = "INSERT INTO cart_item(cid, itId, qty, size, date) VALUES(?, ?, ?, ?, CURDATE());";
 	
 	/** Constant for get stock */
 	public static final String QUERY_ID_GET_STOCK = "SELECT stock FROM item_size WHERE Id = ? AND size = ?;";
 	
 	/** Constant for get quantity */
 	public static final String QUERY_ID_GET_QUANTITY = "SELECT qty FROM cart_item WHERE cid = ? AND itId = ? AND size = ?;";
+	
+	/** Constant for get all item sizes */
+	public static final String QUERY_ID_GET_ITEM_SIZES = "SELECT size FROM item_size WHERE Id = ? ORDER BY unit_price ASC;";
+	
+	/** Constant for get all item counts for  */
+	public static final String QUERY_ID_GET_ITEM_COUNT = "SELECT SUM(qty) FROM cart_chart WHERE itId = ? AND size = ? AND month(date) = ?;";
 	
 	/** Constant for edit stock */
 	public static final String QUERY_ID_EDIT_STOCK = "UPDATE item_size SET stock = ? WHERE Id = ? AND size = ?;";
@@ -176,6 +231,9 @@ public class CommonConstants {
 	/** Constant for clear cart */
 	public static final String QUERY_ID_CLEAR_CART = "DELETE FROM cart_item WHERE cid = ?;";
 
+	/** Constant for set cart total */
+	public static final String QUERY_ID_SET_CART_TOTAL = "UPDATE cart SET total = ? WHERE cid = ?;";
+	
 	/** Constant for get items in cart */
 	public static final String QUERY_ID_GET_CART = "SELECT itId, qty, size FROM cart_item WHERE cid = ?;";
 	
@@ -367,6 +425,9 @@ public class CommonConstants {
 	
 	/** Constant for Column index eight */
 	public static final int COLUMN_INDEX_ELEVEN = 11;
+	
+	/** Constant for Column index twelve */
+	public static final int COLUMN_INDEX_TWELVE = 12;
 	/*---------------------------------------------------
 	 * 
 	 * 

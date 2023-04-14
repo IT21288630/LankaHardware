@@ -35,7 +35,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
+	<!-- Iconscout Link For Icons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,7 +58,8 @@
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
-
+	<link rel="stylesheet" href="../assets/css/searchSelect.css" />
+	
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -110,7 +113,7 @@
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-        <div class="app-brand demo">
+          <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">LH</span>
             </a>
@@ -131,26 +134,27 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
          
             <!-- charts -->
-            <li class="menu-item">
-              <a href="productManagerCharts.jsp" class="menu-link">
+            <li class="menu-item active">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Charts </div>
               </a>
             </li>
           
+          
             <!-- Forms & Tables -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
             <!-- Forms -->
             <!-- Tables -->
-            <li class="menu-item active" id="new">
-              <a href="#" onclick="return false;" class="menu-link">
+            <li class="menu-item" id="new">
+              <a href="productQuestions.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">New Questions <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger" id="newMessagesCount">0</span></div>
               </a>
             </li>
             
             <li class="menu-item" id="answered">
-              <a href="#" onclick="return false;" class="menu-link">
+              <a href="productQuestions.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Answered Questions</div>
               </a>
@@ -181,7 +185,6 @@
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -252,12 +255,59 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4" id="breadCrumbHeading"><span class="text-muted fw-light">Tables /</span> New Questions</h4>
+              <h4 class="fw-bold py-3 mb-4" id="breadCrumbHeading">Charts</h4>
 
-              <!-- Basic Bootstrap Table -->
-              <div class="card" id="dynamicTable">
-              </div>
-              <!--/ Basic Bootstrap Table -->
+				<div style="display: flex; justify-content: center;">
+					<h2 class="fw-bold" style="margin-bottom: 0px;">Cart Chart</h2>
+				</div>
+				
+
+				<span class="text-muted fw-light">Select An Item</span>
+				<div>
+					<div class="wrapper">
+				      <div class="select-btn" onclick="toggleWrapper();">
+				        <span id="selectBtnText">Select Item</span>
+				        <i class="uil uil-angle-down"></i>
+				      </div>
+				      <div class="content">
+				        <div class="search">
+				          <i class="uil uil-search"></i>
+				          <input spellcheck="false" type="text" placeholder="Search" oninput="searchItem();" id="searchInput">
+				        </div>
+				        <ul class="options"></ul>
+				      </div>
+				    </div>
+				</div>
+				
+
+              <!-- Expense Overview -->
+                <div class="mb-4">
+                  <div class="card">
+                    <div class="card-header">
+                      <ul class="nav nav-pills" role="tablist" id="sizeList">
+                      </ul>
+                    </div>
+                    <div class="card-body px-0">
+                      <div class="tab-content p-0">
+                        <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+                          <div class="d-flex p-4 pt-3">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
+                            </div>
+                            <div>
+                              <small class="text-muted d-block">Total Count</small>
+                              <div class="d-flex align-items-center">
+                                <h6 class="mb-0 me-1" id="totalCount">0</h6>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="cartChart"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Expense Overview -->
             </div>
             <!-- / Content -->
 
@@ -301,84 +351,6 @@
         <!-- / Layout page -->
       </div>
 
-      <!-- Modal -->
-      <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="answerModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Type the Answer</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body" id="answerModalBody">
-              <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate maiores quia pariatur accusantium! Sit nemo ab magnam perspiciatis, porro hic, vitae nam ratione, ducimus eaque nihil aliquid quos. Maiores, veritatis!</span>
-              <div class="row mt-3">
-                <div class="mb-3">
-                    <label class="form-label" for="answerTextArea">Answer</label>
-                    <textarea id="answerTextArea" class="form-control" placeholder=""></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer" id="answerModalFooter">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-	  <!-- Modal -->
-	  <div class="modal fade" id="modalCenter2" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="viewAnswerModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">View the Answer</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body" id="viewAnswerModalBody">
-              <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate maiores quia pariatur accusantium! Sit nemo ab magnam perspiciatis, porro hic, vitae nam ratione, ducimus eaque nihil aliquid quos. Maiores, veritatis!</span>
-              <div class="row mt-3">
-                <div class="mb-3">
-                    <label class="form-label" for="answerTextArea">Answer</label>
-                    <textarea id="answerTextArea" class="form-control" placeholder=""></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer" id="viewAnswerModalFooter">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-		<!-- Modal -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="deleteModalHeader">
-            </div>
-            <div class="modal-body" id="deleteModalBody">
-            </div>
-            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
@@ -394,78 +366,41 @@
     <!-- endbuild -->
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <!-- Page JS -->
+    <script src="../js/charts.js"></script>
     <script src="../assets/js/ui-modals.js"></script>
+    
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Servlet JS -->
     <script src="../js/main.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="../assets/js/searchSelect.js"></script>
     
     <script>
+    var newQuestions = []
+    var newMessagesCount = document.getElementById('newMessagesCount')
+    var allItems = []
+    
     $(document).ready(function () {
-        var newElement = document.getElementById('new')
-        var answered = document.getElementById('answered')
-        var dynamicTable = document.getElementById('dynamicTable')
-		var breadCrumbHeading = document.getElementById('breadCrumbHeading')
-		
-        newElement.addEventListener('click', () => {
-          newElement.classList.add('active')
-          answered.classList.remove('active')
-		  breadCrumbHeading.innerHTML = `<span class="text-muted fw-light">Tables /</span> New Questions`
-          
-          dynamicTable.innerHTML = `<h5 class="card-header">New Questions</h5>
-                                  <div class="text-nowrap">
-                                    <table class="table">
-                                      <thead>
-                                        <tr>
-	                                        <th>Question ID</th>
-	                                        <th>Customer</th>
-	                                        <th>Product</th>
-	                                        <th>Date</th>
-	                                        <th>Question</th>
-	                                        <th>Actions</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody class="table-border-bottom-0" id="newQuestionsList">
-                                      </tbody>
-                                    </table>
-                                  </div>`
-                                  
-            var newQuestionsList = document.getElementById('newQuestionsList')
-        	callGetNewQuestionsServlet(newQuestionsList)
-        })
+    	$.get("http://localhost:8080/LankaHardware/GetNewQuestionsServlet", function(response) {
 
-        answered.addEventListener('click', () => {
-          answered.classList.add('active')
-          newElement.classList.remove('active')
-          breadCrumbHeading.innerHTML = `<span class="text-muted fw-light">Tables /</span> Answered Questions`
+    		newQuestions = response
+    		newMessagesCount.innerHTML = newQuestions.length
+    		
+    		function callGetAllItemsServlet(){
+    			$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 
-          dynamicTable.innerHTML = `<h5 class="card-header">Answered Questions</h5>
-                                  <div class="text-nowrap">
-                                    <table class="table">
-                                      <thead>
-                                        <tr>
-	                                        <th>Question ID</th>
-	                                        <th>Customer</th>
-	                                        <th>Product</th>
-	                                        <th>Answered Date</th>
-	                                        <th>Question</th>
-	                                        <th>Answer</th>
-	                                        <th>Actions</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody class="table-border-bottom-0" id="answeredQuestionsList">
-                                      </tbody>
-                                    </table>
-                                  </div>`
-                                  
-            var answeredQuestionsList = document.getElementById('answeredQuestionsList')
-          	callGetAnsweredQuestionsServlet(answeredQuestionsList)
-        })
-
-        $('#new').click()
-      });
+    				allItems = response
+    				setItems(allItems)
+    			})
+    		}
+    		
+    		callGetAllItemsServlet()
+    	})
+    });
     </script>
   </body>
-</html>
+</html>"

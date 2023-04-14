@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import model.Cart;
+import model.CartChart;
 import model.Item;
 
 public interface ICartService {
@@ -67,6 +68,12 @@ public interface ICartService {
 	public double calculateTotal(ArrayList<Item> items);
 	
 	/**
+	 * set total
+	 * @param email
+	 */
+	public void setTotal(String email);
+	
+	/**
 	 * get a default size
 	 * @param itemID
 	 */
@@ -83,4 +90,11 @@ public interface ICartService {
 	 * @param item
 	 */
 	public int getItemStock(Item item);
+	
+	/**
+	 * get chart details
+	 * @param itemID
+	 * 
+	 */
+	public CartChart getChartDetails(String itemID);
 }

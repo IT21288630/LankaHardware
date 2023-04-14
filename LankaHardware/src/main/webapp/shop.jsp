@@ -424,6 +424,24 @@
 		</div>
 	</div>
 
+	<!-- Login msg Modal -->
+	<div class="modal fade" id="loginMsgModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-content quickView-modalContent">
+			<div class="modal-header" style="justify-content: flex-end; padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">
+			  <button data-bs-dismiss="modal" style="border: none; outline: none; background: none; font-size: 1.25rem; font-weight: bold; color: rgb(0, 0, 0);">&times;</button>
+			</div>
+			<div class="modal-body" style="text-align: center;">
+				<h1>You need to login first</h1>
+			</div>
+			<div class="modal-footer">
+                <a href="#" class="btn btn-primary px-4" data-bs-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-primary px-4">Login</a>
+			</div>
+		  </div>
+		</div>
+	</div>
+
 	<!-- build:js assets/vendor/js/core.js -->
 	<script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
 	<script src="Admin/assets/vendor/libs/popper/popper.js"></script>
