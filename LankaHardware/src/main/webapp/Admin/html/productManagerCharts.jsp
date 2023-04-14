@@ -159,6 +159,13 @@
                 <div data-i18n="Tables">Answered Questions</div>
               </a>
             </li>
+            
+            <li class="menu-item">
+              <a href="ViewFeedbacks.jsp" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">Feedback</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
