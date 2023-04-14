@@ -121,7 +121,7 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
          
             <!-- charts -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Charts </div>
@@ -133,26 +133,13 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
             <!-- Forms -->
             <!-- Tables -->
-            <li class="menu-item" id="new">
-              <a href="productQuestions.jsp" class="menu-link">
+            <li class="menu-item active" id="new">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">New Questions <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger" id="newMessagesCount">0</span></div>
+                <div data-i18n="Tables">View Suppliers</div>
               </a>
             </li>
-            
-            <li class="menu-item" id="answered">
-              <a href="productQuestions.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Answered Questions</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="ViewFeedbacks.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Feedback</div>
-              </a>
-            </li>
+          
           </ul>
         </aside>
         <!-- / Menu -->
