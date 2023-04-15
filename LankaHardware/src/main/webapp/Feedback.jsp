@@ -126,17 +126,17 @@
         </div>
         <div class="row block-9">
           <div class="col-md-6 order-md-last d-flex">
-            <form action="#" class="bg-white p-5 contact-form">
+            <form action="" class="bg-white p-5 contact-form">
             <h1>Add your Feedbacks</h1>
            
               <div class="form-group">
-                <input type="text" name= "subject" class="form-control" placeholder="Subject">
+                <input type="text" id = "subject" name= "subject" class="form-control" placeholder="Subject">
               </div>
               <div class="form-group">
-                <textarea name="feedback" id="" cols="30" rows="7" class="form-control" placeholder="Feedback"></textarea>
+                <textarea name="feedback" id="feedback" cols="30" rows="7" class="form-control" placeholder="Feedback"></textarea>
               </div>
               <div class="form-group">
-                <input type="submit" value="Send Feedback" onclick ="callAddFeedbackServlet()" class="btn btn-primary py-3 px-5">
+                <input type="button" value="Send Feedback" onclick ="callAddFeedbackServlet();" class="btn btn-primary py-3 px-5">
               </div>
             </form>
           
@@ -365,13 +365,9 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
-  <script src="../Admin/js/CallServlet.js"></script>
+  <script src="js/feedback.js"></script>
   <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
   
-  <script>
-  $(document).ready(function () {
-		callCartServlet(false)
-	});
-  </script>
+
   </body>
 </html>

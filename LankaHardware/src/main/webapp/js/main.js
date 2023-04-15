@@ -845,8 +845,6 @@ function displayQuickViewProductPrice(sizesAndPrizes, itemID, iconID){
 	
 	productPrice.innerHTML = `Rs${displayPrice}`
 	
-	console.log('here bra')
-	
 	buildWishlistIcon(iconID, sizesAndPrizes, itemID, productSize)
 	callGetItemStockForCartServlet(itemID, productSize, sizesAndPrizes, true)
 }
@@ -1194,16 +1192,12 @@ function callGetItemStockForCartServlet(itemID, size, index, fromQuick){
 
 function updateStock(index, size, newStock, itemID, fromQuick){
 	if(fromQuick == true) {
-		console.log('old ' + quickViewsizesAndStock[index][size])
 		quickViewsizesAndStock[index][size] = newStock
 		buildQuickViewAddToCartButton(itemID, index, size)
-		console.log('new ' + quickViewsizesAndStock[index][size])
 	}
 	else {
-		console.log('old ' + sizesAndStockProductSingle[index][size])
 		sizesAndStockProductSingle[index][size] = newStock
 		buildProductSingleAddToCartButton(itemID, index, size)
-		console.log('new ' + sizesAndStockProductSingle[index][size])
 	}
 	
 	

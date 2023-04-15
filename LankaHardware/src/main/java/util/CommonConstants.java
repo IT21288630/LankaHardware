@@ -180,7 +180,7 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_SUPPLIERS_DESCRIPTION = "UPDATE supplier SET description = ? WHERE supNo = ?;";
 	
-	public static final String QUERY_ID_UPDATE_SUPPLIERS_DEBIT = "UPDATE supplier SET debit = ? WHERE supNo = ?;";
+	public static final String QUERY_ID_UPDATE_SUPPLIERS_DEBIT = "UPDATE supplier SET sup_type = ? WHERE supNo = ?;";
 	
 	/** Constant for select feedback id's */
 	public static final String QUERY_ID_SELECT_FEEDBACK_IDS = "select feedid from feedback;";

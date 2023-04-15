@@ -16,7 +16,7 @@ public interface IEmployeeService {
 
 	public ArrayList<Employee> getAllEmployees();
 
-	public String addEmployees(Employee employee, Collection<Part> parts);
+	public String addEmployees(Employee employee);
 
 	public String removeEmployees(String empNo);
 

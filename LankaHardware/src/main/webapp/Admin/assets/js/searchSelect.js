@@ -16,7 +16,7 @@ function setItems(allItems) {
 	buildItemList(items)
 }
 
-function toggleWrapper(){
+function toggleWrapper() {
 	wrapper.classList.toggle("active")
 }
 
@@ -35,6 +35,7 @@ function buildItemList(allItems) {
 function setItemName(name) {
 	var selectBtnText = document.getElementById('selectBtnText')
 	selectBtnText.innerHTML = name
+	wrapper.classList.remove("active")
 }
 
 function searchItem() {
@@ -72,11 +73,11 @@ function buildSizes() {
 		var btnID = `${sizes[i]}Btn`
 
 		if (i == 0) {
-			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}');" id="firstSize">
+			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}', 'sizeBtn'); setTotalCount();" id="firstSize">
                           <button type="button" class="nav-link active" role="tab" id="${btnID}">${sizes[i]}</button>
                 		</li>`
 		} else {
-			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}');">
+			var size = `<li class="nav-item" onclick="setCurrentCounts('${sizes[i]}'); createCartChart(${counts[sizes[i]]}); toggleButton('${sizes[i]}', 'sizeBtn'); setTotalCount();">
                           <button type="button" class="nav-link" role="tab" id="${btnID}">${sizes[i]}</button>
                    		 </li>`
 		}
@@ -84,25 +85,41 @@ function buildSizes() {
 		sizeList.innerHTML += size
 	}
 
-	sizeList.innerHTML += `<li class="nav-item" onclick="createCompareChart();" style="position: absolute; right: 0;">
-                          	<button type="button" class="nav-link" role="tab" id="${btnID}">Compare</button>
+	sizeList.innerHTML += `<li class="nav-item" onclick="createCompareChart(); setCompareTotalCount(); toggleButton('${sizes[i]}', 'compareBtn');" style="position: absolute; right: 5px;">
+                          	<button type="button" class="nav-link" role="tab" id="cartCompBtn">Compare</button>
                    		 </li>`
 
 	$('#firstSize').click()
 }
 
-function toggleButton(size) {
+function toggleButton(size, type) {
 
-	for (var i = 0; i < sizes.length; i++) {
-		var btn = document.getElementById(`${sizes[i]}Btn`)
+	var compBtn = document.getElementById('cartCompBtn')
 
-		if (sizes[i] == size) {
-			btn.classList.add('active')
+	if (type == 'sizeBtn') {
+
+		compBtn.classList.remove('active')
+
+		for (var i = 0; i < sizes.length; i++) {
+			var btn = document.getElementById(`${sizes[i]}Btn`)
+
+			if (sizes[i] == size) {
+				btn.classList.add('active')
+			}
+			else {
+				if (btn.classList.contains('active')) btn.classList.remove('active')
+			}
 		}
-		else {
-			if (btn.classList.contains('active')) btn.classList.remove('active')
+	} else {
+		for (var i = 0; i < sizes.length; i++) {
+			var btn = document.getElementById(`${sizes[i]}Btn`)
+
+			btn.classList.remove('active')
 		}
+		
+		compBtn.classList.add('active')
 	}
+
 
 
 }
@@ -110,7 +127,7 @@ function toggleButton(size) {
 
 function setCurrentCounts(size) {
 	currentCounts = []
-	
+
 	currentCounts.push(JSON.parse(`{"name": "${size}",
 									"data": [${counts[size]}]}`))
 }
@@ -217,18 +234,49 @@ function createCartChart() {
 }
 
 
-function createCompareChart(){
+function createCompareChart() {
 	var allData = []
 	var randomColor = []
+	var colorNum = []
+	var colorNum2 = []
+	var colorNum3 = []
 	var allDescrete = []
 	const d = new Date()
 	let month = d.getMonth() + 1
-	
-	for(var i = 0; i < sizes.length; i++){
+
+	for (var i = 0; i < sizes.length; i++) {
 		allData.push(JSON.parse(`{"name": "${sizes[i]}",
 								"data": [${counts[sizes[i]]}]}`))
-								
-		randomColor.push(`rgb(${Math.floor((Math.random() * 255) + 1)}, 152,186)`)
+
+		colorNum.push(Math.floor((Math.random() * 255) + 1))
+		colorNum2.push(Math.floor((Math.random() * 255) + 1))
+		colorNum3.push(Math.floor((Math.random() * 255) + 1))
+	}
+
+	for (var i = 0; i < colorNum.length; i++) {
+
+		if (i != colorNum.length - 1) {
+			while (colorNum[i + 1] == colorNum[i]) {
+				colorNum[i + 1] = Math.floor((Math.random() * 255) + 1)
+			}
+		}
+
+		if (i != colorNum2.length - 1) {
+			while (colorNum2[i + 1] == colorNum2[i]) {
+				colorNum2[i + 1] = Math.floor((Math.random() * 255) + 1)
+			}
+		}
+
+		if (i != colorNum3.length - 1) {
+			while (colorNum3[i + 1] == colorNum3[i]) {
+				colorNum3[i + 1] = Math.floor((Math.random() * 255) + 1)
+			}
+		}
+
+	}
+
+	for (var i = 0; i < sizes.length; i++) {
+		randomColor.push(`rgb(${colorNum[i]}, ${colorNum2[i]}, ${colorNum3[i]})`)
 		allDescrete.push(JSON.parse(`{"fillColor": "rgb(255, 255, 255)",
 									"seriesIndex": ${i},
 						            "dataPointIndex": ${month},
@@ -237,9 +285,7 @@ function createCompareChart(){
 						            "size": 6,
 						            "radius": 8}`))
 	}
-	
-	console.log(allData)
-	
+
 	const cartChartEl = document.querySelector('#cartChart'),
 		cartChartConfig = {
 			series: allData,
@@ -326,9 +372,29 @@ function createCompareChart(){
 	}
 }
 
+function setTotalCount() {
+	var totalElement = document.getElementById('totalCount')
+	var total = 0
 
+	for (var i = 0; i < currentCounts[0]['data'].length; i++) {
+		total += currentCounts[0]['data'][i]
+	}
 
+	totalElement.innerHTML = total
+}
 
+function setCompareTotalCount() {
+	var totalElement = document.getElementById('totalCount')
+	var total = 0
+
+	for (var i = 0; i < sizes.length; i++) {
+		for (var j = 0; j < counts[sizes[i]].length; j++) {
+			total += counts[sizes[i]][j]
+		}
+	}
+
+	totalElement.innerHTML = total
+}
 
 
 
