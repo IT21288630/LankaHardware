@@ -32,7 +32,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -43,12 +43,12 @@ public class AddStoreItemsServlet extends HttpServlet {
 		String cat = request.getParameter("stockCat");
 		String brand = request.getParameter("stockBrand");
 		double price = Double.parseDouble(request.getParameter("stockPrice"));
-		int quantity = Integer.parseInt(request.getParameter("stockQ"));
-		String des = request.getParameter("stockDes");
-		String mf = request.getParameter("stockMf");
-		String exp = request.getParameter("stockExp");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String des = request.getParameter("description");
+		String mf = request.getParameter("mf_date");
+		String exp = request.getParameter("exp_date");
 		String warrentyType = request.getParameter("warrentyType");
-		String warenty_number = request.getParameter("warrenty-number");
+		int warenty_number = Integer.parseInt(request.getParameter("warrnumber"));
 		String warPeriod = request.getParameter("warPeriod");
 		
 		
@@ -71,28 +71,28 @@ public class AddStoreItemsServlet extends HttpServlet {
 		      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Quantity.");
 		   
 		    }
-	    if (!isValidMf(mf)) {
-		      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Modify date.");
+	    
+	   // if (!isValidMf(mf)) {
+		 //     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Modify date.");
 		   
-		    }
+		 //   }
 	    
 	    
 		doGet(request, response);
 		
 		Item item = new Item();
 		
-		item.setItemID(request.getParameter("stockID"));
-		item.setName(request.getParameter("stockName"));
-		item.setType(request.getParameter("stockCat"));
-		item.setBrand(request.getParameter("stockBrand"));
-		item.setPrice(Double.parseDouble(request.getParameter("stockPrice")));
-		item.setQuantity(Integer.parseInt(request.getParameter("stockQ")));
-		item.setDescription(request.getParameter("stockDes"));
-		item.setMfDate(request.getParameter("stockMf"));
-		item.setExpDate(request.getParameter("stockExp"));
-		item.setWarrentyType(request.getParameter("warrentyType"));
-		item.setWarrentyNumber(Integer.parseInt(request.getParameter("warNum")));
-		item.setWarrantyPeriod(request.getParameter("warPeriod"));
+		item.setName(name);
+		item.setType(cat);
+		item.setBrand(brand);
+		item.setPrice(price);
+		item.setQuantity(quantity);
+		item.setDescription(des);
+		item.setMfDate(mf);
+		item.setExpDate(exp);
+		item.setWarrentyType(warrentyType);
+		item.setWarrentyNumber(warenty_number);
+		item.setWarrantyPeriod(warPeriod);
 		
 		
 		Collection<Part> parts = request.getParts();
@@ -113,7 +113,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 
 
 
-
+/*
 	private boolean isValidMf(String mf) {
 		int CurrentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int CurrentMonth = Calendar.getInstance().get(Calendar.MONTH);
@@ -127,7 +127,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 		return Integer.parseInt(curr) > Integer.parseInt(user);
 		
 		
-	}
+	}*/
 
 
 	private boolean isValidQuantity(int quantity) {

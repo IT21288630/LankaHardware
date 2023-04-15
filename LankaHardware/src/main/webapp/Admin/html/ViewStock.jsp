@@ -706,7 +706,7 @@
                               class="form-control"
                               type="text"
                               id="stockName"
-                              name="stockName"
+                              name="stockName" required
                    
                               autofocus
                             />
@@ -715,8 +715,8 @@
                           
                           <div class="mb-3 col-md-6">
                             <label for="stockCat" class="form-label">Category</label>
-                            <select id="stockCat" name = "stockCat" class="select2 form-select">
-                            	 <option selected>Open this</option>
+                            <select id="stockCat" name = "stockCat" class="select2 form-select" required>
+                            	 <option></option>
                                <option value="mechanical">mechanical</option>
 		                        <option value="building">building</option>
 		                        <option value="electrical">electronics & electrical</option>
@@ -730,7 +730,7 @@
                           
                           <div class="mb-3 col-md-6">
                           	 <label class="form-label" for="basic-default-company">Brand</label>
-                         	 <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." name="stockBrand" id="stockBrand"/>
+                         	 <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." name="stockBrand" id="stockBrand" required/>
                          	  <span id="Brand-error"></span>
                           </div>
                           
@@ -741,21 +741,21 @@
                             id="basic-default-phone"
                             class="form-control phone-mask"
                             placeholder="Rs."
-                            name="stockPrice"
+                            name="stockPrice" required
                           />
                            <span id="price-error"></span>
                           </div>
                           
                           <div class="mmb-3 col-md-6">
                           <label class="form-label" for="basic-default-phone">Quantity</label>
-                          <input type="text" id="stockQ" class="form-control phone-mask" placeholder="item quantity." name="stockQ">
+                          <input type="text" id="stockQ" class="form-control phone-mask" placeholder="item quantity." name="stockQ" required>
                             <span id="quantity-error"></span>
                         </div>
       
               
                            <div class="mb-3 col-md-6">
                    			<label class="form-label" for="description">Description</label>
-                			<textarea name="stockDes" id="stockDes" cols="30" rows="3" class="form-control" placeholder="Description"></textarea>
+                			<textarea name="stockDes" id="stockDes" cols="30" rows="3" class="form-control" placeholder="Description" required></textarea>
                 			 <span id="disc-error"></span>
               			  </div>
               			  
@@ -781,7 +781,7 @@
 	                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
 	                            <span class="d-none d-sm-block">Product Image</span>
 	                            <i class="bx bx-upload d-block d-sm-none"></i>
-	                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildStockImage();">
+	                            <input type="file" id="stockImage" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildStockImage();">
 	                          </label>
 	                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
 	                            <i class="bx bx-reset d-block d-sm-none"></i>
@@ -809,8 +809,9 @@
                             <input name="default-radio-1" class="form-check-input" type="radio" value="Available" id="WorAvail" name="warrentyTypeAvailable" onclick="callwarrentyDetails()">
                             <label class="form-check-label" for="defaultRadio1"> Available </label>
                           </div>
+                            <span id="wartype-error"></span>
                           <br>
-                           
+                         
                            <div id="WarrentyDetailstoPage"> </div>
 		                        
 		                         </div> 
