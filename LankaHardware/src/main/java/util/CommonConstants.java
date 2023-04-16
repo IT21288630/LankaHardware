@@ -283,7 +283,13 @@ public class CommonConstants {
 	public static final String QUERY_ID_CHECK_WISHLIST = "SELECT size FROM wishlist_item WHERE wid = ? AND itId = ?;";
 	
 	/** Constant for get new arrivals */
-	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, img, description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.id DESC limit 8;";
+	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, description FROM item ORDER BY id DESC limit 8;";
+	
+	/** Constant for get images for new arrivals */
+	public static final String QUERY_ID_GET_NEW_ARRIVALS_IMAGES = "SELECT img FROM item_img GROUP BY Id ORDER BY id DESC limit 8;";
+	
+	/** Constant for get stock for new arrivals */
+	public static final String QUERY_ID_GET_NEW_ARRIVALS_STOCK = "SELECT stock FROM item_size GROUP BY Id ORDER BY id DESC limit 8;";
 	
 	/** Constant for get minimum price for new arrivals */
 	public static final String QUERY_ID_GET_MINIMUM_PRICE = "SELECT id, min(unit_price) FROM item_size GROUP BY id ORDER BY id DESC limit 8;";
