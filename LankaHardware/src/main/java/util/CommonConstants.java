@@ -182,6 +182,10 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_SUPPLIERS_DEBIT = "UPDATE supplier SET sup_type = ? WHERE supNo = ?;";
 	
+	
+	/** Constant for get items in suppliers */
+	public static final String QUERY_ID_GET_EMAILED_SUPPLIER_DETAILS = "SELECT supNo, (SELECT img FROM item_img where Id = ? limit 1) as 'image' FROM supplier WHERE id = ?;";
+	
 	/** Constant for select feedback id's */
 	public static final String QUERY_ID_SELECT_FEEDBACK_IDS = "select feedid from feedback;";
 	
