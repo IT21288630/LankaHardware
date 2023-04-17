@@ -19,6 +19,8 @@ public interface ISupplierService {
 
 	public String updateSuppliers(String supNo, String name, String email, String description, String debit);
 
+	public JsonElement sendSupplierDetails(String supNo);
+
 	
 
 }

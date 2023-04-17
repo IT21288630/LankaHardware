@@ -20,11 +20,11 @@ public class IndexServiceImpl implements IIndexService {
 
 	private static Connection con;
 
-	private static Statement st, st2;
+	private static Statement st, st2, st3, st4;
 
 	private static PreparedStatement pst;
 
-	private static ResultSet rs, rs2;
+	private static ResultSet rs, rs2, rs3, rs4;
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(IndexServiceImpl.class.getName());
@@ -47,17 +47,21 @@ public class IndexServiceImpl implements IIndexService {
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_MINIMUM_PRICE);
 			st2 = con.createStatement();
 			rs2 = st2.executeQuery(CommonConstants.QUERY_ID_GET_NEW_ARRIVALS);
-
-			while (rs.next() && rs2.next()) {
+			st3 = con.createStatement();
+			rs3 = st3.executeQuery(CommonConstants.QUERY_ID_GET_NEW_ARRIVALS_IMAGES);
+			st4 = con.createStatement();
+			rs4 = st4.executeQuery(CommonConstants.QUERY_ID_GET_NEW_ARRIVALS_STOCK);
+			
+			while (rs.next() && rs2.next() && rs3.next() && rs4.next()) {
 				Item item = new Item();
 
 				item.setItemID(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setPrice(rs.getDouble(CommonConstants.COLUMN_INDEX_TWO));
 				item.setName(rs2.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setBrand(rs2.getString(CommonConstants.COLUMN_INDEX_TWO));
-				item.setMainImg(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
-				item.setDescription(rs2.getString(CommonConstants.COLUMN_INDEX_FOUR));
-				item.setStock(rs2.getInt(CommonConstants.COLUMN_INDEX_FIVE));
+				item.setDescription(rs2.getString(CommonConstants.COLUMN_INDEX_THREE));
+				item.setMainImg(rs3.getString(CommonConstants.COLUMN_INDEX_ONE));
+				item.setStock(rs4.getInt(CommonConstants.COLUMN_INDEX_ONE));
 
 				items.add(item);
 			}

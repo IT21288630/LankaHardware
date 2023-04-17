@@ -826,3 +826,23 @@ function callDeleteFeedbackServlet(feedid) {
 		}, 2500);
 	})
 }
+
+//build search results
+var searchLists = []
+
+function buildSearchLists(from) {
+	searchLists = []
+	var search = document.getElementById(`${from}Search`).value.toLowerCase()
+	search = search.trim()
+
+	
+		for (var i = 0; i < employees.length; i++) {
+			if(employees[i].empNo.toLowerCase().includes(search)) searchLists.push(employeess[i])
+		
+		
+		buildNewEmployees(newEmployeesList, searchLists)
+		
+	} 
+
+
+}
