@@ -1,134 +1,230 @@
 console.log("this is the stock handle");
 
-	
-	var image = document.getElementById('inputFile').value
-	var Sname = document.getElementsByName('stockName').value
-	var category = document.getElementsByName('stockCat').value
-	var brand = document.getElementsByName('stockBrand').value
-	var price = document.getElementsByName('stockPrice').value
-	var quantity = document.getElementsByName('stockQ').value
-	var descript = document.getElementsByName('stockDes').value
-	var mf = document.getElementsByName('stockMf').value
-	var exp = document.getElementsByName('stockExp').value
-	var warrentyType = document.getElementsByName('warrentyType').value
-	var warNum = document.getElementsByName('warNum').value
-	var warPeriod = document.getElementsByName('warPeriod').value
-	
-	const errorName = document.getElementById('name-error');
-	const errorCat = document.getElementById('cat-error');
-	const errorBrand = document.getElementById('Brand-error');
-	const errorPrice = document.getElementById('price-error');
-	const errorQ = document.getElementById('quantity-error');
-	const errorDes = document.getElementById('disc-error');
-	const errorMF = document.getElementById('mf-error');
-	const errorExp = document.getElementById('exp-error');
-	const errorwartype = document.getElementById('wartype-error');
-	const errorWarNum = document.getElementById('warNum-error');
-	const errorWarPeriod = document.getElementById('warPeriod-error');
-	
-	 // validate name and email using regular expressions
-	const nameRegex = /^[A-Za-z\s]+$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
 
-	const form  = document.getElementById("StockAddForm");
-	form.addEventListener("submit",  (e) =>{
+function validation() {
+	
+
+	//var image = document.getElementById('inputFile').value
+	var Sname = document.getElementById('stockName').value
+	var category = document.getElementById('stockCat').value
+	var brand = document.getElementById('stockBrand').value
+	var price = document.getElementById('stockPrice').value
+	var quantity = document.getElementById('stockQ').value
+	var descript = document.getElementById('stockDes').value
+	var mf = document.getElementById('stockMf').value
+	var exp = document.getElementById('stockExp').value
+	
+	var warNone = document.getElementById('WorNone').value
+	var warAva = document.getElementById('WorAvail').value
+	
+	
+	var errorName = document.getElementById('name-error');
+	var errorCat = document.getElementById('cat-error');
+	var errorBrand = document.getElementById('Brand-error');
+	var errorPrice = document.getElementById('price-error');
+	var errorQ = document.getElementById('quantity-error');
+	var errorDes = document.getElementById('disc-error');
+	var errorMF = document.getElementById('mf-error');
+	var errorExp = document.getElementById('exp-error');
+	var errorwartype = document.getElementById('wartype-error');
+  
+
+  	//const nameRegex = /^[A-Za-z\s]+$/;
+   // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   
+   console.log("Name: ", Sname)
+   console.log("Cat: ", category)
+   console.log("brand: ",brand)
+   console.log("price: ",price)
+   console.log("quantity: ",quantity)
+   console.log("descript: ",descript)
+   console.log("mf: ",mf)
+   console.log("exp: ",exp)
+   console.log("---------------")
+   
+       var valiName = false;
+       var valiCat = false;
+       var valiBrand = false;
+       var valiPrice = false;
+       var valiQ = false;
+       var valiDes = false;
 		
+	  if (Sname == "") {	
+	     errorName.innerHTML = 'Please enter a valid name';
+	     valiName = false;
+	   }
+	  
+	   if (!Sname == "") {
+	     errorName.innerHTML = '';
+	     valiName = true;
+	   }
 		
-		if(Sname === '' || Sname == null){
-			errorName.innerHTML = 'Please enter a valid name';
+	    if(category == ""){
+			
+			errorCat.innerHTML ='Please select valid category';
+			valiCat = false;
 		}
 		
-		if(Sname.length > 50){
-			errorName.innerHTML ='Item name must be shorter than 50 characters';
+		if(!category == ""){
+			
+			errorCat.innerHTML ='';
+			valiCat = true;
 		}
 		
-		if(category === '' || category == null){
-			errorCat.innerHTML ='Please enter a valid description';
-		}
 		
-		if(category.length > 100){
-			errorCat.innerHTML ='Description must be shorter than 100 characters';
-		}
-		if(brand === '' || brand == null){
+		if(brand == "" || brand == null){
 			errorBrand.innerHTML ='Please enter a valid brand name';
-		}
-		if(brand.length>20){
-			errorBrand.innerHTML ='Brand name must be shorter than 25 characters';
+			valiBrand = false;
 		}
 		
-		if(price === '' || price == null){
-			errorPrice.innerHTML ='Please enter a valid price';
+		if(!brand == ""){
+			errorBrand.innerHTML ='';
+			valiBrand = true;
 		}
+		
+		//if(brand.length>20){
+		//	e.preventDefault();
+		//	errorBrand.innerHTML ='Brand name must be shorter than 25 characters';
+		//}
+		
+		if(price == "" || price == null){
+			errorPrice.innerHTML ='Please enter a valid price (empty)';	
+			valiPrice = false;
+		}
+		
 		
 		if(isNaN(price)){
-			errorPrice.innerHTML ='Remove words from the price';
+			errorPrice.innerHTML ='Please add a valid number (format Error)';
+			valiPrice = false;
+			  
 		}
 		
-		if (price < 1){
+		
+		if (price < 0){
 			errorPrice.innerHTML ='Price must be higher than 0';
+			valiPrice = false;
 		}
 		
+
 		if(price > 1000000){
 			errorPrice.innerHTML = 'Please enter a valid price less than 1000000';
+			valiPrice = false;
 		}
 		
-		if(quantity === '' || quantity == null){
-			errorQ.innerHTML = 'Please enter a valid quantity';
+		if(!price == "" && price > 0 && !isNaN(price) && price < 1000000){
+			errorPrice.innerHTML ='';	
+			valiPrice = true;
 		}
 		
+		
+		if(quantity == "" || quantity == null){
+			errorQ.innerHTML = 'Please enter a valid quantity (empty)';
+			valiQ = false;
+		}
+		
+		if(isNaN(quantity)){
+			errorQ.innerHTML = 'Please Enter a number value'
+		}
 		if(quantity < 1){
 			errorQ.innerHTML = 'quantity must be higher than 0';
+			valiQ = false;
 		}
 		
-		if(descript === '' || descript == null){
-			errorDes.innerHTML = 'Please enter a valid name';
+		if(quantity > 0 && !quantity == "" && !isNaN(quantity)){
+			errorQ.innerHTML = '';
+			valiQ = true;
 		}
 		
-		if(descript.length > 200){
-			errorDes.innerHTML = 'Description must be lower than 200 characters';
+		if(descript == "" || descript == null){
+			errorDes.innerHTML = 'Please enter a valid discription';
+			valiDes = false;
 		}
 		
-		
-		if(warrentyType === '' || warrentyType == null){
-			errorwartype.innerHTML = 'Please select a type';
+		if(!descript == ""){
+			errorDes.innerHTML = '';
+			valiDes = true;
 		}
 		
-		if(warNum === '' || warNum == null){
-			errorWarNum.innerHTML = 'Please enter a valid number';
-		}
-		
-		if(warPeriod === '' || warPeriod == null){
-			errorWarPeriod.innerHTML ='Please enter a valid Period';
-		}
-		
-		
-		
-		
-	});
-
-function callwarrentyDetails(){
+		//if(descript.length > 200){
+		//	e.preventDefault();
+		//	errorDes.innerHTML = 'Description must be lower than 200 characters';
+		//}
+				 
+		//callAddStockServlet(Sname, category, brand, price, quantity, description, mf, exp, warrentyType, warNum, warPeriod );
+		if(valiName == true && valiCat == true&& valiPrice == true && valiQ == true && valiDes == true && valiBrand == true){
+			
+			var warrentyType;
+			
+			if(document.getElementById('WorNone').checked == true){
+				warrentyType = 'None';
+				warNum = 'None';
+				warPeriod = 'None';
+			}
 	
-	 console.log("Warrenty Type function")
+			else if(document.getElementById('WorAvail').checked == true){
+				
+				var warNum = document.getElementById('warNum').value
+				var warPeriod = document.getElementById('warPeriod').value
+				
+				warrentyType = 'Available';
+			}
+			console.log(warrentyType)
+			console.log(warNum);
+			console.log(warPeriod);
+			
+			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod );
+			return true;	
+		}
+		
+		
+	}
+
+   
+	
+function callwarrentyDetails(){
 	 
 	var WarrentyDetails = [];
 	var WarrentyNone = [];
 	var WarrentyDetailstoPage = document.getElementById('WarrentyDetailstoPage');
 	
-	var WarrentyDetails = '<input class="form-control" type="number" value="0" id="html5-number-input" name="warNum"> <br> <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="warPeriod"> <option selected="">Time Period</option> <option>Day</option><option>Week</option><option>Month</option><option>Year</option>  </select>';
+	var WarrentyDetails = '<input class="form-control" type="number" min="1" value="0" id="warNum" name="warNum"> <br> <select class="form-select" id="warPeriod" aria-label="Default select example" name="warPeriod"> <option>Day</option><option>Week</option><option>Month</option><option>Year</option>  </select>  <span id="wartype-error" style="color:red; font-size:13px"></span>';
 	var WarrentyNone = '';	
-	
+
 	
 	if(document.getElementById('WorNone').checked == true){
 		WarrentyDetailstoPage.innerHTML = WarrentyNone;
+		console.log("noneCheked")
 	}
 	
 	else if(document.getElementById('WorAvail').checked == true){
 			WarrentyDetailstoPage.innerHTML = WarrentyDetails;
+			console.log("available checked")
 		}
 	
 }
 
+
+function callUpdatewarrentyDetails(warrentyType, warNum, WarrantyPeriod){
+	
+	 
+	 
+	var WarrentyDetailstoPage = document.getElementById('WarrentyDetailstoPage');
+	
+	if(warrentyType == 'None'){
+		document.getElementById('WorNone').checked = true;
+		WarrentyDetailstoPage.innerHTML = '';
+		console.log("warrenty none")
+		console.log(document.getElementById('WorNone').value)
+	}
+	
+	else if(warrentyType == 'Available') {
+			document.getElementById('WorAvail').checked == true
+			WarrentyDetailstoPage.innerHTML = '<input class="form-control" type="number" value="'+warNum+'" id="html5-number-input" name="warNum"> <br> <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="warPeriod"> <option selected="">'+WarrantyPeriod+'</option> <option>Day</option><option>Week</option><option>Month</option><option>Year</option>  </select>';
+			console.log("warrenty ava")
+			console.log(document.getElementById('WorAvail').value)
+		}
+	
+}
 
 
 
@@ -138,7 +234,7 @@ var stocktable = document.getElementById('stock')
 
 function callGetAllStockServlet(){
 	
-	$.get("http://localhost:8099/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
 				
 		stock = response
 		buildAllStock(stock);
@@ -208,25 +304,15 @@ function buildAllStock(stock){
 var isNew = true;
 
 
-function callAddStockServlet(){
+function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod){
 	
 	console.log("CallGetallstock")
 	
-	var image = document.getElementById('inputFile').value
-	var name = document.getElementsByName('stockName').value
-	var category = document.getElementsByName('stockCat').value
-	var brand = document.getElementsByName('stockBrand').value
-	var price = document.getElementsByName('stockPrice').value
-	var quantity = document.getElementsByName('stockQ').value
-	var description = document.getElementsByName('stockDes').value
-	var mf_date = document.getElementsByName('stockMf').value
-	var exp_date = document.getElementsByName('stockExp').value
-	var warrentyType = document.getElementsByName('warrentyType').value
-	var warNum = document.getElementsByName('warNum').value
-	var warPeriod = document.getElementsByName('warPeriod').value
 	
+	console.log(name)
+	console.log(description)
 	
-		$.post("http://localhost:8099/LankaHardware/AddStoreItemsServlet", { name: name, category: category, brand: brand, price: price, quantity: quantity, description: description, mf_date: mf_date, exp_date, exp_date, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod }, function(response) {
+		$.post("http://localhost:8081/LankaHardware/AddStoreItemsServlet", { name: name, category: category, brand: brand, price: price, quantity: quantity, description: description, mf_date: mf_date, exp_date, exp_date, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod }, function(response) {
 
 		stock = response;
 		callGetAllStockServlet(stock);
@@ -237,10 +323,10 @@ function callAddStockServlet(){
 	})
 	}
 	
-	console.log(name);
+	//console.log(name);
 	
-	var endpoint = "http://localhost:8099/LankaHardware/AddStoreItemsServlet"
-	var formData = new FormData();
+	
+	//var formData = new FormData();
 	
 	/*for(const file of image.file){
 		formData.append('update', file)
@@ -275,12 +361,18 @@ function callAddStockServlet(){
 //update Stock
 var isNew = true;
 
-var editStockModalHeader = document.getElementById('EditStockModalHeader')
+var editStockModalHeader = document.getElementById('ViewStockModalHeader')
 var editStockModalBody = document.getElementById('EditStockModalBody')
 var editStockModalFooter = document.getElementById('EditStockModalFooter')
 var editCard = document.getElementById('card-body-edit')
 
 function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,mfDate,expDate, warrentyType, warNum, WarrantyPeriod ){
+	console.log("Hey this is the build edit stock modal")
+	
+	
+	if(warrentyType == 'Available'){
+		
+	}
 	editStockModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">EDIT ITEMS</h5>
 							              <button
 							                type="button"
@@ -316,7 +408,7 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
                           
                           <div class="mb-3 col-md-6">
                             <label for="stockCat" class="form-label">Category</label>
-                            <select id="stockCat" name = "stockCat" class="select2 form-select">
+                            <select id="TypeModal" name = "stockCat" class="select2 form-select">
                             	 <option>${type}</option>
                                <option value="mechanical">mechanical</option>
 		                        <option value="building">building</option>
@@ -405,44 +497,29 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
                     	</div>
                     	
                           
-                            
-                          <div class="mb-3 col-md-6">
-                            <label for="exp" class="form-label">Warrenty type</label>
-                         <input
-                              type="text"
-                              class="form-control"
-                              id="warrentyTypeModal"
-                              name="warrentyType"
-							  value="${warrentyType}"
-                              placeholder = "None"
-                            />
-                            
-                            
-                          </div>
-                               <div class="mb-3 col-md-6">
-                            <label for="exp" class="form-label">Warrenty number</label>
-                         <input
-                              type="text"
-                              class="form-control"
-                              id="warrentyNumModal"
-                              name="warNum"
-							  value="${warNum}"
-                              placeholder = "None"
-                            />
-                          </div>
+                            <div class="mb-3 col-md-6" >
+                         <div class="col-md">
+                          <label class="form-label" for="basic-default-message" name="warranty">Warranty</label>
                           
-                               <div class="mb-3 col-md-6">
-                            <label for="exp" class="form-label">Warrenty period</label>
-                         <input
-                              type="text"
-                              class="form-control"
-                              id="warrentyPeriodModal"
-                              name="stockExp"
-							  value="${WarrantyPeriod}"
-                              placeholder = "None"
-                            />
-                          </div>
+                          <div class="form-check mt-3 col-md-6">
+                            <input name="default-radio-1" class="form-check-input" type="radio" value="None" id="WorNone" name="warrentyTypeNone" onclick="callUpdatewarrentyDetails('${warrentyType}')">
                             
+                            <label class="form-check-label" for="defaultRadio1"> None </label>
+                          </div>
+                       
+                          <div class="form-check">
+                            <input name="default-radio-1" class="form-check-input" type="radio" value="Available" id="WorAvail" name="warrentyTypeAvailable" onclick="callUpdatewarrentyDetails('${warrentyType}' ,'${warNum}', '${WarrantyPeriod}')">
+                            <label class="form-check-label" for="defaultRadio1"> Available </label>
+                          </div>
+                         
+                          <br>
+                         
+                          <input class="form-control" type="number" value="${warNum}" id="html5-number-input" name="warNum"> <br> <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="warPeriod"> <option selected="">${WarrantyPeriod}</option> <option>Day</option><option>Week</option><option>Month</option><option>Year</option>  </select>
+			
+                           
+		                         </div> 
+                          </div>
+                             
                             
                             
                         <div class="mt-2">
@@ -453,7 +530,7 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
                         
                       </form> `
 
-	editStockModalFooter.innerHTML = ``
+
 	
 	
 	
@@ -480,7 +557,7 @@ function BuildViewStockModal(itemID,name,type,brand,price,quantity,description,m
 	viewStockModalBody.innerHTML = `<div>
 						              	 <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="../assets/img/elements/lankaHardwareLogo.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                        <img src="../assets/img/elements/lankaLogo.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
                         
                       </div>
                     </div>
@@ -513,8 +590,8 @@ function BuildViewStockModal(itemID,name,type,brand,price,quantity,description,m
                             <input
                               type="text"
                               class="form-control"
-                              id="Type"
-                              name="stockBrand"
+                              id="TypeModal"
+                              name="stockType"
 								value="${type}"
                               placeholder = "None" readonly
                             />
@@ -635,7 +712,7 @@ function callupdateItem(){
 	
 	var id = document.getElementById('StockIDModal').value
 	var name = document.getElementById('nameModal').value
-	var Type = document.getElementById('Type').value
+	var Type = document.getElementById('TypeModal').value
 	var brand = document.getElementById('brandModal').value
 	var price = document.getElementById('unit_priceModal').value
 	var quantity = document.getElementById('quantityModal').value
@@ -702,7 +779,7 @@ function callupdateItem(){
 	
 	console.log(id+name+Type+brand+price+quantity+description+mf+exp+warrentyType+warNum+ warPeriod)
 	
-	var endpoint = "http://localhost:8099/LankaHardware/UpdateStock"
+	var endpoint = "http://localhost:8081/LankaHardware/UpdateStock"
 	var formData = new FormData();
 	
 	//for(const file of inputFile.files){
@@ -711,7 +788,7 @@ function callupdateItem(){
 
 	formData.append('StockIDModal',id)
 	formData.append('nameModal',name)
-	formData.append('Type',Type)
+	formData.append('TypeModal',Type)
 	formData.append('brandModal',brand)
 	formData.append('unit_priceModal',price)
 	formData.append('quantityModal',quantity)
@@ -735,7 +812,7 @@ function callupdateItem(){
 	}
 	)
 	
-	$.post(endpoint, {StockIDModal : id, nameModal : name, Type : Type, brandModal : brand, unit_priceModal : price, quantityModal : quantity ,DescriptionModal : description, mfModal : mf , expModal : exp , warrentyTypeModal : warrentyType , warrentyNumModal : warNum , warrentyPeriodModal : warPeriod }, function(response) {
+	$.post(endpoint, {StockIDModal : id, nameModal : name, TypeModal : Type, brandModal : brand, unit_priceModal : price, quantityModal : quantity ,DescriptionModal : description, mfModal : mf , expModal : exp , warrentyTypeModal : warrentyType , warrentyNumModal : warNum , warrentyPeriodModal : warPeriod }, function(response) {
 		
 		callGetAllStockServlet()
 		setTimeout(function() {
@@ -784,7 +861,7 @@ function callDeleteStockServlet(id) {
 			                          <span class="visually-hidden">Loading...</span>
 			                        </div>`
 	deleteModalFooter.style = "display: none;"
-	$.post("http://localhost:8099/LankaHardware/RemoveItem", { id: id }, function(response) {
+	$.post("http://localhost:8081/LankaHardware/RemoveItem", { id: id }, function(response) {
 
 		deleteModalBody.style = "padding: 1rem;"
 		deleteModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
@@ -824,7 +901,7 @@ function buildSearch(from) {
 */
 
 
-
+/*
 
 //var form  = document.getElementById("StockAddForm");
 form.addEventListener("submit", validateForm);
@@ -901,4 +978,4 @@ function sendDataToServlet(name, Type, brand, price, quantity, descript, mf, exp
 	  
 }
 
-	
+*/	

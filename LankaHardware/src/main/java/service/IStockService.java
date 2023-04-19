@@ -13,7 +13,7 @@ public interface IStockService {
 
 	public ArrayList<Item> getAllStockItems();
 	
-	public String addStockItems(Item item, Collection<Part> parts); 
+	public String addStockItems(Item item); 
 
 	public String removeStockItems(String itemID);
 

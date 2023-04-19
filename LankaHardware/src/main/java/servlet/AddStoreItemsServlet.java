@@ -31,28 +31,64 @@ public class AddStoreItemsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public AddStoreItemsServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		
+	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String name = request.getParameter("stockName");
-		String cat = request.getParameter("stockCat");
-		String brand = request.getParameter("stockBrand");
-		double price = Double.parseDouble(request.getParameter("stockPrice"));
+		  
+		doGet(request, response);
+				
+		Item item = new Item();
+				
+		
+		String name = request.getParameter("name");
+		String category = request.getParameter("category");
+		String brand = request.getParameter("brand");
+		double price = Double.parseDouble(request.getParameter("price"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		String des = request.getParameter("description");
-		String mf = request.getParameter("mf_date");
-		String exp = request.getParameter("exp_date");
+		String description = request.getParameter("description");
+		String mf_date = request.getParameter("mf_date");
+		String exp_date = request.getParameter("exp_date");
 		String warrentyType = request.getParameter("warrentyType");
-		int warenty_number = Integer.parseInt(request.getParameter("warrnumber"));
+		int warNum = Integer.parseInt(request.getParameter("warNum"));
 		String warPeriod = request.getParameter("warPeriod");
 		
+		item.setName(name);
+		item.setType(category);
+		item.setBrand(brand);
+		item.setPrice(price);
+		item.setQuantity(quantity);
+		item.setDescription(description);
+		item.setMfDate(mf_date);
+		item.setExpDate(exp_date);
+		item.setWarrentyType(warrentyType);
+		item.setWarrentyNumber(warNum);
+		item.setWarrantyPeriod(warPeriod);
 		
 		
+		Collection<Part> parts = request.getParts();
+		
+		IStockService iStockService = new IStockServiceImpl();
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write("Data saved successfully.");
+		PrintWriter out = response.getWriter();
+
+		String resp = new Gson().toJson(iStockService.addStockItems(item));
+
+		out.print(resp);
+		
+		
+		/*
 		// Validate the input fields further if needed
 	    if (!isValidName(name)) {
 	      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Item Name.");
@@ -72,49 +108,21 @@ public class AddStoreItemsServlet extends HttpServlet {
 		   
 		    }
 	    
-	   // if (!isValidMf(mf)) {
-		 //     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Modify date.");
+	    if (!isValidMf(mf)) {
+		     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Modify date.");
 		   
-		 //   }
-	    
-	    
-		doGet(request, response);
+		    }
+	    */
+	  
 		
-		Item item = new Item();
-		
-		item.setName(name);
-		item.setType(cat);
-		item.setBrand(brand);
-		item.setPrice(price);
-		item.setQuantity(quantity);
-		item.setDescription(des);
-		item.setMfDate(mf);
-		item.setExpDate(exp);
-		item.setWarrentyType(warrentyType);
-		item.setWarrentyNumber(warenty_number);
-		item.setWarrantyPeriod(warPeriod);
-		
-		
-		Collection<Part> parts = request.getParts();
-		
-		IStockService iStockService = new IStockServiceImpl();
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write("Data saved successfully.");
-		PrintWriter out = response.getWriter();
-
-		String resp = new Gson().toJson(iStockService.addStockItems(item, parts ));
-
-		out.print(resp);
 	}
 
 
 
 
 
-/*
-	private boolean isValidMf(String mf) {
+
+	/*private boolean isValidMf(String mf) {
 		int CurrentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int CurrentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		String curr = "" + CurrentYear + CurrentMonth;
@@ -127,7 +135,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 		return Integer.parseInt(curr) > Integer.parseInt(user);
 		
 		
-	}*/
+	}
 
 
 	private boolean isValidQuantity(int quantity) {
@@ -150,8 +158,9 @@ public class AddStoreItemsServlet extends HttpServlet {
 	private boolean isValidBrand(String brand) {
 		// TODO Auto-generated method stub
 		return brand != null && !brand.isEmpty() && brand.length() <= 1;
-	}
+	}*/
 	
 	
+}	
 	
-}
+

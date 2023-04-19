@@ -27,6 +27,7 @@ import model.Item;
 import util.CommonConstants;
 import util.CommonUtil;
 import util.DBConnectionIsuru;
+import util.DBConnectionUtil;
 
 public class IStockServiceImpl implements IStockService {
 	private static Connection con;
@@ -81,13 +82,14 @@ public class IStockServiceImpl implements IStockService {
 	}
 
 	@Override
-	public String addStockItems(Item  item, Collection<Part> parts) {
+	public String addStockItems(Item  item) {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
 		ArrayList<String> imagePathArrayList = new ArrayList<String>();
 		ArrayList<String> stockIds = new ArrayList<String>();
 
+		/*
 		Map<String, String> config = new HashMap<String, String>();
 		config.put("cloud_name", "dqgiitni2");
 		config.put("api_key", "987952682616387");
@@ -121,7 +123,9 @@ public class IStockServiceImpl implements IStockService {
 					e.printStackTrace();
 				}
 			}
-		}
+		} */
+		
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			st = con.createStatement();
@@ -152,8 +156,8 @@ public class IStockServiceImpl implements IStockService {
 			
 			/*for (String string : imagePathArrayList) {
 				pst.setString(CommonConstants.COLUMN_INDEX_ELEVEN, string);
-			}
-*/
+			}*/
+
 			pst.executeUpdate();
 
 			status = "Stock Item Added";

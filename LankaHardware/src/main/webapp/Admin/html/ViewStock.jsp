@@ -675,7 +675,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header" id="AddStockModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Update Stock Item</h5>
+              <h5 class="modal-title" id="modalCenterTitle">Add New Stock Item</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -696,8 +696,9 @@
                     <hr class="my-0" />
                     
                     <div class="card-body">
+                    
+                    
                       <form id="StockAddForm" method="POST" onsubmit="return false">
-                      
                       
                         <div class="row">
                           <div class="mb-3 col-md-6">
@@ -706,16 +707,16 @@
                               class="form-control"
                               type="text"
                               id="stockName"
-                              name="stockName" required
+                              name="stockName" 
                    
                               autofocus
                             />
-                            <span id="name-error"></span>
+                            <span id="name-error" style="color:red; font-size:13px"></span>
                           </div>
                           
                           <div class="mb-3 col-md-6">
                             <label for="stockCat" class="form-label">Category</label>
-                            <select id="stockCat" name = "stockCat" class="select2 form-select" required>
+                            <select id="stockCat" name = "stockCat" class="select2 form-select"  autofocus>
                             	 <option></option>
                                <option value="mechanical">mechanical</option>
 		                        <option value="building">building</option>
@@ -724,39 +725,39 @@
 		                        <option value="general">general</option>
 		                            
                             </select>
-                             <span id="cat-error"></span>
+                             <span id="cat-error" style="color:red; font-size:13px"></span>
 
                           </div>
                           
                           <div class="mb-3 col-md-6">
                           	 <label class="form-label" for="basic-default-company">Brand</label>
-                         	 <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." name="stockBrand" id="stockBrand" required/>
-                         	  <span id="Brand-error"></span>
+                         	 <input type="text" class="form-control" placeholder="ACME Inc." name="stockBrand" id="stockBrand" />
+                         	  <span id="Brand-error" style="color:red; font-size:13px"></span>
                           </div>
                           
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="basic-default-phone">Unit_Price</label>
                           <input
                             type="text"
-                            id="basic-default-phone"
+                            id="stockPrice"
                             class="form-control phone-mask"
                             placeholder="Rs."
-                            name="stockPrice" required
+                            name="stockPrice" 
                           />
-                           <span id="price-error"></span>
+                           <span id="price-error" style="color:red; font-size:13px"></span>
                           </div>
                           
                           <div class="mmb-3 col-md-6">
                           <label class="form-label" for="basic-default-phone">Quantity</label>
-                          <input type="text" id="stockQ" class="form-control phone-mask" placeholder="item quantity." name="stockQ" required>
-                            <span id="quantity-error"></span>
+                          <input type="text" id="stockQ" class="form-control phone-mask" placeholder="item quantity." name="stockQ" >
+                            <span id="quantity-error" style="color:red; font-size:13px"></span>
                         </div>
       
               
                            <div class="mb-3 col-md-6">
                    			<label class="form-label" for="description">Description</label>
-                			<textarea name="stockDes" id="stockDes" cols="30" rows="3" class="form-control" placeholder="Description" required></textarea>
-                			 <span id="disc-error"></span>
+                			<textarea name="stockDes" id="stockDes" cols="30" rows="3" class="form-control" placeholder="Description" ></textarea>
+                			 <span id="disc-error" style="color:red; font-size:13px"></span>
               			  </div>
               			  
 
@@ -764,14 +765,14 @@
                           <div class="mb-3 col-md-6">
                              <label class="form-label" for="basic-default-message">Modify Date</label>
                          	 <input class="form-control" type="date" id="stockMf" name="stockMf"> 
-                         	  <span id="mf-error"></span>
+                         	  <span id="mf-error" style="color:red; font-size:13px"></span>
                                        
                           </div>
                           
                            <div class="mb-3 col-md-6">
                              <label class="form-label" for="basic-default-message">Expire Date</label>
-                         	 <input class="form-control" type="date" id="html5-date-input" name="stockExp">
-                         	  <span id="exp-error"></span>
+                         	 <input class="form-control" type="date" id="stockExp" name="stockExp">
+                         	  <span id="exp-error" style="color:red; font-size:13px"></span>
                           </div>
                           
                        <div class="card-body">
@@ -800,16 +801,16 @@
                           <label class="form-label" for="basic-default-message" name="warranty">Warranty</label>
                           
                           <div class="form-check mt-3 col-md-6">
-                            <input name="default-radio-1" class="form-check-input" type="radio" value="None" id="WorNone" name="warrentyTypeNone" onclick="callwarrentyDetails()">
+                            <input name="default-radio-1" class="form-check-input" type="radio" value="None" id="WorNone" name="warrentyType" onclick="callwarrentyDetails()" checked>
                             
                             <label class="form-check-label" for="defaultRadio1"> None </label>
                           </div>
                        
                           <div class="form-check">
-                            <input name="default-radio-1" class="form-check-input" type="radio" value="Available" id="WorAvail" name="warrentyTypeAvailable" onclick="callwarrentyDetails()">
+                            <input name="default-radio-1" class="form-check-input" type="radio" value="Available" id="WorAvail" name="warrentyType" onclick="callwarrentyDetails()">
                             <label class="form-check-label" for="defaultRadio1"> Available </label>
                           </div>
-                            <span id="wartype-error"></span>
+                           
                           <br>
                          
                            <div id="WarrentyDetailstoPage"> </div>
@@ -821,7 +822,7 @@
 			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 			                Close
 			              </button>
-			              <button type="submit" class="btn btn-primary" onclick="callAddStockServlet()">Submit</button>
+			              <button type="submit" class="btn btn-primary" onclick="validation()">Submit</button>
 			            </div>
                         </div>
                       </form>
@@ -862,6 +863,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header" id="EditStockModalHeader">
+            
               
             </div>
             <div class="modal-body" id="EditStockModalBody">
@@ -874,7 +876,7 @@
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="EditStockModalFooter">
+            <div class="modal-footer" id="Footer">
                
             </div>
           </div>
@@ -921,9 +923,6 @@
 	
 	  $(document).ready(function () {
 		  callGetAllStockServlet();
-		  callwarrentyDetails();
-		  BuildEditStockModal();
-		  BuildViewStockModal();
 		});
 	  
 	  
