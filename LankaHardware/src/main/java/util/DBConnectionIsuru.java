@@ -12,7 +12,7 @@ public class DBConnectionIsuru {
 	public static Connection getConnection() {
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(url, userName, password);
 			
 		}catch(Exception e) {
