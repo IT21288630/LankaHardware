@@ -586,6 +586,7 @@
               <div class="card">
                 <h5 class="card-header">Stock Item list</h5>
                 <div class="table-responsive text-nowrap">
+                
                   <table class="table">
                     <thead>
                       <tr>
@@ -600,9 +601,9 @@
                       </tr>
                     </thead>
                     <tbody id="stock">
-                       
-                      
+  
                     </tbody>
+                    
                   </table>
                 </div>
               </div>
@@ -716,7 +717,7 @@
                           
                           <div class="mb-3 col-md-6">
                             <label for="stockCat" class="form-label">Category</label>
-                            <select id="stockCat" name = "stockCat" class="select2 form-select"  autofocus>
+                            <select id="stockCat" name = "stockCat" class="select2 form-select">
                             	 <option></option>
                                <option value="mechanical">mechanical</option>
 		                        <option value="building">building</option>
@@ -731,7 +732,7 @@
                           
                           <div class="mb-3 col-md-6">
                           	 <label class="form-label" for="basic-default-company">Brand</label>
-                         	 <input type="text" class="form-control" placeholder="ACME Inc." name="stockBrand" id="stockBrand" />
+                         	 <input type="text" class="form-control" placeholder="ACME Inc." name="stockBrand" id="stockBrand" autofocus/>
                          	  <span id="Brand-error" style="color:red; font-size:13px"></span>
                           </div>
                           
@@ -749,28 +750,28 @@
                           
                           <div class="mmb-3 col-md-6">
                           <label class="form-label" for="basic-default-phone">Quantity</label>
-                          <input type="text" id="stockQ" class="form-control phone-mask" placeholder="item quantity." name="stockQ" >
+                          <input type="text" id="stockQ" class="form-control phone-mask" placeholder="item quantity." name="stockQ" autofocus>
                             <span id="quantity-error" style="color:red; font-size:13px"></span>
                         </div>
       
               
                            <div class="mb-3 col-md-6">
                    			<label class="form-label" for="description">Description</label>
-                			<textarea name="stockDes" id="stockDes" cols="30" rows="3" class="form-control" placeholder="Description" ></textarea>
+                			<textarea name="stockDes" id="stockDes" cols="30" rows="3" class="form-control" placeholder="Description" autofocus></textarea>
                 			 <span id="disc-error" style="color:red; font-size:13px"></span>
               			  </div>
               			  
 
               			  
                           <div class="mb-3 col-md-6">
-                             <label class="form-label" for="basic-default-message">Modify Date</label>
+                             <label class="form-label" for="basic-default-message">Modify Date <small style="color: #808080; text-transform: lowercase;"> (optional)</small></label>
                          	 <input class="form-control" type="date" id="stockMf" name="stockMf"> 
                          	  <span id="mf-error" style="color:red; font-size:13px"></span>
                                        
                           </div>
                           
                            <div class="mb-3 col-md-6">
-                             <label class="form-label" for="basic-default-message">Expire Date</label>
+                             <label class="form-label" for="basic-default-message">Expire Date <small style="color: #808080; text-transform: lowercase;"> (optional)</small></label>
                          	 <input class="form-control" type="date" id="stockExp" name="stockExp">
                          	  <span id="exp-error" style="color:red; font-size:13px"></span>
                           </div>

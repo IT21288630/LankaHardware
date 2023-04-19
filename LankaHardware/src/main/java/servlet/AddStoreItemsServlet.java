@@ -61,6 +61,14 @@ public class AddStoreItemsServlet extends HttpServlet {
 		int warNum = Integer.parseInt(request.getParameter("warNum"));
 		String warPeriod = request.getParameter("warPeriod");
 		
+		if(mf_date == null || mf_date == "") {
+			mf_date = null;
+		}
+		
+		if(exp_date == null || exp_date == "") {
+			exp_date = null;
+		}
+		
 		item.setName(name);
 		item.setType(category);
 		item.setBrand(brand);
@@ -73,8 +81,9 @@ public class AddStoreItemsServlet extends HttpServlet {
 		item.setWarrentyNumber(warNum);
 		item.setWarrantyPeriod(warPeriod);
 		
+		System.out.println("add servlet: " + mf_date);
 		
-		Collection<Part> parts = request.getParts();
+		//Collection<Part> parts = request.getParts();
 		
 		IStockService iStockService = new IStockServiceImpl();
 		
