@@ -9,31 +9,31 @@ function callGetAllEmployeesServlet(){
 				
 		employees = response
 		
-		buildAllEmployees();
+		buildAllEmployees(employees);
 	})
 }
 
-function buildAllEmployees(){
+function buildAllEmployees(emp){
 	employeestable.innerHTML = ''
-	for(var i = 0; i < employees.length; i++){
+	for(var i = 0; i < emp.length; i++){
 		var employee = `<tr>
 						<td>
-							${employees[i].empNo}
+							${emp[i].empNo}
 						</td>
 						<td>
-							${employees[i].name}
+							${emp[i].name}
 						</td>
 						<td>
-							${employees[i].email}
+							${emp[i].email}
 						</td>
 						<td>
-							${employees[i].designation}
+							${emp[i].designation}
 						</td>
 						<td>
-							${employees[i].phoneNum}
+							${emp[i].phoneNum}
 						</td>
 						<td>
-							${employees[i].address}
+							${emp[i].address}
 						</td>
 						<td>
                           <div class="dropdown">
@@ -41,10 +41,10 @@ function buildAllEmployees(){
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditEmoloyeeModal" onclick="BuildEditEmployeeModal('${employees[i].empNo}', '${employees[i].name}','${employees[i].email}','${employees[i].designation}','${employees[i].phoneNum}','${employees[i].address}','${employees[i].gender}','${employees[i].date}','${employees[i].wage}','${employees[i].salary}');"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditEmoloyeeModal" onclick="BuildEditEmployeeModal('${emp[i].empNo}', '${emp[i].name}','${emp[i].email}','${emp[i].designation}','${emp[i].phoneNum}','${emp[i].address}','${emp[i].gender}','${emp[i].date}','${emp[i].wage}','${emp[i].salary}');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"  onclick="createDeleteModal('${employees[i].empNo}')"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"  onclick="createDeleteModal('${emp[i].empNo}')"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -392,31 +392,31 @@ function callGetAllSuppliersServlet(){
 		
 		console.log(suppliers)
 		
-		buildAllSuppliers();
+		buildAllSuppliers(suppliers);
 	})
 }
 
-function buildAllSuppliers(){
+function buildAllSuppliers(sup){
 	supplierstable.innerHTML = ''
-	for(var i = 0; i < suppliers.length; i++){
+	for(var i = 0; i < sup.length; i++){
 		var supplier = `<tr>
 						<td>
-							${suppliers[i].supNo}
+							${sup[i].supNo}
 						</td>
 						<td>
-							${suppliers[i].name}
+							${sup[i].name}
 						</td>
 						<td>
-							${suppliers[i].email}
+							${sup[i].email}
 						</td>
 						<td>
-							${suppliers[i].phoneNum}
+							${sup[i].phoneNum}
 						</td>
 						<td>
-							${suppliers[i].description}
+							${sup[i].description}
 						</td>
 						<td>
-							${suppliers[i].debit}
+							${sup[i].debit}
 						</td>
 						<td>
                           <div class="dropdown">
@@ -425,10 +425,10 @@ function buildAllSuppliers(){
                             </button>
                             <div class="dropdown-menu">
                             
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditSupplierModal" onclick="BuildEditSupplierModal('${suppliers[i].supNo}', '${suppliers[i].name}','${suppliers[i].email}','${suppliers[i].phoneNum}','${suppliers[i].description}','${suppliers[i].debit}');"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditSupplierModal" onclick="BuildEditSupplierModal('${sup[i].supNo}', '${sup[i].name}','${sup[i].email}','${sup[i].phoneNum}','${sup[i].description}','${sup[i].debit}');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteSupplierModal"  onclick="createSupplierDeleteModal('${suppliers[i].supNo}')"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteSupplierModal"  onclick="createSupplierDeleteModal('${sup[i].supNo}')"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -827,22 +827,46 @@ function callDeleteFeedbackServlet(feedid) {
 	})
 }
 
-//build search results
+//build Employeee search results
 var searchLists = []
 
-function buildSearchLists(from) {
+function buildSearchLists() {
 	searchLists = []
-	var search = document.getElementById(`${from}Search`).value.toLowerCase()
+	var search = document.getElementById("searchemp").value.toLowerCase()
 	search = search.trim()
 
 	
 		for (var i = 0; i < employees.length; i++) {
-			if(employees[i].empNo.toLowerCase().includes(search)) searchLists.push(employeess[i])
+			if(employees[i].name.toLowerCase().includes(search)||employees[i].empNo.toLowerCase().includes(search))
+			
+			searchLists.push(employees[i])
 		
 		
-		buildNewEmployees(newEmployeesList, searchLists)
+		buildAllEmployees(searchLists)
+		
+	} 
+
+}
+//build supplier search results
+
+function buildSuplierSearchLists() {
+	searchLists = []
+	var search = document.getElementById("searchsup").value.toLowerCase()
+	search = search.trim()
+
+	
+		for (var i = 0; i < suppliers.length; i++) {
+			if(suppliers[i].name.toLowerCase().includes(search)||suppliers[i].supNo.toLowerCase().includes(search))
+			
+			searchLists.push(suppliers[i])
+		
+		
+		buildAllSuppliers(searchLists)
 		
 	} 
 
 
 }
+
+
+
