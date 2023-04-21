@@ -2,10 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Collection;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
@@ -81,7 +77,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 		item.setWarrentyNumber(warNum);
 		item.setWarrantyPeriod(warPeriod);
 		
-		System.out.println("add servlet: " + mf_date);
+		System.out.println("add servlet date: " + mf_date);
 		
 		//Collection<Part> parts = request.getParts();
 		
@@ -125,11 +121,6 @@ public class AddStoreItemsServlet extends HttpServlet {
 	  
 		
 	}
-
-
-
-
-
 
 	/*private boolean isValidMf(String mf) {
 		int CurrentYear = Calendar.getInstance().get(Calendar.YEAR);

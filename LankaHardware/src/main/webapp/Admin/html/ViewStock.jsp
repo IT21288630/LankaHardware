@@ -4,18 +4,6 @@
 
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -483,17 +471,22 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
+              
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
+                 <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"> <i class="bx bx-search fs-4 lh-0"></i></button>
                   <input
                     type="text"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
                     aria-label="Search..."
+                    id ="SearchDetails"
+                    autocomplete="off"
+ 
                   />
                 </div>
               </div>
+            
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -580,11 +573,40 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Stock Management /</span>View Stock</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Stock Management / </span> 
+              
+                <small  class="dropdown">Sort By: <small id="sortType" style="color:#9CA84A; font-weight: normal;"> </small> 
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"> 
+                <i class="fas fa-sort"></i>
+                </button> 
+                
+                <small class="dropdown-menu">
+     					<a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(1)">
+                       -  Id</a> 
+                        
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(2)">
+                       -  Name</a> 
+
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(3)">
+                       - Category</a>
+                       
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(4)">
+                       - MF-Date</a>
+                       
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(5)">
+                       - Exp-Date</a>
+                </small>
+                
+                </small>
+              
+              
+               </h4>
+               
+             
 
               <!-- Basic Bootstrap Table -->
               <div class="card">
-                <h5 class="card-header">Stock Item list</h5>
+                <h5 class="card-header"><small id="ItemCount">Stock Item list</small></h5>
                 <div class="table-responsive text-nowrap">
                 
                   <table class="table">
@@ -820,10 +842,10 @@
                           </div>
                         
                          <div class="modal-footer" id="AddStockFooter">
-			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
 			                Close
 			              </button>
-			              <button type="submit" class="btn btn-primary" onclick="validation()">Submit</button>
+			              <button type="submit" class="btn btn-primary" onclick="validation() ; callGetAllStockServlet()">Submit</button>
 			            </div>
                         </div>
                       </form>
@@ -833,6 +855,8 @@
             </div>
            
           </div>
+          
+          
           
 
        <!-- view modal -->
@@ -898,8 +922,6 @@
           
     
 
-
-    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>

@@ -13,6 +13,10 @@ public interface IStockService {
 
 	public ArrayList<Item> getAllStockItems();
 	
+	public ArrayList<Item> GetAllStoreItemSortBy(int sort);
+	
+	public ArrayList<Item> getSearchedItems(String searchDetails);
+	
 	public String addStockItems(Item item); 
 
 	public String removeStockItems(String itemID);
