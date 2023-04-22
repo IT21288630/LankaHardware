@@ -192,6 +192,7 @@ public class IStockServiceImpl implements IStockService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
+		System.out.println("This should not print");
 		return status;
 
 	}
@@ -362,11 +363,15 @@ public class IStockServiceImpl implements IStockService {
 	@Override
 	public ArrayList<Item> getSearchedItems(String searchDetails) {
 		ArrayList<Item> items = new ArrayList<>();
+		
+		System.out.println("This is impl");
+		String sql = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%';";
+
 		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Stock);
-
+		
+			rs = st.executeQuery(sql);
 			while (rs.next()) {
 				Item item = new Item();
 				

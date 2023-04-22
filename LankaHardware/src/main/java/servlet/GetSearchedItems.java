@@ -38,11 +38,22 @@ public class GetSearchedItems extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	
+		
 		ArrayList<Item> item = new ArrayList<Item>();
 		IStockService iStockService = new IStockServiceImpl();
 		
 		String SearchDetails = request.getParameter("SearchDetails");
-
+		System.out.println(SearchDetails + " onServlet");
+		
 		item = iStockService.getSearchedItems(SearchDetails);
 		
 		response.setContentType("application/json");
@@ -52,14 +63,6 @@ public class GetSearchedItems extends HttpServlet {
 		String resp = new Gson().toJson(item);
 		
 		out.print(resp);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

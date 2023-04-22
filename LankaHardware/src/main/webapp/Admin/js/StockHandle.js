@@ -32,15 +32,7 @@ function validation() {
   	//const nameRegex = /^[A-Za-z\s]+$/;
    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    
-   console.log("Name: ", Sname)
-   console.log("Cat: ", category)
-   console.log("brand: ",brand)
-   console.log("price: ",price)
-   console.log("quantity: ",quantity)
-   console.log("descript: ",descript)
-   console.log("mf date: ", mf)
-   console.log("exp: ", exp)
-   console.log("---------------")
+  
    
        var valiName = false;
        var valiCat = false;
@@ -177,18 +169,67 @@ function validation() {
 				
 				warrentyType = 'Available';
 			}
-			console.log("Date in validation: ", mf)
+			console.log("Date in validation: " + mf)
 			console.log(warrentyType)
 			console.log(warNum);
 			console.log(warPeriod);
 			
+			callGetAllStockServlet()
+			setTimeout(function() {
+						$('#AddStockModal').modal('hide')
+					}, 1000);
+					
+			GenerateBarCode();		
 			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod );
+			
 			
 		}
 		
 		
 	}
 
+
+function GenerateBarCode(){
+	
+	setTimeout(function() {
+		$('#ViewStockModal').modal('show')
+	}, 1000);
+					
+	var viewModalHeader = document.getElementById('ViewStockModalHeader')
+	var viewStockModalBody = document.getElementById('ViewStockModalBody')
+	var viewStockModalFooter = document.getElementById('ViewStockModalFooter')
+	var viewCard = document.getElementById('card-body-edit')
+	
+	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+				
+	stock = response
+	var stockLen = stock.length;
+	
+	var last_Item = stock[stockLen-1].itemID;
+	
+							JsBarcode('#barcode', last_Item,{
+									format: 'code128',
+									displayValue: true,
+								});
+	viewModalHeader.innerHTML = '';
+	
+	viewModalHeader.style = '';				              					
+	viewModalHeader.style = 'display:block; justify-content: center; margin-left: auto; margin-right: auto; width: 50%;  color: #00b300;';
+	viewModalHeader.innerHTML = '<h2 style="color: #00b300; position:relative; left:30px">Success!</h2> <h6 style="color: #b2beb5">Congrats! new item successfully added to the database</h6>'	
+
+	viewStockModalBody.style = "display:block;  margin-left: auto; margin-right: auto; width: 50%;";
+	//viewStockModalBody.innerHTML += 'This is the Barcode for This store Item' ;	
+	viewStockModalFooter.innerHTML = '';
+	viewCard.style = "display:block; justify-content: center; margin-left: auto; margin-right: auto; width: 50%;";	
+	viewCard.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
+			                Close
+				              </button>
+				              <button type="button" class="btn btn-primary me-2" onclick="callGetAllStockServlet()">Download</button>`;		
+		
+		
+	
+	})	
+}
    
 	
 function callwarrentyDetails(){
@@ -384,63 +425,14 @@ function callSortbyServlet(sort){
 function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod){
 		
 		var endpoint = "http://localhost:8081/LankaHardware/AddStoreItemsServlet";
-	
+		
 		console.log("This is before addstoreitems")
+	
+		
 		$.post(endpoint,{ name: name, category: category, brand: brand, price: price, quantity: quantity, description: description, mf_date: mf_date, exp_date: exp_date, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod}, function(response){
 			
-			console.log("this res: ", response)
-			//BuildAddStatus();
-			callGetAllStockServlet()
-			setTimeout(function() {
-						$('#AddStockModal').modal('hide')
-					}, 2000);
-			
 		});
-}
-
-	function BuildAddStatus(id){
-		console.log(id);
-		
-		
-			var deleteModalHeader = document.getElementById('deleteModalHeader')
-			var deleteModalBody = document.getElementById('deleteModalBody')
-			var deleteModalFooter = document.getElementById('deleteModalFooter')
-			
-		
-			deleteModalHeader.innerHTML = `<button
-								                type="button"
-								                class="btn-close"
-								                data-bs-dismiss="modal"
-								                aria-label="Close"
-								              ></button>`
-			deleteModalHeader.style.display = ""
-			
-			deleteModalBody.innerHTML = `<div style="display: flex; flex-direction: column; text-align: center;">
-								                <div class="icon-box">
-								                  <i class="material-icons">&times;</i>
-								                </div>						
-								                <h4 class="modal-title w-100">Are you sure?</h4>
-								                <p style="margin-top: 10px;">Your stock Item is added succesfully.</p>
-								              </div>`;
-								              
-			deleteModalBody.style.padding = ""
-			
-			deleteModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
-								                Close
-								              </button>
-								              <button type="button" class="btn btn-danger" >Download</button>`
-			deleteModalFooter.style.display = ""
-			
-
-					
-			setTimeout(function() {
-						$('#deleteModal').modal('hide')
-					}, 2500);
-	}
-	
-	function BuilditemAddSuccess(){}
-		
-			
+}	
 		
 	
 	
@@ -514,7 +506,6 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
                               id="StockIDModal"
                               name="stockID"
                    				value="${itemID}"
-                              autofocus
 							readonly
                             />
                           </div>
@@ -885,7 +876,7 @@ function callupdateItem(){
 		console.log("this is after updateStock response");
 		//stock = response;
 		//callGetAllStockServlet(stock);
-		console.log("response is: ", response);
+		console.log("response is: "+ response);
 		
 	});
 		callGetAllStockServlet()
@@ -957,67 +948,96 @@ function callDeleteStockServlet(id) {
 
 
 //build search
-function buildSearch(from) {
-	var dynamicSearch = document.getElementById('dynamicSearch')
-
-	dynamicSearch.innerHTML = `<div class="nav-item d-flex align-items-center">
-				                  <i class="bx bx-search fs-4 lh-0"></i>
-				                  <input
-				                    type="text"
-				                    class="form-control border-0 shadow-none"
-				                    placeholder="Search..."
-				                    aria-label="Search..."
-				                    id="${from}Search"
-				                    oninput="buildSearchResults('${from}')"
-				                  />
-				                </div>`
-}
-
 
 
 function searchItem(){
 	
-	var SearchDetails = document.getElementById('SearchDetails');
-	if(SearchDetails == "" || SearchDetails == null || SearchDetails == "undefined"){
-		alert("Please add some keywords to search")
+		    var SearchDetails = document.getElementById('SearchDetails').value;
+		  
+			//console.log("THis is from search: " + SearchDetails);
+			
+			if(SearchDetails == "" || SearchDetails == null || SearchDetails == "undefined"){
+				//alert("Please add some keywords to search")
+				console.log("failed")
+				callGetAllStockServlet();
+			}
+			else{
+					
+					$.post("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
+					stock = response;	
+					var stockLen = stock.length;
+					console.log("Stock response: " + response)
+					
+					if(response == ""){
+						buildNotfound(SearchDetails);
+					}
+					
+					buildAllStock(stock, stockLen);
+
+					
+					
+				})
+				
+			}
+			
+				
+			
+				
 	}
+		  
+		  
+function buildNotfound(keyword){
+					setTimeout(function() {
+						$('#deleteModal').modal('show')
+					}, 1);
+
+
+	deleteModalHeader.innerHTML = `
+									<button 
+					                type="button"
+					                class="btn-close"
+					                data-bs-dismiss="modal"
+					                aria-label="Close"
+					              ></button>`
+
+	deleteModalBody.innerHTML = `<div style="display: flex; flex-direction: column; text-align: center;">
+									
+									 <img src="../assets/img/admin img/OIP.jpg" alt="user-avatar" class="d-block rounded" style="display:block; margin-left: auto; margin-right: auto; width: 10%; height: 10%;">
+					                <br>					
+					                <h3 class="modal-title w-100" style="color:#000;">SORRY!</h3>
+					                
+					               
+					                <p style="margin-top: 10px;">We cannot find anything related to <small style="color:red; font-size: 20px;">${keyword}</small></p>
+					              </div>`
+					              
+	deleteModalBody.style.padding = ""
+
+	deleteModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
+					                Close
+					              </button>
+					              `
+	deleteModalFooter.style.display = ""
 	
-	$.get("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
-		stock = response
-		var stockLen = stock.length;
-		buildAllStock(stock, stockLen);
-	})
+	
+	
+		
+
+//
+	
 }
+	
 
 
-/*//build search results
-var searchResults = []
-
-function buildSearchResults(from) {
-	searchResults = []
-	var search = document.getElementById(`${from}Search`).value.toLowerCase()
-	search = search.trim()
-
-	if (from == 'new') {
-		for (var i = 0; i < newQuestions.length; i++) {
-			if(newQuestions[i].questionID.toLowerCase().includes(search)) searchResults.push(newQuestions[i])
-		}
-		
-		buildNewQuestions(newQuestionsList, searchResults)
-		
-	} else if (from == 'answered') {
-		for (var i = 0; i < answeredQuestions.length; i++) {
-			if(answeredQuestions[i].questionID.toLowerCase().includes(search)) searchResults.push(answeredQuestions[i])
-		}
-		
-		buildAnsweredQuestions(answeredQuestionsList, searchResults)
-	}
 
 
-}
 
 
-*/
+
+
+
+
+
+
 
 
 /*

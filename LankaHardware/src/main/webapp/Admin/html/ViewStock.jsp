@@ -1,8 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html>
+
 
 <html
   lang="en"
@@ -471,22 +470,22 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              
+              <form id="searchForm">
+            
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                 <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"> <i class="bx bx-search fs-4 lh-0"></i></button>
+                  <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" onclick="searchItem()"> <i class="bx bx-search fs-4 lh-0"></i></button>
                   <input
                     type="text"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
                     aria-label="Search..."
                     id ="SearchDetails"
-                    autocomplete="off"
- 
                   />
+                 
                 </div>
               </div>
-            
+              </form>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -868,7 +867,7 @@
               
             </div>
             <div class="modal-body" id="ViewStockModalBody">
-              
+               <svg id="barcode"></svg>
                     </div>
                     <hr class="my-0" />
                     
@@ -926,6 +925,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <!-- Core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
