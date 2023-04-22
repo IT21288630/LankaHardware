@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import service.ISupplierService;
-import service.SupplierServiceImpl;
+import model.WishlistChart;
+import service.IWishlistService;
 import service.WishlistServiceImpl;
 
 /**
- * Servlet implementation class SendSupplierDetailsServlet
+ * Servlet implementation class GetCartChartServlet
  */
-@WebServlet("/SendSupplierDetailsServlet")
-public class SendSupplierDetailsServlet extends HttpServlet {
+@WebServlet("/GetWishlistChartServlet")
+public class GetWishlistChartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SendSupplierDetailsServlet() {
+    public GetWishlistChartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +36,20 @@ public class SendSupplierDetailsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		IWishlistService iWishlistService = new WishlistServiceImpl();
+		String itemID = request.getParameter("itemID");
+		
+		WishlistChart wishlistChart = iWishlistService.getChartDetails(itemID);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+
+		String resp = new Gson().toJson(wishlistChart.getSizes());
+		String resp2 = new Gson().toJson(wishlistChart.getCounts());
+		String bothJson = "["+resp+","+resp2+"]";
+		
+		out.print(bothJson);
 	}
 
 	/**
@@ -44,18 +58,6 @@ public class SendSupplierDetailsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-		String supNo = "S3001";
-		ISupplierService iSupplierService = new SupplierServiceImpl();
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-
-		String resp = new Gson().toJson(iSupplierService.sendSupplierDetails(supNo));
-		System.out.println("aswjdbebf");
-		
-		out.print(resp);
 	}
 
 }

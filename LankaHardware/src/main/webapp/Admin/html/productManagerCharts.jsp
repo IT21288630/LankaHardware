@@ -271,8 +271,8 @@
 
 				<span class="text-muted fw-light">Select An Item</span>
 				<div>
-					<div class="wrapper">
-				      <div class="select-btn" onclick="toggleWrapper();">
+					<div class="wrapper" id="cartWrapper">
+				      <div class="select-btn" onclick="toggleWrapper('cart');">
 				        <span id="selectBtnText">Select Item</span>
 				        <i class="uil uil-angle-down"></i>
 				      </div>
@@ -309,6 +309,62 @@
                             </div>
                           </div>
                           <div id="cartChart"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Expense Overview -->
+            </div>
+            
+            
+            <div class="container-xxl flex-grow-1 container-p-y">
+
+				<div style="display: flex; justify-content: center;">
+					<h2 class="fw-bold" style="margin-bottom: 0px;">Wishlist Chart</h2>
+				</div>
+				
+
+				<span class="text-muted fw-light">Select An Item</span>
+				<div>
+					<div class="wrapper" id="wishWrapper">
+				      <div class="select-btn" onclick="toggleWrapper('wishlist');">
+				        <span id="wishSelectBtnText">Select Item</span>
+				        <i class="uil uil-angle-down"></i>
+				      </div>
+				      <div class="content">
+				        <div class="search">
+				          <i class="uil uil-search"></i>
+				          <input spellcheck="false" type="text" placeholder="Search" oninput="searchWishItem();" id="wishSearchInput">
+				        </div>
+				        <ul class="options2"></ul>
+				      </div>
+				    </div>
+				</div>
+				
+
+              <!-- Expense Overview -->
+                <div class="mb-4">
+                  <div class="card">
+                    <div class="card-header">
+                      <ul class="nav nav-pills" role="tablist" id="wishSizeList">
+                      </ul>
+                    </div>
+                    <div class="card-body px-0">
+                      <div class="tab-content p-0">
+                        <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+                          <div class="d-flex p-4 pt-3">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
+                            </div>
+                            <div>
+                              <small class="text-muted d-block">Total Count</small>
+                              <div class="d-flex align-items-center">
+                                <h6 class="mb-0 me-1" id="totalWishCount">0</h6>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="wishlistChart"></div>
                         </div>
                       </div>
                     </div>
