@@ -165,6 +165,8 @@
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
                     type="text"
+                    id = "searchsup"
+                    oninput = "buildSuplierSearchLists()"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
                     aria-label="Search..."
@@ -409,10 +411,6 @@
                             </div>
                           </div>
               
-                           <div class="mb-3 col-md-6">
-                   			<label class="form-label" for="description">Supplier Description</label>
-                			<textarea name="description" id="description" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
-              			  </div>
                           <div class="mb-3 col-md-6">
                             <label for="debit" class="form-label">Debit Or Credit</label>
                             <select id="supplier_type" name = "debit" class="select2 form-select">
@@ -422,6 +420,11 @@
                             
                             </select>
                           </div>
+                          
+                           <div class="mb-3 col-md-6">
+                   			<label class="form-label" for="description">Supplier Description</label>
+                			<textarea name="description" id="description" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              			  </div>
                         </div>
                         <div class="mt-2">
                           <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddSupplierServlet()">Add Supplier</button>

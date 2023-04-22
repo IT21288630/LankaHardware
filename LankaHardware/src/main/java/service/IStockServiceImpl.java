@@ -27,6 +27,7 @@ import model.Item;
 import util.CommonConstants;
 import util.CommonUtil;
 import util.DBConnectionIsuru;
+import util.DBConnectionUtil;
 
 public class IStockServiceImpl implements IStockService {
 	private static Connection con;
@@ -81,13 +82,14 @@ public class IStockServiceImpl implements IStockService {
 	}
 
 	@Override
-	public String addStockItems(Item  item, Collection<Part> parts) {
+	public String addStockItems(Item  item) {
 		// TODO Auto-generated method stub
 
 		String status = "There was something wrong";
 		ArrayList<String> imagePathArrayList = new ArrayList<String>();
 		ArrayList<String> stockIds = new ArrayList<String>();
-
+		
+		/*
 		Map<String, String> config = new HashMap<String, String>();
 		config.put("cloud_name", "dqgiitni2");
 		config.put("api_key", "987952682616387");
@@ -121,7 +123,9 @@ public class IStockServiceImpl implements IStockService {
 					e.printStackTrace();
 				}
 			}
-		}
+		} */
+		
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			st = con.createStatement();
@@ -131,7 +135,7 @@ public class IStockServiceImpl implements IStockService {
 				stockIds.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 			}
 			
-			item.setItemID(CommonUtil.generateIDs(stockIds, "stock"));
+			item.setItemID(CommonUtil.generateIDs(stockIds, "item"));
 			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_stock);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
@@ -150,13 +154,14 @@ public class IStockServiceImpl implements IStockService {
 			
 			
 			
-			/*for (String string : imagePathArrayList) {
+			for (String string : imagePathArrayList) {
 				pst.setString(CommonConstants.COLUMN_INDEX_ELEVEN, string);
 			}
-*/
+
 			pst.executeUpdate();
 
 			status = "Stock Item Added";
+			
 
 		}
 
@@ -182,7 +187,7 @@ public class IStockServiceImpl implements IStockService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
+		System.out.println(status);
 		return status;
 	}
 
@@ -204,7 +209,7 @@ public class IStockServiceImpl implements IStockService {
 
 			pst.executeUpdate();
 			
-			System.out.println("done");
+			System.out.println("Delete record done : " + stockId);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -229,7 +234,7 @@ public class IStockServiceImpl implements IStockService {
 			}
 		}
 
-		return "Stock Item removed";
+		return "Stock Item " + stockId + " is removed";
 	}
 
 	

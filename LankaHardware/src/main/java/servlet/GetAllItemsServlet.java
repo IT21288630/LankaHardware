@@ -13,13 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import model.Item;
-import model.Supplier;
-import service.ChartServiceImpl;
-import service.IChartService;
 import service.IStockService;
 import service.IStockServiceImpl;
-import service.ISupplierService;
-import service.SupplierServiceImpl;
+
 
 /**
  * Servlet implementation class GetAllItemsServlet
@@ -40,6 +36,7 @@ public class GetAllItemsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// TODO Auto-generated method stub
 		ArrayList<Item> item = new ArrayList<Item>();
 		IStockService iStockService = new IStockServiceImpl();

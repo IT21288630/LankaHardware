@@ -35,7 +35,7 @@ public class SendSupplierDetailsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class SendSupplierDetailsServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String supNo = request.getParameter("supNo");
+		String supNo = "S3001";
 		ISupplierService iSupplierService = new SupplierServiceImpl();
 		
 		response.setContentType("application/json");
@@ -53,6 +53,7 @@ public class SendSupplierDetailsServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String resp = new Gson().toJson(iSupplierService.sendSupplierDetails(supNo));
+		System.out.println("aswjdbebf");
 		
 		out.print(resp);
 	}
