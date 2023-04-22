@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import javax.servlet.http.Part;
 
 import model.Review;
+import model.ReviewChart;
+import model.WishlistChart;
 
 public interface IReviewService {
 	/** Initialize logger */
@@ -51,4 +53,10 @@ public interface IReviewService {
 	 *  @param itemID
 	 */
 	public ArrayList<Review> getItemRatings(String itemID);
+	
+	/**
+	 * get chart details
+	 * @param itemID
+	 */
+	public ReviewChart getChartDetails(String itemID);
 }

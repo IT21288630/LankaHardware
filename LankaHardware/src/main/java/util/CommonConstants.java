@@ -321,6 +321,9 @@ public class CommonConstants {
 	/** Constant for add review images */
 	public static final String QUERY_ID_ADD_REVIEW_IMAGES = "INSERT INTO review_img(reviewID, img) VALUES(?, ?);";
 	
+	/** Constant for get all item review counts for reviewChart */
+	public static final String QUERY_ID_GET_ITEM_REVIEW_COUNT = "SELECT count(reviewID) FROM review WHERE itId = ? AND stars = ?;";
+	
 	/** Constant for get items for shop page */
 	public static final String QUERY_ID_GET_ITEM_DETAILS_FOR_SHOP = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id and i.name LIKE ? GROUP BY i.id ORDER BY s.unit_price;";
 	

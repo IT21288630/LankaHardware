@@ -81,7 +81,7 @@
 	color: #bfbfbf;
 }
 
-.content .options, .content .options2 {
+.content .options, .content .options2, .content .options3 {
 	margin-top: 10px;
 	max-height: 250px;
 	overflow-y: auto;
@@ -93,27 +93,27 @@
 	width: 7px;
 }
 
-.options::-webkit-scrollbar-track, .options2::-webkit-scrollbar-track {
+.options::-webkit-scrollbar-track, .options2::-webkit-scrollbar-track, .options3::-webkit-scrollbar-track {
 	background: #f1f1f1;
 	border-radius: 25px;
 }
 
-.options::-webkit-scrollbar-thumb, .options2::-webkit-scrollbar-thumb {
+.options::-webkit-scrollbar-thumb, .options2::-webkit-scrollbar-thumb, .options3::-webkit-scrollbar-thumb {
 	background: #ccc;
 	border-radius: 25px;
 }
 
-.options::-webkit-scrollbar-thumb:hover, .options2::-webkit-scrollbar-thumb:hover {
+.options::-webkit-scrollbar-thumb:hover, .options2::-webkit-scrollbar-thumb:hover, .options3::-webkit-scrollbar-thumb:hover {
 	background: #b3b3b3;
 }
 
-.options li, .options2 li {
+.options li, .options2 li, .options3 li {
 	height: 50px;
 	padding: 0 13px;
 	font-size: 15px;
 }
 
-.options li:hover, .options2 li:hover, li.selected {
+.options li:hover, .options2 li:hover, .options3 li:hover, li.selected {
 	border-radius: 5px;
 	background: #f2f2f2;
 }
