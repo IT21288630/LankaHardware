@@ -2,10 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Collection;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
@@ -37,22 +33,26 @@ public class AddStoreItemsServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
 		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		  
+	  
 		doGet(request, response);
-				
-		Item item = new Item();
-				
+			
+		Item item = new Item();		
 		
-		String name = request.getParameter("name");
+		
+		String name = request.getParameter("name");	
 		String category = request.getParameter("category");
 		String brand = request.getParameter("brand");
+		
+		System.out.println("this is brand:"+ brand);
+		
 		double price = Double.parseDouble(request.getParameter("price"));
+		System.out.println(price);
+		
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String description = request.getParameter("description");
 		String mf_date = request.getParameter("mf_date");
@@ -60,6 +60,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 		String warrentyType = request.getParameter("warrentyType");
 		int warNum = Integer.parseInt(request.getParameter("warNum"));
 		String warPeriod = request.getParameter("warPeriod");
+		
 		
 		if(mf_date == null || mf_date == "") {
 			mf_date = null;
@@ -81,7 +82,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 		item.setWarrentyNumber(warNum);
 		item.setWarrantyPeriod(warPeriod);
 		
-		System.out.println("add servlet: " + mf_date);
+		System.out.println("add servlet date: " + mf_date);
 		
 		//Collection<Part> parts = request.getParts();
 		
@@ -125,11 +126,6 @@ public class AddStoreItemsServlet extends HttpServlet {
 	  
 		
 	}
-
-
-
-
-
 
 	/*private boolean isValidMf(String mf) {
 		int CurrentYear = Calendar.getInstance().get(Calendar.YEAR);

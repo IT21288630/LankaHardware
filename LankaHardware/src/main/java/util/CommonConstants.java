@@ -69,8 +69,20 @@ public class CommonConstants {
 	/** Constant for select customer id's*/
 	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
 	
-	/** Constant for select customer id's*/
-	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM lanka_hardware.item;";
+	/** Constant for select item id's*/
+	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item;";
+	
+	/** Constant for select searched item id's*/
+	public static final String QUERY_ID_SELECT_SEARCHED_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item where id LIKE '%?%' or name LIKE '%?%' or category LIKE '%?% or brand LIKE '%?%' or description LIKE '%?%';";
+	
+	/** Stock items sort by */
+	public static final String QUERY_ID_SORTBY_NAME = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY name;";
+	
+	public static final String QUERY_ID_SORTBY_Cat = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY category;";
+	
+	public static final String QUERY_ID_SORTBY_MF = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY mf_date;";
+	
+	public static final String QUERY_ID_SORTBY_EXP = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY exp_date;";
 	
 	
 	/** Constant for add customer details */
@@ -157,7 +169,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
 	
 	/** Constant for clear employees */
-	public static final String QUERY_ID_CLEAR_StockItem = "DELETE FROM item WHERE ('id' = ?)";
+	public static final String QUERY_ID_CLEAR_StockItem = "DELETE FROM item WHERE id = ?";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";

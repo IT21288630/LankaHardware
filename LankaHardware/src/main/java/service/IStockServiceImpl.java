@@ -85,7 +85,8 @@ public class IStockServiceImpl implements IStockService {
 	public String addStockItems(Item  item) {
 		// TODO Auto-generated method stub
 
-		String status = "There was something wrong";
+		String status = "failed";
+		String newItemID;
 		ArrayList<String> imagePathArrayList = new ArrayList<String>();
 		ArrayList<String> stockIds = new ArrayList<String>();
 		
@@ -161,8 +162,12 @@ public class IStockServiceImpl implements IStockService {
 			pst.executeUpdate();
 
 			status = "Stock Item Added";
+			newItemID = item.getItemID();
+			System.out.println("IstockImpl generated id if success: " + newItemID );
+			System.out.println("Status in Istockimpl: " + status);
 			
-
+			return newItemID;
+			
 		}
 
 		catch (SQLException e) {
@@ -187,8 +192,9 @@ public class IStockServiceImpl implements IStockService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		System.out.println(status);
+		System.out.println("This should not print");
 		return status;
+
 	}
 
 
@@ -247,7 +253,7 @@ public class IStockServiceImpl implements IStockService {
 		con = DBConnectionIsuru.getConnection();
 
 		try {
-			if(!id.equals("null")) {
+			if(!name.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_NAME);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
@@ -350,8 +356,111 @@ public class IStockServiceImpl implements IStockService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
+		System.out.println("This is the status on update: " + status);
 		return status;
+	}
+
+	@Override
+	public ArrayList<Item> getSearchedItems(String searchDetails) {
+		ArrayList<Item> items = new ArrayList<>();
+		
+		System.out.println("This is impl");
+		String sql = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%';";
+
+		con = DBConnectionIsuru.getConnection();
+		try {
+			st = con.createStatement();
+		
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Item item = new Item();
+				
+				 item.setItemID(rs.getString(1));
+				 item.setName(rs.getString(2));
+				 item.setType(rs.getString(3));
+				 item.setBrand(rs.getString(4));
+				 item.setPrice(rs.getDouble(5));
+				 item.setQuantity(rs.getInt(6));
+				 item.setDescription(rs.getString(7));
+				 item.setMfDate(rs.getString(8));
+				 item.setExpDate(rs.getString(9));
+				 item.setWarrentyType(rs.getString(10));
+				 item.setWarrentyNumber(rs.getInt(11));
+				 item.setWarrantyPeriod(rs.getString(12));
+
+
+				items.add(item);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return items;
+	}
+
+	@Override
+	public ArrayList<Item> GetAllStoreItemSortBy(int sort) {
+		// TODO Auto-generated method stub
+		System.out.println("IstockImpl before connection is done");
+		ArrayList<Item> items = new ArrayList<>();
+		con = DBConnectionIsuru.getConnection();
+		try {
+			st = con.createStatement();
+			
+			
+			
+			if(sort == 1) {
+				System.out.println("IstockImpl if sortby == 1 is done");
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Stock);
+			}
+			else if(sort == 2) {
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_NAME);
+			}
+			else if(sort == 3) {
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_Cat);			
+			}
+			else if(sort == 4) {
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_MF);
+			}
+			else if(sort == 5) {
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_EXP);
+			}
+			else {
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Stock);
+			}
+
+			
+
+			while (rs.next()) {
+				Item item = new Item();
+				
+				 item.setItemID(rs.getString(1));
+				 item.setName(rs.getString(2));
+				 item.setType(rs.getString(3));
+				 item.setBrand(rs.getString(4));
+				 item.setPrice(rs.getDouble(5));
+				 item.setQuantity(rs.getInt(6));
+				 item.setDescription(rs.getString(7));
+				 item.setMfDate(rs.getString(8));
+				 item.setExpDate(rs.getString(9));
+				 item.setWarrentyType(rs.getString(10));
+				 item.setWarrentyNumber(rs.getInt(11));
+				 item.setWarrantyPeriod(rs.getString(12));
+
+
+				items.add(item);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return items;
+		
+		
 	}
 
 	

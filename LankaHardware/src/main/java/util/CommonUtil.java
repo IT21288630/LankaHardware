@@ -36,7 +36,7 @@ public class CommonUtil {
 	public static String generateIDs(ArrayList<String> arrayList, String idType) {
 
 		String id = null;
-		int next = arrayList.size();
+		int next = arrayList.size() + 100;
 		next++;
 
 		if (idType.equals("cart")) {

@@ -27,6 +27,7 @@ public class UpdateStock extends HttpServlet {
     public UpdateStock() {
         super();
         // TODO Auto-generated constructor stub
+        System.out.println("this is the constructor updatestock");
     }
 
 	/**
@@ -52,10 +53,22 @@ public class UpdateStock extends HttpServlet {
 		String description = request.getParameter("DescriptionModal");
 		String mf = request.getParameter("mfModal");
 		String exp = request.getParameter("expModal");
-		String warrentyType = request.getParameter("warrentyTypeModal");
+		
+		String warrentyNone = request.getParameter("WorNoneModal");
+		String warrentyAva = request.getParameter("WorAvailModal");
+		
 		int warNum = Integer.parseInt(request.getParameter("warrentyNumModal"));
 		String warPeriod = request.getParameter("warrentyPeriodModal");
 		
+		String warrentyType = "Available";
+		
+		
+		if(warrentyNone == "" || warrentyNone == "None" || warrentyNone == null || warrentyNone == "undefined") {
+			warrentyType = "None";
+			warNum = 0;
+			warPeriod = "None";
+		}
+		System.out.println("warrenty Type in update servlet: " + warrentyType);
 		
 		//System.out.println(id+name+email+designation+phoneNum+address);
 		
