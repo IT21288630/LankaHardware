@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import model.Customer;
 import model.Item;
+import model.WishlistChart;
 
 public interface IWishlistService {
 	/** Initialize logger */
@@ -65,5 +66,11 @@ public interface IWishlistService {
 	 * 
 	 */
 	public LinkedHashMap<String, Boolean> checkIfItemIsInWishlist(Customer customer, Item item);
+	
+	/**
+	 * get chart details
+	 * @param itemID
+	 */
+	public WishlistChart getChartDetails(String itemID);
 	
 }

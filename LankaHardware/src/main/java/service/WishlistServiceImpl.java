@@ -17,9 +17,11 @@ import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import model.Cart;
+import model.CartChart;
 import model.Customer;
 import model.Item;
 import model.Wishlist;
+import model.WishlistChart;
 import util.CommonConstants;
 import util.CommonUtil;
 import util.DBConnectionUtil;
@@ -30,9 +32,9 @@ public class WishlistServiceImpl implements IWishlistService {
 
 	private static Statement st;
 
-	private static PreparedStatement pst;
+	private static PreparedStatement pst, pst2;
 
-	private static ResultSet rs;
+	private static ResultSet rs, rs2;
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(WishlistServiceImpl.class.getName());
@@ -114,7 +116,7 @@ public class WishlistServiceImpl implements IWishlistService {
 
 		Wishlist wishlist = new Wishlist();
 		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
-		String status = "There is a problem";	
+		String status = "There is a problem";
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -125,7 +127,7 @@ public class WishlistServiceImpl implements IWishlistService {
 			pst.executeUpdate();
 
 			status = "Added to wishlist";
-			
+
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO: handle exception
 
@@ -155,7 +157,7 @@ public class WishlistServiceImpl implements IWishlistService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		
+
 		return status;
 	}
 
@@ -176,7 +178,7 @@ public class WishlistServiceImpl implements IWishlistService {
 			pst.executeUpdate();
 
 			status = "Removed from wishlist";
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.log(Level.SEVERE, e.getMessage());
@@ -247,15 +249,15 @@ public class WishlistServiceImpl implements IWishlistService {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
 			}
-			
+
 			for (Item item : items) {
 				item.setIsInWishlist(checkIfItemIsInWishlist(customer, item));
 			}
-			
+
 			for (Item item : items) {
 				item.setSizesAndStock(iCartService.getSizesAndStock(item.getItemID()));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -396,7 +398,7 @@ public class WishlistServiceImpl implements IWishlistService {
 		con = DBConnectionUtil.getDBConnection();
 
 		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
-		
+
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SIZES_AND_PRICES);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
@@ -439,6 +441,75 @@ public class WishlistServiceImpl implements IWishlistService {
 		}
 
 		return isInWishlist;
+	}
+
+	@Override
+	public WishlistChart getChartDetails(String itemID) {
+		// TODO Auto-generated method stub
+
+		ArrayList<String> sizes = new ArrayList<>();
+		LinkedHashMap<String, ArrayList<Integer>> counts = new LinkedHashMap<>();
+		WishlistChart wishlistChart = new WishlistChart();
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEM_SIZES);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				sizes.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+
+			pst2 = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEM_WISHLIST_COUNT);
+			pst2.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+
+			for (String size : sizes) {
+				ArrayList<Integer> count = new ArrayList<>();
+				pst2.setString(CommonConstants.COLUMN_INDEX_TWO, size);
+				count.add(0);
+
+				for (int i = 1; i < 13; i++) {
+					pst2.setInt(CommonConstants.COLUMN_INDEX_THREE, i);
+					rs2 = pst2.executeQuery();
+					rs2.next();
+
+					count.add(rs2.getInt(CommonConstants.COLUMN_INDEX_ONE));
+				}
+
+				counts.put(size, count);
+			}
+
+			wishlistChart.setSizes(sizes);
+			wishlistChart.setCounts(counts);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (pst2 != null) {
+					pst2.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (rs2 != null) {
+					rs2.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return wishlistChart;
 	}
 
 	public static void main(String[] args) {

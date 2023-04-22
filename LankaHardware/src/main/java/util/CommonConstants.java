@@ -217,7 +217,7 @@ public class CommonConstants {
 	/** Constant for get all item sizes */
 	public static final String QUERY_ID_GET_ITEM_SIZES = "SELECT size FROM item_size WHERE Id = ? ORDER BY unit_price ASC;";
 	
-	/** Constant for get all item counts for  */
+	/** Constant for get all item counts for cartChart */
 	public static final String QUERY_ID_GET_ITEM_COUNT = "SELECT SUM(qty) FROM cart_chart WHERE itId = ? AND size = ? AND month(date) = ?;";
 	
 	/** Constant for edit stock */
@@ -285,6 +285,9 @@ public class CommonConstants {
 	
 	/** Constant for check if an item is in wishlist */
 	public static final String QUERY_ID_CHECK_WISHLIST = "SELECT size FROM wishlist_item WHERE wid = ? AND itId = ?;";
+	
+	/** Constant for get all item counts for wishlistChart  */
+	public static final String QUERY_ID_GET_ITEM_WISHLIST_COUNT = "SELECT count(id) FROM wishlist_chart WHERE itId = ? AND size = ? AND month(date) = ?;";
 	
 	/** Constant for get new arrivals */
 	public static final String QUERY_ID_GET_NEW_ARRIVALS = "SELECT name, brand, description FROM item ORDER BY id DESC limit 8;";
