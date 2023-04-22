@@ -224,13 +224,13 @@ function GenerateBarCode(){
 	viewCard.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
 			                Close
 				              </button>
-				              <button type="button" class="btn btn-primary me-2" onclick="callGetAllStockServlet()">Download</button>`;		
+				              <button type="button" class="btn btn-primary me-2" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">View Store</button>`;		
 		
 		
 	
 	})	
 }
-   
+
 	
 function callwarrentyDetails(){
 	 
@@ -1026,9 +1026,100 @@ function buildNotfound(keyword){
 	
 }
 	
+/*function export_data(){
+	var fp = XLSX.utils.table_to_book(stock,{sheet:'Store Records'});
+	XLSX.write(fp,{
+		bookType:'xlsx',
+		type:'base64'
+	});
+	XLSX.writeFile(wb, 'Store records.xlsx');
+
+}*/
+
+function getTable(){
+	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+				
+	stock = response
+	var stockLen = stock.length;
+	fileName = "Store_records";
+	
+	var workbook = new ExcelJS.Workbook();
+	var worksheet = workbook.addWorksheet("Sheet1");
+	//var data = JSON.parse(stock);
+	var data = JSON.parse(JSON.stringify(stock))
+	var keys = Object.keys(data[0]);
+	
+	for (var i = 0; i < keys.length; i++) {
+    worksheet.getCell(String.fromCharCode(65 + i) + 1).value = keys[i];
+  }
+	  
+	  // Add the data to the worksheet
+	  for (var i = 0; i < data.length; i++) {
+	    var values = Object.values(data[i]);
+	    
+	    for (var j = 0; j < values.length; j++) {
+	      worksheet.getCell(String.fromCharCode(65 + j) + (i + 2)).value = values[j];
+	    }
+	  }
+	  
+	    // Convert the workbook to a binary Excel file
+	  	workbook.xlsx.writeBuffer().then(function(buffer) {
+	    // Create a blob object from the buffer
+	    var blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+	    
+	    // Create a download link element
+	    var downloadLink = document.createElement("a");
+	    downloadLink.href = window.URL.createObjectURL(blob);
+	    downloadLink.download = fileName + ".xlsx";
+	    
+	    // Append the download link to the document body
+	    document.body.appendChild(downloadLink);
+	    
+	    // Trigger the download by simulating a click on the download link
+	    downloadLink.click();
+	    
+	    // Remove the download link from the document body
+	    document.body.removeChild(downloadLink);
+	    
+  });
+  
+  
+	
+	})
+	
+}
 
 
-
+function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'Store_Records.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
 
 
 

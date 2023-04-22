@@ -18,7 +18,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Stock Management - View Stock</title>
+    <title>Store Management - View Store</title>
 
     <meta name="description" content="" />
 
@@ -491,75 +491,23 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
+                <div class="widget widget-lg">
+                 <button class="btn"
+                  	onclick="getTable()"    
                     data-icon="octicon-star"
                     data-size="large"
                     data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
+                    style="background-color:rgba(67, 89, 113, 0.05);padding:7px; color:#000;font-size:12px; box-sizing: border-box;"
+
+                    ><i class="fa-solid fa-download"></i> Download Records</button>
+                    
+                    
+                </div>
+
                 </li>
 
                 <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                
                 <!--/ User -->
               </ul>
             </div>
@@ -572,7 +520,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Stock Management / </span> 
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Store Management / </span> 
               
                 <small  class="dropdown">Sort By: <small id="sortType" style="color:#9CA84A; font-weight: normal;"> </small> 
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"> 
@@ -605,7 +553,7 @@
 
               <!-- Basic Bootstrap Table -->
               <div class="card">
-                <h5 class="card-header"><small id="ItemCount">Stock Item list</small></h5>
+                <h5 class="card-header"><small id="ItemCount">Store Item list</small></h5>
                 <div class="table-responsive text-nowrap">
                 
                   <table class="table">
@@ -687,7 +635,7 @@
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
         data-bs-toggle="modal" data-bs-target="#AddStockModal"
-        >Add Stock</a
+        >Add Item</a
       >
     </div>
     
@@ -697,7 +645,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header" id="AddStockModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add New Stock Item</h5>
+              <h5 class="modal-title" id="modalCenterTitle">Add New Store Item</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -740,11 +688,11 @@
                             <label for="stockCat" class="form-label">Category</label>
                             <select id="stockCat" name = "stockCat" class="select2 form-select">
                             	 <option></option>
-                               <option value="mechanical">mechanical</option>
-		                        <option value="building">building</option>
-		                        <option value="electrical">electronics & electrical</option>
-		                        <option value="tools">tools</option>
-		                        <option value="general">general</option>
+                               <option value="mechanical">Mechanical</option>
+		                        <option value="building">Building</option>
+		                        <option value="electrical">Electronics & Electrical</option>
+		                        <option value="tools">Tools</option>
+		                        <option value="general">General</option>
 		                            
                             </select>
                              <span id="cat-error" style="color:red; font-size:13px"></span>
@@ -926,6 +874,9 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <!-- Core JS -->
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+  	
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
