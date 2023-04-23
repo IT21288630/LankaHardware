@@ -290,6 +290,10 @@ public class CommonConstants {
 	/** Constant for get item by id */
 	public static final String QUERY_ID_GET_ITEM_BY_ID = "SELECT * FROM item i, item_img img, item_size size where i.id = img.Id and i.id = size.Id and i.id = ?;";
 
+	public static final String QUERY_ID_GET_SPECIFIC_ORDER_ID = "SELECT oid FROM order WHERE email = ?;";
+	
+	public static final String QUERY_ID_GET_NEW_ORDER = "SELECT * FROM order_item WHERE oid = ?;";
+
 
 	
 	
