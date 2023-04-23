@@ -876,6 +876,7 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
   	
     <!-- build:js assets/vendor/js/core.js -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>

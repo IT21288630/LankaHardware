@@ -73,7 +73,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
 	
 	/** Constant for select item id's*/
-	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item;";
+	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id = w.id;";
 	/** Constant for select voucher id's*/
 	
 	public static final String QUERY_ID_SELECT_ALL_Voucher = "SELECT * FROM voucher;";
@@ -83,13 +83,13 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_SEARCHED_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item where id LIKE '%?%' or name LIKE '%?%' or category LIKE '%?% or brand LIKE '%?%' or description LIKE '%?%';";
 	
 	/** Stock items sort by */
-	public static final String QUERY_ID_SORTBY_NAME = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY name;";
+	public static final String QUERY_ID_SORTBY_NAME = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.name;";
 	
-	public static final String QUERY_ID_SORTBY_Cat = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY category;";
+	public static final String QUERY_ID_SORTBY_Cat = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.category;";
 	
-	public static final String QUERY_ID_SORTBY_MF = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY mf_date;";
+	public static final String QUERY_ID_SORTBY_MF = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.mf_date;";
 	
-	public static final String QUERY_ID_SORTBY_EXP = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY exp_date;";
+	public static final String QUERY_ID_SORTBY_EXP = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.exp_date;";
 	
 	/** Stock Vouchers sort by */
 	public static final String QUERY_ID_SORTBY_Code = "SELECT id, code, amount, exp FROM voucher ORDER BY code;";
@@ -106,6 +106,9 @@ public class CommonConstants {
 	
 	/** Constant for add stock details */
 	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	/** Constant for add stock details advance */
+	public static final String QUERY_ID_ADD_TO_stock_dyanamic_tables = "INSERT INTO item(id, name, category, brand, unit_price, quantity, description, mf_date, exp_date ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) INSERT INTO item_warrenty(id, warrentyType, warrentyNum, warrentyPeriod) VALUES (?,?,?,?);";
+	// INSERT INTO item_warrenty(id, warrentyType, warrentyNum, warrentyPeriod) VALUES (LAST_INSERT_ID(),'None',0, 'None');
 	
 	/** Constant for add voucher details */
 	public static final String QUERY_ID_ADD_TO_voucher = "INSERT INTO voucher (id, code, amount, exp) VALUES(?, ?, ?, ?);";
