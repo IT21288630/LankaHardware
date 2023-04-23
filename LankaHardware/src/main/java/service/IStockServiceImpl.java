@@ -26,7 +26,6 @@ import com.google.gson.JsonElement;
 import model.Item;
 import util.CommonConstants;
 import util.CommonUtil;
-import util.DBConnectionIsuru;
 import util.DBConnectionUtil;
 
 public class IStockServiceImpl implements IStockService {
@@ -48,7 +47,7 @@ public class IStockServiceImpl implements IStockService {
 		// TODO Auto-generated method stub
 
 		ArrayList<Item> items = new ArrayList<>();
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Stock);
@@ -207,7 +206,7 @@ public class IStockServiceImpl implements IStockService {
 		Item item = new Item();
 		item.setItemID(stockId);
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_StockItem);
@@ -250,7 +249,7 @@ public class IStockServiceImpl implements IStockService {
 
 		String status = "There was a problem";
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			if(!name.equals("null")) {
@@ -367,7 +366,7 @@ public class IStockServiceImpl implements IStockService {
 		System.out.println("This is impl");
 		String sql = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%';";
 
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 		
@@ -405,7 +404,7 @@ public class IStockServiceImpl implements IStockService {
 		// TODO Auto-generated method stub
 		System.out.println("IstockImpl before connection is done");
 		ArrayList<Item> items = new ArrayList<>();
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 			

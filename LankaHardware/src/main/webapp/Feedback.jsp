@@ -143,7 +143,7 @@
           </div>
 
           <div class="col-md-6 d-flex">
-          <img alt="" src="images/hardware.jpg" style="width: 100%;">
+          <img alt="" src="images/feedback1.jpg" style="width: 100%;">
           	
           </div>
         </div>

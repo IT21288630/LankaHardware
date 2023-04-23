@@ -200,7 +200,7 @@ function GenerateBarCode(){
 	var viewStockModalFooter = document.getElementById('ViewStockModalFooter')
 	var viewCard = document.getElementById('card-body-edit')
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 	stock = response
 	var stockLen = stock.length;
@@ -319,7 +319,7 @@ var stocktable = document.getElementById('stock')
 // view stock items
 function callGetAllStockServlet(){
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 		stock = response
 		var stockLen = stock.length;
@@ -404,7 +404,7 @@ function callSortbyServlet(sort){
 		showType.innerHTML = 'Exp-Date';
 	}
 	
-	var endpoint = "http://localhost:8081/LankaHardware/GetAllStoreItemSortByServlet";
+	var endpoint = "http://localhost:8080/LankaHardware/GetAllStoreItemSortByServlet";
 	$.post(endpoint,{sort:sort}, function(response){
 			stock = response
 		var stockLen = stock.length;
@@ -424,7 +424,7 @@ function callSortbyServlet(sort){
 
 function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod){
 		
-		var endpoint = "http://localhost:8081/LankaHardware/AddStoreItemsServlet";
+		var endpoint = "http://localhost:8080/LankaHardware/AddStoreItemsServlet";
 		
 		console.log("This is before addstoreitems")
 	
@@ -866,7 +866,7 @@ function callupdateItem(){
 	console.log(id + name + Type + brand + price + quantity + description + mf + exp + warrentyType + warNum + warPeriod)
 	
 	
-	var endpoint = "http://localhost:8081/LankaHardware/UpdateStock"
+	var endpoint = "http://localhost:8080/LankaHardware/UpdateStock"
 	//var formData = new FormData();
 	//for(const file of inputFile.files){
 	//	formData.append('updateModal', file)
@@ -926,7 +926,7 @@ function callDeleteStockServlet(id) {
 			                          <span class="visually-hidden">Loading...</span>
 			                        </div>`
 	deleteModalFooter.style = "display: none;"
-	$.post("http://localhost:8081/LankaHardware/RemoveItem", { id: id }, function(response) {
+	$.post("http://localhost:8080/LankaHardware/RemoveItem", { id: id }, function(response) {
 		console.log("Hey This is the calldeleteServlet function after the response");
 		console.log("response is: ", response);
 
@@ -963,7 +963,7 @@ function searchItem(){
 			}
 			else{
 					
-					$.post("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
+					$.post("http://localhost:8080/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
 					stock = response;	
 					var stockLen = stock.length;
 					console.log("Stock response: " + response)
@@ -1037,7 +1037,7 @@ function buildNotfound(keyword){
 }*/
 
 function getTable(){
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 	stock = response
 	var stockLen = stock.length;

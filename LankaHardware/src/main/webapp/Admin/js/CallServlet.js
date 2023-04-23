@@ -65,7 +65,7 @@ var isNew = true;
 
 
 function callAddEmployeeServlet(){
-	var inputFile = document.getElementById('inputFile')
+	var inputFile = document.getElementById('upload')
 	
 	var name = document.getElementById('name').value
 	var email = document.getElementById('email').value
@@ -80,37 +80,39 @@ function callAddEmployeeServlet(){
 	console.log(phoneNum)
 	
 	var endpoint = "http://localhost:8080/LankaHardware/AddEmployeeServlet"
-	//	for(const file of inputFile.files){
-//		formData.append('inputFileModal', file)
-//	}
-
-//	formData.append('empNoModal',empNo)
-//	formData.append('nameModal',name)
-//	formData.append('emailModal',email)
-//	formData.append('designationModal',designation)
-//	formData.append('addressModal',address)
-//	formData.append('dateModal',date)
-//	formData.append('salaryModal',salary)
+	var formData = new FormData();
+		for(const file of inputFile.files){
+		formData.append('upload', file)
+	}
 
 	
-//	fetch(endpoint, {
-//		method: "post",
-//		body: formData
-//	}).then(res => {
-//		callGetAllEmployeesServlet()
-//		setTimeout(function() {
-//				$('#AddEmoloyeeModal').modal('hide')
-//		}, 2500);	
-//	}
-//	)
+	formData.append('name',name)
+	formData.append('email',email)
+	formData.append('designation',designation)
+	formData.append('phoneNum',phoneNum)
+	formData.append('address',address)
+	formData.append('date',date)
+	formData.append('salary',salary)
 
-$.post(endpoint, {name : name,email : email,designation : designation,phoneNum : phoneNum,address : address,date : date,salary : salary }, function(response) {
-		
+	
+	fetch(endpoint, {
+		method: "post",
+		body: formData
+	}).then(res => {
 		callGetAllEmployeesServlet()
 		setTimeout(function() {
 				$('#AddEmoloyeeModal').modal('hide')
-		}, 1500);	
-	})
+		}, 2500);	
+	}
+	)
+
+//$.post(endpoint, {name : name,email : email,designation : designation,phoneNum : phoneNum,address : address,date : date,salary : salary }, function(response) {
+//		
+//		callGetAllEmployeesServlet()
+//		setTimeout(function() {
+//				$('#AddEmoloyeeModal').modal('hide')
+//		}, 1500);	
+//	})
 
 
 	

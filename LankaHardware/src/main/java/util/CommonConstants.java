@@ -126,7 +126,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";
 	
 	/** Constant for add to cart */
-	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary, profilepic) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	
 	/** Constant for select cart id's */
