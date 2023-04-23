@@ -36,7 +36,7 @@ public class CommonUtil {
 	public static String generateIDs(ArrayList<String> arrayList, String idType) {
 
 		String id = null;
-		int next = arrayList.size() + 100;
+		int next = arrayList.size() ;
 		next++;
 
 		if (idType.equals("cart")) {
@@ -52,6 +52,7 @@ public class CommonUtil {
 				id = CommonConstants.WISHLIST_ID_PREFIX + next;
 			}
 		} else if (idType.equals("item")) {
+			next = next + 100;
 			id = CommonConstants.ITEM_ID_PREFIX + next;
 			if (arrayList.contains(id)) {
 				next++;
@@ -87,8 +88,16 @@ public class CommonUtil {
 				next++;
 				id = CommonConstants.SUPPLIER_ID_PREFIX + next;
 			}
-		}
-
+		 }else if (idType.equals("voucher")) {
+			 	next = next + 100;
+				id = CommonConstants.VOUCHER_ID_PREFIX + next;
+				while (arrayList.contains(id)) {
+					next++;
+					id = CommonConstants.VOUCHER_ID_PREFIX + next;
+				}
+	
+		 }
 		return id;
+		
+		}
 	}
-}

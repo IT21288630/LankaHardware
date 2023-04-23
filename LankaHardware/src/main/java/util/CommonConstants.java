@@ -47,6 +47,9 @@ public class CommonConstants {
 	/** Constant for Supplier id prefix */
 	public static final String SUPPLIER_ID_PREFIX = "S300";
 	
+	/** Constant for voucher id prefix */
+	public static final String VOUCHER_ID_PREFIX = "V300";
+	
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
 	
@@ -71,6 +74,10 @@ public class CommonConstants {
 	
 	/** Constant for select item id's*/
 	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item;";
+	/** Constant for select voucher id's*/
+	
+	public static final String QUERY_ID_SELECT_ALL_Voucher = "SELECT * FROM voucher;";
+	
 	
 	/** Constant for select searched item id's*/
 	public static final String QUERY_ID_SELECT_SEARCHED_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item where id LIKE '%?%' or name LIKE '%?%' or category LIKE '%?% or brand LIKE '%?%' or description LIKE '%?%';";
@@ -84,6 +91,15 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_SORTBY_EXP = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item ORDER BY exp_date;";
 	
+	/** Stock Vouchers sort by */
+	public static final String QUERY_ID_SORTBY_Code = "SELECT id, code, amount, exp FROM voucher ORDER BY code;";
+	
+	public static final String QUERY_ID_SORTBY_Amount = "SELECT id, code, amount, exp FROM voucher ORDER BY amount;";
+	
+	public static final String QUERY_ID_SORTBY_Exp = "SELECT id, code, amount, exp FROM voucher ORDER BY exp;";
+
+	
+	
 	
 	/** Constant for add customer details */
 	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
@@ -91,6 +107,8 @@ public class CommonConstants {
 	/** Constant for add stock details */
 	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
+	/** Constant for add voucher details */
+	public static final String QUERY_ID_ADD_TO_voucher = "INSERT INTO voucher (id, code, amount, exp) VALUES(?, ?, ?, ?);";
 	
 	
 	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customerlogin(email) VALUES(?);";
@@ -114,8 +132,10 @@ public class CommonConstants {
 	/** Constant for select stock id's */
 	public static final String QUERY_ID_SELECT_ALL_Stock_IDS = "SELECT id FROM item;";
 	
-	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employee(empNo) VALUES(?);";
+	/** Constant for select voucher id's */
+	public static final String QUERY_ID_SELECT_ALL_Voucher_IDS = "SELECT id FROM voucher;";
 	
+	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employee(empNo) VALUES(?);";
 	
 	
 	/** Constant for update item */
@@ -142,6 +162,13 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_ITEM_WARPERIOD = "UPDATE item SET warrentyPeriod = ? WHERE id = ?;";
 	
+	/** Constant for update voucher */
+	
+	public static final String QUERY_ID_UPDATE_VOUCHER_code = "UPDATE voucher SET code = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_VOUCHER_amount = "UPDATE voucher SET amount= ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_VOUCHER_EXP = "UPDATE voucher SET exp = ? WHERE id = ?;";
 	
 	
 	
@@ -170,6 +197,9 @@ public class CommonConstants {
 	
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_StockItem = "DELETE FROM item WHERE id = ?";
+	
+	/** Constant for clear employees */
+	public static final String QUERY_ID_CLEAR_Voucher = "DELETE FROM voucher WHERE id = ?";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";

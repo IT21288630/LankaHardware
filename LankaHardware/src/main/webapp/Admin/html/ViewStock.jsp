@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-
-
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -752,7 +750,7 @@
 	                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
 	                            <span class="d-none d-sm-block">Product Image</span>
 	                            <i class="bx bx-upload d-block d-sm-none"></i>
-	                            <input type="file" id="inputFile" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildStockImage();">
+	                            <input type="file" id="inputFile" class="account-file-input" hidden="" accept="image/png, image/jpeg image/jpg" onchange="buildStockImage();">
 	                          </label>
 	                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
 	                            <i class="bx bx-reset d-block d-sm-none"></i>

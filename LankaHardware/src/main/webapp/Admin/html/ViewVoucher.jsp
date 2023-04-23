@@ -1,17 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -27,7 +16,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Voucher Management - View Vouchers</title>
+    <title>Voucher Management - View Store</title>
 
     <meta name="description" content="" />
 
@@ -57,6 +46,7 @@
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="https://kit.fontawesome.com/35f65b186d.js" crossorigin="anonymous"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -478,91 +468,44 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
+              <form id="searchForm">
+            
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" onclick="searchItem()"> <i class="bx bx-search fs-4 lh-0"></i></button>
                   <input
                     type="text"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
                     aria-label="Search..."
+                    id ="SearchDetails"
                   />
+                 
                 </div>
               </div>
+              </form>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
+                <div class="widget widget-lg">
+                 <button class="btn"
+                  	onclick="getTable()"    
                     data-icon="octicon-star"
                     data-size="large"
                     data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
+                    style="background-color:rgba(67, 89, 113, 0.05);padding:7px; color:#000;font-size:12px; box-sizing: border-box;"
+
+                    ><i class="fa-solid fa-download"></i> Download Records</button>
+                    
+                    
+                </div>
+
                 </li>
 
                 <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                
                 <!--/ User -->
               </ul>
             </div>
@@ -575,182 +518,55 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Voucher Management /</span>View Vouchers</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Voucher Management / </span> 
+              
+                <small  class="dropdown">Sort By: <small id="sortType" style="color:#9CA84A; font-weight: normal;"> </small> 
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"> 
+                <i class="fas fa-sort"></i>
+                </button> 
+                
+                <small class="dropdown-menu">
+     					<a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(1)">
+                       -  Id</a> 
+                        
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(2)">
+                       -  Code</a> 
+
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(3)">
+                       - Amount</a>
+                       
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(4)">
+                       - Exp-Date</a>
+ 
+                      
+                </small>
+                
+                </small>
+              
+              
+               </h4>
+               
+             
 
               <!-- Basic Bootstrap Table -->
               <div class="card">
-                <h5 class="card-header">Stock Item list</h5>
+                <h5 class="card-header"><small id="ItemCount">Voucher Item list</small></h5>
                 <div class="table-responsive text-nowrap">
+                
                   <table class="table">
                     <thead>
                       <tr>
                         <th>Id</th>
-                        <th>VoucherCode</th>
+                        <th>Code</th>
                         <th>Amount</th>
                         <th>Expire Date</th>
-                       
-                        
+                         
                       </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0">
-                    
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Var5235234</strong></td>
-                        <td>Megasale</td>
-                        <td>40%</td>
-                        <td>2023-02-12</td>
-                        
-                       
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Var5235234</strong></td>
-                        <td>0ff20</td>
-                        <td>20%</td>
-                        <td>2023-03-12</td>
-                        
-                       
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                      
-                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Var5534634</strong></td>
-                        <td>ud34jfd</td>
-                        <td>25%</td>
-                        <td>2023-05-17</td>
-                        
-                       
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                      
-                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Var5239994</strong></td>
-                        <td>Megasale</td>
-                        <td>40%</td>
-                        <td>2023-02-12</td>
-                        
-                       
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                      
-                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Var5230000</strong></td>
-                        <td>sale10</td>
-                        <td>10%</td>
-                        <td>2023-09-22</td>
-                        
-                       
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Var5264865</strong></td>
-                        <td>Gdsale</td>
-                        <td>11%</td>
-                        <td>2023-08-08</td>
-                        
-                       
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                    
-                      
-       
-       
-       
-       
-       
-       
-                      
+                    <tbody id="voucher">
+  
                     </tbody>
+                    
                   </table>
                 </div>
               </div>
@@ -812,18 +628,18 @@
         href="#"
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddVouchersModal" 
+        data-bs-toggle="modal" data-bs-target="#AddStockModal"
         >Add Voucher</a
       >
     </div>
     
     
         
-        <div class="modal fade" id="AddVouchersModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="AddStockModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="AddVouchersModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add Voucher</h5>
+            <div class="modal-header" id="AddStockModalHeader">
+              <h5 class="modal-title" id="modalCenterTitle">Add New Voucher</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -831,7 +647,8 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" id="AddVouchersModalBody">
+            
+            <div class="modal-body" id="AddStockModalBody">
               <div>
               	 <div class="button-wrapper">
                 
@@ -843,55 +660,46 @@
                     <hr class="my-0" />
                     
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
-                      
+                    
+                    
+                      <form id="StockAddForm" method="POST" onsubmit="return false">
                       
                         <div class="row">
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">ID</label>
+                            <label for="firstName" class="form-label">Code</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="supNo"
-                              name="supNo"
+                              id="Vcode"
+                              name="Vcode" 
                    
                               autofocus
                             />
+                            <span id="Vcode-error" style="color:red; font-size:13px"></span>
                           </div>
                           
                           
                           
                           <div class="mb-3 col-md-6">
-                          	 <label class="form-label" for="basic-default-company">Voucher Code</label>
-                         	 <input type="text" class="form-control" id="basic-default-company" placeholder="code" />
+                          	 <label class="form-label" for="basic-default-company">Amount</label>
+                         	 <input type="number" class="form-control" placeholder="100%" name="Vamount" id="Vamount" autofocus/>
+                         	  <span id="Vamount-error" style="color:red; font-size:13px"></span>
                           </div>
                           
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="basic-default-phone">Price</label>
-                          <input
-                            type="text"
-                            id="basic-default-phone"
-                            class="form-control phone-mask"
-                            placeholder="Rs."
-                          />
-                          </div>
-      
-              
-                           
-                           <div class="mb-3 col-md-6">
-                             <label class="form-label" for="basic-default-message">Expire Date</label>
-                         	 <input class="form-control" type="date" value="2024-06-18" id="html5-date-input">
-                          </div>
-                          
-                           
-                     	 
-                   
                         
-                         <div class="modal-footer" id="AddVoucherFooter">
-			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                           <div class="mb-3 col-md-6">
+                             <label class="form-label" for="basic-default-message">Expire Date <small style="color: #808080; text-transform: lowercase;"> (optional)</small></label>
+                         	 <input class="form-control" type="date" id="Vexp" name=""Vexp"">
+                         	  <span id="exp-error" style="color:red; font-size:13px"></span>
+                          </div>
+                                     	
+                    	 
+                        
+                         <div class="modal-footer" id="AddStockFooter">
+			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllVoucherServlet()">
 			                Close
 			              </button>
-			              <button type="button" class="btn btn-primary" onclick="callAddVoucherServlet()">Submit</button>
+			              <button type="submit" class="btn btn-primary" onclick="validation() ; callGetAllVoucherServlet()">Submit</button>
 			            </div>
                         </div>
                       </form>
@@ -901,27 +709,106 @@
             </div>
            
           </div>
+          
+          
+          
+
+       <!-- view modal -->
+          
+      <div class="modal fade" id="ViewStockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="ViewStockModalHeader">
+              
+            </div>
+            <div class="modal-body" id="ViewStockModalBody">
+               <svg id="barcode"></svg>
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="ViewStockModalFooter">
+             
+            </div>
+          </div>
+         
+          
+          <!-- edit modal -->
+      <div class="modal fade" id="EditStockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="EditStockModalHeader">
+            
+              
+            </div>
+            <div class="modal-body" id="EditStockModalBody">
+              
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="Footer">
+               
+            </div>
+          </div>
+
+<!-- Delete Modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
+            </div>
+          </div>
+        </div>
+      </div>
+          
     
 
 
-    
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <!-- Core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+  	
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    
 
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <!-- Call JS -->
+      <script src="../js/StockHandle.js"></script>
 
     <!-- Page JS -->
+      <script>
+	
+	  $(document).ready(function () {
+		  callGetAllStockServlet();
+		});
+	  
+	  
+
+</script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
