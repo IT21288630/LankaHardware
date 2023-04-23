@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,8 +23,10 @@ import org.apache.commons.io.FileUtils;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
+import model.CartChart;
 import model.Customer;
 import model.Review;
+import model.ReviewChart;
 import util.CommonConstants;
 import util.CommonUtil;
 import util.DBConnectionUtil;
@@ -33,9 +36,9 @@ public class ReviewServiceImpl implements IReviewService {
 
 	private static Statement st;
 
-	private static PreparedStatement pst;
+	private static PreparedStatement pst, pst2;
 
-	private static ResultSet rs;
+	private static ResultSet rs, rs2;
 
 	/** Initialize logger */
 	public static final Logger log = Logger.getLogger(ReviewServiceImpl.class.getName());
@@ -377,9 +380,55 @@ public class ReviewServiceImpl implements IReviewService {
 
 	}
 
+	@Override
+	public ReviewChart getChartDetails(String itemID) {
+		// TODO Auto-generated method stub
+		
+		double[][] ratingPercentageList = calculateItemRatingPercentage(itemID);
+		ReviewChart reviewChart = new ReviewChart();
+//		ArrayList<Integer> counts = new ArrayList<>();
+//		con = DBConnectionUtil.getDBConnection();
+//		
+//		try {
+//			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ITEM_REVIEW_COUNT);
+//			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+//
+//			for (int i = 1; i < 6; i++) {
+//				pst.setInt(CommonConstants.COLUMN_INDEX_TWO, i);
+//				rs = pst.executeQuery();
+//				rs.next();
+//				
+//				counts.add(rs.getInt(CommonConstants.COLUMN_INDEX_ONE));
+//			}
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			/*
+//			 * Close prepared statement and database connectivity at the end of transaction
+//			 */
+//
+//			try {
+//				if (pst != null) {
+//					pst.close();
+//				}
+//				if (rs != null) {
+//					rs.close();
+//				}
+//			} catch (SQLException e) {
+//				log.log(Level.SEVERE, e.getMessage());
+//			}
+//		}
+
+		reviewChart.setRatingPercentageList(ratingPercentageList);
+		
+		return reviewChart;
+	}
+
 	public static void main(String[] args) {
 		IReviewService iReviewService = new ReviewServiceImpl();
-		// iReviewService.addReview("a@g.m", "i100", "testing", 5);
+		System.out.println(iReviewService.calculateItemRatingPercentage("i100")[4][1]);
 
 	}
 }

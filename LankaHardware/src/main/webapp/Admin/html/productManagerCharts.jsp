@@ -372,6 +372,84 @@
                 </div>
                 <!--/ Expense Overview -->
             </div>
+            
+            <div class="container-xxl flex-grow-1 container-p-y">
+
+				<div style="display: flex; justify-content: center;">
+					<h2 class="fw-bold" style="margin-bottom: 0px;">Review Chart</h2>
+				</div>
+				
+
+				<span class="text-muted fw-light">Select An Item</span>
+				<div>
+					<div class="wrapper" id="revWrapper">
+				      <div class="select-btn" onclick="toggleWrapper('review');">
+				        <span id="revSelectBtnText">Select Item</span>
+				        <i class="uil uil-angle-down"></i>
+				      </div>
+				      <div class="content">
+				        <div class="search">
+				          <i class="uil uil-search"></i>
+				          <input spellcheck="false" type="text" placeholder="Search" oninput="searchRevItem();" id="revSearchInput">
+				        </div>
+				        <ul class="options3"></ul>
+				      </div>
+				    </div>
+				</div>
+				
+
+              <!-- Total Revenue -->
+                <div class="col-12 order-2 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-8">
+                        <h5 class="card-header m-0 me-2 pb-3">Total Rating Count</h5>
+                        <div id="reviewBarChart" class="px-2"></div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="card-body">
+                          <div class="text-center">
+                            <div class="dropdown">
+                              <button
+                                class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                type="button"
+                                id="growthReportId"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                Five star
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                                <a class="dropdown-item" href="javascript:void(0);">Five star</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Four star</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Three star</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Two star</a>
+                                <a class="dropdown-item" href="javascript:void(0);">One star</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="growthChart"></div>
+
+                        <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+                          <div class="d-flex">
+                            <div class="me-2">
+                              <span class="badge bg-label-primary p-2"><i class="bx bx-wallet text-primary"></i></span>
+                            </div>
+                            <div class="d-flex flex-column">
+                              <small>Count</small>
+                              <h6 class="mb-0">521</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Total Revenue -->
+            </div>
+            
             <!-- / Content -->
 
             <!-- Footer -->
@@ -462,6 +540,7 @@
     		}
     		
     		callGetAllItemsServlet()
+    		createReviewGrowthChart()
     	})
     });
     </script>

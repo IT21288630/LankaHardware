@@ -3,14 +3,17 @@
  */
 var cartWrapper = document.getElementById('cartWrapper')
 var wishWrapper = document.getElementById('wishWrapper')
+var revWrapper = document.getElementById('revWrapper')
 const cartOptions = cartWrapper.querySelector(".options");
 const wishOptions = wishWrapper.querySelector(".options2");
+const revOptions = revWrapper.querySelector(".options3");
 
 var firstTime = true
 var wishFirstTime = true
+var revFirstTime = true
 let items = []
 let searchResult = []
-let wishSearchResult = []
+let revSearchResult = []
 
 function setItems(allItems) {
 	allItems.forEach(item => {
@@ -19,6 +22,7 @@ function setItems(allItems) {
 
 	buildItemList(items, 'cart')
 	buildItemList(items, 'wishlist')
+	buildItemList(items, 'review')
 }
 
 function toggleWrapper(type) {
@@ -27,6 +31,9 @@ function toggleWrapper(type) {
 	}
 	else if (type == "wishlist") {
 		wishWrapper.classList.add('active')
+	}
+	else if (type == "review") {
+		revWrapper.classList.add('active')
 	}
 }
 
@@ -41,7 +48,7 @@ function buildItemList(allItems, type) {
 			cartOptions.innerHTML += li
 		}
 
-		if(firstTime == true) {
+		if (firstTime == true) {
 			$('#0Item').click()
 			firstTime = false
 		}
@@ -55,9 +62,23 @@ function buildItemList(allItems, type) {
 			wishOptions.innerHTML += li
 		}
 
-		if(wishFirstTime == true) {
+		if (wishFirstTime == true) {
 			$('#0WishItem').click()
 			wishFirstTime = false
+		}
+	}
+	else if (type == "review") {
+		revOptions.innerHTML = ""
+
+		for (var i = 0; i < allItems.length; i++) {
+			var li = `<li onclick="setItemName('${allItems[i].name}', 'review'); callGetReviewChartServlet('${allItems[i].itemID}');" id="${i}RevItem">${allItems[i].name}</li>`
+
+			revOptions.innerHTML += li
+		}
+
+		if (revFirstTime == true) {
+			$('#0RevItem').click()
+			revFirstTime = false
 		}
 	}
 }
@@ -73,11 +94,16 @@ function setItemName(name, type) {
 		selectBtnText.innerHTML = name
 		wishWrapper.classList.remove("active")
 	}
+	else if (type == 'review') {
+		var selectBtnText = document.getElementById('revSelectBtnText')
+		selectBtnText.innerHTML = name
+		revWrapper.classList.remove("active")
+	}
 }
 
 function searchItem() {
 	searchResult = []
-	var searchKeyWord = document.getElementById('searchInput').value
+	var searchKeyWord = document.getElementById('searchInput').value.toLowerCase()
 
 	for (var i = 0; i < items.length; i++) {
 		if (items[i].name.toLowerCase().includes(searchKeyWord)) searchResult.push(items[i])
@@ -88,7 +114,7 @@ function searchItem() {
 
 function searchWishItem() {
 	wishSearchResult = []
-	var searchKeyWord = document.getElementById('wishSearchInput').value
+	var searchKeyWord = document.getElementById('wishSearchInput').value.toLowerCase()
 
 	for (var i = 0; i < items.length; i++) {
 		if (items[i].name.toLowerCase().includes(searchKeyWord)) wishSearchResult.push(items[i])
@@ -97,12 +123,29 @@ function searchWishItem() {
 	buildItemList(wishSearchResult, 'wishlist')
 }
 
+function searchRevItem() {
+	revSearchResult = []
+	var searchKeyWord = document.getElementById('revSearchInput').value.toLowerCase()
+
+	for (var i = 0; i < items.length; i++) {
+		if (items[i].name.toLowerCase().includes(searchKeyWord)) revSearchResult.push(items[i])
+	}
+
+	buildItemList(revSearchResult, 'review')
+}
+
 var sizes = []
 var counts = []
 var currentCounts = []
 var wishSizes = []
 var wishCounts = []
 var wishCurrentCounts = []
+var revData = []
+var revSizes = []
+var revCounts = []
+var revCountsSeries = []
+var revPercentages = []
+var revCurrentCounts = []
 
 function callGetCartChartServlet(itemID) {
 	$.get("http://localhost:8080/LankaHardware/GetCartChartServlet", { itemID: itemID }, function(response) {
@@ -117,11 +160,33 @@ function callGetWishlistChartServlet(itemID) {
 	$.get("http://localhost:8080/LankaHardware/GetWishlistChartServlet", { itemID: itemID }, function(response) {
 		wishSizes = response[0]
 		wishCounts = response[1]
-			
+
 		buildSizes('wishlist')
 	})
 }
 
+function callGetReviewChartServlet(itemID) {
+	$.get("http://localhost:8080/LankaHardware/GetReviewChartServlet", { itemID: itemID }, function(response) {
+		revData = response
+
+		setReviewPercentagesAndCounts(revData)
+		createReviewBarChart(revCountsSeries)
+	})
+}
+
+function setReviewPercentagesAndCounts(data) {
+	revPercentages = []
+	revCounts = []
+	revCountsSeries = []
+
+	for (var i = 0; i < data.length; i++) {
+		revPercentages.push(data[i][0])
+		revCounts.push(data[i][1])
+	}
+
+	revCountsSeries.push(JSON.parse(`{"name": "Ratings",
+									"data": [${revCounts}]}`))
+}
 
 function buildSizes(type) {
 
@@ -782,9 +847,358 @@ function setWishCompareTotalCount() {
 			total += wishCounts[wishSizes[i]][j]
 		}
 	}
-	
+
 	totalElement.innerHTML = total
 }
 
 
+function createReviewBarChart(revSeries) {
+	const reviewBarChartEl = document.querySelector('#reviewBarChart'),
+		reviewBarChartOptions = {
+			series: revSeries,
+			chart: {
+				height: 300,
+				stacked: true,
+				type: 'bar',
+				toolbar: { show: false }
+			},
+			plotOptions: {
+				bar: {
+					horizontal: false,
+					columnWidth: '33%',
+					borderRadius: 12,
+					startingShape: 'rounded',
+					endingShape: 'rounded'
+				}
+			},
+			colors: [config.colors.primary, config.colors.info],
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				curve: 'smooth',
+				width: 0,
+				lineCap: 'round',
+				colors: [cardColor]
+			},
+			legend: {
+				show: true,
+				horizontalAlign: 'left',
+				position: 'top',
+				markers: {
+					height: 8,
+					width: 8,
+					radius: 12,
+					offsetX: -3
+				},
+				labels: {
+					colors: axisColor
+				},
+				itemMargin: {
+					horizontal: 10
+				}
+			},
+			grid: {
+				borderColor: borderColor,
+				padding: {
+					top: 0,
+					bottom: -8,
+					left: 20,
+					right: 20
+				}
+			},
+			xaxis: {
+				title: {
+					text: 'Stars',
+					align: 'left',
+					offsetX: 0,
+					offsetY: -10,
+					floating: false,
+					style: {
+						fontSize: '14px',
+						fontWeight: 'bold',
+						fontFamily: undefined,
+						color: 'rgba(50, 70, 90, 0.8)'
+					},
+				},
+				categories: ['One', 'Two', 'Three', 'Four', 'Five'],
+				labels: {
+					show: true,
+					style: {
+						fontSize: '13px',
+						colors: axisColor
+					}
+				},
+				axisTicks: {
+					show: false
+				},
+				axisBorder: {
+					show: false
+				}
+			},
+			yaxis: {
+				labels: {
+					style: {
+						fontSize: '13px',
+						colors: axisColor
+					}
+				}
+			},
+			responsive: [
+				{
+					breakpoint: 1700,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '32%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 1580,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '35%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 1440,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '42%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 1300,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '48%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 1200,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '40%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 1040,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 11,
+								columnWidth: '48%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 991,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '30%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 840,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '35%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 768,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '28%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 640,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '32%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 576,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '37%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 480,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '45%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 420,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '52%'
+							}
+						}
+					}
+				},
+				{
+					breakpoint: 380,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: '60%'
+							}
+						}
+					}
+				}
+			],
+			states: {
+				hover: {
+					filter: {
+						type: 'none'
+					}
+				},
+				active: {
+					filter: {
+						type: 'none'
+					}
+				}
+			}
+		};
 
+	reviewBarChartEl.innerHTML = ""
+
+	if (typeof reviewBarChartEl !== undefined && reviewBarChartEl !== null) {
+		const reviewBarChart = new ApexCharts(reviewBarChartEl, reviewBarChartOptions);
+		reviewBarChart.render();
+	}
+}
+
+function createReviewGrowthChart() {
+	const growthChartEl = document.querySelector('#growthChart'),
+		growthChartOptions = {
+			series: [78],
+			labels: ['Growth'],
+			chart: {
+				height: 240,
+				type: 'radialBar'
+			},
+			plotOptions: {
+				radialBar: {
+					size: 150,
+					offsetY: 10,
+					startAngle: -150,
+					endAngle: 150,
+					hollow: {
+						size: '55%'
+					},
+					track: {
+						background: cardColor,
+						strokeWidth: '100%'
+					},
+					dataLabels: {
+						name: {
+							offsetY: 15,
+							color: headingColor,
+							fontSize: '15px',
+							fontWeight: '600',
+							fontFamily: 'Public Sans'
+						},
+						value: {
+							offsetY: -25,
+							color: headingColor,
+							fontSize: '22px',
+							fontWeight: '500',
+							fontFamily: 'Public Sans'
+						}
+					}
+				}
+			},
+			colors: [config.colors.primary],
+			fill: {
+				type: 'gradient',
+				gradient: {
+					shade: 'dark',
+					shadeIntensity: 0.5,
+					gradientToColors: [config.colors.primary],
+					inverseColors: true,
+					opacityFrom: 1,
+					opacityTo: 0.6,
+					stops: [30, 70, 100]
+				}
+			},
+			stroke: {
+				dashArray: 5
+			},
+			grid: {
+				padding: {
+					top: -35,
+					bottom: -10
+				}
+			},
+			states: {
+				hover: {
+					filter: {
+						type: 'none'
+					}
+				},
+				active: {
+					filter: {
+						type: 'none'
+					}
+				}
+			}
+		};
+	if (typeof growthChartEl !== undefined && growthChartEl !== null) {
+		const growthChart = new ApexCharts(growthChartEl, growthChartOptions);
+		growthChart.render();
+	}
+}
