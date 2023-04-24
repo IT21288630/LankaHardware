@@ -159,7 +159,7 @@ function callAddCustomersServlet() {
 
 	$.post(endpoint, { email: email, password: Password, phone: phone, name: name, address: address }, function(response) {
 
-		window.location.href = "Login.jsp";
+		window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
 	})
 }
 function validateEmail(email) {
