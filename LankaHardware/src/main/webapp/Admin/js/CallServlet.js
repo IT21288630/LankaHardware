@@ -447,8 +447,12 @@ function buildAllSuppliers(sup){
 
 
 //Insert Suppliers
-
+var AddSupplierModal = document.getElementById('AddSupplierModalHeader')
 var isNew = true;
+var AddSupplierModalHeader = document.getElementById('AddSupplierModalHeader')
+var AddSupplierModalBody = document.getElementById('AddSupplierModalBody')
+var AddSupplierFooter = document.getElementById('AddSupplierFooter')
+
 
 
 function callAddSupplierServlet(){
@@ -482,8 +486,20 @@ function callAddSupplierServlet(){
 //		}, 2500);	
 //	}
 //	)
+	AddSupplierModalHeader.style = "display: none;"
+	AddSupplierModalBody.style = "text-align: center;"
+	AddSupplierModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
+			                          <span class="visually-hidden">Loading...</span>
+			                        </div>`
+	AddSupplierFooter.style = "display: none;"
 	
 	$.post(endpoint, {name : name,email : email,phoneNum : phoneNum,description : description,supplier_type : debit }, function(response) {
+		
+		AddSupplierModalBody.style = "padding: 1rem;"
+		AddSupplierModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${response}</span>
+									    </div>`
 		
 		callGetAllSuppliersServlet()
 		setTimeout(function() {
