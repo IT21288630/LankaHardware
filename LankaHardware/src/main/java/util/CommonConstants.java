@@ -205,10 +205,10 @@ public class CommonConstants {
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_Voucher = "DELETE FROM voucher WHERE id = ?";
 	
-	/** Constant for select cart id's */
+	/** Constant for select suppliers */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIER_IDS = "SELECT supNo FROM supplier;";
 	
-	/** Constant for select cart id's */
+	/** Constant for select suppliers id's */
 	public static final String QUERY_ID_SELECT_ALL_SUPPLIERS = "SELECT * FROM supplier;";
 	
 	/** Constant for add supplier */
@@ -216,9 +216,8 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_CREATE_SUPPLIER = "INSERT INTO supplier(supNo) VALUES(?);";
 	
-	/** Constant for clear employees */
+	/** Constant for clear suppliers */
 	public static final String QUERY_ID_CLEAR_SUPPLIERS = "DELETE FROM supplier WHERE supNo = ?";
-	
 	
 	public static final String QUERY_ID_UPDATE_SUPPLIERS_NAME = "UPDATE supplier SET name = ? WHERE supNo = ?;";
 	
@@ -228,7 +227,7 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_SUPPLIERS_DEBIT = "UPDATE supplier SET sup_type = ? WHERE supNo = ?;";
 	
-	/** Constant for get items in suppliers */
+	/** Constant for get email in suppliers */
 	public static final String QUERY_ID_GET_EMAILED_SUPPLIER_DETAILS = "SELECT supNo, description, sup_type, email FROM supplier WHERE supNo = ?;";
 			
 	/** Constant for select feedback id's */

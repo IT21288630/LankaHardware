@@ -111,8 +111,12 @@ public class SupplierServiceImpl implements ISupplierService {
 			pst.setString(CommonConstants.COLUMN_INDEX_SIX, supplier.getDebit());
 
 			pst.executeUpdate();
-
+			
+			sendSupplierDetails(supplier.getSupNo());
+			
 			status = "Supplier Added";
+			
+			
 
 		}
 
