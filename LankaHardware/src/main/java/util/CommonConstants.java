@@ -195,6 +195,7 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_EMPLOYEES_SALARY = "UPDATE employee SET salary = ? WHERE empNo = ?;";
 	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_PROFILE = "UPDATE employee SET profilepic = ? WHERE empNo = ?;";
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
 	

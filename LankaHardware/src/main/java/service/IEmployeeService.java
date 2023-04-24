@@ -20,7 +20,7 @@ public interface IEmployeeService {
 
 	public String removeEmployees(String empNo);
 
-	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String date,  String salary);
+	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String date,  String salary, Collection<Part> EmployeeImages);
 
 
 	
