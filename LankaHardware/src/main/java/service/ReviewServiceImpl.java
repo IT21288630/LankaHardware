@@ -57,8 +57,6 @@ public class ReviewServiceImpl implements IReviewService {
 			rs.next();
 
 			avgRating = rs.getDouble(CommonConstants.COLUMN_INDEX_ONE);
-			
-			System.out.println(avgRating);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

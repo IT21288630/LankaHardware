@@ -261,7 +261,6 @@ public class ShopServiceImpl implements IShopService {
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_RELEVANT_ITEM_SIZE_FOR_SHOP);
 
-			System.out.println("starting");
 			for (Item item : items) {
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
 				pst.setDouble(CommonConstants.COLUMN_INDEX_TWO, item.getPrice());
