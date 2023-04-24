@@ -111,28 +111,26 @@ function callAddCustomersServlet() {
 	if (con_Password != Password) {
 		loginError.innerHTML = "Password and Confirm password should match"
 		loginError.style = "display: block;"
-		
+		return
 	}
 	if (!validateEmail(email)) {
     document.getElementById("loginError").innerHTML = "Invalid email address";
     document.getElementById("loginError").style.display = "block";
-    valid = false;
+    return
     }
   
     if (!validatePassword(Password)) {
     document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
     document.getElementById("loginError").style.display = "block";
-    valid = false;
+    return
     }
     if (!validatePhone(phone)) {
     document.getElementById("loginError").innerHTML = "Invalid phone number";
     document.getElementById("loginError").style.display = "block";
-    valid = false;
+    return
     }
   
-    if (!valid) {
-      return;
-    }
+    
 
 	console.log(address)
 	console.log(name)
