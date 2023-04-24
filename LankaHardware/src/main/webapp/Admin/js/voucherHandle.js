@@ -16,7 +16,7 @@ function validation() {
 	
 	var codeError = document.getElementById('Vcode-error');
 	var amountError = document.getElementById('Vamount-error');
-	var errorExp = document.getElementById('exp-error');
+	
 	
 
   	//const nameRegex = /^[A-Za-z\s]+$/;
@@ -106,11 +106,12 @@ function validation() {
 	}
 	
 	
-var voucher = []
-var voucherTable = document.getElementById('voucher')
+var voucher = [];
+var voucherTable = document.getElementById('voucher');
 
 // view vouchers
 function callGetAllVoucherServlet(){
+	
 	
 	$.get("http://localhost:8081/LankaHardware/GetAllVoucherServlet", function(response) {
 				
@@ -164,7 +165,7 @@ function buildAllVouchers(voucher, varlen){
                           		  </div>
                        			 </td>
 							</tr>`;
-							console.log(voucher[i].id);
+							//console.log(voucher[i].id);
 							voucherTable.innerHTML += VoucherInFo;	
 	}
 	
@@ -201,6 +202,38 @@ function callSortbyServlet(sort){
 		
 }
 
+//sortBYview
+
+function callSortbyServlet(sort){
+	var showType = document.getElementById('sortType');
+	
+	if(sort == 1){
+		showType.innerHTML = 'Default';
+	}
+	if(sort == 2){
+		showType.innerHTML = 'code';
+	}
+	if(sort == 3){
+		showType.innerHTML = 'amount';
+	}
+	if(sort == 4){
+		showType.innerHTML = 'Exp-Date';
+	}
+
+	
+	var endpoint = "http://localhost:8081/LankaHardware/GetAllStoreItemSortByServlet";
+	$.post(endpoint,{sort:sort}, function(response){
+			stock = response
+		var stockLen = stock.length;
+		
+		buildAllStock(stock, stockLen);
+	
+	})
+			
+		
+}
+
+
 
 //Insert voucher
 
@@ -213,3 +246,148 @@ function callAddVoucherServlet(code, amount, exp){
 			
 		});
 }	
+
+
+
+
+//update voucher
+var isNew = true;
+
+var editStockModalHeader = document.getElementById('ViewStockModalHeader')
+var editStockModalBody = document.getElementById('ViewStockModalBody')
+var editStockModalFooter = document.getElementById('EditStockModalFooter')
+var editCard = document.getElementById('card-body-edit')
+
+function BuildEditStockModal(id ,code,amount,exp){
+	console.log("Hey this is the build edit voucher modal")
+	
+	editStockModalHeader.innerHTML = '';
+	editStockModalHeader.style = '';
+	editStockModalHeader.innerHTML = `
+							              <button
+							                type="button"
+							                class="btn-close"
+							                data-bs-dismiss="modal"
+							                aria-label="Close"
+							              ></button>`;
+							              
+	editStockModalBody.style = 'diplay:block; position:relative; left:190px; <br><br>'						              
+	editStockModalBody.innerHTML = '<h5 class="modal-title" id="modalCenterTitle">EDIT VOUCHER</h5>'
+
+	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="stockID" class="form-label">Voucher ID.</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="StockIDModal"
+                              name="stockID"
+                   				value="${id}"
+							readonly
+                            />
+                          </div>
+                          
+                          
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Coupon Code</label>
+                            <input class="form-control" type="text"  id="code" name="code" value="${code}" id="stockName" autofocus/>
+                          </div>
+                          
+                           <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Coupon Code</label>
+                            <input class="form-control" type="number" min="1" max="100" id="nameModal" name="amount" value="${amount}" id="amount" autofocus/>
+                          </div>
+               
+                          
+                          <div class="mb-3 col-md-6">
+                            <label for="exp" class="form-label">Expiry Date</label>
+                         <input
+                              type="date"
+                              class="form-control"
+                              id="exp"
+                              name="exp"
+							  value="${exp}"
+                              placeholder = "None"
+                            />
+                          </div>
+                                      
+                            
+                        <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callupdateVoucher(); callGetAllVoucherServlet();')">Save</button>
+                          <button type="reset" onclick ="BuildViewStockModal('${id}','${code}','${amount}','${exp}')" class="btn btn-outline-secondary" id ="clear" >Cancel</button>
+                        </div>
+                        </div>
+                        
+                      </form> `
+
+	
+}
+
+var viewModalHeader = document.getElementById('ViewStockModalHeader')
+var viewStockModalBody = document.getElementById('ViewStockModalBody')
+var viewStockModalFooter = document.getElementById('ViewStockModalFooter')
+var viewCard = document.getElementById('card-body-edit')
+
+
+function BuildViewStockModal(id,code,amount,exp){
+	
+
+	viewModalHeader.innerHTML = `      <button
+							                type="button"
+							                class="btn-close"
+							                data-bs-dismiss="modal"
+							                aria-label="Close"
+							              ></button>`
+
+	viewStockModalBody.innerHTML ='';
+	viewStockModalBody.style = 'diplay:block; position:relative; left:190px; <br><br>'						              
+	viewStockModalBody.innerHTML = '<h5 class="modal-title" id="modalCenterTitle">View VOUCHER</h5>'
+	
+	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="stockID" class="form-label">ID</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="StockIDModal"
+                              name="stockID"
+                   				value="${id}"
+                              autofocus
+							readonly
+                            />
+                          </div>
+                          
+                          
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Voucher-Code</label>
+                            <input class="form-control" type="text"  id="nameModal" value="${code}" id="stockName" readonly/>
+                          </div>
+                          
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Amount</label>
+                            <input class="form-control" type="text"  id="nameModal" value="${amount}" readonly/>
+                          </div>
+                          
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Exp-Date</label>
+                            <input class="form-control" type="text"  id="nameModal" value="${exp}"  readonly/>
+                          </div>
+                          
+
+                          
+                            
+                        <div class="mt-2">
+                          <button type="submit" onclick ="BuildEditStockModal('${id}','${code}','${amount}','${exp}')" class="btn btn-primary me-2" id = "save" >Edit</button>
+                          <button type="reset"  class="btn btn-outline-secondary" id ="clear" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                        </div>
+                        
+                      </form>`
+
+	viewStockModalFooter.innerHTML = ``
+	
+}
+
+		

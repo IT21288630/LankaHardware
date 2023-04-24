@@ -30,6 +30,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 	public AddStoreItemsServlet() {
 		super();
 		// TODO Auto-generated constructor stub
+		System.out.println("Addservlet constructor");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +39,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	  
+	   System.out.println("This is addstore servlet");
 		doGet(request, response);
 			
 		Item item = new Item();		
@@ -60,6 +61,9 @@ public class AddStoreItemsServlet extends HttpServlet {
 		String warrentyType = request.getParameter("warrentyType");
 		int warNum = Integer.parseInt(request.getParameter("warNum"));
 		String warPeriod = request.getParameter("warPeriod");
+		String size = request.getParameter("size");
+		String img = request.getParameter("img");
+		String sub = request.getParameter("subType");
 		
 		
 		if(mf_date == null || mf_date == "") {
@@ -74,13 +78,16 @@ public class AddStoreItemsServlet extends HttpServlet {
 		item.setType(category);
 		item.setBrand(brand);
 		item.setPrice(price);
-		item.setQuantity(quantity);
+		item.setStock(quantity);
 		item.setDescription(description);
 		item.setMfDate(mf_date);
 		item.setExpDate(exp_date);
 		item.setWarrentyType(warrentyType);
 		item.setWarrentyNumber(warNum);
 		item.setWarrantyPeriod(warPeriod);
+		item.setSize(size);
+		item.setMainImg(img);
+		item.setSubType(sub);
 		
 		System.out.println("add servlet date: " + mf_date);
 		

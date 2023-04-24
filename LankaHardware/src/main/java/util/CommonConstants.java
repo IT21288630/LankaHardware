@@ -74,22 +74,25 @@ public class CommonConstants {
 	
 	/** Constant for select item id's*/
 	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id = w.id;";
+	
+	// dynamic table query
+	public static final String QUERY_ID_GET_Stock_ITEMS = "SELECT i.id, i.name, i.type, i.subtype ,i.description, i.brand, i.mf_date, i.exp_date, s.size, s.stock, s.unit_price, img.img, war.warrentyType, war.warrentyNum, war.warrentyPeriod from item i, item_size s, item_img img, item_warrenty war WHERE i.id = s.id and i.id = img.id and i.id = war.id group by i.id;";
 	/** Constant for select voucher id's*/
 	
 	public static final String QUERY_ID_SELECT_ALL_Voucher = "SELECT * FROM voucher;";
 	
 	
 	/** Constant for select searched item id's*/
-	public static final String QUERY_ID_SELECT_SEARCHED_ALL_Stock = "SELECT id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item where id LIKE '%?%' or name LIKE '%?%' or category LIKE '%?% or brand LIKE '%?%' or description LIKE '%?%';";
+	public static final String QUERY_ID_SELECT_SEARCHED_ALL_Stock = "SELECT i.id, i.name, i.type, i.brand, s.unit_price, s.stock, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, warrentyPeriod FROM item i, item_size s, item_warrenty w where id LIKE '%?%' or name LIKE '%?%' or category LIKE '%?% or brand LIKE '%?%' or description LIKE '%?%';";
 	
 	/** Stock items sort by */
-	public static final String QUERY_ID_SORTBY_NAME = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.name;";
+	public static final String QUERY_ID_SORTBY_NAME = "SELECT i.id, i.name, i.type, i.subtype ,i.description, i.brand, i.mf_date, i.exp_date, s.size, s.stock, s.unit_price, img.img, war.warrentyType, war.warrentyNum, war.warrentyPeriod from item i, item_size s, item_img img, item_warrenty war WHERE i.id = s.id and i.id = img.id and i.id = war.id group by i.id ORDER BY i.name;";
 	
-	public static final String QUERY_ID_SORTBY_Cat = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.category;";
+	public static final String QUERY_ID_SORTBY_Cat = "SELECT i.id, i.name, i.type, i.subtype ,i.description, i.brand, i.mf_date, i.exp_date, s.size, s.stock, s.unit_price, img.img, war.warrentyType, war.warrentyNum, war.warrentyPeriod from item i, item_size s, item_img img, item_warrenty war WHERE i.id = s.id and i.id = img.id and i.id = war.id group by i.id ORDER BY i.type;";
 	
-	public static final String QUERY_ID_SORTBY_MF = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.mf_date;";
+	public static final String QUERY_ID_SORTBY_MF = "SELECT i.id, i.name, i.type, i.subtype ,i.description, i.brand, i.mf_date, i.exp_date, s.size, s.stock, s.unit_price, img.img, war.warrentyType, war.warrentyNum, war.warrentyPeriod from item i, item_size s, item_img img, item_warrenty war WHERE i.id = s.id and i.id = img.id and i.id = war.id group by i.id ORDER BY i.mf_date;";
 	
-	public static final String QUERY_ID_SORTBY_EXP = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id= w.id ORDER BY i.exp_date;";
+	public static final String QUERY_ID_SORTBY_EXP = "SELECT i.id, i.name, i.type, i.subtype ,i.description, i.brand, i.mf_date, i.exp_date, s.size, s.stock, s.unit_price, img.img, war.warrentyType, war.warrentyNum, war.warrentyPeriod from item i, item_size s, item_img img, item_warrenty war WHERE i.id = s.id and i.id = img.id and i.id = war.id group by i.id ORDER BY i.exp_date;";
 	
 	/** Stock Vouchers sort by */
 	public static final String QUERY_ID_SORTBY_Code = "SELECT id, code, amount, exp FROM voucher ORDER BY code;";
@@ -105,9 +108,17 @@ public class CommonConstants {
 	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
 	
 	/** Constant for add stock details */
-	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item(id, name, type, description, brand, mf_date, exp_date, subtype) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+	
+	public static final String QUERY_ID_ADD_TO_stock_item_size = "INSERT INTO item_size(id, size, unit_price, stock) VALUES(?, ?, ?, ?);";
+	
+	public static final String QUERY_ID_ADD_TO_stock_item_War = "INSERT INTO item_warrenty(id, WarrentyType, warrentyNum, warrentyPeriod) VALUES(?, ?, ?, ?);";
+	
+	public static final String QUERY_ID_ADD_TO_stock_item_IMG = "INSERT INTO item_img(id, img) VALUES(?, ?);";
+	
 	/** Constant for add stock details advance */
-	public static final String QUERY_ID_ADD_TO_stock_dyanamic_tables = "INSERT INTO item(id, name, category, brand, unit_price, quantity, description, mf_date, exp_date ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) INSERT INTO item_warrenty(id, warrentyType, warrentyNum, warrentyPeriod) VALUES (?,?,?,?);";
+	
+	
 	// INSERT INTO item_warrenty(id, warrentyType, warrentyNum, warrentyPeriod) VALUES (LAST_INSERT_ID(),'None',0, 'None');
 	
 	/** Constant for add voucher details */
@@ -140,18 +151,22 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_CREATE_EMPLOYEE = "INSERT INTO employee(empNo) VALUES(?);";
 	
+	/** Constant for get other item details */
+	public static final String QUERY_ID_GET_ITEM_DETAILS = "SELECT id name, brand, description, (SELECT img FROM item_img WHERE Id = ? limit 1) as 'img', (SELECT unit_price FROM item_size WHERE id = ? and size = ?) as 'price', (SELECT stock FROM item_size WHERE id = ? and size = ?) as 'stock' FROM item WHERE id = ?;";
+	
+	
 	
 	/** Constant for update item */
 	
 	public static final String QUERY_ID_UPDATE_ITEM_NAME = "UPDATE item SET name = ? WHERE id = ?;";
 	
-	public static final String QUERY_ID_UPDATE_ITEM_CAT = "UPDATE item SET category = ? WHERE id = ?;";
+	public static final String QUERY_ID_UPDATE_ITEM_CAT = "UPDATE item SET type = ? WHERE id = ?;";
 	
 	public static final String QUERY_ID_UPDATE_ITEM_BRAND = "UPDATE item SET brand = ? WHERE id = ?;";
 	
-	public static final String QUERY_ID_UPDATE_ITEM_PRICE = "UPDATE item SET unit_price = ? WHERE id = ?;";
+	public static final String QUERY_ID_UPDATE_ITEM_PRICE = "UPDATE item_size SET unit_price = ? WHERE id = ?;";
 	
-	public static final String QUERY_ID_UPDATE_ITEM_QUANTITY = "UPDATE item SET quantity = ? WHERE id = ?;";
+	public static final String QUERY_ID_UPDATE_ITEM_QUANTITY = "UPDATE item_size SET stock = ? WHERE id = ?;";
 	
 	public static final String QUERY_ID_UPDATE_ITEM_DESCRIPTION = "UPDATE item SET description = ? WHERE id = ?;";
 	
@@ -159,11 +174,17 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_ITEM_EXP = "UPDATE item SET exp_date = ? WHERE id = ?;";
 	
-	public static final String QUERY_ID_UPDATE_ITEM_WARTYPE = "UPDATE item SET warrentyType = ? WHERE id = ?;";
+	public static final String QUERY_ID_UPDATE_ITEM_WARTYPE = "UPDATE item_warrenty SET warrentyType = ? WHERE id = ?;";
 	
-	public static final String QUERY_ID_UPDATE_ITEM_WARNUM = "UPDATE item SET warrentyNum = ? WHERE id = ?;";
+	public static final String QUERY_ID_UPDATE_ITEM_WARNUM = "UPDATE item_warrenty SET warrentyNum = ? WHERE id = ?;";
 	
-	public static final String QUERY_ID_UPDATE_ITEM_WARPERIOD = "UPDATE item SET warrentyPeriod = ? WHERE id = ?;";
+	public static final String QUERY_ID_UPDATE_ITEM_WARPERIOD = "UPDATE item_warrenty SET warrentyPeriod = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_SIZE = "UPDATE item_size SET size = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_SUBTYPE = "UPDATE item SET subtype = ? WHERE id = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ITEM_img = "UPDATE item_img SET img = ? WHERE id = ?;";
 	
 	/** Constant for update voucher */
 	

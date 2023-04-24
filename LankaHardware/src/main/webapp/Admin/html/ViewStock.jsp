@@ -698,6 +698,35 @@
                           </div>
                           
                           <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Sub-Type</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="subType"
+                              name="subType" 
+                   
+                              autofocus
+                            />
+                            <span id="sub-error" style="color:red; font-size:13px"></span>
+                            </div>
+                          
+                          
+                             <div class="mb-3 col-md-6">
+                            <label for="stockCat" class="form-label">Size</label>
+                            <select id="StockSize" name = "StockSize" class="select2 form-select">
+                            	 <option value="None">None</option>
+                                <option value="Small">Small</option>
+		                        <option value="Medium">Medium</option>
+		                        <option value="Large">Large</option>
+		                        <option value="XXL">XXL</option>
+		                        <option value="XXXL">XXXL</option>
+		                            
+                            </select>
+                             <span id="size-error" style="color:red; font-size:13px"></span>
+
+                          </div>
+                          
+                          <div class="mb-3 col-md-6">
                           	 <label class="form-label" for="basic-default-company">Brand</label>
                          	 <input type="text" class="form-control" placeholder="ACME Inc." name="stockBrand" id="stockBrand" autofocus/>
                          	  <span id="Brand-error" style="color:red; font-size:13px"></span>
@@ -750,7 +779,7 @@
 	                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
 	                            <span class="d-none d-sm-block">Product Image</span>
 	                            <i class="bx bx-upload d-block d-sm-none"></i>
-	                            <input type="file" id="inputFile" class="account-file-input" hidden="" accept="image/png, image/jpeg image/jpg" onchange="buildStockImage();">
+	                            <input type="file" id="img" class="account-file-input" hidden="" accept="image/png, image/jpeg image/jpg" onchange="buildStockImage();">
 	                          </label>
 	                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
 	                            <i class="bx bx-reset d-block d-sm-none"></i>

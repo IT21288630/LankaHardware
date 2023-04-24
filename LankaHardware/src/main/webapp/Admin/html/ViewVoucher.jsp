@@ -699,7 +699,7 @@
 			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllVoucherServlet()">
 			                Close
 			              </button>
-			              <button type="submit" class="btn btn-primary" onclick="validation() ; callGetAllVoucherServlet()">Submit</button>
+			              <button type="submit" class="btn btn-primary" onclick="validation(); callGetAllVoucherServlet();">Submit</button>
 			            </div>
                         </div>
                       </form>
@@ -797,13 +797,13 @@
     <!-- Vendors JS -->
 
     <!-- Call JS -->
-      <script src="../js/StockHandle.js"></script>
+      <script src="../js/voucherHandle.js"></script>
 
     <!-- Page JS -->
       <script>
 	
 	  $(document).ready(function () {
-		  callGetAllStockServlet();
+		  callGetAllVoucherServlet();
 		});
 	  
 	  
