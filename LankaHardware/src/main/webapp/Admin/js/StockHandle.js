@@ -13,9 +13,11 @@ function validation() {
 	var descript = document.getElementById('stockDes').value
 	var mf = document.getElementById('stockMf').value
 	var exp = document.getElementById('stockExp').value
-	
+	var size = document.getElementById('StockSize').value
 	var warNone = document.getElementById('WorNone').value
 	var warAva = document.getElementById('WorAvail').value
+	var img = document.getElementById('img').value;
+	var sub = document.getElementById('subType').value;
 	
 	
 	var errorName = document.getElementById('name-error');
@@ -27,6 +29,8 @@ function validation() {
 	var errorMF = document.getElementById('mf-error');
 	var errorExp = document.getElementById('exp-error');
 	var errorwartype = document.getElementById('wartype-error');
+	var errorsize = document.getElementById('size-error');
+	var errorSub = document.getElementById('sub-error');
   
 
   	//const nameRegex = /^[A-Za-z\s]+$/;
@@ -40,6 +44,7 @@ function validation() {
        var valiPrice = false;
        var valiQ = false;
        var valiDes = false;
+       var valiSub = false;
 		
 	  if (Sname == "") {	
 	     errorName.innerHTML = 'Please enter a valid name';
@@ -62,6 +67,16 @@ function validation() {
 			errorCat.innerHTML ='';
 			valiCat = true;
 		}
+		
+		 if (sub == "") {	
+		     errorSub.innerHTML = 'Please enter a valid sub category';
+		     valiSub = false;
+		   }
+		  
+		   if (!sub == "") {
+		     errorSub.innerHTML = '';
+		     valiSub = true;
+		   }
 		
 		
 		if(brand == "" || brand == null){
@@ -145,7 +160,7 @@ function validation() {
 		//}
 				 
 		//callAddStockServlet(Sname, category, brand, price, quantity, description, mf, exp, warrentyType, warNum, warPeriod );
-		if(valiName == true && valiCat == true&& valiPrice == true && valiQ == true && valiDes == true && valiBrand == true){
+		if(valiName == true && valiCat == true&& valiPrice == true && valiQ == true && valiDes == true && valiBrand == true && valiSub == true){
 			
 			var warrentyType;
 			
@@ -154,6 +169,9 @@ function validation() {
 			}
 			if(exp == ""){
 				exp = null;
+			}
+			if(img == ""){
+				img == "None";
 			}
 			
 			if(document.getElementById('WorNone').checked == true){
@@ -179,9 +197,9 @@ function validation() {
 						$('#AddStockModal').modal('hide')
 					}, 1000);
 					
-			GenerateBarCode();		
-			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod );
-			
+				
+			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod,size, img, subType);
+			GenerateBarCode();
 			
 		}
 		
@@ -350,7 +368,7 @@ function buildAllStock(stock, stockLen){
 									${stock[i].brand}
 								</td>
 								<td>
-									${stock[i].quantity}
+									${stock[i].stock}
 								</td>
 								<td>
 									LKR. ${stock[i].price}
@@ -364,10 +382,10 @@ function buildAllStock(stock, stockLen){
                             
 
 		                            	<div class="dropdown-menu">
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].stock}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}','${stock[i].size}', '${stock[i].mainImg}')">
 				                              <i class="fa-regular fa-eye"></i> View</a> 
 				                               
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].stock}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}', '${stock[i].size}', '${stock[i].mainImg}')">
 				                              <i class="bx bx-edit-alt me-1"></i>Edit</a> 
 		
 				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="createDeleteModal('${stock[i].itemID}')">
@@ -376,7 +394,7 @@ function buildAllStock(stock, stockLen){
                           		  </div>
                        			 </td>
 							</tr>`;
-							console.log(stock[i].itemID);
+							//console.log(stock[i].itemID);
 							stocktable.innerHTML += stockInFo;	
 	}
 }
@@ -422,15 +440,16 @@ function callSortbyServlet(sort){
 
 //Insert Stock
 
-function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod){
+function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod, size, img, subType){
 		
 		var endpoint = "http://localhost:8080/LankaHardware/AddStoreItemsServlet";
 		
 		console.log("This is before addstoreitems")
+		console.log("Inputs: " + name + category+brand+price+quantity+ description+mf_date+exp_date+ warrentyType+ warNum+ warPeriod+size+ img+subType);
 	
 		
-		$.post(endpoint,{ name: name, category: category, brand: brand, price: price, quantity: quantity, description: description, mf_date: mf_date, exp_date: exp_date, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod}, function(response){
-			
+		$.post(endpoint,{ name: name, category: category, brand: brand, price: price, quantity: quantity, description: description, mf_date: mf_date, exp_date: exp_date, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod, size: size, img: img, subType : subType}, function(response){
+			console.log("this is after add response")
 		});
 }	
 		
@@ -530,6 +549,35 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
                             </select>
                             
                             
+                          </div>
+                          
+                          <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Sub-Type</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="subType"
+                              name="subType" 
+                   
+                              autofocus
+                            />
+                            <span id="sub-error" style="color:red; font-size:13px"></span>
+                            </div>
+                          
+                          
+                             <div class="mb-3 col-md-6">
+                            <label for="stockCat" class="form-label">Size</label>
+                            <select id="StockSize" name = "StockSize" class="select2 form-select">
+                            	 <option value="None">None</option>
+                                <option value="Small">Small</option>
+		                        <option value="Medium">Medium</option>
+		                        <option value="Large">Large</option>
+		                        <option value="XXL">XXL</option>
+		                        <option value="XXXL">XXXL</option>
+		                            
+                            </select>
+                             <span id="size-error" style="color:red; font-size:13px"></span>
+
                           </div>
                           
                           
@@ -711,6 +759,34 @@ function BuildViewStockModal(itemID,name,type,brand,price,quantity,description,m
                             
                           </div>
                           
+                                
+                          <div class="mb-3 col-md-6">
+                            <label for="stockCat" class="form-label">Sub-Type</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="TypeModal"
+                              name="stockType"
+								value="${type}"
+                              placeholder = "None" readonly
+                            />
+                            
+                          </div>
+                          
+                                
+                          <div class="mb-3 col-md-6">
+                            <label for="stockCat" class="form-label">Size</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="TypeModal"
+                              name="stockType"
+								value="${type}"
+                              placeholder = "None" readonly
+                            />
+                            
+                          </div>
+                          
                           
                           
                           <div class="mb-3 col-md-6">
@@ -821,7 +897,15 @@ function BuildViewStockModal(itemID,name,type,brand,price,quantity,description,m
 
 function callupdateItem(){
 	//var inputFile = document.getElementById('updateModal')
-	
+	callGetAllStockServlet()
+		setTimeout(function() {
+				$('#EditStockModal').modal('hide')
+		}, 1000);
+		
+		callGetAllStockServlet()
+		setTimeout(function() {
+				$('#ViewStockModal').modal('hide')
+		}, 1000);		
 	
 	var id = document.getElementById('StockIDModal').value
 	var name = document.getElementById('nameModal').value
@@ -879,10 +963,7 @@ function callupdateItem(){
 		console.log("response is: "+ response);
 		
 	});
-		callGetAllStockServlet()
-		setTimeout(function() {
-				$('#EditStockModal').modal('hide')
-		}, 2500);	
+		
 	}
 	
 

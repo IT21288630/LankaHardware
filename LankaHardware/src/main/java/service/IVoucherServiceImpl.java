@@ -144,7 +144,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 	public String addStockVoucher(Voucher voucher) {
 		String status = "failed";
 		String id;
-		ArrayList<String> imagePathArrayList = new ArrayList<String>();
+	
 		ArrayList<String> Vid = new ArrayList<String>();
 		
 		con = DBConnectionUtil.getDBConnection();

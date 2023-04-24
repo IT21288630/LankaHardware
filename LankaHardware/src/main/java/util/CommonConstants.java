@@ -498,5 +498,22 @@ public class CommonConstants {
 
 
 	
+	/** Constant for checkout */
+	public static final String QUERY_ID_CHECKOUT = "INSERT INTO ship_details (Name, email, address, phone, postcode) VALUES (?, ?, ?, ?, ?);";
+
+	public static final String QUERY_ID_GET_Stock_ITEMS = "SELECT i.id, i.name, i.type, i.subtype ,i.description, i.brand, i.mf_date, i.exp_date, s.size, s.stock, s.unit_price, img.img, war.warrentyType, war.warrentyNum, war.warrentyPeriod from item i, item_size s, item_img img, item_warrenty war WHERE i.id = s.id and i.id = img.id and i.id = war.id group by i.id;";
+
+	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item(id, name, type, description, brand, mf_date, exp_date, subtype) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+
+	public static final String QUERY_ID_ADD_TO_stock_item_size = "INSERT INTO item_size(id, size, unit_price, stock) VALUES(?, ?, ?, ?);";
+
+	public static final String QUERY_ID_ADD_TO_stock_item_War = "INSERT INTO item_warrenty(id, WarrentyType, warrentyNum, warrentyPeriod) VALUES(?, ?, ?, ?);";
+
+	public static final String QUERY_ID_ADD_TO_stock_item_IMG = "INSERT INTO item_img(id, img) VALUES(?, ?);";
 	
+	public static final String QUERY_ID_UPDATE_ITEM_SIZE = "UPDATE item_size SET size = ? WHERE id = ?;";
+
+	public static final String QUERY_ID_UPDATE_ITEM_SUBTYPE = "UPDATE item SET subtype = ? WHERE id = ?;";
+
+	public static final String QUERY_ID_UPDATE_ITEM_img = "UPDATE item_img SET img = ? WHERE id = ?;";
 }
