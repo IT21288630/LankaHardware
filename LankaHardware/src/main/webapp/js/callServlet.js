@@ -120,3 +120,16 @@ function callAddCustomersServlet(){
 	.then(data => window.location.href = data)
 	)
 }
+
+var otpmessage
+
+function callSendCustomeremailServlet(){
+	
+	var email = document.getElementById('otpemail').value
+	
+	$.post("http://localhost:8080/LankaHardware/SendCustomeremail", {email : email }, function(response) {
+				
+		otpmessage = response
+		console.log(otpmessage)
+	})
+}

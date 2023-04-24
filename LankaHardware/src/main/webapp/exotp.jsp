@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Forgot Password Lanka Hardware</title>
 
     <meta name="description" content="" />
 
@@ -66,11 +66,11 @@
 
   <body>
     <!-- Content -->
-    
+
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
-          <!-- Register -->
+        <div class="authentication-inner py-4">
+          <!-- Forgot Password -->
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
@@ -135,57 +135,55 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Lanka Hardware! Ÿ‘‹</h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
-
+              <h4 class="mb-2">Enter OTP </h4>
+              <p class="mb-4">Enter the given OTP</p>
               <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-                <div class="mb-3">
-                	<div class="alert alert-danger" style="display: none;" role="alert" id="loginError"></div>
-                  <label for="email" class="form-label">Email</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="emailInput"
-                    name="email"
-                    placeholder="Enter your email"
-                    autofocus
-                  />
-                </div>
-                <div class="mb-3 form-password-toggle">
-                  <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Password</label>
-                    <a href="Forgotpassword.jsp">
-                      <small>Forgot Password?</small>
-                    </a>
-                  </div>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="passwordInput"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
-                </div>
-               
-                <div class="mb-3">
-								<button class="btn btn-primary d-grid w-100" type="button" onclick="callLoginServlet();">Sign
-									in</button>
-							</div>
-              </form>
+              <div class="panel panel-default">
+					<div class="panel-body">
+						<div class="text-center">
+							<h3>
+								<i class="fa fa-lock fa-4x"></i>
+							</h3>
+							<h2 class="text-center">Enter OTP</h2>
+									<%
+		  			if(request.getAttribute("message")!=null)
+		  			{
+		  				out.print("<p class='text-danger ml-1'>"+request.getAttribute("message")+"</p>");
+		  			}
+		  
+		  %>
+	
+							<div class="panel-body">
 
-              <p class="text-center">
-                <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
-                  <span>Create an account</span>
+								<form id="register-form" action="ValidateOtp" role="form" autocomplete="off"class="form" method="post">
+
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-envelope color-blue"></i></span> <input
+												id="opt" name="otp" placeholder="Enter OTP"
+												class="form-control" type="text" required="required">
+										</div>
+									</div>
+									<br>
+									<input type="hidden" class="hide" name="token" id="token"
+										value="">
+								</form>
+
+							</div>
+						</div>
+					</div>
+                <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+              </form>
+              <div class="text-center">
+                <a href="auth-login-basic.html" class="d-flex align-items-center justify-content-center">
+                  <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                  Back to login
                 </a>
-              </p>
+              </div>
             </div>
           </div>
-          <!-- /Register -->
+          <!-- /Forgot Password -->
         </div>
       </div>
     </div>
@@ -220,7 +218,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
-    <script src="js/callServlet.js"></script>
   </body>
 </html>

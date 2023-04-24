@@ -14,6 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,9 +27,19 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.JsonElement;
 
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import model.Cart;
 import model.Customer;
 import model.Item;
+import model.Supplier;
 import model.Wishlist;
 import util.CommonConstants;
 import util.CommonUtil;
@@ -227,15 +239,66 @@ public class CustomerServiceImpl implements ICustomerService {
 	public static void main(String[] args) {
 		ICustomerService customerService = new CustomerServiceImpl();
 		
-		Customer customer = new Customer();
-		customer.setAddress("sdfsd");
-		customer.setEmail("dfs");
-		customer.setPassword("dcs");
-		customer.setPhone("dvs");
-		
-		System.out.println(customerService.register(customer));
+		String email = "umarismail261@gmail.com";
+		System.out.println();
+		customerService.SendCustomeremail(email);
 		
 	}
+	
+	//customer email
+	@Override
+	public String SendCustomeremail(String email) {
+		// TODO Auto-generated method stub
+
+		Random rand = new Random();
+		String status = "There was an error";
+		String to = email;
+		String from = "regularpizza17@gmail.com";
+		String subject = "Your supplier details";
+		int otp = rand.nextInt((9999 - 100) + 1) + 10;
+		String content = Integer.toString(otp);
+		
+		
+		System.out.println("ABCD");
+
+		// smtp properties
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", true);
+		properties.put("mail.smtp.starttls.enable", true);
+		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+
+		final String username = "regularpizza17@gmail.com";
+		final String password = "cajxxmputrxlxyqv";
+
+		// session
+		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.setFrom(new InternetAddress(from));
+			message.setSubject(subject);
+			message.setContent(content, "text/html");
+			Transport.send(message);
+
+			status = "Emails sent successfully";
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
 	
 	
 }

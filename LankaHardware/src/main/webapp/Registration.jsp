@@ -158,9 +158,10 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                  <div class="mb-3">
                    <label>Confirm Password:</label>
                     <input type="password" name="confirmPassword"><br>
-                  
+                  </div>
                 </div>
                  <div class="mb-3">
                  <label for="phone"class="form-label">Enter a phone number</label>
@@ -197,7 +198,7 @@
 
               <p class="text-center">
                 <span>Already have an account?</span>
-                <a href="auth-login-basic.html">
+                <a href="login.jsp">
                   <span>Sign in instead</span>
                 </a>
               </p>
