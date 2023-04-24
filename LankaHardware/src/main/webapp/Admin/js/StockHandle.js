@@ -905,7 +905,8 @@ function callupdateItem(){
 		callGetAllStockServlet()
 		setTimeout(function() {
 				$('#ViewStockModal').modal('hide')
-		}, 1000);		
+		}, 1000);	
+			
 	
 	var id = document.getElementById('StockIDModal').value
 	var name = document.getElementById('nameModal').value
@@ -956,7 +957,7 @@ function callupdateItem(){
 	//	formData.append('updateModal', file)
 	//}
 
-	$.post(endpoint, { name: name, Type: Type, brand: brand, price: price, quantity: quantity, description: description, mf: mf, exp: exp, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod}, function(response) {
+	$.post(endpoint, { name: name, Type: Type, brand: brand, price: price, quantity: quantity, description: description, mf: mf, exp: exp}, $.post(endpoint, {warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod}), function(response) {
 		console.log("this is after updateStock response");
 		//stock = response;
 		//callGetAllStockServlet(stock);

@@ -11,20 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import service.IStockService;
-import service.IStockServiceImpl;
 import service.IVoucherService;
 import service.IVoucherServiceImpl;
 
 
-@WebServlet("/RemoveItem")
-public class RemoveItem extends HttpServlet {
+@WebServlet("/RemoveVoucher")
+public class RemoveVoucher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RemoveItem() {
+    public RemoveVoucher() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,7 +42,6 @@ public class RemoveItem extends HttpServlet {
 		doGet(request, response);
 		
 		String id = request.getParameter("id");
-		IStockService iStockService = new IStockServiceImpl();
 		
 		IVoucherService iVoucherService = new IVoucherServiceImpl();
 
@@ -52,7 +49,7 @@ public class RemoveItem extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iStockService.removeStockItems(id));
+		String resp = new Gson().toJson(iVoucherService.removeVoucher(id));
 
 		out.print(resp);
 	}

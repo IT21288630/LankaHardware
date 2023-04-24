@@ -247,7 +247,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 	public String updateVoucher(String id, String code, int amount, String exp) {
 String status = "There was a problem";
 		
-con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			if(!code.equals("null")) {
