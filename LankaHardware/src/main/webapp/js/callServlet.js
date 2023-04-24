@@ -120,6 +120,7 @@ function callAddCustomerServlet() {
 	var phone = document.getElementById('phone').value
 	var name = document.getElementById('Name').value
 	var address = document.getElementById('address').value
+	var valid
 
 
 	if (con_Password != Password) {
@@ -174,7 +175,7 @@ function callAddCustomerServlet() {
 
 	$.post(endpoint, { email: email, password: Password, phone: phone, name: name, address: address }, function(response) {
 
-		window.location.href = "Login.jsp";
+		window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
 	})
 }
 function validateEmail(email) {
