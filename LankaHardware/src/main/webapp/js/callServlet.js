@@ -49,7 +49,7 @@ function callLoginServlet() {
  * 
  */
 var customer = []
-var customerlogintable = document.getElementById('customer')
+var customertable = document.getElementById('customer')
 
 function callGetAllCustomersServlet() {
 	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
@@ -62,31 +62,46 @@ function callGetAllCustomersServlet() {
 	})
 }
 
-function buildAllCustomer() {
-	customerlogintable.innerHTML = ''
-	for (var i = 0; i < customers.length; i++) {
+function buildAllCustomers() {
+	customertable.innerHTML = ''
+	for (var i = 0; i < customer.length; i++) {
 		var customer = `<tr>
 						<td>
-							${customers[i].email}
+							${customer[i].email}
 						</td>
 						<td>
-							${ecustomers[i].Password}
+							${customer[i].Password}
 						</td>
 						<td>
-						    ${customers[i].Name}
+						    ${customer[i].Name}
 						</td>	
 						<td>
-							${customers[i].phone}
+							${customer[i].phone}
 						</td>
 						<td>
-							${customerss[i].address}
+							${customer[i].address}
 						</td>
+						
+						<div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditCustomerModal" onclick="BuildEditCustomerModal('${customer[i].email}', '${customer[i].Password}','${customer[i].phone}','${customer[i].name}','${customer[i].address}','${customer[i].address}');"
+                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                              >
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"  onclick="createDeleteModal('${customer[i].email}')"
+                                ><i class="bx bx-trash me-1"></i> Delete</a
+                              >
+                            </div>
+                          </div>
+                        </td>
 						
 						
 						</tr>`
 
 
-		customerlogintable.innerHTML += customer
+		customertable.innerHTML += customer
 	}
 }
 
@@ -96,7 +111,7 @@ function buildAllCustomer() {
 var isNew = true;
 
 
-function callAddCustomersServlet() {
+function callAddCustomerServlet() {
 	var loginError = document.getElementById('loginError')
 
 	var email = document.getElementById('email').value
@@ -276,7 +291,7 @@ function BuildEditCustomerModal(email,Password,phone,name,address){
 	
 }
 
-function callupdateCustomer(){
+function callUpdateCustomer(){
 	var inputFile = document.getElementById('inputFileModal')
 	
 	var email = document.getElementById('emailModal').value
@@ -379,7 +394,7 @@ function createDeleteModal(email) {
 	deleteModalFooter.style.display = ""
 }
 
-function callDeleteCustomerServlet(email) {
+function callRemoveCustomerServlet(email) {
 	deleteModalHeader.style = "display: none;"
 	deleteModalBody.style = "text-align: center;"
 	deleteModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">

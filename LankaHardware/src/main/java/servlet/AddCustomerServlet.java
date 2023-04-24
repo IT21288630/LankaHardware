@@ -21,7 +21,7 @@ import service.ICustomerService;
 /**
  * Servlet implementation class AddEmployeeServlet
  */
-@WebServlet("/AddCustomerServlet")
+@WebServlet("/AddCustomersServlet")
 public class AddCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
