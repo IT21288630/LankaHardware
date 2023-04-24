@@ -45,11 +45,11 @@
 		    		<div class="row d-flex">
 		    			<div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
+						    <span class="text">081 1234567</span>
 					    </div>
 					    <div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
+						    <span class="text">lankahardware@gmail.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
@@ -94,12 +94,12 @@
 	          	<img class="one-third order-md-last img-fluid" src="#" alt="">
 		          <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
-		          		<span class="subheading">#New Arrival</span>
+		          		<span class="subheading">Visit our store</span>
 		          		<div class="horizontal">
-				            <h1 class="mb-4 mt-3">Shoes Collection 2019</h1>
-				            <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+				            <h1 class="mb-4 mt-3">LANKA HARDWARE </h1>
+				            <p class="mb-4">Shop Now to buy your products.</p>
 				            
-				            <p><a href="#" class="btn-custom">Discover Now</a></p>
+				            <p><a href="shop.jsp" class="btn-custom">Shop Now</a></p>
 				          </div>
 		            </div>
 		          </div>
@@ -114,12 +114,12 @@
 	          	<img class="one-third order-md-last img-fluid" src="#" alt="">
 		          <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
-		          		<span class="subheading">#New Arrival</span>
+		          		<span class="subheading">Visit our store</span>
 		          		<div class="horizontal">
-				            <h1 class="mb-4 mt-3">New Shoes Winter Collection</h1>
-				            <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+				            <h1 class="mb-4 mt-3">Hardware that's built to last</h1>
+				            <p class="mb-4">Shop Now to buy your products.</p>
 				            
-				            <p><a href="#" class="btn-custom">Discover Now</a></p>
+				            <p><a href="shop.jsp" class="btn-custom">Shop Now</a></p>
 				          </div>
 		            </div>
 		          </div>
@@ -138,8 +138,8 @@
             		<span class="flaticon-bag"></span>
               </div>
               <div class="media-body">
-                <h3 class="heading">Free Shipping</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <h3 class="heading">Fast Shipping</h3>
+                <p>The faster we deliver it, the more you make out of it. Delighting customers with time, quality, and reliability.</p>
               </div>
             </div>      
           </div>
@@ -150,7 +150,7 @@
               </div>
               <div class="media-body">
                 <h3 class="heading">Support Customer</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <p>Friendly and Convenient Support for our Customers</p>
               </div>
             </div>    
           </div>
@@ -161,7 +161,7 @@
               </div>
               <div class="media-body">
                 <h3 class="heading">Secure Payments</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <p>Facilitates both Cash on delivery and card payments in a most secure way</p>
               </div>
             </div>      
           </div>
@@ -174,7 +174,7 @@
 				<div class="row justify-content-center mb-3 pb-3">
           <div class="col-md-12 heading-section text-center ftco-animate">
             <h2 class="mb-4">New Products Arrival</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+            <p>Grab all our new quality products in an Instance</p>
           </div>
         </div>   		
     	</div>
@@ -193,10 +193,10 @@
 						<div class="choose-wrap divider-one img p-5 d-flex align-items-end" style="background-image: url(images/construction.jpg);">
 
     					<div class="text text-center text-white px-2">
-								<span class="subheading">Men's Shoes</span>
-    						<h2>Men's Collection</h2>
-    						<p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-    						<p><a href="#" class="btn btn-black px-3 py-2">Shop now</a></p>
+								<span class="subheading">Concrete & ready-mixed concrete patch</span>
+    						<h2> Cement & liquid cement crack fillers</h2>
+    						<p> Range Wideof Durable Cement brands : Drills, White Cement, Cement (Black+White) & Tiles And Marbles Wholesaler offered!</p>
+    						<p><a href="shop.jsp" class="btn btn-black px-3 py-2">Shop now</a></p>
     					</div>
     				</div>
 					</div>
@@ -206,10 +206,10 @@
 	    					<div class="choose-wrap full-wrap img align-self-stretch d-flex align-item-center justify-content-end" style="background-image: url(images/paintBrush.jpg);">
 	    						<div class="col-md-7 d-flex align-items-center">
 	    							<div class="text text-white px-5">
-	    								<span class="subheading">Women's Shoes</span>
-			    						<h2>Women's Collection</h2>
-			    						<p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-			    						<p><a href="#" class="btn btn-black px-3 py-2">Shop now</a></p>
+	    								<span class="subheading"> Paints</span>
+			    						<h2> Painter’s tape, duct tape, mounting tape</h2>
+			    						<p>Lanka hardware store company with a focus on design that's ... At Home in the Modern World: Modern Design & Architecture Interior Paint Colors.</p>
+			    						<p><a href="shop.jsp" class="btn btn-black px-3 py-2">Shop now</a></p>
 			    					</div>
 	    						</div>
 	    					</div>
@@ -219,20 +219,20 @@
     							<div class="col-md-6">
 		    						<div class="choose-wrap wrap img align-self-stretch bg-light d-flex align-items-center">
 		    							<div class="text text-center px-5">
-		    								<span class="subheading">Summer Sale</span>
-				    						<h2>Extra 50% Off</h2>
-				    						<p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-				    						<p><a href="#" class="btn btn-black px-3 py-2">Shop now</a></p>
+		    								<span class="subheading">Vouchers and Coupons</span>
+				    						<h2>Get 10% Off</h2>
+				    						<p>Get your discounts through our vouchers and sales</p>
+				    						<p><a href="shop.jsp" class="btn btn-black px-3 py-2">Shop now</a></p>
 				    					</div>
 		    						</div>
 	    						</div>
 	    						<div class="col-md-6">
 		    						<div class="choose-wrap wrap img align-self-stretch d-flex align-items-center" style="background-image: url(images/tools.jpg);">
 		    							<div class="text text-center text-white px-5">
-		    								<span class="subheading">Shoes</span>
-				    						<h2>Best Sellers</h2>
-				    						<p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-				    						<p><a href="#" class="btn btn-black px-3 py-2">Shop now</a></p>
+		    								<span class="subheading">Tools Collection</span>
+				    						<h2>Tools</h2>
+				    						<p> Wide Range of Durable Home Improvement Tools : Drills, Saw, Air Compressor, Heat Gun. High quality and Affordable Cordless tools.</p>
+				    						<p><a href="shop.jsp" class="btn btn-black px-3 py-2">Shop now</a></p>
 				    					</div>
 		    						</div>
 	    						</div>
@@ -248,7 +248,7 @@
     	<div class="container">
     		<div class="row">
     			<div class="col-md-6">
-    				<img src="images/prod-1.png" class="img-fluid" alt="">
+    				<img src="images/toolkit1.png" class="img-fluid" alt="">
     			</div>
     			<div class="col-md-6">
     				<div class="heading-section heading-section-white">
@@ -262,12 +262,10 @@
 						  <div class="time pl-4" id="seconds"></div>
 						</div>
 						<div class="text-deal">
-							<h2><a href="#">Nike Free RN 2019 iD</a></h2>
-							<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
+							<h2><a href="#">Full tool-kit</a></h2>
+							<p class="price"><span class="mr-2 price-dc">Rs 6000.00</span><span class="price-sale">Rs 4990.00</span></p>
 							<ul class="thumb-deal d-flex mt-4">
-								<li class="img" style="background-image: url(images/product-6.png);"></li>
-								<li class="img" style="background-image: url(images/product-2.png);"></li>
-								<li class="img" style="background-image: url(images/product-4.png);"></li>
+								
 							</ul>
 						</div>
     			</div>
@@ -285,8 +283,8 @@
         					<span class="flaticon-bag"></span>
         				</div>
         				<div class="text">
-	        				<h3>Free Shipping</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
+	        				<h3>Fast Delivery</h3>
+	        				<p class="mb-0">The faster we deliver it, the more you make out of it. Delighting customers with time, quality, and reliability.</p>
         				</div>
         			</div>
         			<div class="services-2 p-4 d-flex ftco-animate">
@@ -294,8 +292,8 @@
         					<span class="flaticon-heart-box"></span>
         				</div>
         				<div class="text">
-	        				<h3>Valuable Gifts</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
+	        				<h3>Quality Products</h3>
+	        				<p class="mb-0">Quality products that will enhance your needs in an instance</p>
 	        			</div>
         			</div>
         			<div class="services-2 p-4 d-flex ftco-animate">
@@ -303,8 +301,8 @@
         					<span class="flaticon-payment-security"></span>
         				</div>
         				<div class="text">
-	        				<h3>All Day Support</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
+	        				<h3>Easy payments</h3>
+	        				<p class="mb-0">Facilitates both Cash on delivery and card payments in a most secure way</p>
 	        			</div>
         			</div>
         			<div class="services-2 p-4 d-flex ftco-animate">
@@ -313,7 +311,7 @@
         				</div>
         				<div class="text">
 	        				<h3>All Day Support</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
+	        				<p class="mb-0">Friendly and Convenient Support for our Customers </p>
 	        			</div>
         			</div>
         		</div>
@@ -321,7 +319,7 @@
           <div class="col-lg-7">
           	<div class="heading-section ftco-animate mb-5">
 	            <h2 class="mb-4">Our satisfied customer says</h2>
-	            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+	    
 	          </div>
             <div class="carousel-testimony owl-carousel">
               <div class="item">
@@ -332,9 +330,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Marketing Manager</span>
+                    <p class="mb-4 pl-4 line">I recently received a hand-written letter from the Isuru, Stock manager in regard to an online ordering error. He went out of his way to accommodate me and I will definitely be shopping there again!</p>
+                    <p class="name">Prabshwara</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -346,9 +344,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Interface Designer</span>
+                    <p class="mb-4 pl-4 line">Customer service was what makes us continue to shop at Lanka Hardware!!</p>
+                    <p class="name">Savindu</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -360,9 +358,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">UI Designer</span>
+                    <p class="mb-4 pl-4 line">All products are easily Accessible and easy to browse</p>
+                    <p class="name">Isuru</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -374,9 +372,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Web Developer</span>
+                    <p class="mb-4 pl-4 line">Delivery is fast and products are really good in condition!!</p>
+                    <p class="name">Kasun</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -388,9 +386,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">System Analyst</span>
+                    <p class="mb-4 pl-4 line">Quality products and easy to shop</p>
+                    <p class="name">Ghazi</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -412,8 +410,8 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Minishop</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2 class="ftco-heading-2">LANKA HARDWARE</h2>
+              <p>Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -454,9 +452,9 @@
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Katugastota Road, Kandy, Sri Lanka</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">081 1234567</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">lankaharware@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -466,7 +464,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						  <script>document.write(new Date().getFullYear());</script>  <i class="icon-heart color-danger" aria-hidden="true"></i></a>
 						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</p>
           </div>
