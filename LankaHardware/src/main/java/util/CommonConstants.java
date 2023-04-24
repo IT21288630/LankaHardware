@@ -56,20 +56,40 @@ public class CommonConstants {
 	/** Constant for get all items */
 	public static final String QUERY_ID_GET_ALL_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.name;";
 	
-	/** Constant for select cart id's */
-	public static final String QUERY_ID_LOGIN = "SELECT * FROM customerlogin where email=? and Password=?;";
 	
-	/** Constant for select cart id's */
+	
+	
+	
+	/** Admin Update */
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_EMAIL = "UPDATE admin SET email = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_PHONE = "UPDATE admin SET phone = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_NAME = "UPDATE admin SET name = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_ADDRESS = "UPDATE admin SET address = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_ROLE = "UPDATE admin SET Role = ? WHERE Email = ?;";
+	
+	/** Constant for clear admin */
+	public static final String QUERY_ID_CLEAR_ADMIN = "DELETE FROM admin WHERE Email = ?";
+	
+	/** Constant for admin login */
 	public static final String QUERY_ID_LOGIN_ADMIN = "SELECT * FROM admin where Email=? and password=?;";
-	
 
 	/** Constant for select all admin*/
 	public static final String QUERY_ID_SELECT_ALL_ADMIN= "SELECT * FROM admin;";
 	
-	/** Constant for inser to admin */
+	/** Constant for insert to admin */
 	public static final String QUERY_ID_ADD_TO_ADMIN = "INSERT INTO admin(Email, password, phone, name , Address, Role) VALUES(?, ?, ?, ?, ?, ?);";
 	
 	public static final String QUERY_ID_CREATE_ADMIN = "INSERT INTO admin(Email) VALUES(?);";
+	
+	
+	
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_CART_IDS = "SELECT cid FROM cart;";
@@ -77,8 +97,26 @@ public class CommonConstants {
 	/** Constant for select employee id's */
 	public static final String QUERY_ID_SELECT_EMPLOYEE_IDS = "select empNo from cart;";
 	
+	
+	/** Constant for login customer */
+	public static final String QUERY_ID_LOGIN = "SELECT * FROM customer where email=? and Password=?;";
+	
 	/** Constant for select customer id's*/
-	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
+	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customer;";
+	
+	/** Constant for add customer details */
+	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customer(email, Password, phone,name, address) VALUES(?, ?, ?,?, ?);";	
+	
+    public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customer(email) VALUES(?);";
+	
+	/** Constant for update customer */
+	public static final String QUERY_ID_UPDATE_CUSTOMERS = "UPDATE customer SET email = ?, Password = ?, phone = ? , name = ?,address = ?, WHERE = email = ? ";
+	
+	/** Constant for clear customer */
+	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customer WHERE email = ?";
+	
+	
+	
 	
 	/** Constant for select item id's*/
 	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT i.id, i.name, i.category, i.brand, i.unit_price, i.quantity, i.description, i.mf_date, i.exp_date, w.warrentyType, w.warrentyNum, w.warrentyPeriod FROM item i, item_warrenty w WHERE i.id = w.id;";
@@ -105,26 +143,10 @@ public class CommonConstants {
 	public static final String QUERY_ID_SORTBY_Amount = "SELECT id, code, amount, exp FROM voucher ORDER BY amount;";
 	
 	public static final String QUERY_ID_SORTBY_Exp = "SELECT id, code, amount, exp FROM voucher ORDER BY exp;";
-/** Admin */
-	
-public static final String QUERY_ID_UPDATE_ADMIN_EMAIL = "UPDATE admin SET email = ? WHERE Email = ?;";
-	
-	public static final String QUERY_ID_UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = ? WHERE Email = ?;";
-	
-	public static final String QUERY_ID_UPDATE_ADMIN_PHONE = "UPDATE admin SET phone = ? WHERE Email = ?;";
-	
-	public static final String QUERY_ID_UPDATE_ADMIN_NAME = "UPDATE admin SET name = ? WHERE Email = ?;";
-	
-	public static final String QUERY_ID_UPDATE_ADMIN_ADDRESS = "UPDATE admin SET address = ? WHERE Email = ?;";
-	
-	public static final String QUERY_ID_UPDATE_ADMIN_ROLE = "UPDATE admin SET Role = ? WHERE Email = ?;";
-	
-	/** Constant for clear employees */
-	public static final String QUERY_ID_CLEAR_ADMIN = "DELETE FROM admin WHERE Email = ?";
+
 	
 	
-	/** Constant for add customer details */
-	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customer(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
+	
 	
 	/** Constant for add stock details */
 	public static final String QUERY_ID_ADD_TO_stock = "INSERT INTO item (id, name, category, brand, unit_price, quantity, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -136,13 +158,7 @@ public static final String QUERY_ID_UPDATE_ADMIN_EMAIL = "UPDATE admin SET email
 	public static final String QUERY_ID_ADD_TO_voucher = "INSERT INTO voucher (id, code, amount, exp) VALUES(?, ?, ?, ?);";
 	
 	
-	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customer(email) VALUES(?);";
 	
-	/** Constant for update customer */
-	public static final String QUERY_ID_UPDATE_CUSTOMERS = "UPDATE customer SET email = ?, Password = ?, phone = ? , address = ?, WHERE = email = ? ";
-	
-	/** Constant for clear customer */
-	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customer WHERE email = ?";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";

@@ -7,6 +7,7 @@ public class Customer {
 	private String email;
 	private String Password;
 	private String phone;
+	private String name;
 	private String address;
 	
 	private ArrayList<String> profile;
@@ -49,6 +50,14 @@ public class Customer {
 
 	public void setProfile(ArrayList<String> profile) {
 		this.profile = profile;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	

@@ -413,7 +413,7 @@
                               placeholder="123@gmail.com"
                             />
                           </div>
-                             <div class="mb-3 form-password-toggle">
+                             <div class="mb-3 col-md-6 form-password-toggle">
                     <label class="form-label" for="password">Password</label>
 	                  <div class="input-group input-group-merge">
 	                    <input
@@ -439,13 +439,22 @@
 	                                placeholder="07********"
 	                              />
 	                            </div>
-	                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
-                          </div>
+	                       
+                         <div class="mb-3">
+                 <label for="Name"class="Name">Name</label>
+                 <div class="form-group">
+  					<input type="text" 
+ 			        class="form-control" 
+			         id="Name" 
+			         placeholder="Name">
+  
+ 		
+                
+					</div>
+                 
+                 </div>
                           
-                             
+                              <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address" name="address" placeholder="Address" />

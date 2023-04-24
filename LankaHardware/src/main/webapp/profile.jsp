@@ -132,27 +132,31 @@
                             <label class="form-label" for="phoneNumber">Phone Number</label>
                             <div class="input-group input-group-merge">
                               <span class="input-group-text">LK (+94)</span>
-                              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="">
+                              <input type="text" id="phone" name="phoneNumber" class="form-control" placeholder="">
                             </div>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                           </div>
-                           <div class="mb-3 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
-                </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                          </div>
+                         <div class="mb-3 col-md-6 form-password-toggle">
+		                  <label class="form-label" for="password">Password</label>
+		                  <div class="input-group input-group-merge">
+		                    <input
+		                      type="password"
+		                      id="Password"
+		                      class="form-control"
+		                      name="password"
+		                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+		                      aria-describedby="password"
+		                    />
+		                   
+		                  </div>
+		                </div>
                         </div>
                         <div class="mt-2">
                           <button type="submit" class="btn btn-primary me-2">Save changes</button>
@@ -314,7 +318,7 @@
 	<!--Search Js Plugins -->
 	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
 	<script src="ashion-master/js/main.js"></script>
-
+<script src="../js/callServlet.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>

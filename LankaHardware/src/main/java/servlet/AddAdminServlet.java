@@ -14,21 +14,26 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
-import model.Customer;
-import service.CustomerServiceImpl;
-import service.ICustomerService;
+import model.Admin;
+import service.AdminServiceImpl;
+import service.IAdminService;
+
 
 /**
  * Servlet implementation class AddEmployeeServlet
  */
-@WebServlet("/AddCustomerServlet")
-public class AddCustomerServlet extends HttpServlet {
+@WebServlet("/AddAdminServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+maxFileSize = 1024 * 1024 * 10, // 10 MB
+maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
+public class AddAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCustomerServlet() {
+    public AddAdminServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +43,7 @@ public class AddCustomerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -47,27 +53,27 @@ public class AddCustomerServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		Customer customer = new Customer();
+		Admin admin = new Admin();
 		
-		System.out.println("here");
 		
-		customer.setEmail(request.getParameter("email"));
-		customer.setPassword(request.getParameter("password"));
-		customer.setPhone(request.getParameter("phone"));
-		customer.setName(request.getParameter("name"));
-		customer.setAddress(request.getParameter("address"));
+		admin.setEmail(request.getParameter("email"));
+		admin.setPassword(request.getParameter("password"));	
+		admin.setPhone(request.getParameter("phone"));
+		admin.setName(request.getParameter("name"));
+		admin.setAddress(request.getParameter("address"));
+		admin.setRole(request.getParameter("role"));
+	
+		Collection<Part> parts = request.getParts();
 		
-		System.out.println(customer.getName());
+		IAdminService iAdminService = new AdminServiceImpl();
 		
-		ICustomerService iCustomerService = new CustomerServiceImpl();
-		iCustomerService.register( customer);
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("UTF-8");
-//		PrintWriter out = response.getWriter();
-//
-//		String resp = new Gson().toJson(iCustomerService.register( customer));
-//
-//		out.print(resp);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+
+		String resp = new Gson().toJson(iAdminService.addAdmin( admin, parts ));
+
+		out.print(resp);
 	}
 
 }

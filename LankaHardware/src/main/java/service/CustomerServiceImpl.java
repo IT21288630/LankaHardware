@@ -76,7 +76,8 @@ public class CustomerServiceImpl implements ICustomerService {
 				 customer.setEmail(rs.getString(1));
 				 customer.setPassword(rs.getString(2));
 				 customer.setPhone(rs.getString(3));
-				 customer.setAddress(rs.getString(4));
+				 customer.setName(rs.getString(4));
+				 customer.setAddress(rs.getString(5));
 				
 			
 
@@ -104,7 +105,8 @@ public class CustomerServiceImpl implements ICustomerService {
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, customer.getEmail());
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, customer.getPassword());
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, customer.getPhone());
-			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, customer.getAddress());
+			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, customer.getName());
+			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, customer.getAddress());
 
 			pst.executeUpdate();
 
@@ -183,7 +185,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	
 	
-	public String updateCustomer(String email, String Password, String phone , String address) {
+	public String updateCustomer(String email, String Password, String phone ,String name, String address) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
@@ -194,7 +196,8 @@ public class CustomerServiceImpl implements ICustomerService {
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, email);
 			pst.setString(CommonConstants.COLUMN_INDEX_TWO, Password);
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, phone);
-			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, address);
+			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, name);
+			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, address);
 			pst.executeUpdate();
 
 			status = "Customer Updated";
@@ -226,7 +229,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public String updateCustomers(String email, String Password, String phone, String address) {
+	public String updateCustomers(String email, String Password, String phone, String name ,String address) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -298,6 +301,8 @@ public class CustomerServiceImpl implements ICustomerService {
 
 		return status;
 	}
+
+	
 
 	
 	
