@@ -105,6 +105,7 @@ function callAddCustomersServlet() {
 	var phone = document.getElementById('phone').value
 	var name = document.getElementById('Name').value
 	var address = document.getElementById('address').value
+	var valid
 
 
 	if (con_Password != Password) {
