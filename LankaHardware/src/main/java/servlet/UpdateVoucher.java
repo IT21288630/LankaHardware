@@ -11,22 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import service.IStockService;
-import service.IStockServiceImpl;
 import service.IVoucherService;
-import service.IVoucherServiceImpl;
+import service.IVoucherServiceImpl ;
 
 
-@WebServlet("/RemoveItem")
-public class RemoveItem extends HttpServlet {
+
+
+@WebServlet("/UpdateVoucher")
+public class UpdateVoucher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RemoveItem() {
+    public UpdateVoucher() {
         super();
         // TODO Auto-generated constructor stub
+        System.out.println("this is the constructor updatestock");
     }
 
 	/**
@@ -43,16 +44,21 @@ public class RemoveItem extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String id = request.getParameter("id");
-		IStockService iStockService = new IStockServiceImpl();
+		String id = request.getParameter("idM");
+		String code = request.getParameter("codeM");
+		int amount = Integer.parseInt(request.getParameter("amountM"));
+		String exp = request.getParameter("expM");
+		
+	
+		//System.out.println(id+name+email+designation+phoneNum+address);
 		
 		IVoucherService iVoucherService = new IVoucherServiceImpl();
-
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iStockService.removeStockItems(id));
+		String resp = new Gson().toJson(iVoucherService.updateVoucher(id, code, amount, exp));
 
 		out.print(resp);
 	}

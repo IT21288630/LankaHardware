@@ -59,8 +59,11 @@ public class UpdateStock extends HttpServlet {
 		
 		int warNum = Integer.parseInt(request.getParameter("warrentyNumModal"));
 		String warPeriod = request.getParameter("warrentyPeriodModal");
-		
+	
 		String warrentyType = "Available";
+		String size = request.getParameter("size");
+		String img = request.getParameter("img");
+		String sub = request.getParameter("subType");
 		
 		
 		if(warrentyNone == "" || warrentyNone == "None" || warrentyNone == null || warrentyNone == "undefined") {
@@ -78,7 +81,7 @@ public class UpdateStock extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iStockService.updateStockItems(id, name, category, brand, price, quantity, description, mf, exp, warrentyType,warNum, warPeriod));
+		String resp = new Gson().toJson(iStockService.updateStockItems(id, name, category, brand, price, quantity, description, mf, exp, warrentyType,warNum, warPeriod, size, img, sub));
 
 		out.print(resp);
 	}

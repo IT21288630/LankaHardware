@@ -57,31 +57,25 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Minishop</a>
+	      <a class="navbar-brand" href="index.html">LankaHardware</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.html">Shop</a>
-                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
-			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
-							class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
-			  <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
-	        </ul>
+		          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+	              <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
+		          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
+		          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Orders</a></li>
+		          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
+		          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+		          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>
+		          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
+				  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
+								class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
+				  <li class="nav-item"><a href="profile.jsp" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
+		        </ul>
 	      </div>
 	    </div>
 	  </nav>
@@ -108,79 +102,44 @@
 	          		<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="firstname">Firt Name</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                  <input type="text" class="form-control" placeholder="" id="fname"> 
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname">Last Name</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                  <input type="text" class="form-control" placeholder="" id="lname">
 	                </div>
                 </div>
                 <div class="w-100"></div>
-		            <div class="col-md-12">
-		            	<div class="form-group">
-		            		<label for="country">State / Country</label>
-		            		<div class="select-wrap">
-		                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                  <select name="" id="" class="form-control">
-		                  	<option value="">France</option>
-		                    <option value="">Italy</option>
-		                    <option value="">Philippines</option>
-		                    <option value="">South Korea</option>
-		                    <option value="">Hongkong</option>
-		                    <option value="">Japan</option>
-		                  </select>
-		                </div>
-		            	</div>
-		            </div>
 		            <div class="w-100"></div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
 	                	<label for="streetaddress">Street Address</label>
-	                  <input type="text" class="form-control" placeholder="House number and street name">
-	                </div>
-		            </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-	                  <input type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
+	                  <input type="text" class="form-control" placeholder="House number and street name"  id="address">
 	                </div>
 		            </div>
 		            <div class="w-100"></div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
-	                	<label for="towncity">Town / City</label>
-	                  <input type="text" class="form-control" placeholder="">
-	                </div>
-		            </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
 		            		<label for="postcodezip">Postcode / ZIP *</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                  <input type="text" class="form-control" placeholder=""  id="pcode">
 	                </div>
 		            </div>
 		            <div class="w-100"></div>
 		            <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="phone">Phone</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                  <input type="text" class="form-control" placeholder="" id="phone">
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="emailaddress">Email Address</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                  <input type="text" class="form-control" placeholder="" id="email">
 	                </div>
                 </div>
                 <div class="w-100"></div>
-                <div class="col-md-12">
-                	<div class="form-group mt-4">
-										<div class="radio">
-										  <label class="mr-3"><input type="radio" name="optradio"> Create an Account? </label>
-										  <label><input type="radio" name="optradio"> Ship to different address</label>
-										</div>
-									</div>
-                </div>
 	            </div>
 	          </form><!-- END -->
 
@@ -240,7 +199,7 @@
 											</div>
 										</div>
 									</div>
-									<p><a href="#"class="btn btn-primary py-3 px-4">Place an order</a></p>
+									<p><a href="#"class="btn btn-primary py-3 px-4" onclick="callCheckoutServlet(); return false;">Place an order</a></p>
 								</div>
 	          	</div>
 	          </div>
@@ -408,6 +367,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/nilusha.js"></script>
   <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
 
   <script>

@@ -30,6 +30,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 	public AddStoreItemsServlet() {
 		super();
 		// TODO Auto-generated constructor stub
+		System.out.println("Addservlet constructor");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +39,7 @@ public class AddStoreItemsServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	  
+	   System.out.println("This is addstore servlet");
 		doGet(request, response);
 			
 		Item item = new Item();		
@@ -47,19 +48,10 @@ public class AddStoreItemsServlet extends HttpServlet {
 		String name = request.getParameter("name");	
 		String category = request.getParameter("category");
 		String brand = request.getParameter("brand");
-		
-		System.out.println("this is brand:"+ brand);
-		
-		double price = Double.parseDouble(request.getParameter("price"));
-		System.out.println(price);
-		
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String description = request.getParameter("description");
 		String mf_date = request.getParameter("mf_date");
 		String exp_date = request.getParameter("exp_date");
-		String warrentyType = request.getParameter("warrentyType");
-		int warNum = Integer.parseInt(request.getParameter("warNum"));
-		String warPeriod = request.getParameter("warPeriod");
+		String sub = request.getParameter("subType");
 		
 		
 		if(mf_date == null || mf_date == "") {
@@ -73,14 +65,10 @@ public class AddStoreItemsServlet extends HttpServlet {
 		item.setName(name);
 		item.setType(category);
 		item.setBrand(brand);
-		item.setPrice(price);
-		item.setQuantity(quantity);
 		item.setDescription(description);
 		item.setMfDate(mf_date);
 		item.setExpDate(exp_date);
-		item.setWarrentyType(warrentyType);
-		item.setWarrentyNumber(warNum);
-		item.setWarrantyPeriod(warPeriod);
+		item.setSubType(sub);
 		
 		System.out.println("add servlet date: " + mf_date);
 		

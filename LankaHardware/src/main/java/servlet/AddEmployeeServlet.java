@@ -51,6 +51,8 @@ public class AddEmployeeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
+		System.out.println("HERE");
+		
 		Employee employee = new Employee();
 		
 		employee.setName(request.getParameter("name"));
@@ -63,7 +65,7 @@ public class AddEmployeeServlet extends HttpServlet {
 		employee.setWage(request.getParameter("wage"));
 		employee.setSalary(Double.parseDouble(request.getParameter("salary")));
 		
-		//Collection<Part> parts = request.getParts();
+		Collection<Part> parts = request.getParts();
 		
 		IEmployeeService iEmployeeService = new EmployeeServiceImpl();
 		
@@ -71,7 +73,7 @@ public class AddEmployeeServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iEmployeeService.addEmployees( employee ));
+		String resp = new Gson().toJson(iEmployeeService.addEmployees( employee, parts ));
 
 		out.print(resp);
 	}
