@@ -77,20 +77,6 @@ function callAddEmployeeServlet(){
 	var wage = document.getElementById('wage').value
 	var salary = document.getElementById('salary').value
 	
-	
-//	if (!validateEmail(email)) {
-//    document.getElementById("loginError").innerHTML = "Invalid email address";
-//    document.getElementById("loginError").style.display = "block";
-//    return
-//    }
-//    
-//    if (!validatePhone(phoneNum)) {
-//    document.getElementById("loginError").innerHTML = "Invalid phone number";
-//    document.getElementById("loginError").style.display = "block";
-//    return
-//    }
-    
-	
 	console.log(phoneNum)
 	
 	var endpoint = "http://localhost:8080/LankaHardware/AddEmployeeServlet"
@@ -98,8 +84,7 @@ function callAddEmployeeServlet(){
 		for(const file of inputFile.files){
 		formData.append('upload', file)
 	}
-	
-	
+
 	
 	formData.append('name',name)
 	formData.append('email',email)
@@ -747,21 +732,21 @@ function callGetAllFeedbacksServlet(){
 	})
 }
 
-function buildAllFeedbacks(feed){
+function buildAllFeedbacks(){
 	feedbackstable.innerHTML = ''
 	for(var i = 0; i < feedbacks.length; i++){
 		var feedback = `<tr>
 						<td>
-							${feed[i].feedid}
+							${feedbacks[i].feedid}
 						</td>
 						<td>
-							${feed[i].email}
+							${feedbacks[i].email}
 						</td>
 						<td>
-							${feed[i].subject}
+							${feedbacks[i].subject}
 						</td>
 						<td>
-							${feed[i].feedback}
+							${feedbacks[i].feedback}
 						</td>
 						
 						<td>
@@ -773,7 +758,7 @@ function buildAllFeedbacks(feed){
                               <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditFeedbackModal" onclick="BuildEditFeedbackModal('');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#FeedbackdeleteModal"  onclick="createFeedbackDeleteModal('${feed[i].feedid}')"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#FeedbackdeleteModal"  onclick="createFeedbackDeleteModal('${feedbacks[i].feedid}')"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -901,39 +886,6 @@ function buildSuplierSearchLists() {
 
 
 }
-
-//build feedback search results
-
-function buildFeedbackSearchLists() {
-	searchLists = []
-	var search = document.getElementById("searchfeed").value.toLowerCase()
-	search = search.trim()
-
-	
-		for (var i = 0; i < feedbacks.length; i++) {
-			if(feedbacks[i].email.toLowerCase().includes(search)||feedbacks[i].feedid.toLowerCase().includes(search))
-			
-			searchLists.push(feedbacks[i])
-		
-		
-		buildAllFeedbacks(searchLists)
-		
-	} 
-
-
-}
-
-
-////Validation
-//function validateEmail(email) {
-//  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//  return emailRegex.test(email);
-//}
-//
-//function validatePhone(phoneNum) {
-//  const phoneRegex = /^\d{10}$/;
-//  return phoneRegex.test(phoneNum);
-//}
 
 
 

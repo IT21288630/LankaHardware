@@ -2,33 +2,34 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
 import model.Customer;
+import model.Employee;
 import service.CustomerServiceImpl;
+import service.EmployeeServiceImpl;
 import service.ICustomerService;
+import service.IEmployeeService;
 
 /**
- * Servlet implementation class AddEmployeeServlet
+ * Servlet implementation class GetAllCustomerServlet
  */
-@WebServlet("/AddCustomerServlet")
-public class AddCustomerServlet extends HttpServlet {
+@WebServlet("/GetAllCustomersServlet")
+public class GetAllCustomersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCustomerServlet() {
+    public GetAllCustomersServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +39,21 @@ public class AddCustomerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		ArrayList<Customer>  customer = new ArrayList();
+		ICustomerService iCustomerService = new CustomerServiceImpl();
+		
+		customer = iCustomerService.getAllCustomers();
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		String resp = new Gson().toJson(customer);
+		
+		out.print(resp);
 	}
+
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,28 +61,6 @@ public class AddCustomerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-		Customer customer = new Customer();
-		
-		System.out.println("here");
-		
-		customer.setEmail(request.getParameter("email"));
-		customer.setPassword(request.getParameter("password"));
-		customer.setPhone(request.getParameter("phone"));
-		customer.setName(request.getParameter("name"));
-		customer.setAddress(request.getParameter("address"));
-		
-		System.out.println(customer.getName());
-		
-		ICustomerService iCustomerService = new CustomerServiceImpl();
-		iCustomerService.register( customer);
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("UTF-8");
-//		PrintWriter out = response.getWriter();
-//
-//		String resp = new Gson().toJson(iCustomerService.register( customer));
-//
-//		out.print(resp);
 	}
 
 }
