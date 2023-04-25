@@ -126,8 +126,9 @@ function callAddCustomerServlet() {
 	if (con_Password != Password) {
 		loginError.innerHTML = "Password and Confirm password should match"
 		loginError.style = "display: block;"
-		
+		return
 	}
+<<<<<<< HEAD
 //	if (!validateEmail(email)) {
 //    document.getElementById("loginError").innerHTML = "Invalid email address";
 //    document.getElementById("loginError").style.display = "block";
@@ -148,6 +149,26 @@ function callAddCustomerServlet() {
 //    if (!valid) {
 //      return;
 //    }
+=======
+	if (!validateEmail(email)) {
+    document.getElementById("loginError").innerHTML = "Invalid email address";
+    document.getElementById("loginError").style.display = "block";
+    return
+    }
+  
+    if (!validatePassword(Password)) {
+    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
+    document.getElementById("loginError").style.display = "block";
+    return
+    }
+    if (!validatePhone(phone)) {
+    document.getElementById("loginError").innerHTML = "Invalid phone number";
+    document.getElementById("loginError").style.display = "block";
+    return
+    }
+  
+    
+>>>>>>> 7406826d453e77c79fda2aa15a135c81c36c1201
 
 	console.log(address)
 	console.log(name)
