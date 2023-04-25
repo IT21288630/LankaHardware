@@ -54,15 +54,15 @@ var customertable = document.getElementById('customer')
 function callGetAllCustomersServlet() {
 	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
 
-		customers = response
+		customer = response
 
-		console.log(customers)
+		console.log(customer)
 
-		buildAllCustomers();
+		buildAllCustomer();
 	})
 }
 
-function buildAllCustomers() {
+function buildAllCustomer() {
 	customertable.innerHTML = ''
 	for (var i = 0; i < customer.length; i++) {
 		var customer = `<tr>
@@ -73,21 +73,21 @@ function buildAllCustomers() {
 							${customer[i].Password}
 						</td>
 						<td>
-						    ${customer[i].Name}
-						</td>	
-						<td>
 							${customer[i].phone}
 						</td>
 						<td>
+						    ${customer[i].Name}
+						</td>	
+						<td>
 							${customer[i].address}
 						</td>
-						
+						<td>
 						<div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditCustomerModal" onclick="BuildEditCustomerModal('${customer[i].email}', '${customer[i].Password}','${customer[i].phone}','${customer[i].name}','${customer[i].address}','${customer[i].address}');"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditCustomerModal" onclick="BuildEditCustomerModal('${customer[i].email}', '${customer[i].Password}','${customer[i].phone}','${customer[i].name}','${customer[i].address}');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
                               <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"  onclick="createDeleteModal('${customer[i].email}')"
@@ -128,33 +128,33 @@ function callAddCustomerServlet() {
 		loginError.style = "display: block;"
 		
 	}
-	if (!validateEmail(email)) {
-    document.getElementById("loginError").innerHTML = "Invalid email address";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-  
-    if (!validatePassword(Password)) {
-    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-    if (!validatePhone(phone)) {
-    document.getElementById("loginError").innerHTML = "Invalid phone number";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-  
-    if (!valid) {
-      return;
-    }
+//	if (!validateEmail(email)) {
+//    document.getElementById("loginError").innerHTML = "Invalid email address";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//  
+//    if (!validatePassword(Password)) {
+//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//    if (!validatePhone(phone)) {
+//    document.getElementById("loginError").innerHTML = "Invalid phone number";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//  
+//    if (!valid) {
+//      return;
+//    }
 
 	console.log(address)
 	console.log(name)
 
 
 
-	var endpoint = "http://localhost:8080/LankaHardware/AddCustomerServlet"
+	var endpoint = "http://localhost:8080/LankaHardware/AddCustomersServlet"
 
 	//	var formData = new FormData();
 	//	
@@ -173,7 +173,7 @@ function callAddCustomerServlet() {
 	//	.then(data => window.location.href = data)
 	//	)
 
-	$.post(endpoint, { email: email, password: Password, phone: phone, name: name, address: address }, function(response) {
+	$.post(endpoint, { email: email, Password: Password, phone: phone, name: name, address: address }, function(response) {
 
 		window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
 	})
@@ -299,7 +299,6 @@ function callUpdateCustomer(){
 	var Password = document.getElementById('PasswordModal').value
 	var phone = document.getElementById('phoneModal').value
 	var name = document.getElementById('designationModal').value
-	var email = document.getElementById('emailModal').value
 	var address = document.getElementById('addressModal').value
 
 	
