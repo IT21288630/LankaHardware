@@ -1,10 +1,16 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Lanka Hardware</title>
+    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!--Search css Styles -->
+	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
+	<link rel="stylesheet" href="css/search.css" type="text/css">
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -49,9 +55,6 @@
 		    </div>
 		  </div>
     </div>
-    
-     <input type="hidden" id="status" value= "<%= request.getAttribute("status") %>" >
-     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">LankaHardware</a>
@@ -61,22 +64,18 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.html">Shop</a>
-                <a href="<%=request.getContextPath()%>/com" class="dropdown-item" href="product-single.html">Order</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
-	        </ul>
+		          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+	              <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
+		          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
+		          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Orders</a></li>
+		          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
+		          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+		          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>
+		          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
+				  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
+								class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
+				  <li class="nav-item"><a href="profile.jsp" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
+		        </ul>
 	      </div>
 	    </div>
 	  </nav>
@@ -97,99 +96,68 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-10 ftco-animate">
-						<form action="<%= request.getContextPath() %>/checkout" method="post" class="billing-form">
+						<form action="#" class="billing-form">
 							<h3 class="mb-4 billing-heading">Billing Details</h3>
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6">
 	                <div class="form-group">
-	                	<label >Name</label>
-	                  <input type="text" class="form-control" value="${checkout.Name}" name="Name">
+	                	<label for="firstname">Firt Name</label>
+	                  <input type="text" class="form-control" placeholder="" id="fname"> 
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
-	                	<label >Email Address</label>
-	                  <input type="text" class="form-control" placeholder="" name="email">
+	                	<label for="lastname">Last Name</label>
+	                  <input type="text" class="form-control" placeholder="" id="lname">
 	                </div>
                 </div>
                 <div class="w-100"></div>
-		            <div class="col-md-12">
+		            <div class="w-100"></div>
+		            <div class="col-md-6">
 		            	<div class="form-group">
-		            		<label for="country">State / Country</label>
-		            		<div class="select-wrap">
-		                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                  <select name="state" id="" class="form-control">
-		                  	<option value="France">France</option>
-		                    <option value="Italy">Italy</option>
-		                    <option value="United State">United State</option>
-		                    <option value="South Korea">South Korea</option>
-		                    <option value="SriLanka">SriLanka</option>
-		                    <option value="Japan">Japan</option>
-		                  </select>
-		                </div>
-		            	</div>
+	                	<label for="streetaddress">Street Address</label>
+	                  <input type="text" class="form-control" placeholder="House number and street name"  id="address">
+	                </div>
 		            </div>
 		            <div class="w-100"></div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
-	                	<label >Street Address</label>
-	                  <input type="text" class="form-control" placeholder="House number and street name" name="address">
+		            		<label for="postcodezip">Postcode / ZIP *</label>
+	                  <input type="text" class="form-control" placeholder=""  id="pcode">
 	                </div>
 		            </div>
+		            <div class="w-100"></div>
 		            <div class="col-md-6">
 	                <div class="form-group">
-	                	<label>Phone</label>
-	                  <input type="text" class="form-control" placeholder="" name="phone">
+	                	<label for="phone">Phone</label>
+	                  <input type="text" class="form-control" placeholder="" id="phone">
 	                </div>
 	              </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-	                	<label>Town / City</label>
-	                  <input type="text" class="form-control" placeholder="" name="city">
+	              <div class="col-md-6">
+	                <div class="form-group">
+	                	<label for="emailaddress">Email Address</label>
+	                  <input type="text" class="form-control" placeholder="" id="email">
 	                </div>
-		            </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-		            		<label>Postcode / ZIP *</label>
-	                  <input type="text" class="form-control" placeholder="" name="postcode">
-	                </div>
-		            </div>
-		            <div class="w-100"></div>
-		            
-	              
-                <div class="w-100"></div>
-                <div class="col-md-12">
-                	
-									
-							<input class="btn btn-primary launch" type="submit"  name="submit"  value="Save Details">
-									
                 </div>
+                <div class="w-100"></div>
 	            </div>
 	          </form><!-- END -->
-              </div></div>
+
 
 
 	          <div class="row mt-5 pt-3 d-flex">
 	          	<div class="col-md-6 d-flex">
 	          		<div class="cart-detail cart-total bg-light p-3 p-md-4">
-	          			<h3 class="billing-heading mb-4">Cart Total</h3><br>
-	          			
-	          			<p class="d-flex"><br><br>
-		    						<span>Coupon</span>
-		    						<span><input type="text" id="voucherCode"></span>
-		    						<span><button style="position:relative; display:block; left:3px;padding:3px;background-color:#000; color:#fff">Add</button></span>
-		    					</p>
-	          			
-	          			<p class="d-flex"><br><br>
+	          			<h3 class="billing-heading mb-4">Cart Total</h3>
+	          			<p class="d-flex">
 		    						<span>Subtotal</span>
 		    						<span>$20.60</span>
 		    					</p>
-		    					<p class="d-flex"><br><br>
+		    					<p class="d-flex">
 		    						<span>Delivery</span>
 		    						<span>$0.00</span>
 		    					</p>
-		    					<p class="d-flex"><br><br>
+		    					<p class="d-flex">
 		    						<span>Discount</span>
 		    						<span>$3.00</span>
 		    					</p>
@@ -203,85 +171,41 @@
 	          	<div class="col-md-6">
 	          		<div class="cart-detail bg-light p-3 p-md-4">
 	          			<h3 class="billing-heading mb-4">Payment Method</h3>
-									
-        
-                    <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2" >
-                        <!-- Credit card form tabs -->
-
-                        <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3" >
-                            <li class="nav-item" > <a data-toggle="pill" href="#credit-card" class="nav-link active " style="font-size:12px"> <i class="fas fa-credit-card mr-2" ></i> Credit Card </a> </li>
-                            <li class="nav-item" > <a data-toggle="pill" href="#paypal" class="nav-link " style="font-size:12px" > <i class="fab fa-paypal mr-2" ></i> Cash on delivery </a> </li>
-                     
-                        </ul>
-                    </div> <!-- End -->
-                    <!-- Credit card form content -->
-                    <div class="tab-content">
-                        <!-- credit card info-->
-                        <div id="credit-card" class="tab-pane fade show active pt-3">
-                            <form action="<%= request.getContextPath() %>/ReturnFormServlet" method="post" role="form" ">
-                                <div class="form-group"> <label for="username">
-                                        <h6>Card Owner</h6>
-                                    </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
-                                <div class="form-group"> <label for="cardNumber">
-                                        <h6>Card number</h6>
-                                    </label>
-                                    <div class="input-group"> <input type="text" name="cardNumber" placeholder="Valid card number" class="form-control " required>
-                                        <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span> </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="form-group"> <label><span class="hidden-xs">
-                                                    <h6>Expiration Date</h6>
-                                                </span></label>
-                                            <div class="input-group"> <input type="number" placeholder="MM" name="" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required> </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">
-                                                <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
-                                            </label> <input type="text" required class="form-control"> </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer"> <button type="button" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button>
-                            </form>
-                        </div>
-                    </div> <!-- End -->
-                    <!-- Paypal info -->
-                    <div id="paypal" class="tab-pane fade pt-3">
-                        <h6 class="pb-2">Delivery information</h6>
-                        <div class="form-group "> <label class="radio-inline"> <input type="radio" name="optradio" checked> Domestic </label> <label class="radio-inline"> <input type="radio" name="optradio" class="ml-5">International </label></div>
-                        <p> <button type="button" class="btn btn-primary "  onclick="window.location.href='https://www.paypal.com/signin/';"><i class="fab fa-paypal mr-2"></i> Confirm</button> </p>
-                        <p class="text-muted"> Note: Our delivery partner will deliver your order hand over the cash to the delivery partner. </p>
-                    </div> <!-- End -->
-                    <!-- bank transfer info -->
-                    <div id="net-banking" class="tab-pane fade pt-3">
-                        <div class="form-group "> <label for="Select Your Bank">
-                                <h6>Select your Bank</h6>
-                            </label> <select class="form-control" id="ccmonth">
-                                <option value="" selected disabled>--Please select your Bank--</option>
-                                <option>Bank 1</option>
-                                <option>Bank 2</option>
-                                <option>Bank 3</option>
-                                <option>Bank 4</option>
-                                <option>Bank 5</option>
-                                <option>Bank 6</option>
-                                <option>Bank 7</option>
-                                <option>Bank 8</option>
-                                <option>Bank 9</option>
-                                <option>Bank 10</option>
-                            </select> </div>
-                        <div class="form-group">
-                            <p> <button type="button" class="btn btn-primary "><i class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </p>
-                        </div>
-                        <p class="text-muted">Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-                    </div> <!-- End -->
-                    <!-- End -->
-                </div>
-            </div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<div class="radio">
+											   <label><input type="radio" name="optradio" class="mr-2"> Direct Bank Tranfer</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<div class="radio">
+											   <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<div class="radio">
+											   <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<div class="checkbox">
+											   <label><input type="checkbox" value="" class="mr-2"> I have read and accept the terms and conditions</label>
+											</div>
+										</div>
+									</div>
+									<p><a href="#"class="btn btn-primary py-3 px-4" onclick="callCheckoutServlet(); return false;">Place an order</a></p>
+								</div>
+	          	</div>
+	          </div>
+          </div> <!-- .col-md-8 -->
         </div>
-    </div>
-									
+      </div>
     </section> <!-- .section -->
 		
 
@@ -297,7 +221,7 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">LankaHardware</h2>
+              <h2 class="ftco-heading-2">Minishop</h2>
               <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -365,6 +289,68 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
+	<!-- Mini cart -->
+	<div class="mini-cart" id="mini-cart">
+		<div class="mini-cart-header">
+			<div class="mini-cart-header-title">Mini cart</div>
+			<button data-close-button class="mini-cart-close">&times;</button>
+		</div>
+		<div class="mini-cart-body mini-cart-no-scroll-bar">
+			<section class="ftco-section ftco-cart mini-cart-no-scroll-bar"
+				style="padding: 0px; height: 100%; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody id="miniCart_itemList">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
+		</div>
+	</div>
+
+	<div id="mini-cart-overlay"></div>
+
+	<!-- Search Begin -->
+	<div class="search-model">
+	    <div class="h-100 d-flex align-items-center justify-content-center">
+	        <div class="search-close-switch" id="mainSearchClose">+</div>
+	        <form class="search-model-form">
+	            <div>
+	                <input type="text" id="search-input" placeholder="Search here....." oninput="mainSearch();">
+	                <i class="fa-solid fa-magnifying-glass searchFormBtn clickable" onclick="searchToShop();"></i>
+	            </div>
+	            
+	            <section class="mini-cart-no-scroll-bar" style="max-height: 500px; overflow-y: scroll;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 ftco-animate" style="padding-left: 0px; padding-right: 0px;">
+							<div class="cart-list">
+								<table class="table">
+									<tbody id="result">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+	        </form>
+	    </div>
+	</div>
+	<!-- Search End -->
+
+	<!--Search Js Plugins -->
+	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
+	<script src="ashion-master/js/main.js"></script>
+
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -381,54 +367,14 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/nilusha.js"></script>
+  <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
 
   <script>
 		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
+		    callCartServlet(false)
 		});
 	</script>
-	
-	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	 <link rel="stylesheet" href="alert/dist/sweetalert.css">
-	 
-	 <script type="text/javascript">
-	  var status = document.getElementById("status").value;
-	  if(status == "success"){
-		  swal("done","Account Created Successfully","success");
-	  }
-	 
-	 </script>
     
   </body>
 </html>

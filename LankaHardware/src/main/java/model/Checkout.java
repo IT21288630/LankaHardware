@@ -2,57 +2,50 @@ package model;
 
 public class Checkout {
 
-	private String Name;
+	private String name;
 	private String email;
-	private String state;
-	private String address;
 	private String phone;
-	private String city;
-	private String postcode;
-	
-	
+	private String pcode;
+	private String address;
+
 	public String getName() {
-		return Name;
+		return name;
 	}
+
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getCity() {
-		return city;
+
+	public String getPcode() {
+		return pcode;
 	}
-	public void setCity(String city) {
-		this.city = city;
+
+	public void setPcode(String pcode) {
+		this.pcode = pcode;
 	}
-	public String getPostcode() {
-		return postcode;
+
+	public String getAddress() {
+		return address;
 	}
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	
-	
+
 }
