@@ -198,7 +198,7 @@ function validation() {
 					}, 1000);
 					
 				
-			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod,size, img, subType);
+			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod);
 			GenerateBarCode();
 			
 		}
@@ -368,7 +368,7 @@ function buildAllStock(stock, stockLen){
 									${stock[i].brand}
 								</td>
 								<td>
-									${stock[i].stock}
+									${stock[i].quantity}
 								</td>
 								<td>
 									LKR. ${stock[i].price}
@@ -382,10 +382,10 @@ function buildAllStock(stock, stockLen){
                             
 
 		                            	<div class="dropdown-menu">
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].stock}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}','${stock[i].size}', '${stock[i].mainImg}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}','${stock[i].size}', '${stock[i].mainImg}')">
 				                              <i class="fa-regular fa-eye"></i> View</a> 
 				                               
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].stock}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}', '${stock[i].size}', '${stock[i].mainImg}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}', '${stock[i].size}', '${stock[i].mainImg}')">
 				                              <i class="bx bx-edit-alt me-1"></i>Edit</a> 
 		
 				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="createDeleteModal('${stock[i].itemID}')">
@@ -440,15 +440,15 @@ function callSortbyServlet(sort){
 
 //Insert Stock
 
-function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod, size, img, subType){
+function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod){
 		
 		var endpoint = "http://localhost:8080/LankaHardware/AddStoreItemsServlet";
 		
 		console.log("This is before addstoreitems")
-		console.log("Inputs: " + name + category+brand+price+quantity+ description+mf_date+exp_date+ warrentyType+ warNum+ warPeriod+size+ img+subType);
+		//console.log("Inputs: " + name + category+brand+price+quantity+ description+mf_date+exp_date+ warrentyType+ warNum+ warPeriod+size+ img+subType);
 	
 		
-		$.post(endpoint,{ name: name, category: category, brand: brand, price: price, quantity: quantity, description: description, mf_date: mf_date, exp_date: exp_date, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod, size: size, img: img, subType : subType}, function(response){
+		$.post(endpoint,{ name: name, category: category, brand: brand, price: price, quantity: quantity, description: description, mf_date: mf_date, exp_date: exp_date,warrentyType:warrentyType,warNum:warNum, warPeriod:warPeriod}, function(response){
 			console.log("this is after add response")
 		});
 }	

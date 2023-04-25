@@ -21,7 +21,7 @@ public interface IStockService {
 
 	public String removeStockItems(String itemID);
 
-	public String updateStockItems(String id, String name, String cat, String Brand, double U_price, int quantity, String Des, String mf,String exp,String WarrantyType, int warrentyNum, String warPeriod, String size, String mainImg, String subType);
+	public String updateStockItems(String id, String name, String cat, String Brand, double price, int quantity, String Des, String mf,String exp);
 
 	
 	
