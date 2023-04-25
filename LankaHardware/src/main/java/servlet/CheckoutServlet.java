@@ -1,59 +1,65 @@
 package servlet;
 
 import java.io.IOException;
+
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.CheckoutService;
 import model.Checkout;
-import service.CheckoutServiceImpl;
-import service.ICheckoutService;
 
-/**
- * Servlet implementation class CheckoutServlet
- */
-@WebServlet("/CheckoutServlet")
+@WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CheckoutServlet() {
-		super();
-		// TODO Auto-generated constructor stub
+    private CheckoutService checkoutService;
+	
+	public void init() {
+		checkoutService = new CheckoutService();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-
-		Checkout checkout = new Checkout();
-		ICheckoutService iCheckoutService = new CheckoutServiceImpl();
-
-		checkout.setName(request.getParameter("fname") +" "+ request.getParameter("lname"));
-		checkout.setEmail(request.getParameter("email"));
-		checkout.setPcode(request.getParameter("pcode"));
-		checkout.setPhone(request.getParameter("phone"));
-		checkout.setAddress(request.getParameter("address"));
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		iCheckoutService.checkout(checkout);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/webapp/checkout.jsp");
+		dispatcher.forward(request, response);
+		
 	}
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		String Name = request.getParameter("Name");
+		String email = request.getParameter("email");
+		String state = request.getParameter("state");
+		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String city = request.getParameter("city");
+		String postcode = request.getParameter("postcode");
+		
+		Checkout checkout = new Checkout();
+		checkout.setName(Name);
+		checkout.setEmail(email);
+		checkout.setState(state);
+		checkout.setAddress(address);
+		checkout.setPhone(phone);
+		checkout.setCity(city);
+		checkout.setPostcode(postcode);
+		
+		try {
+			checkoutService.registerCheckout(checkout);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("checkout.jsp");
+	    
+	}
 }
