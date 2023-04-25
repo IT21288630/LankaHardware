@@ -64,7 +64,7 @@ function test123(){
 
 function callAddFeedbackServlet(){
 	
-	
+	var f_msg = document.getElementById('f_msg')
 	var subject = document.getElementById('subject').value
 	var feedback = document.getElementById('feedback').value
 
@@ -95,7 +95,12 @@ function callAddFeedbackServlet(){
 	$.post(endpoint, {subject : subject,feedback : feedback }, function(response) {
 		
 		console.log(response)
+		f_msg.innerHTML = "Feedback Added"
+		f_msg.classList.add('active')
 		
+		setTimeout(function() {
+			f_msg.classList.remove('active')
+		}, 1500);
 	})
 }
 
