@@ -49,44 +49,59 @@ function callLoginServlet() {
  * 
  */
 var customer = []
-var customerlogintable = document.getElementById('customer')
+var customertable = document.getElementById('customer')
 
 function callGetAllCustomersServlet() {
 	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
 
-		customers = response
+		customer = response
 
-		console.log(customers)
+		console.log(customer)
 
-		buildAllCustomers();
+		buildAllCustomer();
 	})
 }
 
 function buildAllCustomer() {
-	customerlogintable.innerHTML = ''
-	for (var i = 0; i < customers.length; i++) {
+	customertable.innerHTML = ''
+	for (var i = 0; i < customer.length; i++) {
 		var customer = `<tr>
 						<td>
-							${customers[i].email}
+							${customer[i].email}
 						</td>
 						<td>
-							${ecustomers[i].Password}
+							${customer[i].Password}
 						</td>
 						<td>
-						    ${customers[i].Name}
+							${customer[i].phone}
+						</td>
+						<td>
+						    ${customer[i].Name}
 						</td>	
 						<td>
-							${customers[i].phone}
+							${customer[i].address}
 						</td>
 						<td>
-							${customerss[i].address}
-						</td>
+						<div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditCustomerModal" onclick="BuildEditCustomerModal('${customer[i].email}', '${customer[i].Password}','${customer[i].phone}','${customer[i].name}','${customer[i].address}');"
+                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                              >
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"  onclick="createDeleteModal('${customer[i].email}')"
+                                ><i class="bx bx-trash me-1"></i> Delete</a
+                              >
+                            </div>
+                          </div>
+                        </td>
 						
 						
 						</tr>`
 
 
-		customerlogintable.innerHTML += customer
+		customertable.innerHTML += customer
 	}
 }
 
@@ -96,7 +111,7 @@ function buildAllCustomer() {
 var isNew = true;
 
 
-function callAddCustomersServlet() {
+function callAddCustomerServlet() {
 	var loginError = document.getElementById('loginError')
 
 	var email = document.getElementById('email').value
@@ -105,40 +120,62 @@ function callAddCustomersServlet() {
 	var phone = document.getElementById('phone').value
 	var name = document.getElementById('Name').value
 	var address = document.getElementById('address').value
+	var valid
 
 
 	if (con_Password != Password) {
 		loginError.innerHTML = "Password and Confirm password should match"
 		loginError.style = "display: block;"
-		
+		return
 	}
-	if (!validateEmail(email)) {
-    document.getElementById("loginError").innerHTML = "Invalid email address";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
+
+//	if (!validateEmail(email)) {
+//    document.getElementById("loginError").innerHTML = "Invalid email address";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//  
+//    if (!validatePassword(Password)) {
+//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//    if (!validatePhone(phone)) {
+//    document.getElementById("loginError").innerHTML = "Invalid phone number";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//  
+//    if (!valid) {
+//      return;
+//    }
+
+//	if (!validateEmail(email)) {
+//    document.getElementById("loginError").innerHTML = "Invalid email address";
+//    document.getElementById("loginError").style.display = "block";
+//    return
+//    }
+//  
+//    if (!validatePassword(Password)) {
+//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
+//    document.getElementById("loginError").style.display = "block";
+//    return
+//    }
+//    if (!validatePhone(phone)) {
+//    document.getElementById("loginError").innerHTML = "Invalid phone number";
+//    document.getElementById("loginError").style.display = "block";
+//    return
+//    }
   
-    if (!validatePassword(Password)) {
-    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-    if (!validatePhone(phone)) {
-    document.getElementById("loginError").innerHTML = "Invalid phone number";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-  
-    if (!valid) {
-      return;
-    }
+    
+
 
 	console.log(address)
 	console.log(name)
 
 
 
-	var endpoint = "http://localhost:8080/LankaHardware/AddCustomerServlet"
+	var endpoint = "http://localhost:8080/LankaHardware/AddCustomersServlet"
 
 	//	var formData = new FormData();
 	//	
@@ -157,7 +194,7 @@ function callAddCustomersServlet() {
 	//	.then(data => window.location.href = data)
 	//	)
 
-	$.post(endpoint, { email: email, password: Password, phone: phone, name: name, address: address }, function(response) {
+	$.post(endpoint, { email: email, Password: Password, phone: phone, name: name, address: address }, function(response) {
 
 		window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
 	})
@@ -276,14 +313,13 @@ function BuildEditCustomerModal(email,Password,phone,name,address){
 	
 }
 
-function callupdateCustomer(){
+function callUpdateCustomer(){
 	var inputFile = document.getElementById('inputFileModal')
 	
 	var email = document.getElementById('emailModal').value
 	var Password = document.getElementById('PasswordModal').value
 	var phone = document.getElementById('phoneModal').value
 	var name = document.getElementById('designationModal').value
-	var email = document.getElementById('emailModal').value
 	var address = document.getElementById('addressModal').value
 
 	
@@ -379,7 +415,7 @@ function createDeleteModal(email) {
 	deleteModalFooter.style.display = ""
 }
 
-function callDeleteCustomerServlet(email) {
+function callRemoveCustomerServlet(email) {
 	deleteModalHeader.style = "display: none;"
 	deleteModalBody.style = "text-align: center;"
 	deleteModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">

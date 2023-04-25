@@ -21,7 +21,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Container - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Employees</title>
 
     <meta name="description" content="" />
 
@@ -186,17 +186,7 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-                <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
-                </li>
+              
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -404,7 +394,7 @@
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
+                            <input class="form-control" type="text" name="name" id="name" required/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
@@ -413,7 +403,7 @@
                               type="text"
                               id="email"
                               name="email"
-                             
+                              required
                               placeholder="123@gmail.com"
                             />
                           </div>
@@ -425,6 +415,7 @@
                               id="designation"
                               name="designation"
                               placeholder = "Assistant Manager"
+                              required
                             />
                           </div>
                           <div class="mb-3 col-md-6">
@@ -437,19 +428,20 @@
                                 name="phoneNum"
                                 class="form-control"
                                 placeholder="07********"
+                                required
                               />
                             </div>
                           </div>
                           
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" required/>
                           </div>
                
                   
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="country">Gender</label>
-                            <select id="gender" name = "gender"class="select2 form-select">
+                            <select id="gender" name = "gender"class="select2 form-select" required>
                               <option value="select">Select</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
@@ -459,12 +451,12 @@
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="language" class="form-label">Appointment Date</label><br>
-                           <input name = date type="date" id="date" name = "date">
+                           <input name = date type="date" id="date" name = "date" required>
 
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="wage" class="form-label">Wage Type</label>
-                            <select id="wage" name = "wage" class="select2 form-select">
+                            <select id="wage" name = "wage" class="select2 form-select" required>
                               <option value="">Select Type</option>
                               <option value="Hourly Wage">Hourly Wage</option>
                               <option value="Fixed salary">Fixed Salary</option>
@@ -479,6 +471,7 @@
                               id="salary"
                               name="salary"
                               placeholder = "Rs 50000"
+                              required
                             />
                           </div>
                         </div>

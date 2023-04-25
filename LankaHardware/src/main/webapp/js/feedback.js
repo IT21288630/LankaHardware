@@ -10,25 +10,25 @@ function callGetAllFeedbacksServlet(){
 				
 		feedbacks = response
 		
-		buildAllFeedbacks();
+		buildAllFeedbacks(feedbacks);
 	})
 }
 
-function buildAllFeedbacks(){
+function buildAllFeedbacks(feed){
 	feedbackstable.innerHTML = ''
 	for(var i = 0; i < feedbacks.length; i++){
 		var feedback = `<tr>
 						<td>
-							${feedbacks[i].feedid}
+							${feed[i].feedid}
 						</td>
 						<td>
-							${feedbacks[i].email}
+							${feed[i].email}
 						</td>
 						<td>
-							${feedbacks[i].subject}
+							${feed[i].subject}
 						</td>
 						<td>
-							${feedbacks[i].feedback}
+							${feed[i].feedback}
 						</td>
 						
 						<td>
@@ -40,7 +40,7 @@ function buildAllFeedbacks(){
                               <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditFeedbackModal" onclick="BuildEditFeedbackModal('');"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#FeedbackdeleteModal"  onclick="createFeedBackDeleteModal('${feedbacks[i].feedid}')"
+                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#FeedbackdeleteModal"  onclick="createFeedBackDeleteModal('${feed[i].feedid}')"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -64,7 +64,7 @@ function test123(){
 
 function callAddFeedbackServlet(){
 	
-	
+	var f_msg = document.getElementById('f_msg')
 	var subject = document.getElementById('subject').value
 	var feedback = document.getElementById('feedback').value
 
@@ -95,7 +95,12 @@ function callAddFeedbackServlet(){
 	$.post(endpoint, {subject : subject,feedback : feedback }, function(response) {
 		
 		console.log(response)
+		f_msg.innerHTML = "Feedback Added"
+		f_msg.classList.add('active')
 		
+		setTimeout(function() {
+			f_msg.classList.remove('active')
+		}, 1500);
 	})
 }
 
@@ -151,5 +156,24 @@ function callDeleteFeedbackServlet(feedid) {
 			$('#FeedbackdeleteModal').modal('hide')
 		}, 2500);
 	})
+}
+
+function buildFeedbackSearchLists() {
+	searchLists = []
+	var search = document.getElementById("searchfeed").value.toLowerCase()
+	search = search.trim()
+
+	
+		for (var i = 0; i < feedbacks.length; i++) {
+			if(feedbacks[i].email.toLowerCase().includes(search)||feedbacks[i].feedid.toLowerCase().includes(search))
+			
+			searchLists.push(feedbacks[i])
+		
+		
+		buildAllFeedbacks(searchLists)
+		
+	} 
+
+
 }
 

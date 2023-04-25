@@ -1350,7 +1350,7 @@ function buildProductSingle(product){
                 </div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
 					<h3>${product.name}</h3>
-					<div class="rating d-flex">
+					<div class="rating d-flex" style="align-items: center;">
 						<p class="text-left mr-4">
 							<a href="#" class="mr-2">${Math.round(product.avgRating * 10) / 10}</a>
 							<a href="#"><span class="ion-ios-star-outline" id="${starID}1"></span></a>
@@ -1366,6 +1366,12 @@ function buildProductSingle(product){
 						</p>
 						<p class="text-left">
 							<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
+						</p>
+						
+						<p class="text-left mr-4" style="background: #dbcc8f; margin-left: 20px; text-align: center; border-radius: 100vh; padding: 10px;">
+							<a href="#" class="mr-2" style="color: #000;"> <span style="color: #fff;"
+									id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
+									aria-controls="v-pills-3" aria-selected="false">Show Reviews</span></a>
 						</p>
 					</div>
 					<p class="price"><span id="productPrice">Rs${product.price}</span></p>

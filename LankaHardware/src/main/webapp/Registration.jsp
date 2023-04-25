@@ -219,13 +219,13 @@
                     </label>
                   </div>
                 </div>
-                 <button type="button" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomersServlet();">Sign up</button>
+                 <button type="button" style="width: 100%;" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomerServlet();">Sign up</button>
                 
               </form>
 
               <p class="text-center">
                 <span>Already have an account?</span>
-                <a href="login.jsp">
+                <a href="Login.jsp">
                   <span>Sign in instead</span>
                 </a>
               </p>
