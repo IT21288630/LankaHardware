@@ -49,10 +49,10 @@ function callLoginServlet() {
  * 
  */
 var customer = []
-var customerlogintable = document.getElementById('customer')
+var customertable = document.getElementById('customer')
 
-function callGetAllCustomersServlet() {
-	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
+function callGetAllCustomerServlet() {
+	$.get("http://localhost:8080/LankaHardware/GetAllCustomerServlet", function(response) {
 
 		customers = response
 
@@ -63,30 +63,30 @@ function callGetAllCustomersServlet() {
 }
 
 function buildAllCustomer() {
-	customerlogintable.innerHTML = ''
-	for (var i = 0; i < customers.length; i++) {
+	customertable.innerHTML = ''
+	for (var i = 0; i < customer.length; i++) {
 		var customer = `<tr>
 						<td>
-							${customers[i].email}
+							${customer[i].email}
 						</td>
 						<td>
-							${ecustomers[i].Password}
+							${ecustomer[i].Password}
 						</td>
 						<td>
-						    ${customers[i].Name}
+						    ${customer[i].Name}
 						</td>	
 						<td>
-							${customers[i].phone}
+							${customer[i].phone}
 						</td>
 						<td>
-							${customerss[i].address}
+							${customer[i].address}
 						</td>
 						
 						
 						</tr>`
 
 
-		customerlogintable.innerHTML += customer
+		customertable.innerHTML += customer
 	}
 }
 
@@ -96,7 +96,7 @@ function buildAllCustomer() {
 var isNew = true;
 
 
-function callAddCustomersServlet() {
+function callAddCustomerServlet() {
 	var loginError = document.getElementById('loginError')
 
 	var email = document.getElementById('email').value
@@ -112,26 +112,26 @@ function callAddCustomersServlet() {
 		loginError.style = "display: block;"
 		
 	}
-	if (!validateEmail(email)) {
-    document.getElementById("loginError").innerHTML = "Invalid email address";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-  
-    if (!validatePassword(Password)) {
-    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-    if (!validatePhone(phone)) {
-    document.getElementById("loginError").innerHTML = "Invalid phone number";
-    document.getElementById("loginError").style.display = "block";
-    valid = false;
-    }
-  
-    if (!valid) {
-      return;
-    }
+//	if (!validateEmail(email)) {
+//    document.getElementById("loginError").innerHTML = "Invalid email address";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//  
+//    if (!validatePassword(Password)) {
+//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//    if (!validatePhone(phone)) {
+//    document.getElementById("loginError").innerHTML = "Invalid phone number";
+//    document.getElementById("loginError").style.display = "block";
+//    valid = false;
+//    }
+//  
+//    if (!valid) {
+//      return;
+//    }
 
 	console.log(address)
 	console.log(name)
@@ -157,7 +157,7 @@ function callAddCustomersServlet() {
 	//	.then(data => window.location.href = data)
 	//	)
 
-	$.post(endpoint, { email: email, password: Password, phone: phone, name: name, address: address }, function(response) {
+	$.post(endpoint, { email: email, Password: Password, phone: phone, name: name, address: address }, function(response) {
 
 		window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
 	})

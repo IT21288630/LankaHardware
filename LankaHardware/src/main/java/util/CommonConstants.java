@@ -57,7 +57,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_GET_ALL_ITEMS = "SELECT i.id, min(s.unit_price), name, brand, img, i.description, s.stock FROM item i, item_img img, item_size s where i.id = img.id and i.id = s.id GROUP BY i.id ORDER BY i.name;";
 	
 	/** Constant for select cart id's */
-	public static final String QUERY_ID_LOGIN = "SELECT * FROM customerlogin where email=? and Password=?;";
+	public static final String QUERY_ID_LOGIN = "SELECT * FROM customer where email=? and Password=?;";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_LOGIN_ADMIN = "SELECT * FROM admin where Email=? and password=?;";
@@ -70,7 +70,7 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_EMPLOYEE_IDS = "select empNo from cart;";
 	
 	/** Constant for select customer id's*/
-	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customerlogin;";
+	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customer;";
 	
 	/** Constant for select item id's*/
 	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand,quantity, price, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item_m;";
@@ -108,7 +108,7 @@ public class CommonConstants {
 	
 	
 	/** Constant for add customer details */
-	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customerlogin(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
+	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customer(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
 	
 	/** Constant for add stock details */
 	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item_m(id, name, type, description, brand, price, quantity, mf_date, exp_date,warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?);";
@@ -128,13 +128,13 @@ public class CommonConstants {
 	public static final String QUERY_ID_ADD_TO_voucher = "INSERT INTO voucher (id, code, amount, exp) VALUES(?, ?, ?, ?);";
 	
 	
-	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customerlogin(email) VALUES(?);";
+	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customer(email) VALUES(?);";
 	
 	/** Constant for update customer */
-	public static final String QUERY_ID_UPDATE_CUSTOMERS = "UPDATE customerlogin SET email = ?, Password = ?, phone = ? , address = ?, WHERE = email = ? ";
+	public static final String QUERY_ID_UPDATE_CUSTOMERS = "UPDATE customer SET email = ?, Password = ?, phone = ? , address = ?, WHERE = email = ? ";
 	
 	/** Constant for clear customer */
-	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customerlogin WHERE email = ?";
+	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customer WHERE email = ?";
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";

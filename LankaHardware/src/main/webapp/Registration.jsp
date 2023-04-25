@@ -219,7 +219,7 @@
                     </label>
                   </div>
                 </div>
-                 <button type="button" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomersServlet();">Sign up</button>
+                 <button type="button" class="btn btn-primary me-2" style="width: 100%;" id = "save" onclick ="callAddCustomerServlet();">Sign up</button>
                 
               </form>
 
