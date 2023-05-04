@@ -33,6 +33,7 @@ public class IStockServiceImpl implements IStockService {
 	private static Connection con;
 
 	private static Statement st;
+	private static PreparedStatement pst;
 
 	private static PreparedStatement pstI;
 	
@@ -269,7 +270,7 @@ public class IStockServiceImpl implements IStockService {
 
 	
 	@Override
-	public String updateStockItems(String id, String name, String cat, String Brand, double U_price, int quantity, String Des, String mf,String exp,String WarrantyType, int warrentyNum, String warPeriod, String size, String mainImg, String subType) {
+	public String updateStockItems(String id, String name, String cat, String Brand, double U_price, int quantity, String Des, String mf,String exp) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
