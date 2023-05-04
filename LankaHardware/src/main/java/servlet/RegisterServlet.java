@@ -22,25 +22,26 @@ public class RegisterServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
-        // show registration form
-        RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
-        dispatcher.forward(request, response);
+      
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
-        String name = request.getParameter("name");
+       
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String phone =request.getParameter("phone");
+        String name = request.getParameter("name");
+        String address =request.getParameter("address");
         
         // register user
-        boolean success = registerService.registerUser(name, email, password);
-        if (success) {
+        boolean success = registerService.registerUser( email, password,phone,name,address);
+        //if (success) {
             // show OTP form
-            request.setAttribute("email", email);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("otp.jsp");
-            dispatcher.forward(request, response);
-        }
+//            request.setAttribute("email", email);
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.jsp");
+//            dispatcher.forward(request, response);
+//        }
     }
 }

@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 
 import service.IStockService;
 import service.IStockServiceImpl;
+import service.IVoucherService;
+import service.IVoucherServiceImpl;
 
 
 @WebServlet("/RemoveItem")
@@ -43,6 +45,8 @@ public class RemoveItem extends HttpServlet {
 		
 		String id = request.getParameter("id");
 		IStockService iStockService = new IStockServiceImpl();
+		
+		IVoucherService iVoucherService = new IVoucherServiceImpl();
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

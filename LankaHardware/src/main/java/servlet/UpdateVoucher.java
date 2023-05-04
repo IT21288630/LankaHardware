@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import service.CustomerServiceImpl;
-import service.ICustomerService;
-import service.IQuestionService;
-import service.QuestionServiceImpl;
+import service.IVoucherService;
+import service.IVoucherServiceImpl ;
 
-/**
- * Servlet implementation class UpdateEmployee
- */
-@WebServlet("/UpdateCustomer")
-public class UpdateCustomer extends HttpServlet {
+
+
+
+@WebServlet("/UpdateVoucher")
+public class UpdateVoucher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCustomer() {
+    public UpdateVoucher() {
         super();
         // TODO Auto-generated constructor stub
+        System.out.println("this is the constructor updatestock");
     }
 
 	/**
@@ -36,7 +35,6 @@ public class UpdateCustomer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -46,20 +44,21 @@ public class UpdateCustomer extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String email = request.getParameter("email");
-		String Password = request.getParameter("Password");
-		String phone = request.getParameter("phone");
-		String name = request.getParameter("name");
-		String address = request.getParameter("address");
-	
+		String id = request.getParameter("idM");
+		String code = request.getParameter("codeM");
+		int amount = Integer.parseInt(request.getParameter("amountM"));
+		String exp = request.getParameter("expM");
 		
-		ICustomerService ICustomerService = new CustomerServiceImpl();
+	
+		//System.out.println(id+name+email+designation+phoneNum+address);
+		
+		IVoucherService iVoucherService = new IVoucherServiceImpl();
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(ICustomerService.updateCustomers(email,Password,phone,name,address));
+		String resp = new Gson().toJson(iVoucherService.updateVoucher(id, code, amount, exp));
 
 		out.print(resp);
 	}

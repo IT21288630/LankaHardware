@@ -21,7 +21,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Container - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Container - Layouts | Sneat - Bootstrap 5 HTML  Customer Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -108,7 +108,7 @@
             </a>
             
             <div style="display: flex; align-items: end;">
-            	<span class="demo menu-text fw-bolder ms-2">Admin Panel</span>
+            	<span class="demo menu-text fw-bolder ms-2">Customer Panel</span>
             </div>
             
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -138,7 +138,7 @@
             <li class="menu-item active" id="">
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">View Employees</div>
+                <div data-i18n="Tables">View Customer</div>
               </a>
             </li>
             
@@ -216,7 +216,7 @@
                           </div>
                           <div class="flex-grow-1">
                             <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <small class="text-muted">Customer</small>
                           </div>
                         </div>
                       </a>
@@ -249,7 +249,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="index.jsp">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -265,7 +265,8 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          <h5 class="card-header">Employees</h5>
+          <h5 class="card-header">Customer
+          </h5>
             <!-- Content -->
             <div class="layout-demo-wrapper">
                <div class="card">
@@ -276,17 +277,16 @@
                     <thead>
                       <tr class="text-nowrap">
                      
-                        <th>Emp No.</th>
-                        <th>Name</th>
                         <th>Email</th>
-                        <th>Designation</th>
-                        <th>Phone</th>
+                        <th>password</th>
+                        <th>phone</th>
+                        <th>Name</th>
                         <th>Address</th>
                       	<th>Action</th>
                       
                       </tr>
                     </thead>
-                    <tbody id = "employee" >
+                    <tbody id = "customer" >
                     	
                     </tbody>
                   </table>
@@ -312,9 +312,7 @@
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
                   
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
+                 
                   ,  Lanka Hardware 
                   <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>
@@ -357,17 +355,17 @@
         href="#"
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddEmoloyeeModal" 
-        >Add employee</a
+        data-bs-toggle="modal" data-bs-target="#AddCustomerModal" 
+        >Add Customer</a
       >
     </div>
     
     
-    <div class="modal fade" id="AddEmoloyeeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="AddCustomerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="AddEmoloyeeModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add Employee</h5>
+            <div class="modal-header" id="AddCustomerModalHeader">
+              <h5 class="modal-title" id="modalCenterTitle">Add Customer</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -375,7 +373,7 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" id="AddEmoloyeeModalBody">
+            <div class="modal-body" id="AddCustomerModalBody">
               <div>
               	 <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -401,12 +399,7 @@
                     
                     <div class="card-body">
                       <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
+                         <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
                             <input
                               class="form-control"
@@ -417,80 +410,64 @@
                               placeholder="123@gmail.com"
                             />
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Designation</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="designation"
-                              name="designation"
-                              placeholder = "Assistant Manager"
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">LK (+94)</span>
-                              <input
-                                type="text"
-                                id="phoneNum"
-                                name="phoneNum"
-                                class="form-control"
-                                placeholder="07********"
-                              />
-                            </div>
-                          </div>
+                             <div class="mb-3 col-md-6 form-password-toggle">
+                    <label class="form-label" for="password">Password</label>
+	                  <div class="input-group input-group-merge">
+	                    <input
+	                      type="password"
+	                      id="Password"
+	                      class="form-control"
+	                      name="password"
+	                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+	                      aria-describedby="password"
+	                    />
+	                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+	                  </div>
+                </div>
+	                  <div class="mb-3 col-md-6">
+	                            <label class="form-label" for="phone">Phone Number</label>
+	                            <div class="input-group input-group-merge">
+	                              <span class="input-group-text">LK (+94)</span>
+	                              <input
+	                                type="text"
+	                                id="phone"
+	                                name="phoneNum"
+	                                class="form-control"
+	                                placeholder="07********"
+	                              />
+	                            </div>
+	                       
+                         <div class="mb-3">
+                 <label for="Name"class="Name">Name</label>
+                 <div class="form-group">
+  					<input type="text" 
+ 			        class="form-control" 
+			         id="Name" 
+			         placeholder="Name">
+  
+ 		
+                
+					</div>
+                 
+                 </div>
                           
+                              <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
                           </div>
-               
-                  
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">Gender</label>
-                            <select id="gender" name = "gender"class="select2 form-select">
-                              <option value="select">Select</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                            
-                  
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="language" class="form-label">Appointment Date</label><br>
-                           <input name = date type="date" id="date" name = "date">
-
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="wage" class="form-label">Wage Type</label>
-                            <select id="wage" name = "wage" class="select2 form-select">
-                              <option value="">Select Type</option>
-                              <option value="Hourly Wage">Hourly Wage</option>
-                              <option value="Fixed salary">Fixed Salary</option>
-                            
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="currency" class="form-label">Salary Amount[Rs]</label>
-                         <input
-                              type="text"
-                              class="form-control"
-                              id="salary"
-                              name="salary"
-                              placeholder = "Rs 50000"
-                            />
-                          </div>
-                        </div>
+                     
+                          
+                       
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomerServlet()">Add Admin</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "RemoveCustomer()">Cancel</button>
                         </div>
                       </form>
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="AddEmoloyeeModalFooter">
+            <div class="modal-footer" id="AddCustomerModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
@@ -501,13 +478,13 @@
       </div>
       
       <!-- edit modal -->
-      <div class="modal fade" id="EditEmoloyeeModal" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="EditCustomerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="EditEmoloyeeModalHeader">
+            <div class="modal-header" id="EditCustomerModalHeader">
               
             </div>
-            <div class="modal-body" id="EditEmoloyeeModalBody">
+            <div class="modal-body" id="EditCustomerModalBody">
               
                     </div>
                     <hr class="my-0" />
@@ -517,7 +494,7 @@
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="EditEmoloyeeModalFooter">
+            <div class="modal-footer" id="EditCustomerModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
@@ -544,7 +521,7 @@
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../js/CallServlet.js"></script>
+    <script src="../js/callServlet.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="../assets/vendor/js/menu.js"></script>
@@ -564,7 +541,7 @@
   <script>
 	
   $(document).ready(function () {
-	  callGetAllEmployeesServlet()
+	  callGetAllCustomersServlet()
 	});
 
 </script>

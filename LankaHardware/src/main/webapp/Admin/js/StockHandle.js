@@ -382,10 +382,10 @@ function buildAllStock(stock, stockLen){
                             
 
 		                            	<div class="dropdown-menu">
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].stock}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}','${stock[i].size}', '${stock[i].mainImg}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}','${stock[i].size}', '${stock[i].mainImg}')">
 				                              <i class="fa-regular fa-eye"></i> View</a> 
 				                               
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].stock}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}', '${stock[i].size}', '${stock[i].mainImg}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}', '${stock[i].size}', '${stock[i].mainImg}')">
 				                              <i class="bx bx-edit-alt me-1"></i>Edit</a> 
 		
 				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="createDeleteModal('${stock[i].itemID}')">
@@ -956,7 +956,7 @@ function callupdateItem(){
 	//	formData.append('updateModal', file)
 	//}
 
-	$.post(endpoint, { name: name, Type: Type, brand: brand, price: price, quantity: quantity, description: description, mf: mf, exp: exp, warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod}, function(response) {
+	$.post(endpoint, { name: name, Type: Type, brand: brand, price: price, quantity: quantity, description: description, mf: mf, exp: exp}, $.post(endpoint, {warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod}), function(response) {
 		console.log("this is after updateStock response");
 		//stock = response;
 		//callGetAllStockServlet(stock);

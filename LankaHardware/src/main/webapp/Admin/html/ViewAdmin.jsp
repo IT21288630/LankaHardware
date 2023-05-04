@@ -138,7 +138,7 @@
             <li class="menu-item active" id="">
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">View Employees</div>
+                <div data-i18n="Tables">View Admin</div>
               </a>
             </li>
             
@@ -265,7 +265,8 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          <h5 class="card-header">Employees</h5>
+          <h5 class="card-header">Admin
+          </h5>
             <!-- Content -->
             <div class="layout-demo-wrapper">
                <div class="card">
@@ -276,17 +277,17 @@
                     <thead>
                       <tr class="text-nowrap">
                      
-                        <th>Emp No.</th>
-                        <th>Name</th>
                         <th>Email</th>
-                        <th>Designation</th>
-                        <th>Phone</th>
+                        <th>password</th>
+                        <th>phone</th>
+                        <th>Name</th>
                         <th>Address</th>
+                        <th>Role</th>
                       	<th>Action</th>
                       
                       </tr>
                     </thead>
-                    <tbody id = "employee" >
+                    <tbody id = "admin" >
                     	
                     </tbody>
                   </table>
@@ -358,7 +359,7 @@
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
         data-bs-toggle="modal" data-bs-target="#AddEmoloyeeModal" 
-        >Add employee</a
+        >Add Admin</a
       >
     </div>
     
@@ -367,7 +368,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header" id="AddEmoloyeeModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add Employee</h5>
+              <h5 class="modal-title" id="modalCenterTitle">Add Admin</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -401,12 +402,7 @@
                     
                     <div class="card-body">
                       <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Name</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
+                         <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
                             <input
                               class="form-control"
@@ -417,74 +413,71 @@
                               placeholder="123@gmail.com"
                             />
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Designation</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="designation"
-                              name="designation"
-                              placeholder = "Assistant Manager"
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">LK (+94)</span>
-                              <input
-                                type="text"
-                                id="phoneNum"
-                                name="phoneNum"
-                                class="form-control"
-                                placeholder="07********"
-                              />
-                            </div>
-                          </div>
+                             <div class="mb-3 col-md-6 form-password-toggle">
+                    <label class="form-label" for="password">Password</label>
+	                  <div class="input-group input-group-merge">
+	                    <input
+	                      type="password"
+	                      id="password"
+	                      class="form-control"
+	                      name="password"
+	                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+	                      aria-describedby="password"
+	                    />
+	                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+	                  </div>
+                </div>
+	                  <div class="mb-3 col-md-6">
+	                            <label class="form-label" for="phoneNumber">Phone Number</label>
+	                            <div class="input-group input-group-merge">
+	                              <span class="input-group-text">LK (+94)</span>
+	                              <input
+	                                type="text"
+	                                id="phoneNum"
+	                                name="phoneNum"
+	                                class="form-control"
+	                                placeholder="07********"
+	                              />
+	                            </div>
+	                       
+                         <div class="mb-3">
+                 <label for="Name"class="Name">Name</label>
+                 <div class="form-group">
+  					<input type="text" 
+ 			        class="form-control" 
+			         id="Name" 
+			         placeholder="Name">
+  
+ 		
+                
+					</div>
+                 
+                 </div>
                           
+                              <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
                           </div>
-               
-                  
+                     
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">Gender</label>
-                            <select id="gender" name = "gender"class="select2 form-select">
+                            <label class="form-label" for="country">Role</label>
+                            <select id="Role" name = "Role"class="select2 form-select">
                               <option value="select">Select</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
+                              <option value="SysAdmin">SysAdmin</option>
+                              <option value="ProductManager">Product manager</option>
+                              <option value="StockManager">Stock manager</option>
+                              <option value="SupplierManager">supplier manager</option>
+                              <option value="OrderManager">order manager</option>
+                              <option value="EmployeeManager">Employee manager</option>
                             
                   
                             </select>
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="language" class="form-label">Appointment Date</label><br>
-                           <input name = date type="date" id="date" name = "date">
-
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="wage" class="form-label">Wage Type</label>
-                            <select id="wage" name = "wage" class="select2 form-select">
-                              <option value="">Select Type</option>
-                              <option value="Hourly Wage">Hourly Wage</option>
-                              <option value="Fixed salary">Fixed Salary</option>
-                            
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="currency" class="form-label">Salary Amount[Rs]</label>
-                         <input
-                              type="text"
-                              class="form-control"
-                              id="salary"
-                              name="salary"
-                              placeholder = "Rs 50000"
-                            />
-                          </div>
-                        </div>
+                       
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddEmployeeServlet()">Add Employee</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddAdminServlet()">Add Admin</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearadmin()">Cancel</button>
                         </div>
                       </form>
                     </div>
@@ -564,7 +557,7 @@
   <script>
 	
   $(document).ready(function () {
-	  callGetAllEmployeesServlet()
+	  callGetAllAdminsServlet()
 	});
 
 </script>
