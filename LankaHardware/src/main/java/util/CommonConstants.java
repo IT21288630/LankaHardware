@@ -59,8 +59,38 @@ public class CommonConstants {
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_LOGIN = "SELECT * FROM customer where email=? and Password=?;";
 	
-	/** Constant for select cart id's */
+	
+	
+	
+	/** Constant for login admin id's */
 	public static final String QUERY_ID_LOGIN_ADMIN = "SELECT * FROM admin where Email=? and password=?;";
+	
+	/** constant for get all admin*/
+	public static final String QUERY_ID_SELECT_ALL_ADMIN ="SELECT * FROM admin";
+	
+	/** Constant for clear admin */
+	public static final String QUERY_ID_CLEAR_ADMIN = "DELETE FROM admin WHERE Email = ?";
+	
+	public static final String QUERY_ID_ADD_TO_ADMIN = "INSERT INTO admin(Email, password, phone, name ,Address,Role) VALUES(?, ?, ?, ?,?,?);";	
+	
+	/** constants for update admin*/
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_EMAIL = "UPDATE admin SET Email = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_PHONE = "UPDATE admin SET phone = ? WHERE Email = ?;";
+	
+    public static final String QUERY_ID_UPDATE_ADMIN_NAME = "UPDATE admin SET name = ? WHERE Email ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_ADDRESS = "UPDATE admin SET Address = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_UPDATE_ADMIN_ROLE = "UPDATE admin SET Role = ? WHERE Email = ?;";
+	
+	
+	
+	
+	
 	
 	
 	/** Constant for select cart id's */
@@ -71,6 +101,19 @@ public class CommonConstants {
 	
 	/** Constant for select customer id's*/
 	public static final String QUERY_ID_SELECT_ALL_CUSTOMERS = "SELECT * FROM customer;";
+	/** Constant for add customer details */
+	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customer(email, Password, phone,name, address) VALUES(?, ?, ?, ?,?);";	
+	
+	
+	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customer(email) VALUES(?);";
+	
+	/** Constant for update customer */
+	public static final String QUERY_ID_UPDATE_CUSTOMERS = "UPDATE customer SET email = ?, Password = ?, phone = ? , address = ?, name = ?, WHERE = email = ? ";
+	
+	/** Constant for clear customer */
+	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customer WHERE email = ?";
+	
+	
 	
 	/** Constant for select item id's*/
 	public static final String QUERY_ID_SELECT_ALL_Stock = "SELECT id, name, category, brand,quantity, price, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item_m;";
@@ -107,9 +150,6 @@ public class CommonConstants {
 	
 	
 	
-	/** Constant for add customer details */
-	public static final String QUERY_ID_ADD_TO_CUSTOMER = "INSERT INTO customer(email, Password, phone, address) VALUES(?, ?, ?, ?);";	
-	
 	/** Constant for add stock details */
 	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item_m(id, name, type, description, brand, price, quantity, mf_date, exp_date,warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?);";
 	
@@ -127,15 +167,7 @@ public class CommonConstants {
 	/** Constant for add voucher details */
 	public static final String QUERY_ID_ADD_TO_voucher = "INSERT INTO voucher (id, code, amount, exp) VALUES(?, ?, ?, ?);";
 	
-	
-	public static final String QUERY_ID_CREATE_CUSTOMER = "INSERT INTO customer(email) VALUES(?);";
-	
-	/** Constant for update customer */
-	public static final String QUERY_ID_UPDATE_CUSTOMERS = "UPDATE customer SET email = ?, Password = ?, phone = ? , address = ?, WHERE = email = ? ";
-	
-	/** Constant for clear customer */
-	public static final String QUERY_ID_CLEAR_CUSTOMER = "DELETE FROM customer WHERE email = ?";
-	
+
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";
 	
@@ -521,6 +553,8 @@ public class CommonConstants {
 	 */
 	/** Constant for get item by id */
 	public static final String QUERY_ID_GET_ITEM_BY_ID = "SELECT * FROM item i, item_img img, item_size size where i.id = img.Id and i.id = size.Id and i.id = ?;";
+
+
 
 
 	

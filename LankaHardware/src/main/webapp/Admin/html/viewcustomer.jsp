@@ -141,7 +141,12 @@
                 <div data-i18n="Tables">View Customer</div>
               </a>
             </li>
-            
+             <li class="menu-item" id="">
+              <a href="ViewAdmin.jsp" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">View Admin</div>
+              </a>
+            </li>
             <li class="menu-item" id="">
               <a href="AttendanceView.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
@@ -174,7 +179,7 @@
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
                   	oninput = "buildSearchLists()"
-                  	id="searchemp"
+                  	id="searchcus"
                     type="text"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
@@ -265,8 +270,7 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          <h5 class="card-header">Customer
-          </h5>
+          <h5 class="card-header">Customers</h5>
             <!-- Content -->
             <div class="layout-demo-wrapper">
                <div class="card">
@@ -414,10 +418,10 @@
                     <label class="form-label" for="password">Password</label>
 	                  <div class="input-group input-group-merge">
 	                    <input
-	                      type="password"
+	                      type="Password"
 	                      id="Password"
 	                      class="form-control"
-	                      name="password"
+	                      name="Password"
 	                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 	                      aria-describedby="password"
 	                    />
@@ -521,7 +525,7 @@
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../js/callServlet.js"></script>
+    <script src="../js/callServllet.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="../assets/vendor/js/menu.js"></script>

@@ -91,70 +91,60 @@
     
     <section class="ftco-section bg-light">
     <div class="card mb-4">
-                    <h5 class="card-header">Profile Details</h5>
-                    <!-- Account -->
-                    <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="../imgages/person_1" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+        <h5 class="card-header">Profile Details</h5>
+        <!-- Account -->
+        <div class="card-body">
+            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                <img src="../imgages/person_1" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                <div class="button-wrapper">
+                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                        <span class="d-none d-sm-block">Upload new photo</span>
+                        <i class="bx bx-upload d-block d-sm-none"></i>
+                        <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
+                    </label>
+                    <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                        <i class="bx bx-reset d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Reset</span>
+                    </button>
 
-                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                        </div>
-                      </div>
+                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                </div>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="card-body">
+            <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input class="form-control" type="text" id="email" name="email" value="" placeholder="">
                     </div>
-                    <hr class="my-0">
-                    <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          
-                           
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" name="email" value="" placeholder="">
-                          </div>
-                          
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">LK (+94)</span>
-                              <input type="text" id="phone" name="phoneNumber" class="form-control" placeholder="">
-                            </div>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address">
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                          </div>
-                         <div class="mb-3 col-md-6 form-password-toggle">
-		                  <label class="form-label" for="password">Password</label>
-		                  <div class="input-group input-group-merge">
-		                    <input
-		                      type="password"
-		                      id="Password"
-		                      class="form-control"
-		                      name="password"
-		                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-		                      aria-describedby="password"
-		                    />
-		                   
-		                  </div>
-		                </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text">LK (+94)</span>
+                            <input type="text" id="phone" name="phone" class="form-control" placeholder="">
                         </div>
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                          <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    </div>
+                    <div class="mb-3 col-md-6 form-password-toggle">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="input-group input-group-merge">
+                            <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary me-2" onclick ="callUpdateCustomer()">Save changes</button>
+    
+                          <button type="reset" class="btn btn-outline-secondary"id ="clear" onclick = "callRemoveCustomer()">Delete</button>
                         </div>
                       </form>
                     </div>
@@ -163,16 +153,55 @@
     
     </section>
     
-    
-<footer class="ftco-footer ftco-section">
-      <div class="container">
-      	<div class="row">
-      		<div class="mouse">
-						<a href="#" class="mouse-icon">
-							<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-						</a>
-					</div>
-                
+   </div>
+            <div class="modal-footer" id="AddCustomerModalFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- edit modal -->
+      <div class="modal fade" id="EditCustomerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="EditCustomerModalHeader">
+              
+            </div>
+            <div class="modal-body" id="EditCustomerModalBody">
+              
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="EditCustomerModalFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+
+<!-- Modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
+            </div>
+          </div>
+        </div>
+      </div>
 	
         <div class="row mb-5">
           <div class="col-md">
@@ -312,7 +341,7 @@
 	<!--Search Js Plugins -->
 	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
 	<script src="ashion-master/js/main.js"></script>
-<script src="../js/callServlet.js"></script>
+  <script src="../js/callServlet.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -329,13 +358,14 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  
   <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
     
     
     <script>
-	//Call cart servlet
+	
 		$(document).ready(function () {
-			callCartServlet(false)
+			callGetAllCustomersServlet(false)
 		});
 	</script>
 </body>
