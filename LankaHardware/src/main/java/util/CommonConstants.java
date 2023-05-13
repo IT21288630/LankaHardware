@@ -47,6 +47,9 @@ public class CommonConstants {
 	/** Constant for Supplier id prefix */
 	public static final String SUPPLIER_ID_PREFIX = "S300";
 	
+	/** Constant for Supplier id prefix */
+	public static final String ATTENDANCE_ID_PREFIX = "a300";
+	
 	/** Constant for voucher id prefix */
 	public static final String VOUCHER_ID_PREFIX = "V300";
 	
@@ -174,10 +177,15 @@ public class CommonConstants {
 	/** Constant for add to cart */
 	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary, profilepic) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
+	public static final String QUERY_ID_GET_PRESENT_EMPLOYEE = "Select * From employee e,attendance a where e.empNo = a.empNo and a.date = curdate()";		
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEE_IDS = "SELECT empNo FROM employee;";
 	
+	public static final String QUERY_ID_INSERT_EMPLOYEE_ATTENDANCE = "INSERT INTO attendance (attendanceNo, empNo, date) VALUES (?, ?, curdate());";
+	
+	
+	public static final String QUERY_ID_SELECT_ALL_ATTENDANCE_IDS = "SELECT attendanceNo FROM attendance;";
 	/** Constant for select stock id's */
 	public static final String QUERY_ID_SELECT_ALL_Stock_IDS = "SELECT id FROM item_m;";
 	

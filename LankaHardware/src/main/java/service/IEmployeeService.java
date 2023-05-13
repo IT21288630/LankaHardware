@@ -22,6 +22,8 @@ public interface IEmployeeService {
 
 	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String date,  String salary, Collection<Part> EmployeeImages);
 
-
+	public ArrayList<Employee> getPresentEmployees();
+	
+	public String markPresentAttendane(String empNo);
 	
 }
