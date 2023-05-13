@@ -329,7 +329,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			}
 			
 			if(!imagePathArrayList.get(0).equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PROFILE);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PROFILE_PIC);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
 				pst.executeUpdate();

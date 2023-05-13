@@ -887,5 +887,12 @@ function buildSuplierSearchLists() {
 
 }
 
+// Attendance Marking of Employees
+
+
+
+
+
+
 
 
