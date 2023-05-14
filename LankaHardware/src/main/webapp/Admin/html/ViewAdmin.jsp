@@ -413,7 +413,7 @@
                             <input
                               class="form-control"
                               type="text"
-                              id="Email"
+                              id="email"
                               name="Email"
                              
                               placeholder="123@gmail.com"
@@ -463,12 +463,12 @@
                               <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="Address" name="Address" placeholder="Address" />
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
                           </div>
                      
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="country">Role</label>
-                            <select id="Role" name = "Role"class="select2 form-select">
+                            <select id="role" name = "role"class="select2 form-select">
                               <option value="select">Select</option>
                               <option value="SysAdmin">SysAdmin</option>
                               <option value="ProductManager">Product manager</option>
@@ -481,10 +481,7 @@
                             </select>
                           </div>
                        
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddAdminServlet()">Add Admin</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearadmin()">Cancel</button>
-                        </div>
+                       
                       </form>
                     </div>
               </div>
@@ -493,7 +490,7 @@
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-primary" onclick ="callAddAdminServlet()">Add Admin</button>
             </div>
           </div>
         </div>

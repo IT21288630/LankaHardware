@@ -71,7 +71,7 @@ public class CommonConstants {
 	/** Constant for clear admin */
 	public static final String QUERY_ID_CLEAR_ADMIN = "DELETE FROM admin WHERE Email = ?";
 	
-	public static final String QUERY_ID_ADD_TO_ADMIN = "INSERT INTO admin(Email, password, phone, name ,Address,Role) VALUES(?, ?, ?, ?,?,?);";	
+	public static final String QUERY_ID_ADD_TO_ADMIN = "INSERT INTO admin(Email, password, phone, name ,Address,Role,Propic) VALUES(?, ?, ?, ?,?,?,?);";	
 	
 	/** constants for update admin*/
 	
@@ -81,7 +81,7 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_ADMIN_PHONE = "UPDATE admin SET phone = ? WHERE Email = ?;";
 	
-    public static final String QUERY_ID_UPDATE_ADMIN_NAME = "UPDATE admin SET name = ? WHERE Email ?;";
+    public static final String QUERY_ID_UPDATE_ADMIN_NAME = "UPDATE admin SET name = ? WHERE Email = ?;";
 	
 	public static final String QUERY_ID_UPDATE_ADMIN_ADDRESS = "UPDATE admin SET Address = ? WHERE Email = ?;";
 	
@@ -89,7 +89,11 @@ public class CommonConstants {
 	
 	
 	
+	/** constant for get all admindetails*/
+	public static final String QUERY_ID_GET_ADMIN_DETAILS ="SELECT * FROM admin WHERE Email =?";
 	
+	/** constant to get all customer details*/
+	public static final String QUERY_ID_CUSTOMER_DETAILS ="SELECT * FROM customer WHERE email =  ?";
 	
 	
 	

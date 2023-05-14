@@ -605,11 +605,12 @@
   <script defer src="quantity/script.js"></script>
   <script src="nice select/js/jquery.js"></script> 
   <script src="nice select/js/jquery.nice-select.js"></script>
-	
+  <script src="js/callServlet.js"></script>
     <script>
 	//Call index servlet
 		$(document).ready(function () {
 			callIndexServlet()
+			callGetAllCustomersServlet()
 			callCartServlet(false)
 			jQuery('select').niceSelect();
 		});

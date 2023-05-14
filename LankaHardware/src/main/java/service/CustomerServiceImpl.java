@@ -36,6 +36,7 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import model.Admin;
 import model.Cart;
 import model.Customer;
 import model.Item;
@@ -300,6 +301,35 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 
 		return status;
+	}
+
+	@Override
+	public Customer customerProfile(String email) {
+		// TODO Auto-generated method stub
+    Customer customer = new Customer();
+		
+		con = DBConnectionUtil.getDBConnection();
+		
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CUSTOMER_DETAILS );
+			pst.setString(1, email);
+			rs = pst.executeQuery();
+			rs.next();
+			
+			customer.setEmail(email);
+			customer.setName(rs.getString(4));
+			customer.setPassword(rs.getString(2));
+			customer.setPhone(rs.getString(3));
+			customer.setAddress(rs.getString(5));
+		
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return customer;
 	}
 
 	

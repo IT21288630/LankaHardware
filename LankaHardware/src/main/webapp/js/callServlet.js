@@ -14,7 +14,12 @@ function callLoginServlet() {
 		console.log(response)
 
 		if (response == "customer") {
-			window.location.href = "index.jsp";
+			$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(customer) {
+				// Store the customer details in local storage
+				localStorage.setItem('customer', JSON.stringify(customer));
+				window.location.href = "index.jsp";
+			});
+			
 
 		}
 		else if (response == "sysAdmin") {
@@ -44,6 +49,18 @@ function callLoginServlet() {
 	})
 
 }
+// Retrieve the customer details from local storage
+//var customer = JSON.parse(localStorage.getItem('cust'));
+//
+//// Use the customer details to update the UI
+//if (customer != null){
+//	document.getElementById('email').innerHTML = customer.email;
+//	document.getElementById('Password').innerHTML = customer.Password;
+//	document.getElementById('phone').innerHTML = customer.phone;
+//	document.getElementById('name').innerHTML = customer.name;
+//	document.getElementById('address').innerHTML = customer.address;
+//
+//}
 /*
 
 
@@ -55,11 +72,11 @@ function callLoginServlet() {
 /**
  * 
  */
-var customers = []
+var customer= []
 var customerstable = document.getElementById('customer')
 
 function callGetAllCustomersServlet() {
-	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
+	$.get("http://loca8080/LankaHardware/GetAllCustomersServlet", function(response) {
 
 		customers = response
 
@@ -69,7 +86,7 @@ function callGetAllCustomersServlet() {
 	})
 }
 
-function buildAllCustomers() {
+function buildAllCustomers(cus) {
 	customerstable.innerHTML = 'cus'
 	for (var i = 0; i < cus.length; i++) {
 		var customer = `<tr>
@@ -88,7 +105,7 @@ function buildAllCustomers() {
 						<td>
 							${cus[i].address}
 						</td>
-						
+							
 						
 						</tr>`
 
@@ -96,6 +113,39 @@ function buildAllCustomers() {
 		customerstable.innerHTML += customer
 	}
 }
+//var customers = []
+//var customerstable = document.getElementById('customer')
+//
+//function callGetAllCustomersServlet() {
+//	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
+//
+//		customers = response
+//
+//		console.log(customers)
+//
+//		buildAllCustomers();
+//	})
+//}
+//
+//function buildAllCustomers(cus) {
+//	customerstable.innerHTML = ''
+//	for (var i = 0; i < cus.length; i++) {
+//		var customer = `<div class="card">
+//					<div class="card-header">
+//						${cus[i].name}
+//					</div>
+//					<div class="card-body">
+//						<p>Email: ${cus[i].email}</p>
+//						<p>Password: ${cus[i].Password}</p>
+//						<p>Phone: ${cus[i].phone}</p>
+//						<p>Address: ${cus[i].address}</p>
+//					</div>
+//				</div>`
+//
+//		customerstable.innerHTML += customer
+//	}
+//}
+
 
 
 //Insert Customer
@@ -407,4 +457,27 @@ function callSendCustomeremailServlet() {
 		otpmessage = response
 		console.log(otpmessage)
 	})
+}
+
+
+
+function callGetCustomerDetails() {
+	$.get("http://localhost:8080/LankaHardware/GetCustomerDetails", function(response) {
+
+		var customer = response
+
+		buildCustomerProfile(customer);
+	})
+}
+
+function buildCustomerProfile(customer) {
+
+	var phone = document.getElementById('phone')
+	var name = document.getElementById('name')
+	var address = document.getElementById('address')
+
+	phone.placeholder = customer.phone
+	name.placeholder = customer.name
+	address.placeholder = customer.address
+
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.Part;
 
 import com.google.gson.JsonElement;
 
+import model.Admin;
 import model.Customer;
 
 
@@ -24,5 +25,7 @@ public interface ICustomerService {
 	public String updateCustomers(String email, String Password,  String phone,String name, String address);
 
 	public String SendCustomeremail(String email);
+	
+	public Customer customerProfile(String email);
 	
 }

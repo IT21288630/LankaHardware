@@ -354,150 +354,150 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="#"
-        onclick="return false;"
-        class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddCustomerModal" 
-        >Add Customer</a
-      >
-    </div>
+<!--     <div class="buy-now"> -->
+<!--       <a -->
+<!--         href="#" -->
+<!--         onclick="return false;" -->
+<!--         class="btn btn-danger btn-buy-now" -->
+<!--         data-bs-toggle="modal" data-bs-target="#AddCustomerModal"  -->
+<!-- <!--         >Add Customer</a --> -->
+<!--       > -->
+<!--     </div> -->
     
     
-    <div class="modal fade" id="AddCustomerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="AddCustomerModalHeader">
-              <h5 class="modal-title" id="modalCenterTitle">Add Customer</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body" id="AddCustomerModalBody">
-              <div>
-              	 <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildProfileImage();">
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+<!--     <div class="modal fade" id="AddCustomerModal" tabindex="-1" aria-hidden="true"> -->
+<!--         <div class="modal-dialog modal-dialog-centered" role="document"> -->
+<!--           <div class="modal-content"> -->
+<!--             <div class="modal-header" id="AddCustomerModalHeader"> -->
+<!--               <h5 class="modal-title" id="modalCenterTitle">Add Customer</h5> -->
+<!--               <button -->
+<!--                 type="button" -->
+<!--                 class="btn-close" -->
+<!--                 data-bs-dismiss="modal" -->
+<!--                 aria-label="Close" -->
+<!--               ></button> -->
+<!--             </div> -->
+<!--             <div class="modal-body" id="AddCustomerModalBody"> -->
+<!--               <div> -->
+<!--               	 <div class="card-body"> -->
+<!--                       <div class="d-flex align-items-start align-items-sm-center gap-4"> -->
+<!--                         <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar"> -->
+<!--                         <div class="button-wrapper"> -->
+<!--                           <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0"> -->
+<!--                             <span class="d-none d-sm-block">Upload new photo</span> -->
+<!--                             <i class="bx bx-upload d-block d-sm-none"></i> -->
+<!--                             <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildProfileImage();"> -->
+<!--                           </label> -->
+<!--                           <button type="button" class="btn btn-outline-secondary account-image-reset mb-4"> -->
+<!--                             <i class="bx bx-reset d-block d-sm-none"></i> -->
+<!--                             <span class="d-none d-sm-block">Reset</span> -->
+<!--                           </button> -->
 
-                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                        </div>
-                      </div>
-                    </div>
-                      </div>
-                    </div>
-                    <hr class="my-0" />
+<!--                           <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p> -->
+<!--                         </div> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                     <hr class="my-0" /> -->
                     
-                    <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
-                         <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
+<!--                     <div class="card-body"> -->
+<!--                       <form id="formAccountSettings" method="POST" onsubmit="return false"> -->
+<!--                          <div class="mb-3 col-md-6"> -->
+<!--                             <label for="email" class="form-label">E-mail</label> -->
+<!--                             <input -->
+<!--                               class="form-control" -->
+<!--                               type="text" -->
+<!--                               id="email" -->
+<!--                               name="email" -->
                              
-                              placeholder="123@gmail.com"
-                            />
-                          </div>
-                             <div class="mb-3 col-md-6 form-password-toggle">
-                    <label class="form-label" for="password">Password</label>
-	                  <div class="input-group input-group-merge">
-	                    <input
-	                      type="Password"
-	                      id="Password"
-	                      class="form-control"
-	                      name="Password"
-	                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-	                      aria-describedby="password"
-	                    />
-	                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-	                  </div>
-                </div>
-	                  <div class="mb-3 col-md-6">
-	                            <label class="form-label" for="phone">Phone Number</label>
-	                            <div class="input-group input-group-merge">
-	                              <span class="input-group-text">LK (+94)</span>
-	                              <input
-	                                type="text"
-	                                id="phone"
-	                                name="phoneNum"
-	                                class="form-control"
-	                                placeholder="07********"
-	                              />
-	                            </div>
+<!--                               placeholder="123@gmail.com" -->
+<!--                             /> -->
+<!--                           </div> -->
+<!--                              <div class="mb-3 col-md-6 form-password-toggle"> -->
+<!--                     <label class="form-label" for="password">Password</label> -->
+<!-- 	                  <div class="input-group input-group-merge"> -->
+<!-- 	                    <input -->
+<!-- 	                      type="Password" -->
+<!-- 	                      id="Password" -->
+<!-- 	                      class="form-control" -->
+<!-- 	                      name="Password" -->
+<!-- 	                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" -->
+<!-- 	                      aria-describedby="password" -->
+<!-- 	                    /> -->
+<!-- 	                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> -->
+<!-- 	                  </div> -->
+<!--                 </div> -->
+<!-- 	                  <div class="mb-3 col-md-6"> -->
+<!-- 	                            <label class="form-label" for="phone">Phone Number</label> -->
+<!-- 	                            <div class="input-group input-group-merge"> -->
+<!-- 	                              <span class="input-group-text">LK (+94)</span> -->
+<!-- 	                              <input -->
+<!-- 	                                type="text" -->
+<!-- 	                                id="phone" -->
+<!-- 	                                name="phoneNum" -->
+<!-- 	                                class="form-control" -->
+<!-- 	                                placeholder="07********" -->
+<!-- 	                              /> -->
+<!-- 	                            </div> -->
 	                       
-                         <div class="mb-3">
-                 <label for="Name"class="Name">Name</label>
-                 <div class="form-group">
-  					<input type="text" 
- 			        class="form-control" 
-			         id="Name" 
-			         placeholder="Name">
+<!--                          <div class="mb-3"> -->
+<!--                  <label for="Name"class="Name">Name</label> -->
+<!--                  <div class="form-group"> -->
+<!--   					<input type="text"  -->
+<!--  			        class="form-control"  -->
+<!-- 			         id="Name"  -->
+<!-- 			         placeholder="Name"> -->
   
  		
                 
-					</div>
+<!-- 					</div> -->
                  
-                 </div>
+<!--                  </div> -->
                           
-                              <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
-                          </div>
+<!--                               <div class="row"> -->
+<!--                           <div class="mb-3 col-md-6"> -->
+<!--                             <label for="address" class="form-label">Address</label> -->
+<!--                             <input type="text" class="form-control" id="address" name="address" placeholder="Address" /> -->
+<!--                           </div> -->
                      
                           
                        
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomerServlet()">Add Admin</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "RemoveCustomer()">Cancel</button>
-                        </div>
-                      </form>
-                    </div>
-              </div>
-            </div>
-            <div class="modal-footer" id="AddCustomerModalFooter">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--                         <div class="mt-2"> -->
+<!--                           <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddCustomerServlet()">Add Admin</button> -->
+<!--                           <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "RemoveCustomer()">Cancel</button> -->
+<!--                         </div> -->
+<!--                       </form> -->
+<!--                     </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--             <div class="modal-footer" id="AddCustomerModalFooter"> -->
+<!--               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"> -->
+<!--                 Close -->
+<!--               </button> -->
+<!--               <button type="button" class="btn btn-primary">Submit</button> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
       
-      <!-- edit modal -->
-      <div class="modal fade" id="EditCustomerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="EditCustomerModalHeader">
+<!--       edit modal -->
+<!--       <div class="modal fade" id="EditCustomerModal" tabindex="-1" aria-hidden="true"> -->
+<!--         <div class="modal-dialog modal-dialog-centered" role="document"> -->
+<!--           <div class="modal-content"> -->
+<!--             <div class="modal-header" id="EditCustomerModalHeader"> -->
               
-            </div>
-            <div class="modal-body" id="EditCustomerModalBody">
+<!--             </div> -->
+<!--             <div class="modal-body" id="EditCustomerModalBody"> -->
               
-                    </div>
-                    <hr class="my-0" />
+<!--                     </div> -->
+<!--                     <hr class="my-0" /> -->
                     
-                    <div class="card-body" id="card-body-edit">
+<!--                     <div class="card-body" id="card-body-edit"> -->
                       
-                    </div>
-              </div>
-            </div>
+<!--                     </div> -->
+<!--               </div> -->
+<!--             </div> -->
             <div class="modal-footer" id="EditCustomerModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
@@ -507,14 +507,14 @@
           </div>
 
 <!-- Modal -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="deleteModalHeader">
+            <div class="modal-header" id="deleteCustomerModalHeader">
             </div>
-            <div class="modal-body" id="deleteModalBody">
+            <div class="modal-body" id="deleteCustomerModalBody">
             </div>
-            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
+            <div class="modal-footer" style="justify-content: center;" id="deleteCustomerModalFooter">
             </div>
           </div>
         </div>

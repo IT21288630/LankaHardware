@@ -23,6 +23,6 @@ public interface IAdminService {
 
 	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role);
 
-	
+	public Admin adminProfile(String Email);
 	
 }
