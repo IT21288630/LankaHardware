@@ -118,7 +118,7 @@ public class CommonConstants {
 	
 	/** Constant for add stock details */
 
-	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item(id, name, type, description, brand, mf_date, exp_date, ) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item_m(id, name, category, description, brand, price, quantity, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?);";
 
 	//public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item_m(id, name, type, description, brand, price, quantity, mf_date, exp_date,warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?);";
 

@@ -88,13 +88,13 @@
 						class="menu-header-text">Tables</span></li>
 					<!-- Forms -->
 					<!-- Tables -->
-					<li class="menu-item"><a href="ViewStock.jsp"
+					<li class="menu-item"><a href="ViewVoucher.jsp"
 						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
-					Store Management
+					Voucher Management
 					</a></li>
 					<li class="menu-item active"><a href="ViewVoucher.jsp"
 						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
-					Voucher Managements
+					Store Managements
 					</a></li>
 
 				</ul>
@@ -122,7 +122,7 @@
             
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" onchange="searchItem()"> <i class="bx bx-search fs-4 lh-0"></i></button>
+                  <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" onclick="searchItem()"> <i class="bx bx-search fs-4 lh-0"></i></button>
                   <input
                     type="text"
                     class="form-control border-0 shadow-none"
@@ -336,45 +336,18 @@
                             <label for="stockCat" class="form-label">Category</label>
                             <select id="stockCat" name = "stockCat" class="select2 form-select">
                             	 <option></option>
-                               <option value="mechanical">Mechanical</option>
-		                        <option value="building">Building</option>
-		                        <option value="electrical">Electronics & Electrical</option>
-		                        <option value="tools">Tools</option>
-		                        <option value="general">General</option>
+                               <option value="Mechanical">Mechanical</option>
+		                        <option value="Building">Building</option>
+		                        <option value="Electrical">Electronics & Electrical</option>
+		                        <option value="Tools">Tools</option>
+		                        <option value="General">General</option>
 		                            
                             </select>
                              <span id="cat-error" style="color:red; font-size:13px"></span>
 
                           </div>
                           
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Sub-Type</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="subType"
-                              name="subType" 
-                   
-                              autofocus
-                            />
-                            <span id="sub-error" style="color:red; font-size:13px"></span>
-                            </div>
-                          
-                          
-                             <div class="mb-3 col-md-6">
-                            <label for="stockCat" class="form-label">Size</label>
-                            <select id="StockSize" name = "StockSize" class="select2 form-select">
-                            	 <option value="None">None</option>
-                                <option value="Small">Small</option>
-		                        <option value="Medium">Medium</option>
-		                        <option value="Large">Large</option>
-		                        <option value="XXL">XXL</option>
-		                        <option value="XXXL">XXXL</option>
-		                            
-                            </select>
-                             <span id="size-error" style="color:red; font-size:13px"></span>
-
-                          </div>
+            
                           
                           <div class="mb-3 col-md-6">
                           	 <label class="form-label" for="basic-default-company">Brand</label>
@@ -469,7 +442,7 @@
 			              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
 			                Close
 			              </button>
-			              <button type="submit" class="btn btn-primary" onclick="validation() ; callGetAllStockServlet()">Submit</button>
+			              <button type="submit" class="btn btn-primary" onclick="validation()">Submit</button>
 			            </div>
                         </div>
                       </form>

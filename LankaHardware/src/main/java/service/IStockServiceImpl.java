@@ -207,7 +207,7 @@ public class IStockServiceImpl implements IStockService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		System.out.println("This should not print");
+		System.out.println("This is the status: "+ status);
 		return status;
 
 	}
