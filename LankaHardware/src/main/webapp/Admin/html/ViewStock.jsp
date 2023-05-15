@@ -55,7 +55,7 @@
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
 			<!-- Menu -->
-			<aside id="layout-menu"
+	       <aside id="layout-menu"
 				class="layout-menu menu-vertical menu bg-menu-theme"
 				data-bg-class="bg-menu-theme">
 				<div class="app-brand demo">
@@ -72,143 +72,35 @@
 					</a>
 				</div>
 
-				ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				           
 				<div class="menu-inner-shadow"></div>
 
-				ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				           
 				<ul class="menu-inner py-1 overflow-auto">
 					<!-- Charts -->
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">Charts</span></li>
 					<!-- charts -->
-					<li class="menu-item"><a href="#"
-						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
-							<div data-i18n="Tables">Charts</div>
-					</a></li>
+					<li class="menu-item"><a href="#" class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
+					Charts</a></li>
 					<!-- Forms & Tables -->
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">Tables</span></li>
 					<!-- Forms -->
 					<!-- Tables -->
-					<li class="menu-item active"><a href="ViewStock.jsp"
+					<li class="menu-item"><a href="ViewStock.jsp"
 						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
-							<div data-i18n="Tables">Store Management</div>
+					Store Management
 					</a></li>
-					<li class="menu-item" id="answered"><a href="ViewVoucher.jsp"
+					<li class="menu-item active"><a href="ViewVoucher.jsp"
 						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
-							<div data-i18n="Tables">Voucher Managements</div>
+					Voucher Managements
 					</a></li>
 
 				</ul>
 			</aside>
 			<!-- / Menu -->
 
-			<!-- Layout container -->
-			<div class="layout-page">
-				<!-- Navbar -->
-
-				<nav
-					class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-					id="layout-navbar">
-					<div
-						class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-						<a class="nav-item nav-link px-0 me-xl-4"
-							href="javascript:void(0)"> <i class="bx bx-menu bx-sm"></i>
-						</a>
-					</div>
-
-					<div class="navbar-nav-right d-flex align-items-center"
-						id="navbar-collapse">
-						<!-- Search -->
-						<form id="searchForm">
-
-							<div class="navbar-nav align-items-center">
-								<div class="nav-item d-flex align-items-center">
-									<button type="submit"
-										class="btn p-0 dropdown-toggle hide-arrow"
-										data-bs-toggle="dropdown" onclick="searchItem()">
-										<i class="bx bx-search fs-4 lh-0"></i>
-									</button>
-									<input type="text" class="form-control border-0 shadow-none"
-										placeholder="Search..." aria-label="Search..."
-										id="SearchDetails" />
-
-								</div>
-							</div>
-						</form>
-						<!-- /Search -->
-
-            <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
-            <!-- Forms -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Elements">Form Elements</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="forms-basic-inputs.html" class="menu-link">
-                    <div data-i18n="Basic Inputs">Basic Inputs</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-input-groups.html" class="menu-link">
-                    <div data-i18n="Input groups">Input groups</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Layouts">Form Layouts</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="form-layouts-vertical.html" class="menu-link">
-                    <div data-i18n="Vertical Form">Vertical Form</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="form-layouts-horizontal.html" class="menu-link">
-                    <div data-i18n="Horizontal Form">Horizontal Form</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <!-- Tables -->
-            <li class="menu-item active">
-              <a href="tables-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Tables</div>
-              </a>
-            </li>
-            <!-- Misc -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-            <li class="menu-item">
-              <a
-                href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                target="_blank"
-                class="menu-link"
-              >
-                <i class="menu-icon tf-icons bx bx-support"></i>
-                <div data-i18n="Support">Support</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a
-                href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank"
-                class="menu-link"
-              >
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Documentation">Documentation</div>
-              </a>
-            </li>
-          </ul>
-        </aside>
-        <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
@@ -230,7 +122,7 @@
             
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" onclick="searchItem()"> <i class="bx bx-search fs-4 lh-0"></i></button>
+                  <button type="submit" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" onchange="searchItem()"> <i class="bx bx-search fs-4 lh-0"></i></button>
                   <input
                     type="text"
                     class="form-control border-0 shadow-none"
@@ -653,380 +545,6 @@
       </div>
           
     
-
-
-								</div>
-
-							</li>
-
-							<!-- User -->
-
-							<!--/ User -->
-						</ul>
-					</div>
-				</nav>
-
-				<!-- / Navbar -->
-
-				<!-- Content wrapper -->
-				<div class="content-wrapper">
-					<!-- Content -->
-
-					<div class="container-xxl flex-grow-1 container-p-y">
-						<h4 class="fw-bold py-3 mb-4">
-							<span class="text-muted fw-light">Store Management / </span> <small
-								class="dropdown">Sort By: <small id="sortType"
-								style="color: #9CA84A; font-weight: normal;"> </small>
-								<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-									data-bs-toggle="dropdown">
-									<i class="fas fa-sort"></i>
-								</button> <small class="dropdown-menu"> <a class="dropdown-item"
-									href="javascript:void(0);" data-bs-toggle="modal"
-									onclick="callSortbyServlet(1)"> - Id</a> <a
-									class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(2)"> -
-										Name</a> <a class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(3)"> -
-										Category</a> <a class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(4)"> -
-										MF-Date</a> <a class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(5)"> -
-										Exp-Date</a>
-							</small>
-
-							</small>
-
-
-						</h4>
-
-
-
-						<!-- Basic Bootstrap Table -->
-						<div class="card">
-							<h5 class="card-header">
-								<small id="ItemCount">Store Item list</small>
-							</h5>
-							<div class="table-responsive text-nowrap">
-
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Name</th>
-											<th>Category</th>
-											<th>Brand</th>
-											<th>quantity</th>
-											<th>Unit_price</th>
-
-
-										</tr>
-									</thead>
-									<tbody id="stock">
-
-									</tbody>
-
-								</table>
-							</div>
-						</div>
-						<!--/ Basic Bootstrap Table -->
-
-						<hr class="my-5" />
-
-					</div>
-					<!-- / Content -->
-
-					<!-- Footer -->
-					<footer class="content-footer footer bg-footer-theme">
-						<div
-							class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-							<div class="mb-2 mb-md-0">
-								Â©
-								<script>
-									document.write(new Date().getFullYear());
-								</script>
-								, <a href="https://themeselection.com" target="_blank"
-									class="footer-link fw-bolder">Lanka Hardware</a>
-							</div>
-							<div>
-								<a href="https://themeselection.com/license/"
-									class="footer-link me-4" target="_blank">License</a> <a
-									href="https://themeselection.com/" target="_blank"
-									class="footer-link me-4">More Themes</a> <a
-									href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-									target="_blank" class="footer-link me-4">Documentation</a>
-
-								<a
-									href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-									target="_blank" class="footer-link me-4">Support</a>
-							</div>
-						</div>
-					</footer>
-					<!-- / Footer -->
-
-					<div class="content-backdrop fade"></div>
-				</div>
-				<!-- Content wrapper -->
-			</div>
-			<!-- / Layout page -->
-		</div>
-
-		<!-- Overlay -->
-		<div class="layout-overlay layout-menu-toggle"></div>
-	</div>
-	<!-- / Layout wrapper -->
-
-
-	<div class="buy-now">
-		<a href="#" onclick="return false;" class="btn btn-danger btn-buy-now"
-			data-bs-toggle="modal" data-bs-target="#AddStockModal">Add
-			Item</a>
-	</div>
-
-
-
-	<div class="modal fade" id="AddStockModal" tabindex="-1"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header" id="AddStockModalHeader">
-					<h5 class="modal-title" id="modalCenterTitle">Add New Store
-						Item</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-
-				<div class="modal-body" id="AddStockModalBody">
-					<div>
-						<div class="button-wrapper">
-
-
-							<p class="text-muted mb-0"></p>
-						</div>
-					</div>
-				</div>
-				<hr class="my-0" />
-
-				<div class="card-body">
-
-
-					<form id="StockAddForm" method="POST" onsubmit="return false">
-
-						<div class="row">
-							<div class="mb-3 col-md-6">
-								<label for="firstName" class="form-label">Name</label> <input
-									class="form-control" type="text" id="stockName"
-									name="stockName" autofocus /> <span
-									id="name-error" style="color: red; font-size: 13px"></span>
-							</div>
-
-							<div class="mb-3 col-md-6">
-								<label for="stockCat" class="form-label">Category</label> <select
-									id="stockCat" name="stockCat" class="select2 form-select">
-									<option></option>
-									<option value="mechanical">Mechanical</option>
-									<option value="building">Building</option>
-									<option value="electrical">Electronics & Electrical</option>
-									<option value="tools">Tools</option>
-									<option value="general">General</option>
-
-								</select> <span id="cat-error" style="color: red; font-size: 13px"></span>
-
-							</div>
-
-							<div class="mb-3 col-md-6">
-								<label for="firstName" class="form-label">Sub-Type</label> <input
-									class="form-control" type="text" id="subType" name="subType"
-									autofocus /> <span id="sub-error"
-									style="color: red; font-size: 13px"></span>
-							</div>
-
-
-							<div class="mb-3 col-md-6">
-								<label for="stockCat" class="form-label">Size</label> <select
-									id="StockSize" name="StockSize" class="select2 form-select">
-									<option value="None">None</option>
-									<option value="Small">Small</option>
-									<option value="Medium">Medium</option>
-									<option value="Large">Large</option>
-									<option value="XXL">XXL</option>
-									<option value="XXXL">XXXL</option>
-
-								</select> <span id="size-error" style="color: red; font-size: 13px"></span>
-
-							</div>
-
-							<div class="mb-3 col-md-6">
-								<label class="form-label" for="basic-default-company">Brand</label>
-								<input type="text" class="form-control" placeholder="ACME Inc."
-									name="stockBrand" id="stockBrand" autofocus /> <span
-									id="Brand-error" style="color: red; font-size: 13px"></span>
-							</div>
-
-							<div class="mb-3 col-md-6">
-								<label class="form-label" for="basic-default-phone">Unit_Price</label>
-								<input type="text" id="stockPrice"
-									class="form-control phone-mask" placeholder="Rs."
-									name="stockPrice" /> <span
-									id="price-error" style="color: red; font-size: 13px"></span>
-							</div>
-
-							<div class="mmb-3 col-md-6">
-								<label class="form-label" for="basic-default-phone">Quantity</label>
-								<input type="text" id="stockQ" class="form-control phone-mask"
-									placeholder="item quantity." name="stockQ" autofocus> <span
-									id="quantity-error" style="color: red; font-size: 13px"></span>
-							</div>
-
-
-							<div class="mb-3 col-md-6">
-								<label class="form-label" for="description">Description</label>
-								<textarea name="stockDes" id="stockDes" cols="30" rows="3"
-									class="form-control" placeholder="Description" autofocus></textarea>
-								<span id="disc-error" style="color: red; font-size: 13px"></span>
-							</div>
-
-
-
-							<div class="mb-3 col-md-6">
-								<label class="form-label" for="basic-default-message">Modify
-									Date <small style="color: #808080; text-transform: lowercase;">
-										(optional)</small>
-								</label> <input class="form-control" type="date" id="stockMf"
-									name="stockMf"> <span id="mf-error"
-									style="color: red; font-size: 13px"></span>
-
-							</div>
-
-							<div class="mb-3 col-md-6">
-								<label class="form-label" for="basic-default-message">Expire
-									Date <small style="color: #808080; text-transform: lowercase;">
-										(optional)</small>
-								</label> <input class="form-control" type="date" id="stockExp"
-									name="stockExp"> <span id="exp-error"
-									style="color: red; font-size: 13px"></span>
-							</div>
-
-							<div class="card-body">
-								<div
-									class="d-flex align-items-start align-items-sm-center gap-4">
-									<img src="../assets/img/elements/lankaHardwareLogo.png"
-										alt="lanka_hardware" class="d-block rounded" height="100"
-										width="100" id="uploadedAvatar">
-									<div class="button-wrapper">
-										<label for="upload" class="btn btn-primary me-2 mb-4"
-											tabindex="0"> <span class="d-none d-sm-block">Product
-												Image</span> <i class="bx bx-upload d-block d-sm-none"></i> <input
-											type="file" id="img" class="account-file-input" hidden=""
-											accept="image/png, image/jpeg image/jpg"
-											onchange="buildStockImage();">
-										</label>
-										<button type="button"
-											class="btn btn-outline-secondary account-image-reset mb-4">
-											<i class="bx bx-reset d-block d-sm-none"></i> <span
-												class="d-none d-sm-block">Reset</span>
-										</button>
-
-										<p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max
-											size of 800K</p>
-									</div>
-								</div>
-							</div>
-
-
-
-							<div class="mb-3 col-md-6">
-								<div class="col-md">
-									<label class="form-label" for="basic-default-message"
-										name="warranty">Warranty</label>
-
-									<div class="form-check mt-3 col-md-6">
-										<input name="default-radio-1" class="form-check-input"
-											type="radio" value="None" id="WorNone" name="warrentyType"
-											onclick="callwarrentyDetails()" checked> <label
-											class="form-check-label" for="defaultRadio1"> None </label>
-									</div>
-
-									<div class="form-check">
-										<input name="default-radio-1" class="form-check-input"
-											type="radio" value="Available" id="WorAvail"
-											name="warrentyType" onclick="callwarrentyDetails()">
-										<label class="form-check-label" for="defaultRadio1">
-											Available </label>
-									</div>
-
-									<br>
-
-									<div id="WarrentyDetailstoPage"></div>
-
-								</div>
-							</div>
-
-							<div class="modal-footer" id="AddStockFooter">
-								<button type="button" class="btn btn-outline-secondary"
-									data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
-									Close</button>
-								<button type="submit" class="btn btn-primary"
-									onclick="validation() ; callGetAllStockServlet()">Submit</button>
-							</div>
-						</div>
-					</form>
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-
-
-
-
-	<!-- view modal -->
-
-	<div class="modal fade" id="ViewStockModal" tabindex="-1"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header" id="ViewStockModalHeader"></div>
-				<div class="modal-body" id="ViewStockModalBody">
-					<svg id="barcode"></svg>
-				</div>
-				<hr class="my-0" />
-
-				<div class="card-body" id="card-body-edit"></div>
-			</div>
-		</div>
-		<div class="modal-footer" id="ViewStockModalFooter"></div>
-	</div>
-
-
-	<!-- edit modal -->
-	<div class="modal fade" id="EditStockModal" tabindex="-1"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header" id="EditStockModalHeader"></div>
-				<div class="modal-body" id="EditStockModalBody"></div>
-				<hr class="my-0" />
-
-				<div class="card-body" id="card-body-edit"></div>
-			</div>
-		</div>
-		<div class="modal-footer" id="Footer"></div>
-	</div>
-
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header" id="deleteModalHeader"></div>
-				<div class="modal-body" id="deleteModalBody"></div>
-				<div class="modal-footer" style="justify-content: center;"
-					id="deleteModalFooter"></div>
-			</div>
-		</div>
-	</div>
-
 
 
 

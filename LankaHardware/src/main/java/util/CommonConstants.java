@@ -82,10 +82,8 @@ public class CommonConstants {
 	//public static final String QUERY_ID_GET_Stock_ITEMS = "SELECT i.id, i.name, i.type, i.subtype ,i.description, i.brand, i.mf_date, i.exp_date, s.size, s.stock, s.unit_price, img.img, war.warrentyType, war.warrentyNum, war.warrentyPeriod from item i, item_size s, item_img img, item_warrenty war WHERE i.id = s.id and i.id = img.id and i.id = war.id group by i.id;";
 	
 
-	public static final String QUERY_ID_GET_Stock_ITEMS = "SELECT id, name, category, description, brand, mf_date, exp_date,, unit_price,warrentyType, warrentyNum, warrentyPeriod from item_m;";
+	public static final String QUERY_ID_GET_Stock_ITEMS = "SELECT id, name, category, brand, quantity, price, description,mf_date, exp_date,warrentyType, warrentyNum, warrentyPeriod from item_m;";
 
-	//public static final String QUERY_ID_GET_Stock_ITEMS = "SELECT id, name, category, brand,quantity, price, description, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item_m;";
-	
 	/** Constant for select voucher id's*/
 	
 	public static final String QUERY_ID_SELECT_ALL_Voucher = "SELECT * FROM voucher;";
@@ -95,18 +93,15 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_SEARCHED_ALL_Stock = "SELECT id, name, category, brand, quantity, price,description,mf_date, exp_date,warrentyType,warrentyNum, warrentyPeriod FROM item_m where id LIKE '%?%' or name LIKE '%?%' or category LIKE '%?% or brand LIKE '%?%' or description LIKE '%?%';";
 	
 	/** Stock items sort by */
-
-	//public static final String QUERY_ID_SORTBY_NAME = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date,price,  warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY name;";
+	public static final String QUERY_ID_SORTBY_ID = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY id;";
 	
-	//public static final String QUERY_ID_SORTBY_Cat = "SELECT id, name, category, description,brand ,quantity, price, mf_date, exp_date,  warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY catego;";
-
-	//public static final String QUERY_ID_SORTBY_NAME = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date,  warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY name;";
+	public static final String QUERY_ID_SORTBY_NAME = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY name;";
 	
-	//public static final String QUERY_ID_SORTBY_Cat = "SELECT id, name, category, description,brand ,quantity, price, mf_date, exp_date,  warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY category;";
+	public static final String QUERY_ID_SORTBY_Cat = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY category;";
 
-	public static final String QUERY_ID_SORTBY_MF = "SELECT id, name, category, description,brand,quantity,price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY mf_date;";
+	public static final String QUERY_ID_SORTBY_MF = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY mf_date;";
 	
-	public static final String QUERY_ID_SORTBY_EXP = "SELECT id, name, category, description, brand,quantity, price, mf_date, exp_date,  warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY exp_date;";
+	public static final String QUERY_ID_SORTBY_EXP = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY exp_date;";
 	
 	/** Stock Vouchers sort by */
 	public static final String QUERY_ID_SORTBY_Code = "SELECT id, code, amount, exp FROM voucher ORDER BY code;";
