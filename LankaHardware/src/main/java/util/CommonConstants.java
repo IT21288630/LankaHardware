@@ -103,6 +103,8 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_SORTBY_EXP = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY exp_date;";
 	
+	public static final String QUERY_ID_SORTBY_PRICE = "SELECT id, name, category, description, brand, quantity, price, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod from item_m ORDER BY price;";
+	
 	/** Stock Vouchers sort by */
 	public static final String QUERY_ID_SORTBY_Code = "SELECT id, code, amount, exp FROM voucher ORDER BY code;";
 	

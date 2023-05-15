@@ -185,6 +185,9 @@
                        <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(3)">
                        - Category</a>
                        
+                       <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(6)">
+                       - Price</a>
+                       
                        <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" onclick="callSortbyServlet(4)">
                        - MF-Date</a>
                        
@@ -336,11 +339,18 @@
                             <label for="stockCat" class="form-label">Category</label>
                             <select id="stockCat" name = "stockCat" class="select2 form-select">
                             	 <option></option>
+		                        <option value="General">General</option>
+		                        <option value="Tools">Tools</option>
                                <option value="Mechanical">Mechanical</option>
 		                        <option value="Building">Building</option>
 		                        <option value="Electrical">Electronics & Electrical</option>
-		                        <option value="Tools">Tools</option>
-		                        <option value="General">General</option>
+		                        <option value="Steel">Steel</option>
+		                        <option value="Roofing">Roofing</option>
+		                        <option value="Paint">Paint</option>
+		                        <option value="Plumbing">Plumbing</option>
+		                        <option value="Tiles & Fitting">Tiles & Fitting</option>
+		                        <option value="Industrial">Industrial</option>
+		                        <option value="Home & Kitchen">Home & Kitchen</option>
 		                            
                             </select>
                              <span id="cat-error" style="color:red; font-size:13px"></span>
@@ -454,6 +464,31 @@
           </div>
           
           
+                 <!-- Barcode modal -->
+          
+      <div class="modal fade" id="BarCodeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="BarCodeModalHeader">
+              
+            </div>
+            
+            <div id="BarCodeModalTitle">
+             
+            </div>
+            
+            <div class="modal-body" id="BarCodeModalBody">
+               <svg id="barcode"></svg>
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div id="BarCodeModalFooter">
+             
+            	</div>
+              </div>
+            </div>
+            
+          </div>
           
 
        <!-- view modal -->
@@ -464,8 +499,7 @@
             <div class="modal-header" id="ViewStockModalHeader">
               
             </div>
-            <div class="modal-body" id="ViewStockModalBody">
-               <svg id="barcode"></svg>
+            <div class="modal-body" id="ViewStockModalBody"> 
                     </div>
                     <hr class="my-0" />
                     

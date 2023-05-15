@@ -443,6 +443,11 @@ public class IStockServiceImpl implements IStockService {
 				System.out.println("IstockImpl if sortby == 5 is done");
 				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_EXP);
 			}
+			else if(sort == 6) {
+				System.out.println("IstockImpl if sortby == 6 is done");
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_PRICE);
+			}
+			
 			else {
 				rs = st.executeQuery(CommonConstants.QUERY_ID_GET_Stock_ITEMS);
 			}

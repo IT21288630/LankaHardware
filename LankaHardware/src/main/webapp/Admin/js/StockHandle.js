@@ -200,13 +200,13 @@ function GenerateBarCode(){
 	
 	callGetAllStockServlet()
 	setTimeout(function() {
-		$('#ViewStockModal').modal('show')
+		$('#BarCodeModal').modal('show')
 	}, 1000);
 					
-	var viewModalHeader = document.getElementById('ViewStockModalHeader')
-	var viewStockModalBody = document.getElementById('ViewStockModalBody')
-	var viewStockModalFooter = document.getElementById('ViewStockModalFooter')
-	var viewCard = document.getElementById('card-body-edit')
+	var BarModalHeader = document.getElementById('BarCodeModalHeader')
+	var BarStockModalBody = document.getElementById('BarCodeModalBody')
+	var BarStockModalFooter = document.getElementById('BarCodeModalFooter')
+	var BarCodeModalTitle = document.getElementById('BarCodeModalTitle')
 	
 	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
 				
@@ -218,26 +218,26 @@ function GenerateBarCode(){
 							JsBarcode('#barcode', last_Item,{
 									format: 'code128',
 									displayValue: true,
-								});
-	viewModalHeader.innerHTML = '';
+								});			
+								              					
+	BarModalHeader.style = '';
+	BarModalHeader.innerHTML = `
+						              <button
+						                type="button"
+						                class="btn-close"
+						                data-bs-dismiss="modal"
+						                aria-label="Close"
+						              ></button>`;
 	
-	viewModalHeader.style = '';				              					
-	viewModalHeader.style = 'display:block; justify-content: center; margin-left: auto; margin-right: auto; width: 50%;  color: #00b300;';
-	viewModalHeader.innerHTML = '<h2 style="color: #00b300; position:relative; left:30px">Success!</h2> <h6 style="color: #b2beb5">Congrats! new item successfully added to the database</h6>'	
-
-	viewStockModalBody.style = "display:block;  margin-left: auto; margin-right: auto; width: 50%;";
+	BarCodeModalTitle.style =''; 
+	BarCodeModalTitle.innerHTML = '<div style="display:block; justify-content: center; margin-left: auto; margin-right: auto; width: 50%;"><h2 style="color: #00b300; position:relative; left:60px">Success</h2> <h6 style="color: #b2beb5">Congrats! new item successfully added to the Lanka Hardware database</h6></div>';
+	
+	BarStockModalBody.style = "display:block;  margin-left: auto; margin-right: auto; width: 50%;";
+	
 	//viewStockModalBody.innerHTML += 'This is the Barcode for This store Item' ;	
-	viewStockModalFooter.innerHTML = '';
-	viewCard.style = "display:block; justify-content: center; margin-left: auto; margin-right: auto; width: 50%;";	
-	viewCard.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
-			                Close
-				              </button>
-				              <button type="button" class="btn btn-primary me-2" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">View Store</button>`;		
-		
-	viewModalHeader.innerHTML = ''	
-	viewModalHeader.style = '';	
-	viewCard.style = '';
-	viewCard.innerHTML = '';
+	BarStockModalFooter.style = "padding:10px; display:block; justify-content: center; margin-left: 160px; margin-right: auto; width: 50%;";	
+	BarStockModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">Close</button>  <button type="button" class="btn btn-primary me-2" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">View Store</button>`;		
+	
 	
 	})	
 }
