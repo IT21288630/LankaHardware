@@ -53,6 +53,8 @@ public class CommonConstants {
 	/** Constant for voucher id prefix */
 	public static final String VOUCHER_ID_PREFIX = "V300";
 	
+	public static final String ORDER_ID_PREFIX = "O300";
+	
 	/** Constant for delivery fee */
 	public static final double DELIVERY_FEE = 200;
 	
@@ -570,6 +572,17 @@ public class CommonConstants {
 
 
 
+
+	public static final String QUERY_ID_GETCHECKOUTIDS = "select oid from order_real";
+
+	public static final String QUERY_ID_CHECKOUTREAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, \"Processing\", \"COD\");";
+
+	public static final String QUERY_ID_CHECKOUT_ITEM_REAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, \"Processing\", \"COD\");";
+
 	
+
+
+
+
 	
 }
