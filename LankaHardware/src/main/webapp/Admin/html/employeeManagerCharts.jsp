@@ -114,7 +114,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+			<a href="index.html" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">LH</span>
             </a>
             
@@ -128,7 +128,7 @@
           </div>
 
           <div class="menu-inner-shadow"></div>
-
+          
           <ul class="menu-inner py-1">
           	<!-- Charts -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
@@ -146,26 +146,25 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
             <!-- Forms -->
             <!-- Tables -->
-            <li class="menu-item" id="new">
-              <a href="productQuestions.jsp" class="menu-link">
+            <li class="menu-item" id="">
+              <a href="ViewEmp.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">New Questions <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger" id="newMessagesCount">0</span></div>
+                <div data-i18n="Tables">View Employees</div>
               </a>
             </li>
-            
-            <li class="menu-item" id="answered">
-              <a href="productQuestions.jsp" class="menu-link">
+            <li class="menu-item" id="">
+              <a href="AbsentEmployeesAttendance.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Answered Questions</div>
+                <div data-i18n="Tables">Absent Employees</div>
               </a>
             </li>
-            
-            <li class="menu-item">
-              <a href="ViewFeedbacks.jsp" class="menu-link">
+            <li class="menu-item" id="">
+              <a href="PresentEmployeesAttendance.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Feedback</div>
+                <div data-i18n="Tables">Present Employees</div>
               </a>
             </li>
+          
           </ul>
         </aside>
         <!-- / Menu -->
@@ -193,63 +192,7 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                
                 <!--/ User -->
               </ul>
             </div>
@@ -270,11 +213,11 @@
 				</div>
 				
 
-				<span class="text-muted fw-light">Select An Item</span>
+				<span class="text-muted fw-light">Select Employee</span>
 				<div>
-					<div class="wrapper" id="wishWrapper">
-				      <div class="select-btn" onclick="toggleWrapper('wishlist');">
-				        <span id="wishSelectBtnText">Select Item</span>
+					<div class="wrapper" id="empWrapper">
+				      <div class="select-btn" onclick="toggleWrapper();">
+				        <span id="empSelectBtnText">Select Employee</span>
 				        <i class="uil uil-angle-down"></i>
 				      </div>
 				      <div class="content">
@@ -282,7 +225,7 @@
 				          <i class="uil uil-search"></i>
 				          <input spellcheck="false" type="text" placeholder="Search" oninput="searchWishItem();" id="wishSearchInput">
 				        </div>
-				        <ul class="options2"></ul>
+				        <ul class="options"></ul>
 				      </div>
 				    </div>
 				</div>
@@ -303,13 +246,13 @@
                               <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
                             </div>
                             <div>
-                              <small class="text-muted d-block">Total Count</small>
+                              <small class="text-muted d-block">Total Present Days</small>
                               <div class="d-flex align-items-center">
-                                <h6 class="mb-0 me-1" id="totalWishCount">0</h6>
+                                <h6 class="mb-0 me-1" id="totalEmployeeCount">0</h6>
                               </div>
                             </div>
                           </div>
-                          <div id="wishlistChart"></div>
+                          <div id="employeeChart"></div>
                         </div>
                       </div>
                     </div>
@@ -327,29 +270,11 @@
                 <div class="mb-2 mb-md-0">
                   ©
                   <script>
-                    document.write(new Date().getFullYear());
+                  document.write("<strong>" + (new Date()).toString() + "</strong>");
                 </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                 
                 </div>
-                <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
-                </div>
+               
               </div>
             </footer>
             <!-- / Footer -->
@@ -387,29 +312,18 @@
     <!-- Servlet JS -->
     <script src="../js/main.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="../assets/js/searchSelect.js"></script>
+    <script src="../js/EmployeeCharts.js"></script>
     
     <script>
-    var newQuestions = []
-    var newMessagesCount = document.getElementById('newMessagesCount')
-    var allItems = []
+   
+    var allEmployees = []
     
     $(document).ready(function () {
-    	$.get("http://localhost:8080/LankaHardware/GetNewQuestionsServlet", function(response) {
+    	$.get("http://localhost:8080/LankaHardware/GetAllEmployeesServlet", function(response) {
 
-    		newQuestions = response
-    		newMessagesCount.innerHTML = newQuestions.length
-    		
-    		function callGetAllItemsServlet(){
-    			$.get("http://localhost:8080/LankaHardware/GetDataForChartServlet", function(response) {
-
-    				allItems = response
-    				setItems(allItems)
-    			})
-    		}
-    		
-    		callGetAllItemsServlet()
-    	})
+    		allEmployees = response
+			setEmployees(allEmployees)
+		})
     	
     	
     });

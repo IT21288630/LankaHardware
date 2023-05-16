@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -378,13 +379,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public String markPresentAttendane(String empNo) {
-		
+
 		System.out.println(empNo);
 
 		con = DBConnectionUtil.getDBConnection();
 
 		ArrayList<String> attendanceNo = new ArrayList();
-		
+
 		String status = "Error";
 
 		try {
@@ -428,6 +429,37 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			}
 		}
 		return status;
+	}
+
+	@Override
+	public ArrayList<Integer> getEmployeeAttendanceDetails(String empNo) {
+
+		ArrayList<Integer> count = new ArrayList<>();
+		count.add(0);
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_GET_EMPLOYEE_COUNT);
+
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, empNo);
+
+			for (int i = 1; i <= 12; i++) {
+
+				pst.setInt(CommonConstants.COLUMN_INDEX_TWO, i);
+				rs = pst.executeQuery();
+				rs.next();
+
+				count.add(rs.getInt(CommonConstants.COLUMN_INDEX_ONE));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println(empNo);
+
+		System.out.println(count);
+		return count;
 	}
 
 }

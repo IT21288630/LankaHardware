@@ -120,7 +120,7 @@
          
             <!-- charts -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="employeeManagerCharts.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Charts </div>
               </a>
@@ -144,7 +144,7 @@
               </a>
             </li>
             <li class="menu-item active" id="">
-              <a href="PresentEmployeesAttendance.jsp" class="menu-link">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Present Employees</div>
               </a>
@@ -194,7 +194,7 @@
 
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
-					<h5 class="card-header">Attendance of Employees</h5>
+					<h5 class="card-header">Present Employees</h5>
 					<!-- Content -->
 					<div class="layout-demo-wrapper" style="flex-direction: row; margin-left: 20px;">
 						<div class="card">

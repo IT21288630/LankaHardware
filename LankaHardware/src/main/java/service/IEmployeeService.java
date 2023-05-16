@@ -8,6 +8,7 @@ import javax.servlet.http.Part;
 
 import com.google.gson.JsonElement;
 
+import model.CartChart;
 import model.Employee;
 
 public interface IEmployeeService {
@@ -25,5 +26,7 @@ public interface IEmployeeService {
 	public ArrayList<Employee> getPresentEmployees();
 	
 	public String markPresentAttendane(String empNo);
+	
+	public ArrayList<Integer>getEmployeeAttendanceDetails(String empNo);
 	
 }

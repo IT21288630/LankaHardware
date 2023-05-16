@@ -120,7 +120,7 @@
          
             <!-- charts -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="employeeManagerCharts.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Charts </div>
               </a>
@@ -138,7 +138,7 @@
               </a>
             </li>
             <li class="menu-item active" id="">
-              <a href="AbsentEmployeesAttendance.jsp" class="menu-link">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Absent Employees</div>
               </a>

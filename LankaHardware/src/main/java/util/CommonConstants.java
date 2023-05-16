@@ -184,6 +184,7 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_INSERT_EMPLOYEE_ATTENDANCE = "INSERT INTO attendance (attendanceNo, empNo, date) VALUES (?, ?, curdate());";
 	
+	public static final String QUERY_GET_EMPLOYEE_COUNT = "select count(empNo) from attendance where empNo = ? and month(date) = ?";
 	
 	public static final String QUERY_ID_SELECT_ALL_ATTENDANCE_IDS = "SELECT attendanceNo FROM attendance;";
 	/** Constant for select stock id's */
