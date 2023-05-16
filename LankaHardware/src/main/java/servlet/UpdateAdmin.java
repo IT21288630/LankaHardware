@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,26 +13,22 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
-import model.Admin;
 import service.AdminServiceImpl;
+import service.EmployeeServiceImpl;
 import service.IAdminService;
-
+import service.IEmployeeService;
 
 /**
- * Servlet implementation class AddEmployeeServlet
+ * Servlet implementation class UpdateAdmin
  */
-@WebServlet("/AddAdminServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-maxFileSize = 1024 * 1024 * 10, // 10 MB
-maxRequestSize = 1024 * 1024 * 100 // 100 MB
-)
-public class AddAdminServlet extends HttpServlet {
+@WebServlet("/UpdateAdmin")
+public class UpdateAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddAdminServlet() {
+    public UpdateAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,25 +48,25 @@ public class AddAdminServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		Admin admin = new Admin();
+		String Email = request.getParameter("EmailModal");
+		String password = request.getParameter("passwordModal");
+		String phone = request.getParameter("phoneModal");
+		String name = request.getParameter("nameModal");
+		String Address = request.getParameter("AddressNumModal");
+		String Role = request.getParameter("RoleModal");
 		
 		
-		admin.setEmail(request.getParameter("Email"));
-		admin.setPassword(request.getParameter("password"));	
-		admin.setPhone(request.getParameter("phone"));
-		admin.setName(request.getParameter("name"));
-		admin.setAddress(request.getParameter("Address"));
-		admin.setRole(request.getParameter("Role"));
-	
-		Collection<Part> parts = request.getParts();
+        System.out.println(Email+password+phone+name+Address+Role);
 		
-		IAdminService iAdminService = new AdminServiceImpl();
+		/**Collection<Part> parts = request.getParts();*/
+		
+		IAdminService IAdminService = new AdminServiceImpl();
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iAdminService.addAdmin( admin, parts ));
+		String resp = new Gson().toJson(IAdminService.updateAdmins(Email,password,phone,name,Address,Role));
 
 		out.print(resp);
 	}

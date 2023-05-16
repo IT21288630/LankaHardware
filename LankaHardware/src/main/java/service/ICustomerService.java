@@ -21,7 +21,7 @@ public interface ICustomerService {
 
 	public String removeCustomers(String email);
 
-	public String updateCustomers(String email, String PAssword,  String phone,String name, String address);
+	public String updateCustomers(String email, String Password,  String phone,String name, String address);
 
 	public String SendCustomeremail(String email);
 	

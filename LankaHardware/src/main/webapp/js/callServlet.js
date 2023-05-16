@@ -44,15 +44,22 @@ function callLoginServlet() {
 	})
 
 }
+/*
+
+
+
+
+
+
 /**registration process */
 /**
  * 
  */
-var customer = []
-var customertable = document.getElementById('customer')
+var customers = []
+var customerstable = document.getElementById('customer')
 
-function callGetAllCustomerServlet() {
-	$.get("http://localhost:8080/LankaHardware/GetAllCustomerServlet", function(response) {
+function callGetAllCustomersServlet() {
+	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
 
 		customers = response
 
@@ -62,31 +69,31 @@ function callGetAllCustomerServlet() {
 	})
 }
 
-function buildAllCustomer() {
-	customertable.innerHTML = ''
-	for (var i = 0; i < customer.length; i++) {
+function buildAllCustomers() {
+	customerstable.innerHTML = 'cus'
+	for (var i = 0; i < cus.length; i++) {
 		var customer = `<tr>
 						<td>
-							${customer[i].email}
+							${cus[i].email}
 						</td>
 						<td>
-							${ecustomer[i].Password}
+							${cus[i].Password}
 						</td>
 						<td>
-						    ${customer[i].Name}
+						    ${cus[i].name}
 						</td>	
 						<td>
-							${customer[i].phone}
+							${cus[i].phone}
 						</td>
 						<td>
-							${customer[i].address}
+							${cus[i].address}
 						</td>
 						
 						
 						</tr>`
 
 
-		customertable.innerHTML += customer
+		customerstable.innerHTML += customer
 	}
 }
 
@@ -103,7 +110,7 @@ function callAddCustomerServlet() {
 	var Password = document.getElementById('Password').value
 	var con_Password = document.getElementById('con_Password').value
 	var phone = document.getElementById('phone').value
-	var name = document.getElementById('Name').value
+	var name = document.getElementById('name').value
 	var address = document.getElementById('address').value
 
 
@@ -194,10 +201,9 @@ function BuildEditCustomerModal(email,Password,phone,name,address){
 							              ></button>`
 
 	
-	editCustomerModalBody.innerHTML = `<div>
-						              	 <div class="card-body">
+	editCustomerModalBody.innerHTML = ` <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                        <img src="../imgages/person_1" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
                         <div class="button-wrapper">
                           <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                             <span class="d-none d-sm-block">Upload new photo</span>
@@ -212,63 +218,51 @@ function BuildEditCustomerModal(email,Password,phone,name,address){
                           <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
                         </div>
                       </div>
-                    </div>
-						                      </div>`
+                    </div>`
 
-	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
+	editCard.innerHTML = ` <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Email.</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="emailModal"
-                              name="email"
-                   				value="${email}"
-                   				 placeholder="123@gmail.com"
+                          
                            
-                            />
-                          </div>
                           <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">password</label>
-                            <input class="form-control" type="text"  id="PasswordModal" name="password" value="${Password}" id="Password"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">Phone</label>
-                            <div class="input-group input-group-merge">
-                            <span class="input-group-text">LK (+94)</span>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="phoneModal"
-                              name="Phone"
-								value="${phone}"
-						      placeholder="07********"
-                             
-                              
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Name</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="nameModal"
-                              name="name"
-								value="${name}"
-                              placeholder = "Assistant Manager"
-                            />
+                            <label for="email" class="form-label">E-mail</label>
+                            <input class="form-control" type="text" id="emailModal" name="email" value="${email} value="" placeholder="">
                           </div>
                           
                           <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="addressModal" name="address" value="${address}"placeholder="Address" />
+                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">LK (+94)</span>
+                              <input type="text" id="phoneModal" name="phoneNumber" value="${phone} class="form-control" placeholder="">
+                            </div>
                           </div>
-               
-                       
+                          <div class="mb-3 col-md-6">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="addressModal" name="address" value="${address} placeholder="Address">
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="nameModal" name="name"value="${name} placeholder="Name">
+                          </div>
+                         <div class="mb-3 col-md-6 form-password-toggle">
+		                  <label class="form-label" for="password">Password</label>
+		                  <div class="input-group input-group-merge">
+		                    <input
+		                      type="password"
+		                      id="PasswordModal"
+		                      class="form-control"
+		                      name="Password"
+		                      value="${Password}
+		                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+		                      aria-describedby="password"
+		                    />
+		                   
+		                  </div>
+		                </div>
+                        </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callupdateCustomer()">Edit Customer</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                          <button type="reset" class="btn btn-outline-secondary"id ="clear" data-bs-dismiss="modal">Cancel</button>
                         </div>
                       </form>`
 
@@ -279,13 +273,13 @@ function BuildEditCustomerModal(email,Password,phone,name,address){
 function callupdateCustomer(){
 	var inputFile = document.getElementById('inputFileModal')
 	
-	var email = document.getElementById('emailModal').value
+
+    
+    var email = document.getElementById('emailModal').value
 	var Password = document.getElementById('PasswordModal').value
 	var phone = document.getElementById('phoneModal').value
-	var name = document.getElementById('designationModal').value
-	var email = document.getElementById('emailModal').value
+	var name = document.getElementById('nameModal').value
 	var address = document.getElementById('addressModal').value
-
 	
 	
 	if(email == null)
@@ -375,7 +369,7 @@ function createDeleteModal(email) {
 	deleteModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 					                Close
 					              </button>
-					              <button type="button" class="btn btn-danger" onclick="callDeleteEmployeeServlet('${email}')">Delete</button>`
+					              <button type="button" class="btn btn-danger" onclick="callDeleteCustomerServlet('${email}')">Delete</button>`
 	deleteModalFooter.style.display = ""
 }
 
