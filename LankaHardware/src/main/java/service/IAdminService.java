@@ -19,9 +19,9 @@ public interface IAdminService {
 
 	public String addAdmin(Admin admin, Collection<Part> parts);
 
-	public String removeAdmin(String Email);
+	public String removeAdmin(String email);
 
-	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role);
+	public String updateAdmin(String email, String password, String phone, String name, String address, String role);
 
 	
 	

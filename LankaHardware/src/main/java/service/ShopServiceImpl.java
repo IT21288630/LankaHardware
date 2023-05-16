@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,8 +38,8 @@ public class ShopServiceImpl implements IShopService {
 
 		Shop shop = new Shop();
 		ArrayList<Item> items = new ArrayList<>();
-		HashSet<String> mainCategories = new HashSet<>();
-		Map<String, HashSet<String>> subCategories = new LinkedHashMap<>();
+		ArrayList<String> mainCategories = new ArrayList<>();
+		Map<String, ArrayList<String>> subCategories = new LinkedHashMap<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
 		IWishlistService iWishlistService = new WishlistServiceImpl();
@@ -103,7 +102,7 @@ public class ShopServiceImpl implements IShopService {
 			shop.setMainCategories(mainCategories);
 
 			for (String main : mainCategories) {
-				HashSet<String> subList = new HashSet<>();
+				ArrayList<String> subList = new ArrayList<>();
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SUB_CATEGORIES_FOR_SHOP);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, main);
 				rs = pst.executeQuery();
@@ -145,7 +144,7 @@ public class ShopServiceImpl implements IShopService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		
+
 		return shop;
 	}
 
@@ -156,12 +155,10 @@ public class ShopServiceImpl implements IShopService {
 
 		Shop shop = new Shop();
 		ArrayList<Item> items = new ArrayList<>();
-		HashSet<String> brandList = new HashSet<>();
+		ArrayList<String> brandList = new ArrayList<>();
 		IReviewService iReviewService = new ReviewServiceImpl();
 		IProductSingleService iProductSingleService = new ProductSingleServiceImpl();
-		IWishlistService iWishlistService = new WishlistServiceImpl();
 		ICartService iCartService = new CartServiceImpl();
-		Customer customer = new Customer();
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
@@ -270,12 +267,6 @@ public class ShopServiceImpl implements IShopService {
 				item.setSize(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
 				item.setSizesAndPrizes(iProductSingleService.getProductSizeAndPriceList(item.getItemID()));
-			}
-			
-			customer.setEmail("a@g.m");
-
-			for (Item item : items) {
-				item.setIsInWishlist(iWishlistService.checkIfItemIsInWishlist(customer, item));
 			}
 
 			for (Item item : items) {

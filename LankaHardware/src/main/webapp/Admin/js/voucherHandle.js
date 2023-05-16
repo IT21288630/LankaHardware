@@ -113,7 +113,7 @@ var voucherTable = document.getElementById('voucher');
 function callGetAllVoucherServlet(){
 	
 	
-	$.get("http://localhost:/LankaHardware:8080/GetAllVoucherServlet", function(response) {
+	$.get("http://localhost:8081/LankaHardware/GetAllVoucherServlet", function(response) {
 				
 		voucher = response
 		var varlen = voucher.length;
@@ -221,12 +221,12 @@ function callSortbyServlet(sort){
 	}
 
 	
-	var endpoint = "http://localhost:8080/LankaHardware/GetAllVouchersByServlet";
+	var endpoint = "http://localhost:8081/LankaHardware/GetAllStoreItemSortByServlet";
 	$.post(endpoint,{sort:sort}, function(response){
-			voucher = response
-		var varLen = stock.length;
+			stock = response
+		var stockLen = stock.length;
 		
-		buildAllVouchers(voucher, varLen);
+		buildAllStock(stock, stockLen);
 	
 	})
 			

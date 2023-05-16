@@ -40,15 +40,15 @@ public class GetAllCustomersServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		ArrayList<Customer>  customers = new ArrayList();
+		ArrayList<Customer>  customer = new ArrayList();
 		ICustomerService iCustomerService = new CustomerServiceImpl();
 		
-		customers = iCustomerService.getAllCustomers();
+		customer = iCustomerService.getAllCustomers();
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		String resp = new Gson().toJson(customers);
+		String resp = new Gson().toJson(customer);
 		
 		out.print(resp);
 	}

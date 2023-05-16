@@ -171,7 +171,6 @@ function callGetReviewChartServlet(itemID) {
 
 		setReviewPercentagesAndCounts(revData)
 		createReviewBarChart(revCountsSeries)
-		createReviewGrowthChart('five')
 	})
 }
 
@@ -1123,41 +1122,11 @@ function createReviewBarChart(revSeries) {
 	}
 }
 
-function createReviewGrowthChart(revType) {
-	var data
-	var revCountElement = document.getElementById('revCount')
-	var growthReportIdBtn = document.getElementById('growthReportId')
-
-	if (revType == 'one') {
-		data = Math.ceil(revPercentages[0])
-		revCountElement.innerHTML = revCounts[0]
-		growthReportIdBtn.innerText = 'One star'
-	}
-	else if (revType =='two') {
-		data = Math.ceil(revPercentages[1])
-		revCountElement.innerHTML = revCounts[1]
-		growthReportIdBtn.innerText = 'Two star'
-	}
-	else if (revType == 'three') {
-		data = Math.ceil(revPercentages[2])
-		revCountElement.innerHTML = revCounts[2]
-		growthReportIdBtn.innerText = 'Three star'
-	}
-	else if (revType == 'four') {
-		data = Math.ceil(revPercentages[3])
-		revCountElement.innerHTML = revCounts[3]
-		growthReportIdBtn.innerText = 'Four star'
-	}
-	else if (revType == 'five') {
-		data = Math.ceil(revPercentages[4])
-		revCountElement.innerHTML = revCounts[4]
-		growthReportIdBtn.innerText = 'Five star'
-	}
-
+function createReviewGrowthChart() {
 	const growthChartEl = document.querySelector('#growthChart'),
 		growthChartOptions = {
-			series: [data],
-			labels: ['of Ratings'],
+			series: [78],
+			labels: ['Growth'],
 			chart: {
 				height: 240,
 				type: 'radialBar'
@@ -1170,6 +1139,10 @@ function createReviewGrowthChart(revType) {
 					endAngle: 150,
 					hollow: {
 						size: '55%'
+					},
+					track: {
+						background: cardColor,
+						strokeWidth: '100%'
 					},
 					dataLabels: {
 						name: {
@@ -1203,7 +1176,7 @@ function createReviewGrowthChart(revType) {
 				}
 			},
 			stroke: {
-				dashArray: 4
+				dashArray: 5
 			},
 			grid: {
 				padding: {
@@ -1224,9 +1197,6 @@ function createReviewGrowthChart(revType) {
 				}
 			}
 		};
-
-	growthChartEl.innerHTML = ''
-	
 	if (typeof growthChartEl !== undefined && growthChartEl !== null) {
 		const growthChart = new ApexCharts(growthChartEl, growthChartOptions);
 		growthChart.render();

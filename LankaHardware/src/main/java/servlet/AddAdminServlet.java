@@ -56,12 +56,12 @@ public class AddAdminServlet extends HttpServlet {
 		Admin admin = new Admin();
 		
 		
-		admin.setEmail(request.getParameter("Email"));
+		admin.setEmail(request.getParameter("email"));
 		admin.setPassword(request.getParameter("password"));	
 		admin.setPhone(request.getParameter("phone"));
 		admin.setName(request.getParameter("name"));
-		admin.setAddress(request.getParameter("Address"));
-		admin.setRole(request.getParameter("Role"));
+		admin.setAddress(request.getParameter("address"));
+		admin.setRole(request.getParameter("role"));
 	
 		Collection<Part> parts = request.getParts();
 		

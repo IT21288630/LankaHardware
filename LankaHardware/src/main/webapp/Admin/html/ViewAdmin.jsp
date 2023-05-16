@@ -141,19 +141,13 @@
                 <div data-i18n="Tables">View Admin</div>
               </a>
             </li>
-            <li class="menu-item" id="">
-              <a href="viewcustomer.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">View Custommer</div>
-              </a>
-            </li>
+            
             <li class="menu-item" id="">
               <a href="AttendanceView.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Attendance</div>
               </a>
             </li>
-             
           
           </ul>
         </aside>
@@ -180,7 +174,7 @@
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
                   	oninput = "buildSearchLists()"
-                  	id="searchadm"
+                  	id="searchemp"
                     type="text"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
@@ -255,7 +249,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="Login.jsp">
+                      <a class="dropdown-item" href="auth-login-basic.html">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -364,16 +358,16 @@
         href="#"
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddAdminModal" 
+        data-bs-toggle="modal" data-bs-target="#AddEmoloyeeModal" 
         >Add Admin</a
       >
     </div>
     
     
-    <div class="modal fade" id="AddAdminModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="AddEmoloyeeModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="AddAdminModalHeader">
+            <div class="modal-header" id="AddEmoloyeeModalHeader">
               <h5 class="modal-title" id="modalCenterTitle">Add Admin</h5>
               <button
                 type="button"
@@ -382,7 +376,7 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" id="AddAdminModalBody">
+            <div class="modal-body" id="AddEmoloyeeModalBody">
               <div>
               	 <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -413,8 +407,8 @@
                             <input
                               class="form-control"
                               type="text"
-                              id="Email"
-                              name="Email"
+                              id="email"
+                              name="email"
                              
                               placeholder="123@gmail.com"
                             />
@@ -439,8 +433,8 @@
 	                              <span class="input-group-text">LK (+94)</span>
 	                              <input
 	                                type="text"
-	                                id="phone"
-	                                name="phone"
+	                                id="phoneNum"
+	                                name="phoneNum"
 	                                class="form-control"
 	                                placeholder="07********"
 	                              />
@@ -451,8 +445,8 @@
                  <div class="form-group">
   					<input type="text" 
  			        class="form-control" 
-			         id="name" 
-			         placeholder="name">
+			         id="Name" 
+			         placeholder="Name">
   
  		
                 
@@ -463,7 +457,7 @@
                               <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="Address" name="Address" placeholder="Address" />
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
                           </div>
                      
                           <div class="mb-3 col-md-6">
@@ -489,7 +483,7 @@
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="AddAdminModalFooter">
+            <div class="modal-footer" id="AddEmoloyeeModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
@@ -500,13 +494,13 @@
       </div>
       
       <!-- edit modal -->
-      <div class="modal fade" id="EditAdminModal" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="EditEmoloyeeModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="EditAdminModalHeader">
+            <div class="modal-header" id="EditEmoloyeeModalHeader">
               
             </div>
-            <div class="modal-body" id="EditAdminModalBody">
+            <div class="modal-body" id="EditEmoloyeeModalBody">
               
                     </div>
                     <hr class="my-0" />
@@ -516,7 +510,7 @@
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="EditAdminModalFooter">
+            <div class="modal-footer" id="EditEmoloyeeModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
@@ -543,7 +537,7 @@
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../js/callServllet.js"></script>
+    <script src="../js/CallServlet.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="../assets/vendor/js/menu.js"></script>

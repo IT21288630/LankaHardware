@@ -16,12 +16,10 @@ public interface IEmployeeService {
 
 	public ArrayList<Employee> getAllEmployees();
 
-	public String addEmployees(Employee employee,Collection<Part> EmployeeImages);
+	public String addEmployees(Employee employee);
 
 	public String removeEmployees(String empNo);
 
-	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String date,  String salary, Collection<Part> EmployeeImages);
-
-
+	public String updateEmployees(String empNo, String name, String email, String designation, String phoneNum, String address, String date,  String salary);
 	
 }

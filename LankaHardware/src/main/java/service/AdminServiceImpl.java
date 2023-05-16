@@ -182,7 +182,7 @@ public class AdminServiceImpl implements IAdminService {
 
 	public static void main(String[] args) {
 		IAdminService iAdminService = new AdminServiceImpl();
-		System.out.println(iAdminService.removeAdmin("Email"));
+		System.out.println(iAdminService.removeAdmin("emp9"));
 	}
 
 	@Override
@@ -229,7 +229,7 @@ public class AdminServiceImpl implements IAdminService {
 
 	
 	
-	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role) {
+	public String updateAdmin(String Email, String password, String phone, String name, String Address, String Role) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
@@ -237,38 +237,38 @@ public class AdminServiceImpl implements IAdminService {
 
 		try {
 			if(!name.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_EMAIL);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_EMAIL);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Email);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
 			if(!password.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_PASSWORD);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_EMAIL);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, password);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
 			if(!phone.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_PHONE);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DESIGNATION);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, phone);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
 			if(!name.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_NAME);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PHONENUM);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
 			if(!Address.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_ADDRESS);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_ADDRESS);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Address);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
 		
 			if(!Role.equals("null")) {
-				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_ROLE);
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_DATE);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Role);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();

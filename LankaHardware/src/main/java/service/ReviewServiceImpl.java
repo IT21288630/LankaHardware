@@ -160,23 +160,18 @@ public class ReviewServiceImpl implements IReviewService {
 			itemRatingCount = getItemRatingCount(itemID);
 
 			percentage = (oneStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (twoStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (threeStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (fourStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (fiveStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
 			percentages.add(percentage);
 
 			starNumbers.add((double) oneStar);
@@ -189,7 +184,7 @@ public class ReviewServiceImpl implements IReviewService {
 				ratingPercentageList[i][0] = percentages.get(i);
 				ratingPercentageList[i][1] = starNumbers.get(i);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -433,7 +428,7 @@ public class ReviewServiceImpl implements IReviewService {
 
 	public static void main(String[] args) {
 		IReviewService iReviewService = new ReviewServiceImpl();
-		iReviewService.calculateItemRatingPercentage("i600");
+		System.out.println(iReviewService.calculateItemRatingPercentage("i100")[4][1]);
 
 	}
 }
