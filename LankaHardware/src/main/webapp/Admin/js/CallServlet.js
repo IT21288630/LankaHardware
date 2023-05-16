@@ -887,5 +887,139 @@ function buildSuplierSearchLists() {
 
 }
 
+// Attendance Marking of Employees
+
+// present employees
+
+var presentEmployees = []
+var presentEmployeestable = document.getElementById('presentEmployees')
+
+function callEmployeeAttendanceServlet(){
+	$.get("http://localhost:8080/LankaHardware/EmployeeAttendanceServlet", function(response) {
+				
+		presentEmployees = response[1]
+		
+		buildPresentEmployees(presentEmployees);
+	})
+}
+
+function buildPresentEmployees(presentEmp){
+	presentEmployeestable.innerHTML = ''
+	for(var i = 0; i < presentEmp.length; i++){
+		var employee = `<tr>
+						<td>
+							${presentEmp[i].empNo}
+						</td>
+						<td>
+							${presentEmp[i].name}
+						</td>
+					
+						
+						</tr>`
+						
+		
+		presentEmployeestable.innerHTML += employee		
+	}
+}
+
+//Absent Employees
+
+var presentEmployees = []
+var absentEmployees = []
+var allEmployees = []
+var absentEmployeestable = document.getElementById('absentAttendance')
+
+function callEmployeeAbsentAttendanceServlet(){
+	$.get("http://localhost:8080/LankaHardware/EmployeeAttendanceServlet", function(response) {
+		
+		allEmployees = response[0]		
+		presentEmployees = response[1]
+		
+		buildAbsentEmployees();
+	})
+}
+
+function buildAbsentEmployees(){
+	absentEmployeestable.innerHTML = ''
+	absentEmployees = []
+	
+	for(var i = 0; i < allEmployees.length; i++){
+		absentEmployees.push(allEmployees[i])
+	}
+	
+	for(var i = 0; i < presentEmployees.length; i++){
+		
+			for(var j = 0; j < absentEmployees.length; j++){
+				if(presentEmployees[i].empNo == absentEmployees[j].empNo){
+					absentEmployees.splice(j, 1)
+				}
+			}
+		
+		
+	}
+	
+	console.log(absentEmployees)
+	
+	for(var i = 0; i < absentEmployees.length; i++){
+		var employee = `<tr>
+						<td>
+							${absentEmployees[i].empNo}
+						</td>
+						<td>
+							${absentEmployees[i].name}
+						</td>
+						<td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);" onclick = "callMarkAttendance('${absentEmployees[i].empNo}'); "
+                                ><i class="bx bx-edit-alt me-1"></i> Mark Present</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+						</tr>`
+						
+		
+		absentEmployeestable.innerHTML += employee		
+	}
+}
+//Marking Attendance 
+
+function callMarkAttendance(empNo){
+	
+	$.post("http://localhost:8080/LankaHardware/MarkAttendanceServlet",{empNo : empNo} , function(response) {
+		
+		callEmployeeAbsentAttendanceServlet()
+		
+	})
+	
+}
+
+////Search absent Employees
+//var searchLists = []
+//
+//function buildAbsentSearchLists() {
+//	searchAbsentemp = []
+//	var search = document.getElementById("searchAbsentemp").value.toLowerCase()
+//	search = search.trim()
+//
+//	
+//		for (var i = 0; i < presentEmployees.length; i++) {
+//			if(presentEmployees[i].name.toLowerCase().includes(search)||presentEmployees[i].empNo.toLowerCase().includes(search))
+//			
+//			searchLists.push(presentEmployees[i])
+//		
+//		
+//		buildPresentEmployees(searchLists)
+//		
+//	} 
+//
+//}
+
+
+
 
 

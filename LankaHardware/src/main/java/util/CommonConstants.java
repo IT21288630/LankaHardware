@@ -47,6 +47,9 @@ public class CommonConstants {
 	/** Constant for Supplier id prefix */
 	public static final String SUPPLIER_ID_PREFIX = "S300";
 	
+	/** Constant for Supplier id prefix */
+	public static final String ATTENDANCE_ID_PREFIX = "a300";
+	
 	/** Constant for voucher id prefix */
 	public static final String VOUCHER_ID_PREFIX = "V300";
 	
@@ -153,7 +156,7 @@ public class CommonConstants {
 	
 	
 	/** Constant for add stock details */
-	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item_m(id, name, type, description, brand, price, quantity, mf_date, exp_date,warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?);";
+	public static final String QUERY_ID_ADD_TO_stock_item = "INSERT INTO item_m(id, name, category, description, brand, price, quantity, mf_date, exp_date,warrentyType, warrentyNum, warrentyPeriod ) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?);";
 	
 	//public static final String QUERY_ID_ADD_TO_stock_item_size = "INSERT INTO item_(id, size, unit_price, stock) VALUES(?, ?, ?, ?);";
 	
@@ -174,12 +177,17 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEES = "SELECT * FROM employee;";
 	
 	/** Constant for add to cart */
-	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	public static final String QUERY_ID_ADD_TO_EMPLOYEE = "INSERT INTO employee(empNo, name, email, designation, phoneNum, address, gender, date, wage, salary, profilepic) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
+	public static final String QUERY_ID_GET_PRESENT_EMPLOYEE = "Select * From employee e,attendance a where e.empNo = a.empNo and a.date = curdate()";		
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_ALL_EMPLOYEE_IDS = "SELECT empNo FROM employee;";
 	
+	public static final String QUERY_ID_INSERT_EMPLOYEE_ATTENDANCE = "INSERT INTO attendance (attendanceNo, empNo, date) VALUES (?, ?, curdate());";
+	
+	
+	public static final String QUERY_ID_SELECT_ALL_ATTENDANCE_IDS = "SELECT attendanceNo FROM attendance;";
 	/** Constant for select stock id's */
 	public static final String QUERY_ID_SELECT_ALL_Stock_IDS = "SELECT id FROM item_m;";
 	
@@ -254,6 +262,8 @@ public class CommonConstants {
 	public static final String QUERY_ID_UPDATE_EMPLOYEES_WAGE = "UPDATE employee SET wage = ? WHERE empNo = ?;";
 	
 	public static final String QUERY_ID_UPDATE_EMPLOYEES_SALARY = "UPDATE employee SET salary = ? WHERE empNo = ?;";
+	
+	public static final String QUERY_ID_UPDATE_EMPLOYEES_PROFILE_PIC = "UPDATE employee SET profilepic = ? WHERE empNo = ?;";
 	
 	/** Constant for clear employees */
 	public static final String QUERY_ID_CLEAR_EMPLOYEES = "DELETE FROM employee WHERE empNo = ?";
@@ -555,6 +565,8 @@ public class CommonConstants {
 	 */
 	/** Constant for get item by id */
 	public static final String QUERY_ID_GET_ITEM_BY_ID = "SELECT * FROM item i, item_img img, item_size size where i.id = img.Id and i.id = size.Id and i.id = ?;";
+
+	
 
 
 
