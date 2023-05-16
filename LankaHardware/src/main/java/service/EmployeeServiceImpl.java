@@ -369,8 +369,85 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	
 
 
+<<<<<<< Updated upstream
+=======
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_PRESENT_EMPLOYEE);
+
+			while (rs.next()) {
+				Employee employee = new Employee();
+
+				employee.setEmpNo(rs.getString(1));
+				employee.setName(rs.getString(2));
+
+				presentEmployees.add(employee);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return presentEmployees;
+	}
+
+	@Override
+	public String markPresentAttendane(String empNo) {
+
+		con = DBConnectionUtil.getDBConnection();
+
+		ArrayList<String> attendanceNo = new ArrayList();
+		
+		String status = "Error";
+
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_ATTENDANCE_IDS);
+
+			while (rs.next()) {
+				attendanceNo.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
+			}
+
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_INSERT_EMPLOYEE_ATTENDANCE);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, CommonUtil.generateIDs(attendanceNo, "attendance"));
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, empNo);
+
+			pst.executeUpdate();
+
+			status = "Attendance Marked";
+
+		}
+
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		return status;
+	}
+		
+>>>>>>> Stashed changes
 
 	
 	
 	
 }
+
