@@ -110,13 +110,13 @@ public class CommonConstants {
 	/** constant to get all customer details*/
 	public static final String QUERY_ID_CUSTOMER_DETAILS ="SELECT * FROM customer WHERE email =  ?";
 	
-	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_PHONE ="UPDATE admin SET phone = ? WHERE Email = ?;";
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_PHONE ="UPDATE customer SET phone = ? WHERE Email = ?;";
 	
-	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_NAME ="UPDATE admin SET name = ? WHERE Email = ?;";
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_NAME ="UPDATE customer SET name = ? WHERE Email = ?;";
 	
-	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_ADDRESS ="UPDATE admin SET address = ? WHERE Email = ?;";
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_ADDRESS ="UPDATE customer SET address = ? WHERE Email = ?;";
 	
-	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROPIC = "UPDATE admin SET Propic = ? WHERE Email = ?;";
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROPIC = "UPDATE customer SET Propic = ? WHERE Email = ?;";
 	
 	public static final String QUERY_ID_DELETE_CUSTOMER = "DELETE FROM customer WHERE email = ?";
 	

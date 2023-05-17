@@ -321,9 +321,9 @@ public class CustomerServiceImpl implements ICustomerService {
 			customer.setPassword(rs.getString(2));
 			customer.setPhone(rs.getString(3));
 			customer.setAddress(rs.getString(5));
-		
+		    customer.setProfilepics(rs.getString(6));
 			
-			
+			System.out.println(customer.getProfilepics());
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -386,6 +386,7 @@ public class CustomerServiceImpl implements ICustomerService {
 				pst.executeUpdate();
 			}
 			if (!name.equals("null")) {
+				System.out.println("name is not null");
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_NAME);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
@@ -397,7 +398,7 @@ public class CustomerServiceImpl implements ICustomerService {
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
 				pst.executeUpdate();
 			}
-			if(!imagePathArrayList.get(0).equals("null")) {
+			if(imagePathArrayList.size() > 0) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CUSTOMER_UPDATE_PROPIC);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
