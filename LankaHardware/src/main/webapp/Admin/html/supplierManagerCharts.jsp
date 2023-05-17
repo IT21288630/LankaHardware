@@ -300,7 +300,7 @@
                     <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex flex-column align-items-center gap-1">
-                          <h2 class="mb-2">8,258</h2>
+                          <h2 id="supplierTotal" class="mb-2"></h2>
                           <span>Type of Suppliers</span>
                         </div>
                         <div id="orderStatisticsChart"></div>
@@ -318,7 +318,7 @@
                               <small class="text-muted">Debit Suppliers</small>
                             </div>
                             <div class="user-progress">
-                              <small class="fw-semibold">82.5k</small>
+                              <small id="debitSupplierTotal" class="fw-semibold"></small>
                             </div>
                           </div>
                         </li>
@@ -332,7 +332,7 @@
                               <small class="text-muted">Credit Suppliers</small>
                             </div>
                             <div class="user-progress">
-                              <small class="fw-semibold">23.8k</small>
+                              <small id="creditSupplierTotal" class="fw-semibold"></small>
                             </div>
                           </div>
                         </li>
@@ -395,18 +395,26 @@
     <!-- Servlet JS -->
     <script src="../js/main.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="../js/EmployeeCharts.js"></script>
+    <script src="../js/CallServlet.js"></script>
     
     <script>
    
     var allEmployees = []
     
     $(document).ready(function () {
-    	$.get("http://localhost:8080/LankaHardware/GetAllEmployeesServlet", function(response) {
-
-    		allEmployees = response
-			setEmployees(allEmployees)
-		})
+    	$.get("http://localhost:8080/LankaHardware/GetSupplierTypeChartServlet", function(response) {
+    		
+    		var counts = response
+    		
+    		var suptotalCount = document.getElementById('supplierTotal')
+    		var supDebittotalCount = document.getElementById('debitSupplierTotal')
+    		var supCredittotalCount = document.getElementById('creditSupplierTotal')
+    		
+    		supDebittotalCount.innerHTML = counts[0]
+    		supCredittotalCount.innerHTML = counts[1]
+    		suptotalCount.innerHTML = counts[2]
+    		
+    	})
     	
     	
     });

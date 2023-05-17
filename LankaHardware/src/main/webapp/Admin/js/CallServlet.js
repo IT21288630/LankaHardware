@@ -1045,6 +1045,15 @@ function callMarkAttendance(empNo){
 //}
 
 
+//Supplier Debit type
+
+function callGetsupplierTypeDetails(){
+	
+	
+	
+}
+
+
 
 
 
