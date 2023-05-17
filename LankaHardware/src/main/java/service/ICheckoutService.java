@@ -16,4 +16,9 @@ public interface ICheckoutService {
 	 * checking out
 	 */
 	public void checkout(Orderreal orderreal);
+	
+	/**
+	 * get completed orders
+	 */
+	public ArrayList<Orderreal> getCompletedOrders(String email);
 }

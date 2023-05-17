@@ -170,14 +170,14 @@
 										</div>
 									</div>
 									<br>
-									<input type="hidden" class="hide" name="token" id="token"
+									<input type="hidden" class="hide" name="token" id="otpInput"
 										value="">
 								</form>
 
 							</div>
 						</div>
 					</div>
-                <button class="btn btn-primary d-grid w-100">Enter otp </button>
+                <button class="btn btn-primary d-grid w-100" onclick="validateOTP()">Enter otp </button>
               </form>
               <div class="text-center">
                 <a href="Forgotpassword.jsp" class="d-flex align-items-center justify-content-center">
@@ -202,7 +202,7 @@
     <script src="Admin/assets/vendor/libs/popper/popper.js"></script>
     <script src="Admin/assets/vendor/js/bootstrap.js"></script>
     <script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
+    <script src="js/callServlet.js"></script>
     <script src="Admin/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 

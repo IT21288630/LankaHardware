@@ -122,18 +122,9 @@ li a {
 			<div class="container">
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
-    				<div class="cart-list">
-    				<table class="table">
-							<thead class="thead-primary">
-								<tr class="text-center">
-									<th style="text-align: start;" id="orderID">Order ID: </th>
-								</tr>
-							</thead>
-							<tbody id="order_itemList">
-								
-							</tbody>
-						</table>
-					  </div>
+    				<div class="cart-list" id="completedOrdersList">
+    				
+					</div>
     			</div>
     		</div>
 </section>
@@ -236,50 +227,11 @@ li a {
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/nilusha.js"></script>
 
   <script>
 		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		     $.get("http://localhost:8080/LankaHardware/GetOrderServlet", function(response) {
-					
-					orderItems = response[0]
-					getOrderQuantity()
-					calculateSubTotal(orderItems)
-					var Total = response[1]
-					
-					buildMiniCart(orderItems)
-					buildMainCart(orderItems, Total)
-				})
+			callGetCompletedOrdersServlet();
 		    
 		});
 	</script>
