@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Checkout;
+import model.Orderreal;
 import service.CheckoutServiceImpl;
 import service.ICheckoutService;
 
@@ -44,16 +45,15 @@ public class CheckoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 
-		Checkout checkout = new Checkout();
+		Orderreal orderreal = new Orderreal();
 		ICheckoutService iCheckoutService = new CheckoutServiceImpl();
 
-		checkout.setName(request.getParameter("fname") +" "+ request.getParameter("lname"));
-		checkout.setEmail(request.getParameter("email"));
-		checkout.setPcode(request.getParameter("pcode"));
-		checkout.setPhone(request.getParameter("phone"));
-		checkout.setAddress(request.getParameter("address"));
+		orderreal.setName(request.getParameter("fname") +" "+ request.getParameter("lname"));
+		orderreal.setEmail(request.getParameter("email"));
+		orderreal.setPhone(request.getParameter("phone"));
+		orderreal.setAddress(request.getParameter("address"));
 		
-		iCheckoutService.checkout(checkout);
+		iCheckoutService.checkout(orderreal);
 	}
 
 }

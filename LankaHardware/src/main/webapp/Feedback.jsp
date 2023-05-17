@@ -102,10 +102,10 @@
             <h1>Add your Feedbacks</h1>
            
               <div class="form-group">
-                <input type="text" id = "subject" name= "subject" class="form-control" placeholder="Subject" >
+                <input type="text" id = "subject" name= "subject" class="form-control" placeholder="Subject">
               </div>
               <div class="form-group">
-                <textarea name="feedback" id="feedback" cols="30" rows="7" class="form-control" placeholder="Feedback" ></textarea>
+                <textarea name="feedback" id="feedback" cols="30" rows="7" class="form-control" placeholder="Feedback"></textarea>
               </div>
               <div class="form-group">
                 <input type="button" value="Send Feedback" onclick ="callAddFeedbackServlet();" class="btn btn-primary py-3 px-5">

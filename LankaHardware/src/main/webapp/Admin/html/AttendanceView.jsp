@@ -15,8 +15,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-<title>
-	Employee Attendance</title>
+<title>Container - Layouts | Sneat - Bootstrap 5 HTML Admin
+	Template - Pro</title>
 
 <meta name="description" content="" />
 
@@ -522,8 +522,8 @@
 		src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 <script>
-$(document).ready(function () {
-	  callGetAllEmployeesServlet()
+	$(document).ready(function() {
+		callGetAllSuppliersServlet()
 	});
 </script>
 </html>

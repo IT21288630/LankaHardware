@@ -197,9 +197,9 @@ function validation() {
 						$('#AddStockModal').modal('hide')
 					}, 1000);
 					
-			GenerateBarCode();	
+				
 			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod);
-			
+			GenerateBarCode();
 			
 		}
 		
@@ -1017,29 +1017,11 @@ function callDeleteStockServlet(id) {
 									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
 									        <span style="font-size: x-large;">${response}</span>
 									    </div><hr>`
-									    
-									    callGetAllStockServlet();
 
 		callGetAllStockServlet();
 		setTimeout(function() {
 			$('#deleteModal').modal('hide')
-		}, 1000)
-
-		callGetAllStockServlet()
-			setTimeout(function() {
-						$('#AddStockModal').modal('hide')
-					}, 1000);
-					
-		callGetAllStockServlet()
-			setTimeout(function() {
-						$('#EditStockModal').modal('hide')
-					}, 1000);
-					
-		callGetAllStockServlet()
-			setTimeout(function() {
-						$('#ViewStockModal').modal('hide')
-					}, 1000);callGetAllStockServlet()
-			
+		}, 2500);
 	}
 	)
 }
@@ -1146,7 +1128,7 @@ function getTable(){
 	var workbook = new ExcelJS.Workbook();
 	var worksheet = workbook.addWorksheet("Sheet1");
 	//var data = JSON.parse(stock);
-		var data = JSON.parse(JSON.stringify(stock))
+	var data = JSON.parse(JSON.stringify(stock))
 	var keys = Object.keys(data[0]);
 	
 	for (var i = 0; i < keys.length; i++) {

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import model.Checkout;
 import model.Item;
+import model.Orderreal;
 
 public interface ICheckoutService {
 
@@ -14,5 +15,5 @@ public interface ICheckoutService {
 	/**
 	 * checking out
 	 */
-	public void checkout(Checkout checkout);
+	public void checkout(Orderreal orderreal);
 }

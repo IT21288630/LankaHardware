@@ -141,7 +141,7 @@
 							<span  id="cartTotals" style="text-transform: none;"></span>
 						</p>
 					</div>
-					<p class="text-center"><a href="checkout.jsp" class="btn btn-primary py-3 px-4">Proceed to
+					<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to
 							Checkout</a></p>
 				</div>
 			</div>
@@ -161,8 +161,8 @@
 			<div class="row mb-5">
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">LANKA HARDWARE</h2>
-						<p></p>
+						<h2 class="ftco-heading-2">Minishop</h2>
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
 						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
 							<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
 							<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -208,7 +208,7 @@
 								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929
 											210</span></a></li>
 								<li><a href="#"><span class="icon icon-envelope"></span><span
-											class="text">lankahardware@gmail.com</span></a></li>
+											class="text">info@yourdomain.com</span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -219,8 +219,9 @@
 
 					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;
-						<script>document.write(new Date().getFullYear());</script><i class="icon-heart color-danger" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank"></a>
+						<script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+						is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a
+							href="https://colorlib.com" target="_blank">Colorlib</a>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</p>
 				</div>
