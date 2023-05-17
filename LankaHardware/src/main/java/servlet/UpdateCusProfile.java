@@ -44,7 +44,7 @@ public class UpdateCusProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+	
 		
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");

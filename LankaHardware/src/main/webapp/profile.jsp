@@ -138,7 +138,10 @@
                    </div>
                     
                   
-                 
+                  <div class="mt-2" style="width: 100%; display: flex; justify-content: front; column-gap: 10px;">
+                  <button type="submit" class="btn btn-primary me-2"onclick="callLogOutServlet()">Logout</button>
+                  
+                  </div>
                 <div class="mt-2" style="width: 100%; display: flex; justify-content: end; column-gap: 10px;">
                     <button type="submit" class="btn btn-primary me-2" onclick ="callUpdateCusProfile()">Save changes</button>
     
