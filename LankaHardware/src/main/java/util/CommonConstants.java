@@ -600,12 +600,15 @@ public class CommonConstants {
 
 
 	public static final String QUERY_ID_GETCHECKOUTIDS = "select oid from order_real";
-
-	public static final String QUERY_ID_CHECKOUTREAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, \"Processing\", \"COD\");";
-
-	public static final String QUERY_ID_CHECKOUT_ITEM_REAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, \"Processing\", \"COD\");";
-
 	
+	public static final String QUERY_ID_GETCHECKOUTCARTTOTAL = "SELECT total, cid FROM cart where email = ?;";
+
+	public static final String QUERY_ID_CHECKOUTREAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, ?, ?);";
+
+	public static final String QUERY_ID_CHECKOUT_ITEM_REAL = "INSERT INTO order_item_real (oid, iteamid) VALUES (?, ?);";
+
+	public static final String QUERY_ID_CHECKOUT_GET_ITEMS_FROM_CART = "SELECT itId FROM cart_item WHERE cid = ?;";
+
 
 
 

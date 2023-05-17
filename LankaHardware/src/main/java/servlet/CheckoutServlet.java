@@ -48,6 +48,8 @@ public class CheckoutServlet extends HttpServlet {
 		Orderreal orderreal = new Orderreal();
 		ICheckoutService iCheckoutService = new CheckoutServiceImpl();
 
+		System.out.println("im here");
+		
 		orderreal.setName(request.getParameter("fname") +" "+ request.getParameter("lname"));
 		orderreal.setEmail(request.getParameter("email"));
 		orderreal.setPhone(request.getParameter("phone"));

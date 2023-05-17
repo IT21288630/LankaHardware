@@ -12,6 +12,6 @@ function callCheckoutServlet() {
 
 	$.post("http://localhost:8080/LankaHardware/CheckoutServlet", { fname: fname, lname: lname, address: address, phone: phone, email: email, pcode: pcode }, function(response) {
 
-		
+		//window.location.href = "CompletedOrder.jsp";
 	})
 }
