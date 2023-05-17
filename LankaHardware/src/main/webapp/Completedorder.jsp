@@ -27,6 +27,15 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/imageSelect.css">
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="Admin/assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="Admin/assets/js/config.js"></script>
 
 <style>
 ul {
@@ -207,9 +216,66 @@ li a {
     
   
 
+<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="border: none;">
+                    <div class="modal-header"
+                        style="justify-content: flex-start; border-bottom: none; padding-bottom: 0px; align-items: baseline; column-gap: 10px;" id="reviewModalHeader">
+                        
+                        <!-- 							<i class="fa-solid fa-xmark" data-bs-dismiss="modal" style="margin: 0px; position: absolute; margin: 0px; top: 10px; right: 10px; font-size: x-large;"></i> -->
+                    </div>
+                    <div class="modal-body" style="padding-top: 0px;" id="reviewModalBody">
+                    </div>
+                    <div class="modal-footer" style="border-top: none;" id="reviewModalFooter">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
+<template>
+        <div>
+            <b-form-rating v-model="value" variant="warning" class="mb-2"></b-form-rating>
+            <b-form-rating v-model="value" variant="success" class="mb-2"></b-form-rating>
+            <b-form-rating v-model="value" variant="danger" class="mb-2"></b-form-rating>
+            <b-form-rating v-model="value" variant="primary" class="mb-2"></b-form-rating>
+            <b-form-rating v-model="value" variant="info" class="mb-2"></b-form-rating>
+            <p class="mt-2">Value: {{ value }}</p>
+        </div>
+    </template>
+
+    <script>
+        export default {
+            data() {
+                return {
+                    value: 3
+                }
+            }
+        }
+    </script>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="Admin/assets/vendor/libs/popper/popper.js"></script>
+    <script src="Admin/assets/vendor/js/bootstrap.js"></script>
+    <script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="Admin/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="Admin/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="Admin/assets/js/ui-modals.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -226,6 +292,7 @@ li a {
   <script src="js/scrollax.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
+  <script src="js/rating.js"></script>
   <script src="js/main.js"></script>
   <script src="js/nilusha.js"></script>
 
