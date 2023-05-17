@@ -321,6 +321,9 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_SUPPLIERS_DEBIT = "UPDATE supplier SET sup_type = ? WHERE supNo = ?;";
 	
+	public static final String QUERY_TO_GET_DEBIT_SUPPLIER_COUNT = "select count(supNo) from supplier where sup_type = \"Debit\"";
+	
+	public static final String QUERY_TO_GET_CREDIT_SUPPLIER_COUNT = "select count(supNo) from supplier where sup_type = \"Credit\"";
 	/** Constant for get items in suppliers */
 	public static final String QUERY_ID_GET_EMAILED_SUPPLIER_DETAILS = "SELECT supNo, description, sup_type, email FROM supplier WHERE supNo = ?;";
 			
