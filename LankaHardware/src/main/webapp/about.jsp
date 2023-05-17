@@ -69,9 +69,9 @@
 	          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
               <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
 	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
-	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Orders</a></li>
+	          <li class="nav-item"><a href="Completedorder.jsp" class="nav-link">Orders</a></li>
 	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+	          
 	          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>
 	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
@@ -137,11 +137,7 @@
     <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
-						<a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
-							<span class="icon-play"></span>
-						</a>
-					</div>
+					
 					<div class="col-md-7 py-md-5 wrap-about pb-md-5 ftco-animate">
 	          <div class="heading-section-bold mb-4 mt-md-5">
 	          	<div class="ml-md-0">
@@ -149,11 +145,11 @@
 	            </div>
 	          </div>
 	          <div class="pb-md-5 pb-4">
-							<p>Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market. They are engaged in providing solutions to the construction industry both in the industrial and household segments.
+							<p style="font-size:20px">Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market. They are engaged in providing solutions to the construction industry both in the industrial and household segments.
 							</p>
-							<p>Lanka Hardware has a network of numerous partners and dealers managing a wide portfolio of products that can meet the entire scope of the construction market in Sri Lanka.
+							<p style="font-size:20px">Lanka Hardware has a network of numerous partners and dealers managing a wide portfolio of products that can meet the entire scope of the construction market in Sri Lanka.
 </p>
-							<p><a href="shop.jsp" class="btn btn-primary">Shop now</a></p>
+							<p style="font-size:20px"><a href="shop.jsp" class="btn btn-primary">Shop now</a></p>
 						</div>
 					</div>
 				</div>
@@ -198,9 +194,9 @@
           <div class="col-lg-7">
           	<div class="heading-section ftco-animate mb-5">
 	            <h2 class="mb-4">Our satisfied customer says</h2>
-	            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+	    
 	          </div>
-            <div class="carousel-testimony owl-carousel ftco-animate">
+            <div class="carousel-testimony owl-carousel">
               <div class="item">
                 <div class="testimony-wrap">
                   <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
@@ -209,9 +205,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Marketing Manager</span>
+                    <p class="mb-4 pl-4 line">I recently received a hand-written letter from the Isuru, Stock manager in regard to an online ordering error. He went out of his way to accommodate me and I will definitely be shopping there again!</p>
+                    <p class="name">Prabshwara</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -223,9 +219,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Interface Designer</span>
+                    <p class="mb-4 pl-4 line">Customer service was what makes us continue to shop at Lanka Hardware!!</p>
+                    <p class="name">Savindu</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -237,9 +233,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">UI Designer</span>
+                    <p class="mb-4 pl-4 line">All products are easily Accessible and easy to browse</p>
+                    <p class="name">Isuru</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -251,9 +247,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Web Developer</span>
+                    <p class="mb-4 pl-4 line">Delivery is fast and products are really good in condition!!</p>
+                    <p class="name">Kasun</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
@@ -265,9 +261,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">System Analyst</span>
+                    <p class="mb-4 pl-4 line">Quality products and easy to shop</p>
+                    <p class="name">Ghazi</p>
+                    <span class="position">Customer</span>
                   </div>
                 </div>
               </div>
