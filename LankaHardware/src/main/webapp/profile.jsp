@@ -140,9 +140,9 @@
                   
                  
                 <div class="mt-2" style="width: 100%; display: flex; justify-content: end; column-gap: 10px;">
-                    <button type="submit" class="btn btn-primary me-2" onclick ="callUpdateCustomer()">Save changes</button>
+                    <button type="submit" class="btn btn-primary me-2" onclick ="callUpdateCusProfile()">Save changes</button>
     
-                          <button type="reset" class="btn btn-outline-secondary"id ="clear" onclick = "callRemoveCustomer()">Delete</button>
+                          <button type="reset" class="btn btn-outline-secondary"onclick = "callDeleteCusProfile()">Delete</button>
                         </div>
                       </form>
                     </div>
@@ -152,53 +152,6 @@
   
     
 
-<!--             <div class="modal-footer" id="AddCustomerModalFooter"> -->
-<!--               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"> -->
-<!--                 Close -->
-<!--               </button> -->
-<!--               <button type="button" class="btn btn-primary">Submit</button> -->
-<!--             </div> -->
-        
-      
-      
-<!--       edit modal -->
-<!--       <div class="modal fade" id="EditCustomerModal" tabindex="-1" aria-hidden="true"> -->
-<!--         <div class="modal-dialog modal-dialog-centered" role="document"> -->
-<!--           <div class="modal-content"> -->
-<!--             <div class="modal-header" id="EditCustomerModalHeader"> -->
-              
-<!--             </div> -->
-<!--             <div class="modal-body" id="EditCustomerModalBody"> -->
-              
-<!--                     </div> -->
-<!--                     <hr class="my-0" /> -->
-                    
-<!--                     <div class="card-body" id="card-body-edit"> -->
-                      
-<!--                     </div> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--             <div class="modal-footer" id="EditCustomerModalFooter"> -->
-<!--               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"> -->
-<!--                 Close -->
-<!--               </button> -->
-<!--               <button type="button" class="btn btn-primary">Submit</button> -->
-<!--             </div> -->
-<!--           </div> -->
-
-<!-- <!-- Modal --> -->
-<!--       <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true"> -->
-<!--         <div class="modal-dialog modal-dialog-centered" role="document"> -->
-<!--           <div class="modal-content"> -->
-<!--             <div class="modal-header" id="deleteModalHeader"> -->
-<!--             </div> -->
-<!--             <div class="modal-body" id="deleteModalBody"> -->
-<!--             </div> -->
-<!--             <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter"> -->
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
 	
       <footer class="ftco-footer ftco-section">
       <div class="container">

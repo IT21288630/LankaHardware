@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import model.Customer;
 import service.AdminServiceImpl;
 import service.CustomerServiceImpl;
 import service.IAdminService;
@@ -36,16 +38,24 @@ public class GetCustomerDetails extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-       ICustomerService icustomerservice = new CustomerServiceImpl();
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		String resp = new Gson().toJson(icustomerservice.customerProfile("1234@gmail.com"));
-		
-		out.print(resp);
-	}
+		 HttpSession session = request.getSession();
+	        String email = (String) session.getAttribute("email");
+	        
+	        if (email != null) {
+	            ICustomerService customerService = new CustomerServiceImpl();
+	            Customer customerProfile = customerService.customerProfile(email);
 
+	            response.setContentType("application/json");
+	            response.setCharacterEncoding("UTF-8");
+	            PrintWriter out = response.getWriter();
+	            String resp = new Gson().toJson(customerProfile);
+	            out.print(resp);
+	        } else {
+	            // Handle case when email is not available in the session
+	            // Redirect to login page or show an error message
+	            response.sendRedirect("Login.jsp?error=1");
+	        }
+	    }
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

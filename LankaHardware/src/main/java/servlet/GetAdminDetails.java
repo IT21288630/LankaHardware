@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import model.Admin;
 import service.AdminServiceImpl;
 import service.IAdminService;
 
@@ -34,15 +36,24 @@ public class GetAdminDetails extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		IAdminService iadminservice = new AdminServiceImpl();
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		String resp = new Gson().toJson(iadminservice.adminProfile("prabha@gmail.com"));
-		
-		out.print(resp);
-	}
+		  HttpSession session = request.getSession();
+	        String email = (String) session.getAttribute("email");
+	        
+	        if (email != null) {
+	            IAdminService adminService = new AdminServiceImpl();
+	            Admin adminProfile = adminService.adminProfile(email);
+
+	            response.setContentType("application/json");
+	            response.setCharacterEncoding("UTF-8");
+	            PrintWriter out = response.getWriter();
+	            String resp = new Gson().toJson(adminProfile);
+	            out.print(resp);
+	        } else {
+	            // Handle case when email is not available in the session
+	            // Redirect to login page or show an error message
+	            response.sendRedirect("Login.jsp?error=1");
+	        }
+	    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

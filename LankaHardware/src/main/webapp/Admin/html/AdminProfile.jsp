@@ -306,18 +306,14 @@
 	                            </div>
 	                       
                          <div class="mb-3 col-md-6">
-                 <label for="Name"class="Name">Name</label>
-                 <div class="form-group">
-  					<input type="text" 
- 			        class="form-control" 
-			         id="name" 
-			         placeholder="name">
-  
- 		
-                
-					</div>
-                 
-                 </div>
+			                 <label for="Name"class="Name">Name</label>
+			                 <div class="form-group">
+			  					<input type="text" 
+			 			        class="form-control" 
+						         id="name" 
+						         placeholder="name">
+	                     	</div>            
+                        </div>
                           
                               
                           <div class="mb-3 col-md-6">
@@ -329,8 +325,8 @@
                           
                     
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                          <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                          <button type="submit" class="btn btn-primary me-2" id="save" onclick ="callUpdateAdminProfile()">Save changes</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
                         </div>
                       </form>
                     </div>
@@ -448,6 +444,8 @@
     	 $(document).ready(function () {
     	    	
     		 callGetAdminDetails()
+    		 
+    		 
     	    	
     	    });
     </script>

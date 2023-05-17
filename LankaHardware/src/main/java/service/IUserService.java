@@ -14,8 +14,8 @@ public interface IUserService {
 	 */
 	public String login(String email,String password);
 
-	public User getUserByEmail(String email);
+	
 
-	public void saveUser(User user);
+	
 	
 }

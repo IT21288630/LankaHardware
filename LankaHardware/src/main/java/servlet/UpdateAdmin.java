@@ -57,7 +57,7 @@ public class UpdateAdmin extends HttpServlet {
 		
         System.out.println(Email+password+phone+name+Address+Role);
 		
-		/**Collection<Part> parts = request.getParts();*/
+		Collection<Part> parts = request.getParts();
 		
 		IAdminService IAdminService = new AdminServiceImpl();
 		
@@ -65,7 +65,7 @@ public class UpdateAdmin extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(IAdminService.updateAdmins(Email,password,phone,name,Address,Role));
+		String resp = new Gson().toJson(IAdminService.updateAdmins(Email,password,phone,name,Address,Role,parts));
 
 		out.print(resp);
 	}

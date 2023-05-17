@@ -14,12 +14,10 @@ function callLoginServlet() {
 		console.log(response)
 
 		if (response == "customer") {
-			$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(customer) {
+ 
 				// Store the customer details in local storage
-				localStorage.setItem('customer', JSON.stringify(customer));
+			//	localStorage.setItem('customer', JSON.stringify(customer));
 				window.location.href = "index.jsp";
-			});
-			
 
 		}
 		else if (response == "sysAdmin") {
@@ -234,217 +232,52 @@ function validatePhone(phone) {
 }
 
 //update Customer
-var isNew = true;
 
-var editCustomerModalHeader = document.getElementById('EditCustomerModalHeader')
-var editCustomerModalBody = document.getElementById('EditCustomerModalBody')
-var editCustomerModalFooter = document.getElementById('EditCustomerModalFooter')
-var editCard = document.getElementById('card-body-edit')
+function callUpdateCusProfile() {
+  var phone = document.getElementById('phone').value || "null";
+  var name = document.getElementById('name').value || "null";
+  var address = document.getElementById('address').value || "null";
 
-function BuildEditCustomerModal(email,Password,phone,name,address){
-	editCustomerModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">Edit Customer</h5>
-							              <button
-							                type="button"
-							                class="btn-close"
-							                data-bs-dismiss="modal"
-							                aria-label="Close"
-							              ></button>`
+  console.log(phone, name, address);
 
-	
-	editCustomerModalBody.innerHTML = ` <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="../imgages/person_1" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+  $.get("http://localhost:8080/LankaHardware/GetUpdateCusProfile", function(response) {
+    var customer = response;
 
-                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                        </div>
-                      </div>
-                    </div>`
-
-	editCard.innerHTML = ` <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          
-                           
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="emailModal" name="email" value="${email} value="" placeholder="">
-                          </div>
-                          
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">LK (+94)</span>
-                              <input type="text" id="phoneModal" name="phoneNumber" value="${phone} class="form-control" placeholder="">
-                            </div>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="addressModal" name="address" value="${address} placeholder="Address">
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="nameModal" name="name"value="${name} placeholder="Name">
-                          </div>
-                         <div class="mb-3 col-md-6 form-password-toggle">
-		                  <label class="form-label" for="password">Password</label>
-		                  <div class="input-group input-group-merge">
-		                    <input
-		                      type="password"
-		                      id="PasswordModal"
-		                      class="form-control"
-		                      name="Password"
-		                      value="${Password}
-		                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-		                      aria-describedby="password"
-		                    />
-		                   
-		                  </div>
-		                </div>
-                        </div>
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                          <button type="reset" class="btn btn-outline-secondary"id ="clear" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                      </form>`
-
-	editCustomerModalFooter.innerHTML = ``
-	
+    buildupdateCustomerProfile(customer);
+  });
 }
 
-function callupdateCustomer(){
-	var inputFile = document.getElementById('inputFileModal')
-	
+function buildupdateCustomerProfile(customer) {
+  var phoneElement = document.getElementById('phone');
+  var nameElement = document.getElementById('name');
+  var addressElement = document.getElementById('address');
 
-    
-    var email = document.getElementById('emailModal').value
-	var Password = document.getElementById('PasswordModal').value
-	var phone = document.getElementById('phoneModal').value
-	var name = document.getElementById('nameModal').value
-	var address = document.getElementById('addressModal').value
-	
-	
-	if(email == null)
-	{
-		email = "null";
-	}
-	if(Password == null)
-	{
-		Password = "null";
-	}
-	if(phone == null)
-	{
-		phone = "null";
-	}
-	
-	if(name == null)
-	{
-		name = "null";
-	}
-	if(address == null)
-	{
-		address = "null";
-	}
-
-	
-	
-	//console.log(empNo+name+email+designation+phoneNum+address+date+salary )
-	
-	var endpoint = "http://localhost:8080/LankaHardware/UpdateCustomer"
-	var formData = new FormData();
-	
-//	for(const file of inputFile.files){
-//		formData.append('inputFileModal', file)
-//	}
-
-//	formData.append('empNoModal',empNo)
-//	formData.append('nameModal',name)
-//	formData.append('emailModal',email)
-//	formData.append('designationModal',designation)
-//	formData.append('addressModal',address)
-//	formData.append('dateModal',date)
-//	formData.append('salaryModal',salary)
-
-	
-//	fetch(endpoint, {
-//		method: "post",
-//		body: formData
-//	}).then(res => {
-//		callGetAllEmployeesServlet()
-//		setTimeout(function() {
-//				$('#AddEmoloyeeModal').modal('hide')
-//		}, 2500);	
-//	}
-//	)
-	
-	$.post(endpoint, {emailModal : email,PasswordModal : Password,phoneModal : phone,nameModal : name,addressModal : address }, function(response) {
-		
-		callGetAllCustomersServlet()
-		setTimeout(function() {
-				$('#EditCustomerModal').modal('hide')
-		}, 1500);	
-	})
+  phoneElement.value = customer.phone || '';
+  nameElement.value = customer.name || '';
+  addressElement.value = customer.address || '';
 }
+
+
+
 //delete Customer
-var deleteModalHeader = document.getElementById('deleteModalHeader')
-var deleteModalBody = document.getElementById('deleteModalBody')
-var deleteModalFooter = document.getElementById('deleteModalFooter')
+function callDeleteCusProfile() {
+  $.get("http://localhost:8080/LankaHardware/GetDeleteCusProfile", function(response) {
+    var customer = response;
 
-function createDeleteModal(email) {
-	deleteModalHeader.innerHTML = `<button
-					                type="button"
-					                class="btn-close"
-					                data-bs-dismiss="modal"
-					                aria-label="Close"
-					              ></button>`
-	deleteModalHeader.style.display = ""
-
-	deleteModalBody.innerHTML = `<div style="display: flex; flex-direction: column; text-align: center;">
-					                <div class="icon-box">
-					                  <i class="material-icons">&times;</i>
-					                </div>						
-					                <h4 class="modal-title w-100">Are you sure?</h4>
-					                <p style="margin-top: 10px;">Do you really want to delete these records? This process cannot be undone.</p>
-					              </div>`
-	deleteModalBody.style.padding = ""
-
-	deleteModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-					                Close
-					              </button>
-					              <button type="button" class="btn btn-danger" onclick="callDeleteCustomerServlet('${email}')">Delete</button>`
-	deleteModalFooter.style.display = ""
+    buildDeleteCustomerProfile(customer);
+  });
 }
 
-function callDeleteCustomerServlet(email) {
-	deleteModalHeader.style = "display: none;"
-	deleteModalBody.style = "text-align: center;"
-	deleteModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
-			                          <span class="visually-hidden">Loading...</span>
-			                        </div>`
-	deleteModalFooter.style = "display: none;"
-	$.post("http://localhost:8080/LankaHardware/RemoveCustomer", { email: email }, function(response) {
+function buildDeleteCustomerProfile(customer) {
+  var phone = document.getElementById('phone');
+  var name = document.getElementById('name');
+  var address = document.getElementById('address');
 
-		deleteModalBody.style = "padding: 1rem;"
-		deleteModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
-									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
-									        <span style="font-size: x-large;">${response}</span>
-									    </div>`
-
-		callGetAllCustomersServlet()
-
-		setTimeout(function() {
-			$('#deleteModal').modal('hide')
-		}, 2500);
-	})
+  phone.placeholder = customer.phone || '';
+  name.placeholder = customer.name || '';
+  address.placeholder = customer.address || '';
 }
+
 
 var otpmessage
 

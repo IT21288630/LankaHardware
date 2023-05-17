@@ -222,8 +222,46 @@ public class AdminServiceImpl implements IAdminService {
 		return "Admin removed";
 	}
 
-	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role) {
+	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role,Collection<Part> parts) {
+		
 		// TODO Auto-generated method stub
+        ArrayList<String> imagePathArrayList = new ArrayList<String>();
+
+		
+		// Configure to upload to cloudinary
+		Map config = new HashMap();
+		config.put("cloud_name", "dqgiitni2");
+		config.put("api_key", "987952682616387");
+		config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
+		Cloudinary cloudinary = new Cloudinary(config);
+
+		for (Part part : parts) {
+			if (part.getSubmittedFileName() != null) {
+
+				try {
+					InputStream is = part.getInputStream();
+
+					File tempFile = File.createTempFile("javaMyfile", ".xls");
+					FileUtils.copyToFile(is, tempFile);
+
+					
+
+					// Upload to cloudinary
+					try {
+						Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
+						imagePathArrayList.add(map.get("url"));
+					} catch (IOException exception) {
+						System.out.println(exception.getMessage());
+					}
+
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+			
 
 		String status = "There was a problem";
 		con = DBConnectionUtil.getDBConnection();
@@ -263,6 +301,13 @@ public class AdminServiceImpl implements IAdminService {
 			if (!Role.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_ROLE);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Role);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			
+			if(!imagePathArrayList.get(0).equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PROFILE_PIC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
@@ -322,5 +367,110 @@ public class AdminServiceImpl implements IAdminService {
 
 		return admin;
 	}
+
+	@Override
+	public Admin AdminUpdate(String Email,String phone, String name, String Address ,Collection<Part> parts) {
+		// TODO Auto-generated method stub
+		Admin admin = new Admin();
+		   ArrayList<String> imagePathArrayList = new ArrayList<String>();
+
+			
+			// Configure to upload to cloudinary
+			Map config = new HashMap();
+			config.put("cloud_name", "dqgiitni2");
+			config.put("api_key", "987952682616387");
+			config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
+			Cloudinary cloudinary = new Cloudinary(config);
+
+			for (Part part : parts) {
+				if (part.getSubmittedFileName() != null) {
+
+					try {
+						InputStream is = part.getInputStream();
+
+						File tempFile = File.createTempFile("javaMyfile", ".xls");
+						FileUtils.copyToFile(is, tempFile);
+
+						
+
+						// Upload to cloudinary
+						try {
+							Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
+							imagePathArrayList.add(map.get("url"));
+						} catch (IOException exception) {
+							System.out.println(exception.getMessage());
+						}
+
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+       
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			
+			if (!phone.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_PHONE);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, phone);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			if (!name.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_NAME);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			if (!Address.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_ADDRESS);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Address);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			if(!imagePathArrayList.get(0).equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROPIC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			
+			
+
+
+			status = "Admin Updated";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return admin;
+	}
+
+	
+	
 
 }

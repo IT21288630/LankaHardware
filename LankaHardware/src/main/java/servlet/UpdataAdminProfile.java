@@ -13,22 +13,20 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
-import service.CustomerServiceImpl;
-import service.ICustomerService;
-import service.IQuestionService;
-import service.QuestionServiceImpl;
+import service.AdminServiceImpl;
+import service.IAdminService;
 
 /**
- * Servlet implementation class UpdateEmployee
+ * Servlet implementation class UpdataAdminProfile
  */
-@WebServlet("/UpdateCustomer")
-public class UpdateCustomer extends HttpServlet {
+@WebServlet("/UpdataAdminProfile")
+public class UpdataAdminProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCustomer() {
+    public UpdataAdminProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +36,7 @@ public class UpdateCustomer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 	/**
@@ -47,22 +45,24 @@ public class UpdateCustomer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-		String email = request.getParameter("email");
-		String Password = request.getParameter("Password");
+		String Email = request.getParameter("Email");
 		String phone = request.getParameter("phone");
 		String name = request.getParameter("name");
-		String address = request.getParameter("address");
-	
+		String Address = request.getParameter("address");
 		
-		ICustomerService ICustomerService = new CustomerServiceImpl();
 		
-		Collection<Part> parts = request.getParts();
+		
+        System.out.println(phone+name+Address);
+		
+		/**Collection<Part> parts = request.getParts();*/
+        Collection<Part> parts = request.getParts();
+		IAdminService IAdminService = new AdminServiceImpl();
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(ICustomerService.updateCustomers(email,Password,phone,name,address,parts));
+		String resp = new Gson().toJson(IAdminService.AdminUpdate(Email,phone,name,Address,parts));
 
 		out.print(resp);
 	}
