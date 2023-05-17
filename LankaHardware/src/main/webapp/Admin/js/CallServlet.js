@@ -84,6 +84,7 @@ function callAddEmployeeServlet(){
 		for(const file of inputFile.files){
 		formData.append('upload', file)
 	}
+	
 
 	
 	formData.append('name',name)
@@ -117,6 +118,30 @@ function callAddEmployeeServlet(){
 
 	
 }
+
+function validateForm() {
+  var email = document.getElementById("email").value;
+  var phoneNum = document.getElementById("phone").value;
+
+ 
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return false;
+  }
+
+ 
+  var phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(phoneNum)) {
+    alert("Please enter a valid 10-digit phone number.");
+    return false;
+  }
+
+  
+  return true;
+}
+
+
 
 //update Employees
 var isNew = true;
@@ -1018,6 +1043,7 @@ function callMarkAttendance(empNo){
 //	} 
 //
 //}
+
 
 
 

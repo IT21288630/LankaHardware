@@ -267,52 +267,77 @@
             <div class="container-xxl flex-grow-1 container-p-y">
 
 				<div style="display: flex; justify-content: center;">
-					<h2 class="fw-bold" style="margin-bottom: 0px;">Overall Attendance Chart</h2>
-				</div>
-				
-
-				<span class="text-muted fw-light">Select Employee</span>
-				<div>
-					<div class="wrapper" id="empWrapper">
-				      <div class="select-btn" onclick="toggleWrapper();">
-				        <span id="empSelectBtnText">Select Employee</span>
-				        <i class="uil uil-angle-down"></i>
-				      </div>
-				      <div class="content">
-				        <div class="search">
-				          <i class="uil uil-search"></i>
-				          <input spellcheck="false" type="text" placeholder="Search" oninput="searchWishItem();" id="wishSearchInput">
-				        </div>
-				        <ul class="options"></ul>
-				      </div>
-				    </div>
+					<h2 class="fw-bold" style="margin-bottom: 0px;">Supplier Chart</h2>
 				</div>
 				
 
               <!-- Expense Overview -->
-                <div class="mb-4">
-                  <div class="card">
-                    <div class="card-header">
-                      <ul class="nav nav-pills" role="tablist" id="wishSizeList">
-                      </ul>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="tab-content p-0">
-                        <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-                          <div class="d-flex p-4 pt-3">
-                            <div class="avatar flex-shrink-0 me-3">
-                              <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
-                            </div>
-                            <div>
-                              <small class="text-muted d-block">Total Present Days</small>
-                              <div class="d-flex align-items-center">
-                                <h6 class="mb-0 me-1" id="totalEmployeeCount">0</h6>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="employeeChart"></div>
+               <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                      <div class="card-title mb-0">
+                        <h5 class="m-0 me-2">Supplier Statistics</h5>
+                        <small class="text-muted">Total Suppliers</small>
+                      </div>
+                      <div class="dropdown">
+                        <button
+                          class="btn p-0"
+                          type="button"
+                          id="orederStatistics"
+                          data-bs-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
+                          <a class="dropdown-item" href="javascript:void(0);">Select All</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Share</a>
                         </div>
                       </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex flex-column align-items-center gap-1">
+                          <h2 class="mb-2">8,258</h2>
+                          <span>Type of Suppliers</span>
+                        </div>
+                        <div id="orderStatisticsChart"></div>
+                      </div>
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <span class="avatar-initial rounded bg-label-primary"
+                              ><i class="bx bx-mobile-alt"></i
+                            ></span>
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <h6 class="mb-0">Debit Suppliers</h6>
+                              <small class="text-muted">Debit Suppliers</small>
+                            </div>
+                            <div class="user-progress">
+                              <small class="fw-semibold">82.5k</small>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <h6 class="mb-0">Credit Suppliers</h6>
+                              <small class="text-muted">Credit Suppliers</small>
+                            </div>
+                            <div class="user-progress">
+                              <small class="fw-semibold">23.8k</small>
+                            </div>
+                          </div>
+                        </li>
+                       
+                      </ul>
                     </div>
                   </div>
                 </div>
