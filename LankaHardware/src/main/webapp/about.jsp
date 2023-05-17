@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en"> 
   <head>
-    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <title>About</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -35,26 +35,28 @@
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-black">
-    	<div class="container">
-    		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-	    		<div class="col-lg-12 d-block">
-		    		<div class="row d-flex">
-		    			<div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
-					    </div>
-					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
-					    </div>
-				    </div>
-			    </div>
-		    </div>
-		  </div>
-    </div>
+		<div class="container">
+			<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+				<div class="col-lg-12 d-block">
+					<div class="row d-flex">
+						<div class="col-md pr-4 d-flex topper align-items-center">
+							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+									class="icon-phone2"></span></div>
+							<span class="text">081 1234567</span>
+						</div>
+						<div class="col-md pr-4 d-flex topper align-items-center">
+							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+									class="icon-paper-plane"></span></div>
+							<span class="text">lankahardware@gmail.com</span>
+						</div>
+						<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+							<span class="text">3-5 Business days delivery &amp; Free Returns</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.jsp">LankaHardware</a>
@@ -101,8 +103,8 @@
             		<span class="flaticon-bag"></span>
               </div>
               <div class="media-body">
-                <h3 class="heading">Free Shipping</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <h3 class="heading">Fast Shipping</h3>
+                <p>The faster we deliver it, the more you make out of it. Delighting customers with time, quality, and reliability.</p>
               </div>
             </div>      
           </div>
@@ -113,7 +115,7 @@
               </div>
               <div class="media-body">
                 <h3 class="heading">Support Customer</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <p>Friendly and Convenient Support for our Customers</p>
               </div>
             </div>    
           </div>
@@ -124,7 +126,7 @@
               </div>
               <div class="media-body">
                 <h3 class="heading">Secure Payments</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <p>Facilitates both Cash on delivery and card payments in a most secure way</p>
               </div>
             </div>      
           </div>
@@ -143,13 +145,15 @@
 					<div class="col-md-7 py-md-5 wrap-about pb-md-5 ftco-animate">
 	          <div class="heading-section-bold mb-4 mt-md-5">
 	          	<div class="ml-md-0">
-		            <h2 class="mb-4">Stablished Sinced 1975</h2>
+		            <h2 class="mb-4">Lanka Hardware</h2>
 	            </div>
 	          </div>
 	          <div class="pb-md-5 pb-4">
-							<p>But nothing the copy said could convince her and so it didn't take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
-							<p>But nothing the copy said could convince her and so it didn't take long until a few insidious Copy Writers ambushed her.</p>
-							<p><a href="#" class="btn btn-primary">Shop now</a></p>
+							<p>Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market. They are engaged in providing solutions to the construction industry both in the industrial and household segments.
+							</p>
+							<p>Lanka Hardware has a network of numerous partners and dealers managing a wide portfolio of products that can meet the entire scope of the construction market in Sri Lanka.
+</p>
+							<p><a href="shop.jsp" class="btn btn-primary">Shop now</a></p>
 						</div>
 					</div>
 				</div>
@@ -165,38 +169,30 @@
         				<div class="icon">
         					<span class="flaticon-bag"></span>
         				</div>
-        				<div class="text">
-	        				<h3>Free Shipping</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
-        				</div>
-        			</div>
-        			<div class="services-2 p-4 d-flex ftco-animate">
-        				<div class="icon">
-        					<span class="flaticon-heart-box"></span>
-        				</div>
-        				<div class="text">
-	        				<h3>Valuable Gifts</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
-	        			</div>
-        			</div>
-        			<div class="services-2 p-4 d-flex ftco-animate">
-        				<div class="icon">
-        					<span class="flaticon-payment-security"></span>
-        				</div>
-        				<div class="text">
-	        				<h3>All Day Support</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
-	        			</div>
+        				<div class="media-body">
+                <h3 class="heading">Fast Shipping</h3>
+                <p>The faster we deliver it, the more you make out of it. Delighting customers with time, quality, and reliability.</p>
+              </div>
         			</div>
         			<div class="services-2 p-4 d-flex ftco-animate">
         				<div class="icon">
         					<span class="flaticon-customer-service"></span>
         				</div>
-        				<div class="text">
-	        				<h3>All Day Support</h3>
-	        				<p class="mb-0">Separated they live in. A small river named Duden flows</p>
-	        			</div>
+        				<div class="media-body">
+                <h3 class="heading">Support Customer</h3>
+                <p>Friendly and Convenient Support for our Customers</p>
+              </div>
         			</div>
+        			<div class="services-2 p-4 d-flex ftco-animate">
+        				<div class="icon">
+        					<span class="flaticon-payment-security"></span>
+        				</div>
+        				<div class="media-body">
+                <h3 class="heading">Secure Payments</h3>
+                <p>Facilitates both Cash on delivery and card payments in a most secure way</p>
+              </div>
+        			</div>
+        			
         		</div>
         	</div>
           <div class="col-lg-7">
@@ -281,56 +277,57 @@
       </div>
     </section>
 
-    <section class="ftco-gallery">
+    <section class="ftco-gallery ftco-section ftco-no-pb" >
     	<div class="container">
-    		<div class="row justify-content-center">
+    	
+    		<div class="row justify-content-center" href ="images/hardware.jpg">
     			<div class="col-md-8 heading-section text-center mb-4 ftco-animate">
-            <h2 class="mb-4">Follow Us On Instagram</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+            <h2 class="mb-4">Shop your Products</h2>
+            <p></p>
           </div>
     		</div>
     	</div>
     	<div class="container-fluid px-0">
     		<div class="row no-gutters">
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-1.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-1.jpg);">
+						<a href="images/construction.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/construction.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-2.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-2.jpg);">
+						<a href="images/paintBrush.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/paintBrush.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-3.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-3.jpg);">
+						<a href="images/toolkit1.png" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/toolkit1.png);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-4.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-4.jpg);">
+						<a href="images/tools.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/tools.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-5.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-5.jpg);">
+						<a href="images/Bolt.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/Bolt.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-6.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-6.jpg);">
+						<a href="images/cement.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/cement.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
@@ -338,7 +335,7 @@
     	</div>
     </section>
 
-    <footer class="ftco-footer ftco-section">
+   <footer class="ftco-footer ftco-section">
       <div class="container">
       	<div class="row">
       		<div class="mouse">
@@ -350,8 +347,8 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Minishop</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2 class="ftco-heading-2">LANKA HARDWARE</h2>
+              <p>Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -392,9 +389,9 @@
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Katugastota Road, Kandy, Sri Lanka</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">081 1234567</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">lankaharware@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -404,7 +401,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						  <script>document.write(new Date().getFullYear());</script>  <i class="icon-heart color-danger" aria-hidden="true"></i></a>
 						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</p>
           </div>

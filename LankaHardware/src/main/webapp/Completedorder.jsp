@@ -53,26 +53,28 @@ li a {
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-black">
-    	<div class="container">
-    		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-	    		<div class="col-lg-12 d-block">
-		    		<div class="row d-flex">
-		    			<div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
-					    </div>
-					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
-					    </div>
-				    </div>
-			    </div>
-		    </div>
-		  </div>
-    </div>
+		<div class="container">
+			<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+				<div class="col-lg-12 d-block">
+					<div class="row d-flex">
+						<div class="col-md pr-4 d-flex topper align-items-center">
+							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+									class="icon-phone2"></span></div>
+							<span class="text">081 1234567</span>
+						</div>
+						<div class="col-md pr-4 d-flex topper align-items-center">
+							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+									class="icon-paper-plane"></span></div>
+							<span class="text">lankahardware@gmail.com</span>
+						</div>
+						<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+							<span class="text">3-5 Business days delivery &amp; Free Returns</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">LankaHardware</a>
@@ -120,18 +122,9 @@ li a {
 			<div class="container">
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
-    				<div class="cart-list">
-    				<table class="table">
-							<thead class="thead-primary">
-								<tr class="text-center">
-									<th style="text-align: start;" id="orderID">Order ID: </th>
-								</tr>
-							</thead>
-							<tbody id="order_itemList">
-								
-							</tbody>
-						</table>
-					  </div>
+    				<div class="cart-list" id="completedOrdersList">
+    				
+					</div>
     			</div>
     		</div>
 </section>
@@ -150,8 +143,8 @@ li a {
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Minishop</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2 class="ftco-heading-2">LANKA HARDWARE</h2>
+              <p>Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -192,9 +185,9 @@ li a {
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Katugastota Road, Kandy, Sri Lanka</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">081 1234567</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">lankaharware@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -204,7 +197,7 @@ li a {
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						  <script>document.write(new Date().getFullYear());</script>  <i class="icon-heart color-danger" aria-hidden="true"></i></a>
 						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</p>
           </div>
@@ -234,50 +227,11 @@ li a {
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/nilusha.js"></script>
 
   <script>
 		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		     $.get("http://localhost:8080/LankaHardware/GetOrderServlet", function(response) {
-					
-					orderItems = response[0]
-					getOrderQuantity()
-					calculateSubTotal(orderItems)
-					var Total = response[1]
-					
-					buildMiniCart(orderItems)
-					buildMainCart(orderItems, Total)
-				})
+			callGetCompletedOrdersServlet();
 		    
 		});
 	</script>

@@ -609,8 +609,11 @@ public class CommonConstants {
 
 	public static final String QUERY_ID_CHECKOUT_GET_ITEMS_FROM_CART = "SELECT itId FROM cart_item WHERE cid = ?;";
 
+	public static final String QUERY_ID_CHECKOUT_GET_COMPLETED_ORDERS = "SELECT * FROM order_real WHERE email = ? and status = 'Completed';";
 
+	public static final String QUERY_ID_CHECKOUT_GET_COMPLETED_ORDER_ITEM = "SELECT * FROM order_item_real where oid = ?;";
 
+	public static final String QUERY_ID_CHECKOUT_GET_COMPLETED_ORDER_ITEM_DETAILS = "SELECT name, (SELECT img FROM lankahardware.item_img where Id = ? limit 1) as 'img' FROM item where id = ?;";
 
 
 	
