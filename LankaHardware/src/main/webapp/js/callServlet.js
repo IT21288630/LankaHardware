@@ -14,10 +14,10 @@ function callLoginServlet() {
 		console.log(response)
 
 		if (response == "customer") {
- 
-				// Store the customer details in local storage
+
+			// Store the customer details in local storage
 			//	localStorage.setItem('customer', JSON.stringify(customer));
-				window.location.href = "index.jsp";
+			window.location.href = "index.jsp";
 
 		}
 		else if (response == "sysAdmin") {
@@ -70,7 +70,7 @@ function callLoginServlet() {
 /**
  * 
  */
-var customer= []
+var customer = []
 var customerstable = document.getElementById('customer')
 
 function callGetAllCustomersServlet() {
@@ -165,28 +165,28 @@ function callAddCustomerServlet() {
 	if (con_Password != Password) {
 		loginError.innerHTML = "Password and Confirm password should match"
 		loginError.style = "display: block;"
-		
+
 	}
-//	if (!validateEmail(email)) {
-//    document.getElementById("loginError").innerHTML = "Invalid email address";
-//    document.getElementById("loginError").style.display = "block";
-//    valid = false;
-//    }
-//  
-//    if (!validatePassword(Password)) {
-//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
-//    document.getElementById("loginError").style.display = "block";
-//    valid = false;
-//    }
-//    if (!validatePhone(phone)) {
-//    document.getElementById("loginError").innerHTML = "Invalid phone number";
-//    document.getElementById("loginError").style.display = "block";
-//    valid = false;
-//    }
-//  
-//    if (!valid) {
-//      return;
-//    }
+	//	if (!validateEmail(email)) {
+	//    document.getElementById("loginError").innerHTML = "Invalid email address";
+	//    document.getElementById("loginError").style.display = "block";
+	//    valid = false;
+	//    }
+	//  
+	//    if (!validatePassword(Password)) {
+	//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
+	//    document.getElementById("loginError").style.display = "block";
+	//    valid = false;
+	//    }
+	//    if (!validatePhone(phone)) {
+	//    document.getElementById("loginError").innerHTML = "Invalid phone number";
+	//    document.getElementById("loginError").style.display = "block";
+	//    valid = false;
+	//    }
+	//  
+	//    if (!valid) {
+	//      return;
+	//    }
 
 	console.log(address)
 	console.log(name)
@@ -218,67 +218,82 @@ function callAddCustomerServlet() {
 	})
 }
 function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
 }
 
 function validatePassword(Password) {
-  return Password.length >= 8;
+	return Password.length >= 8;
 }
 
 function validatePhone(phone) {
-  const phoneRegex = /^\d{10}$/;
-  return phoneRegex.test(phone);
+	const phoneRegex = /^\d{10}$/;
+	return phoneRegex.test(phone);
 }
 
 //update Customer
 
 function callUpdateCusProfile() {
-  var phone = document.getElementById('phone').value || "null";
-  var name = document.getElementById('name').value || "null";
-  var address = document.getElementById('address').value || "null";
+	var phone = document.getElementById('phone').value || "null";
+	var name = document.getElementById('name').value || "null";
+	var address = document.getElementById('address').value || "null";
+	var inputFile = document.getElementById('upload');
 
-  console.log(phone, name, address);
+	console.log(phone, name, address, inputFile);
 
-  $.get("http://localhost:8080/LankaHardware/UpdateCusProfile", {
-    phone: phone,
-    name: name,
-    address: address
-  }, function(response) {
-    var customer = response;
+	var formData = new FormData(); // Create a FormData object to send the data
 
-    buildupdateCustomerProfile(customer);
-  });
+	formData.append("phone", phone);
+	formData.append("name", name);
+	formData.append("address", address);
+	formData.append("Propic", inputFile.files[0]); // Append the selected file to the FormData
+
+	fetch("http://localhost:8080/LankaHardware/UpdateCusProfile", {
+		method: "post",
+		body: formData
+	})
+
+	//	$.ajax({
+	//		url: "http://localhost:8080/LankaHardware/UpdateCusProfile",
+	//		type: "POST",
+	//		data: formData,
+	//		processData: false, // Important to prevent jQuery from processing the data
+	//		contentType: false, // Important to prevent jQuery from setting content type
+	//		success: function(response) {
+	//			var customer = response;
+	//			buildupdateCustomerProfile(customer);
+	//		}
+	//	});
 }
 
 function buildupdateCustomerProfile(customer) {
-  var phoneElement = document.getElementById('phone');
-  var nameElement = document.getElementById('name');
-  var addressElement = document.getElementById('address');
+	var phoneElement = document.getElementById('phone');
+	var nameElement = document.getElementById('name');
+	var addressElement = document.getElementById('address');
 
-  phoneElement.value = customer.phone || '';
-  nameElement.value = customer.name || '';
-  addressElement.value = customer.address || '';
+	phoneElement.value = customer.phone || '';
+	nameElement.value = customer.name || '';
+	addressElement.value = customer.address || '';
 }
 
 
 //delete Customer
 function callDeleteCusProfile() {
-  $.get("http://localhost:8080/LankaHardware/DeleteCusProfile",{ email: email} , function(response) {
-    var customer = response;
+	$.get("http://localhost:8080/LankaHardware/DeleteCusProfile", { email: email }, function(response) {
+		var customer = response;
 
-    buildDeleteCustomerProfile(customer);
-  });
+		buildDeleteCustomerProfile(customer);
+	});
 }
 
 function buildDeleteCustomerProfile(customer) {
-  var phone = document.getElementById('phone');
-  var name = document.getElementById('name');
-  var address = document.getElementById('address');
+	var phone = document.getElementById('phone');
+	var name = document.getElementById('name');
+	var address = document.getElementById('address');
 
-  phone.placeholder = customer.phone || '';
-  name.placeholder = customer.name || '';
-  address.placeholder = customer.address || '';
+	phone.placeholder = customer.phone || '';
+	name.placeholder = customer.name || '';
+	address.placeholder = customer.address || '';
 }
 
 
@@ -308,87 +323,92 @@ function callGetCustomerDetails() {
 
 function buildCustomerProfile(customer) {
 
+	console.log(customer)
+
 	var phone = document.getElementById('phone')
 	var name = document.getElementById('name')
 	var address = document.getElementById('address')
+	var Propic = document.getElementById('uploadedAvatar')
 
 	phone.placeholder = customer.phone
 	name.placeholder = customer.name
 	address.placeholder = customer.address
+	Propic.src = customer.Profilepics
+
 
 }
 //logg out
 
 function callLogOutServlet() {
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "LogOutServlet", true);
-  xhr.setRequestHeader("Content-Type", "application/json");
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "LogOutServlet", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
 
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // Redirect the user to the login page after successful logout
-      window.location.href = "/Login.jsp";
-    }
-  };
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			// Redirect the user to the login page after successful logout
+			window.location.href = "/Login.jsp";
+		}
+	};
 
-  xhr.send();
+	xhr.send();
 }
 
 function callSendCustomeremail() {
-  // Make an AJAX request to the send customer email servlet endpoint
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "SendCustomeremail", true);
-  xhr.setRequestHeader("Content-Type", "application/json");
+	// Make an AJAX request to the send customer email servlet endpoint
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "SendCustomeremail", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
 
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // Read the OTP value from the response
-      var otp = xhr.responseText;
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			// Read the OTP value from the response
+			var otp = xhr.responseText;
 
-      // Redirect to the enter OTP page and pass the OTP value as a query parameter
-      window.location.href = "exotp.jsp?otp=" + otp;
-    }
-  };
+			// Redirect to the enter OTP page and pass the OTP value as a query parameter
+			window.location.href = "exotp.jsp?otp=" + otp;
+		}
+	};
 
-  xhr.send();
+	xhr.send();
 }
 
 function validateOTP() {
-  // Get the OTP entered by the user
-  var enteredOTP = document.getElementById("otpInput").value;
+	// Get the OTP entered by the user
+	var enteredOTP = document.getElementById("otpInput").value;
 
-  // Perform OTP validation (replace this with your own validation logic)
-  var isValidOTP = enteredOTP === "1234"; // Replace "1234" with the valid OTP
+	// Perform OTP validation (replace this with your own validation logic)
+	var isValidOTP = enteredOTP === "1234"; // Replace "1234" with the valid OTP
 
-  if (isValidOTP) {
-    // Redirect to newpassword.jsp
-    window.location.href = "newPassword.jsp";
-  } else {
-    // Display an error message (replace this with your own error handling logic)
-    alert("Invalid OTP. Please try again.");
-  }
+	if (isValidOTP) {
+		// Redirect to newpassword.jsp
+		window.location.href = "newPassword.jsp";
+	} else {
+		// Display an error message (replace this with your own error handling logic)
+		alert("Invalid OTP. Please try again.");
+	}
 }
 
 function updateEmail() {
-  // Get the entered new email from the input field
-  var Email = document.getElementById("newEmailInput").value;
+	// Get the entered new email from the input field
+	var Email = document.getElementById("newEmailInput").value;
 
-  // Make an AJAX request to update the email in the database
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "UpdateCusProfile", true);
-  xhr.setRequestHeader("Content-Type", "application/json");
+	// Make an AJAX request to update the email in the database
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "UpdateCusProfile", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
 
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // Redirect to index.jsp
-      window.location.href = "index.jsp";
-    }
-  };
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			// Redirect to index.jsp
+			window.location.href = "index.jsp";
+		}
+	};
 
-  // Send the new email as JSON data in the request body
-  var data = JSON.stringify({ email: Email });
-  xhr.send(data);
+	// Send the new email as JSON data in the request body
+	var data = JSON.stringify({ email: Email });
+	xhr.send(data);
 }
 
 
