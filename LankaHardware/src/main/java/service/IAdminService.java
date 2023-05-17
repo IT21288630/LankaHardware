@@ -21,8 +21,10 @@ public interface IAdminService {
 
 	public String removeAdmin(String Email);
 
-	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role);
+	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role ,Collection<Part> parts);
 
+	public Admin adminProfile(String Email);
 	
+	public Admin AdminUpdate(String Email,String phone,String name,String Address ,Collection<Part> parts);
 	
 }

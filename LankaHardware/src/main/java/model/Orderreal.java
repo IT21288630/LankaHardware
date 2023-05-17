@@ -10,7 +10,7 @@ public class Orderreal {
 	private String date_time;
 	private String phone;
 	private String address;
-	private String total;
+	private double total;
 	private String email;
 	private String status;
 	private String p_method;
@@ -58,10 +58,10 @@ public class Orderreal {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getTotal() {
+	public double getTotal() {
 		return total;
 	}
-	public void setTotal(String total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 	public String getEmail() {

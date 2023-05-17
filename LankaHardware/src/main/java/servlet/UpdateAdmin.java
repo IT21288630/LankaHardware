@@ -37,8 +37,7 @@ public class UpdateAdmin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -48,17 +47,17 @@ public class UpdateAdmin extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String Email = request.getParameter("EmailModal");
-		String password = request.getParameter("passwordModal");
-		String phone = request.getParameter("phoneModal");
-		String name = request.getParameter("nameModal");
-		String Address = request.getParameter("AddressNumModal");
-		String Role = request.getParameter("RoleModal");
+		String Email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String phone = request.getParameter("phone");
+		String name = request.getParameter("name");
+		String Address = request.getParameter("address");
+		String Role = request.getParameter("role");
 		
 		
         System.out.println(Email+password+phone+name+Address+Role);
 		
-		/**Collection<Part> parts = request.getParts();*/
+		Collection<Part> parts = request.getParts();
 		
 		IAdminService IAdminService = new AdminServiceImpl();
 		
@@ -66,7 +65,7 @@ public class UpdateAdmin extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(IAdminService.updateAdmins(Email,password,phone,name,Address,Role));
+		String resp = new Gson().toJson(IAdminService.updateAdmins(Email,password,phone,name,Address,Role,parts));
 
 		out.print(resp);
 	}

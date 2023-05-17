@@ -36,6 +36,7 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import model.Admin;
 import model.Cart;
 import model.Customer;
 import model.Item;
@@ -229,7 +230,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public String updateCustomers(String email, String Password, String phone, String name ,String address) {
+	public String updateCustomers(String email, String Password, String phone, String name ,String address,Collection<Part> parts) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -301,6 +302,180 @@ public class CustomerServiceImpl implements ICustomerService {
 
 		return status;
 	}
+
+	@Override
+	public Customer customerProfile(String email) {
+		// TODO Auto-generated method stub
+    Customer customer = new Customer();
+		
+		con = DBConnectionUtil.getDBConnection();
+		
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CUSTOMER_DETAILS );
+			pst.setString(1, email);
+			rs = pst.executeQuery();
+			rs.next();
+			
+			customer.setEmail(email);
+			customer.setName(rs.getString(4));
+			customer.setPassword(rs.getString(2));
+			customer.setPhone(rs.getString(3));
+			customer.setAddress(rs.getString(5));
+		
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return customer;
+	}
+
+	@Override
+	public Customer  UpdataCustomer(String email, String phone, String name, String address,Collection<Part> parts) {
+
+		// TODO Auto-generated method stub
+		Customer customer = new Customer();
+		   ArrayList<String> imagePathArrayList = new ArrayList<String>();
+
+			
+			// Configure to upload to cloudinary
+			Map config = new HashMap();
+			config.put("cloud_name", "dqgiitni2");
+			config.put("api_key", "987952682616387");
+			config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
+			Cloudinary cloudinary = new Cloudinary(config);
+
+			for (Part part : parts) {
+				if (part.getSubmittedFileName() != null) {
+
+					try {
+						InputStream is = part.getInputStream();
+
+						File tempFile = File.createTempFile("javaMyfile", ".xls");
+						FileUtils.copyToFile(is, tempFile);
+
+						
+
+						// Upload to cloudinary
+						try {
+							Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
+							imagePathArrayList.add(map.get("url"));
+						} catch (IOException exception) {
+							System.out.println(exception.getMessage());
+						}
+
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+       
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			
+			if (!phone.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_PHONE);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, phone);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
+				pst.executeUpdate();
+			}
+			if (!name.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_NAME);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
+				pst.executeUpdate();
+			}
+			if (!address.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_ADDRESS);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, address);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
+				pst.executeUpdate();
+			}
+			if(!imagePathArrayList.get(0).equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_CUSTOMER_UPDATE_PROPIC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
+				pst.executeUpdate();
+			}
+			
+			
+
+
+			status = "Customer Updated";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return customer;
+	
+	}
+
+	@Override
+	public Customer DeleteCustomer(String email) {
+		Customer customer = new Customer();
+		customer.setEmail(email);
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_DELETE_CUSTOMER);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, customer.getEmail());
+
+			pst.executeUpdate();
+			
+			System.out.println("done");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return customer;
+	}
+	
 
 	
 

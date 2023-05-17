@@ -15,20 +15,18 @@ import com.google.gson.Gson;
 
 import service.CustomerServiceImpl;
 import service.ICustomerService;
-import service.IQuestionService;
-import service.QuestionServiceImpl;
 
 /**
- * Servlet implementation class UpdateEmployee
+ * Servlet implementation class UpdateCusProfile
  */
-@WebServlet("/UpdateCustomer")
-public class UpdateCustomer extends HttpServlet {
+@WebServlet("/UpdateCusProfile")
+public class UpdateCusProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCustomer() {
+    public UpdateCusProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +36,7 @@ public class UpdateCustomer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 	/**
@@ -49,20 +47,19 @@ public class UpdateCustomer extends HttpServlet {
 		doGet(request, response);
 		
 		String email = request.getParameter("email");
-		String Password = request.getParameter("Password");
 		String phone = request.getParameter("phone");
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 	
 		
 		ICustomerService ICustomerService = new CustomerServiceImpl();
-		
 		Collection<Part> parts = request.getParts();
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(ICustomerService.updateCustomers(email,Password,phone,name,address,parts));
+		String resp = new Gson().toJson(ICustomerService.UpdataCustomer(email,phone,name,address,parts));
 
 		out.print(resp);
 	}

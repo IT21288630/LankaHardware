@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -49,12 +50,16 @@ public class LoginServlet extends HttpServlet {
 		doGet(request, response);
 
 		String status;
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		IUserService iUserService = new UserServiceImpl();
 		status = iUserService.login(email, password);
-
+         
+		HttpSession session = request.getSession();
+		session.setAttribute("email", email);
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();

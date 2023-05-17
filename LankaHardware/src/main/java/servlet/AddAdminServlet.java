@@ -43,9 +43,8 @@ public class AddAdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -55,15 +54,17 @@ public class AddAdminServlet extends HttpServlet {
 		
 		Admin admin = new Admin();
 		
-		
-		admin.setEmail(request.getParameter("Email"));
+		System.out.println("HERE");
+		admin.setEmail(request.getParameter("email"));
 		admin.setPassword(request.getParameter("password"));	
 		admin.setPhone(request.getParameter("phone"));
 		admin.setName(request.getParameter("name"));
-		admin.setAddress(request.getParameter("Address"));
-		admin.setRole(request.getParameter("Role"));
+		admin.setAddress(request.getParameter("address"));
+		admin.setRole(request.getParameter("role"));
 	
 		Collection<Part> parts = request.getParts();
+		
+		System.out.println(admin.getEmail());
 		
 		IAdminService iAdminService = new AdminServiceImpl();
 		

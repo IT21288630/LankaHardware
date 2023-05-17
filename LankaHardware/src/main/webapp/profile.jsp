@@ -7,10 +7,11 @@
     <!--Search css Styles -->
 	<link rel="stylesheet" href="ashion-master/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="ashion-master/css/elegant-icons.css" type="text/css">
-	<link rel="stylesheet" href="ashion-master/css/style.css" type="text/css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	<link rel="stylesheet" href="css/search.css" type="text/css">
+    
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+	<link rel="stylesheet" href="nice select/css/nice-select.css">
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -30,6 +31,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="quantity/style.css">
   </head>
    <body class="goto-here">
 		<div class="py-1 bg-black">
@@ -83,13 +85,14 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Contact</span></p>
-            <h1 class="mb-0 bread">Profile Update</h1>
+            <h1 class="mb-0 bread">My Profile</h1>
           </div>
         </div>
       </div>
     </div>
     
-    <section class="ftco-section bg-light">
+    
+    <section class="ftco-section bg-light" >
     <div class="card mb-4">
         <h5 class="card-header">Profile Details</h5>
         <!-- Account -->
@@ -114,100 +117,56 @@
         <hr class="my-0">
         <div class="card-body">
             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input class="form-control" type="text" id="email" name="email" value="" placeholder="">
-                    </div>
-                    <div class="mb-3 col-md-6">
+              
+                   <div style="display: flex; flex-wrap: wrap;">
+                   <div class="mb-3 col-md-6">
                         <label class="form-label" for="phoneNumber">Phone Number</label>
                         <div class="input-group input-group-merge">
                             <span class="input-group-text">LK (+94)</span>
                             <input type="text" id="phone" name="phone" class="form-control" placeholder="">
                         </div>
                     </div>
+                       <div class="mb-3 col-md-6">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">              
+                </div>
                     <div class="mb-3 col-md-6">
                         <label for="address" class="form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                    </div>
-                    <div class="mb-3 col-md-6 form-password-toggle">
-                        <label class="form-label" for="password">Password</label>
-                        <div class="input-group input-group-merge">
-                            <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <button type="submit" class="btn btn-primary me-2" onclick ="callUpdateCustomer()">Save changes</button>
+                   
+                   </div>
+                    
+                  
+                 
+                <div class="mt-2" style="width: 100%; display: flex; justify-content: end; column-gap: 10px;">
+                    <button type="submit" class="btn btn-primary me-2" onclick ="callUpdateCusProfile()">Save changes</button>
     
-                          <button type="reset" class="btn btn-outline-secondary"id ="clear" onclick = "callRemoveCustomer()">Delete</button>
+                          <button type="reset" class="btn btn-outline-secondary"onclick = "callDeleteCusProfile()">Delete</button>
                         </div>
                       </form>
                     </div>
                     <!-- /Account -->
-                  </div>
-    
+                 
     </section>
+  
     
-   </div>
-            <div class="modal-footer" id="AddCustomerModalFooter">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- edit modal -->
-      <div class="modal fade" id="EditCustomerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="EditCustomerModalHeader">
-              
-            </div>
-            <div class="modal-body" id="EditCustomerModalBody">
-              
-                    </div>
-                    <hr class="my-0" />
-                    
-                    <div class="card-body" id="card-body-edit">
-                      
-                    </div>
-              </div>
-            </div>
-            <div class="modal-footer" id="EditCustomerModalFooter">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
 
-<!-- Modal -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" id="deleteModalHeader">
-            </div>
-            <div class="modal-body" id="deleteModalBody">
-            </div>
-            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
-            </div>
-          </div>
-        </div>
-      </div>
 	
+      <footer class="ftco-footer ftco-section">
+      <div class="container">
+      	<div class="row">
+      		<div class="mouse">
+						<a href="#" class="mouse-icon">
+							<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+						</a>
+					</div>
+      	</div>
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Minishop</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2 class="ftco-heading-2">LANKA HARDWARE</h2>
+              <p>Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -248,9 +207,9 @@
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Katugastota Road, Kandy, Sri Lanka</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">081 1234567</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">lankaharware@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -260,7 +219,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						  <script>document.write(new Date().getFullYear());</script>  <i class="icon-heart color-danger" aria-hidden="true"></i></a>
 						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</p>
           </div>
@@ -341,7 +300,7 @@
 	<!--Search Js Plugins -->
 	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
 	<script src="ashion-master/js/main.js"></script>
-  <script src="../js/callServlet.js"></script>
+  <script src="js/callServlet.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -365,7 +324,7 @@
     <script>
 	
 		$(document).ready(function () {
-			callGetAllCustomersServlet(false)
+			callGetCustomerDetails()
 		});
 	</script>
 </body>

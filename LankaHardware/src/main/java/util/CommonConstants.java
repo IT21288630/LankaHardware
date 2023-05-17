@@ -76,7 +76,7 @@ public class CommonConstants {
 	/** Constant for clear admin */
 	public static final String QUERY_ID_CLEAR_ADMIN = "DELETE FROM admin WHERE Email = ?";
 	
-	public static final String QUERY_ID_ADD_TO_ADMIN = "INSERT INTO admin(Email, password, phone, name ,Address,Role) VALUES(?, ?, ?, ?,?,?);";	
+	public static final String QUERY_ID_ADD_TO_ADMIN = "INSERT INTO admin(Email, password, phone, name ,Address,Role,Propic) VALUES(?, ?, ?, ?,?,?,?);";	
 	
 	/** constants for update admin*/
 	
@@ -86,16 +86,39 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_ADMIN_PHONE = "UPDATE admin SET phone = ? WHERE Email = ?;";
 	
-    public static final String QUERY_ID_UPDATE_ADMIN_NAME = "UPDATE admin SET name = ? WHERE Email ?;";
+    public static final String QUERY_ID_UPDATE_ADMIN_NAME = "UPDATE admin SET name = ? WHERE Email = ?;";
 	
 	public static final String QUERY_ID_UPDATE_ADMIN_ADDRESS = "UPDATE admin SET Address = ? WHERE Email = ?;";
 	
 	public static final String QUERY_ID_UPDATE_ADMIN_ROLE = "UPDATE admin SET Role = ? WHERE Email = ?;";
 	
+	public static final String QUERY_ID_UPDATE_ADMIN_PROPIC = "UPDATE admin SET Propic = ? WHERE Email = ?;";
 	
 	
 	
+	/** constant for get all admindetails*/
+	public static final String QUERY_ID_GET_ADMIN_DETAILS ="SELECT * FROM admin WHERE Email =?";
 	
+	public static final String QUERY_ID_GET_ADMIN_UPDATE_PROFILE_PHONE ="UPDATE admin SET phone = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_GET_ADMIN_UPDATE_PROFILE_NAME ="UPDATE admin SET name = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_GET_ADMIN_UPDATE_PROFILE_ADDRESS ="UPDATE admin SET Address = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_GET_ADMIN_UPDATE_PROPIC = "UPDATE admin SET Propic = ? WHERE Email = ?;";
+	
+	/** constant to get all customer details*/
+	public static final String QUERY_ID_CUSTOMER_DETAILS ="SELECT * FROM customer WHERE email =  ?";
+	
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_PHONE ="UPDATE admin SET phone = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_NAME ="UPDATE admin SET name = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROFILE_ADDRESS ="UPDATE admin SET address = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_GET_CUSTOMER_UPDATE_PROPIC = "UPDATE admin SET Propic = ? WHERE Email = ?;";
+	
+	public static final String QUERY_ID_DELETE_CUSTOMER = "DELETE FROM customer WHERE email = ?";
 	
 	
 	/** Constant for select cart id's */
@@ -577,12 +600,15 @@ public class CommonConstants {
 
 
 	public static final String QUERY_ID_GETCHECKOUTIDS = "select oid from order_real";
-
-	public static final String QUERY_ID_CHECKOUTREAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, \"Processing\", \"COD\");";
-
-	public static final String QUERY_ID_CHECKOUT_ITEM_REAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, \"Processing\", \"COD\");";
-
 	
+	public static final String QUERY_ID_GETCHECKOUTCARTTOTAL = "SELECT total, cid FROM cart where email = ?;";
+
+	public static final String QUERY_ID_CHECKOUTREAL = "INSERT INTO order_real (oid, name, date_time, phone, address, total, email, status, p_method) VALUES (?, ?, CURDATE(), ?, ?, ?, ?, ?, ?);";
+
+	public static final String QUERY_ID_CHECKOUT_ITEM_REAL = "INSERT INTO order_item_real (oid, iteamid) VALUES (?, ?);";
+
+	public static final String QUERY_ID_CHECKOUT_GET_ITEMS_FROM_CART = "SELECT itId FROM cart_item WHERE cid = ?;";
+
 
 
 

@@ -44,7 +44,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	private static ResultSet rs;
 
 	/** Initialize logger */
-	public static final Logger log = Logger.getLogger(CartServiceImpl.class.getName());
+	public static final Logger log = Logger.getLogger(EmployeeServiceImpl.class.getName());
 
 	@Override
 	public ArrayList<Employee> getAllEmployees() {

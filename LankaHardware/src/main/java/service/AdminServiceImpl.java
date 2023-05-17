@@ -44,7 +44,7 @@ public class AdminServiceImpl implements IAdminService {
 	private static ResultSet rs;
 
 	/** Initialize logger */
-	public static final Logger log = Logger.getLogger(CartServiceImpl.class.getName());
+	public static final Logger log = Logger.getLogger(AdminServiceImpl.class.getName());
 
 	@Override
 	public ArrayList<Admin> getAllAdmin() {
@@ -65,7 +65,6 @@ public class AdminServiceImpl implements IAdminService {
 				admin.setName(rs.getString(4));
 				admin.setAddress(rs.getString(5));
 				admin.setRole(rs.getString(6));
-				
 
 				admins.add(admin);
 			}
@@ -126,13 +125,11 @@ public class AdminServiceImpl implements IAdminService {
 
 		try {
 			st = con.createStatement();
-			rs= st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_ADMIN);
-			
+			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_ADMIN);
+
 			while (rs.next()) {
 				Email.add(rs.getString(CommonConstants.COLUMN_INDEX_ONE));
 			}
-			
-		    admin.setEmail(CommonUtil.generateIDs(Email, "admin"));
 			
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_TO_ADMIN);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, admin.getEmail());
@@ -141,10 +138,9 @@ public class AdminServiceImpl implements IAdminService {
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, admin.getName());
 			pst.setString(CommonConstants.COLUMN_INDEX_FIVE, admin.getAddress());
 			pst.setString(CommonConstants.COLUMN_INDEX_SIX, admin.getRole());
-			
 
 			for (String string : imagePathArrayList) {
-				pst.setString(CommonConstants.COLUMN_INDEX_ELEVEN, string);
+				pst.setString(CommonConstants.COLUMN_INDEX_SEVEN, string);
 			}
 
 			pst.executeUpdate();
@@ -179,7 +175,6 @@ public class AdminServiceImpl implements IAdminService {
 		return status;
 	}
 
-
 	public static void main(String[] args) {
 		IAdminService iAdminService = new AdminServiceImpl();
 		System.out.println(iAdminService.removeAdmin("Email"));
@@ -188,7 +183,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public String removeAdmin(String Email) {
 		// TODO Auto-generated method stub
-		
+
 		Admin admin = new Admin();
 		admin.setEmail(Email);
 		con = DBConnectionUtil.getDBConnection();
@@ -198,7 +193,7 @@ public class AdminServiceImpl implements IAdminService {
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, admin.getEmail());
 
 			pst.executeUpdate();
-			
+
 			System.out.println("done");
 
 		} catch (SQLException e) {
@@ -227,57 +222,95 @@ public class AdminServiceImpl implements IAdminService {
 		return "Admin removed";
 	}
 
-	
-	
-	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role) {
+	public String updateAdmins(String Email, String password, String phone, String name, String Address, String Role,Collection<Part> parts) {
+		
 		// TODO Auto-generated method stub
+        ArrayList<String> imagePathArrayList = new ArrayList<String>();
+
+		
+		// Configure to upload to cloudinary
+		Map config = new HashMap();
+		config.put("cloud_name", "dqgiitni2");
+		config.put("api_key", "987952682616387");
+		config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
+		Cloudinary cloudinary = new Cloudinary(config);
+
+		for (Part part : parts) {
+			if (part.getSubmittedFileName() != null) {
+
+				try {
+					InputStream is = part.getInputStream();
+
+					File tempFile = File.createTempFile("javaMyfile", ".xls");
+					FileUtils.copyToFile(is, tempFile);
+
+					
+
+					// Upload to cloudinary
+					try {
+						Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
+						imagePathArrayList.add(map.get("url"));
+					} catch (IOException exception) {
+						System.out.println(exception.getMessage());
+					}
+
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+			
 
 		String status = "There was a problem";
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			if(!name.equals("null")) {
+			if (!Email.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_EMAIL);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Email);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
-			if(!password.equals("null")) {
+			if (!password.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_PASSWORD);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, password);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
-			if(!phone.equals("null")) {
+			if (!phone.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_PHONE);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, phone);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
-			if(!name.equals("null")) {
+			if (!name.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_NAME);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
-			if(!Address.equals("null")) {
+			if (!Address.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_ADDRESS);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Address);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
-		
-			if(!Role.equals("null")) {
+
+			if (!Role.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ADMIN_ROLE);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Role);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
-		
 			
-			
-		
-			
+			if(!imagePathArrayList.get(0).equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_EMPLOYEES_PROFILE_PIC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
 
 			status = "Admin Updated";
 
@@ -307,11 +340,137 @@ public class AdminServiceImpl implements IAdminService {
 		return status;
 	}
 
-	
+	@Override
+	public Admin adminProfile(String Email) {
+		// TODO Auto-generated method stub
+		Admin admin = new Admin();
+
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_DETAILS);
+			pst.setString(1, Email);
+			rs = pst.executeQuery();
+			rs.next();
+
+			admin.setEmail(Email);
+			admin.setName(rs.getString(4));
+			admin.setPassword(rs.getString(2));
+			admin.setPhone(rs.getString(3));
+			admin.setAddress(rs.getString(5));
+			admin.setRole(rs.getString(6));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return admin;
+	}
+
+	@Override
+	public Admin AdminUpdate(String Email,String phone, String name, String Address ,Collection<Part> parts) {
+		// TODO Auto-generated method stub
+		Admin admin = new Admin();
+		   ArrayList<String> imagePathArrayList = new ArrayList<String>();
+
+			
+			// Configure to upload to cloudinary
+			Map config = new HashMap();
+			config.put("cloud_name", "dqgiitni2");
+			config.put("api_key", "987952682616387");
+			config.put("api_secret", "0Zw3qi4VX6XjfMh9LYSDYVdyOns");
+			Cloudinary cloudinary = new Cloudinary(config);
+
+			for (Part part : parts) {
+				if (part.getSubmittedFileName() != null) {
+
+					try {
+						InputStream is = part.getInputStream();
+
+						File tempFile = File.createTempFile("javaMyfile", ".xls");
+						FileUtils.copyToFile(is, tempFile);
+
+						
+
+						// Upload to cloudinary
+						try {
+							Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
+							imagePathArrayList.add(map.get("url"));
+						} catch (IOException exception) {
+							System.out.println(exception.getMessage());
+						}
+
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+       
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			
+			if (!phone.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_PHONE);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, phone);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			if (!name.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_NAME);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			if (!Address.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_ADDRESS);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Address);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			if(!imagePathArrayList.get(0).equals("null")) {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROPIC);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
+				pst.executeUpdate();
+			}
+			
+			
 
 
+			status = "Admin Updated";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return admin;
+	}
 
 	
 	
-	
+
 }
