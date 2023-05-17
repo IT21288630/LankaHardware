@@ -34,7 +34,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    
 	<!-- Iconscout Link For Icons -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     
@@ -114,21 +114,21 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-			<a href="index.html" class="app-brand-link">
+          <a href="index.html" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">LH</span>
             </a>
             
             <div style="display: flex; align-items: end;">
             	<span class="demo menu-text fw-bolder ms-2">Admin Panel</span>
             </div>
-            
+
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
           </div>
 
           <div class="menu-inner-shadow"></div>
-          
+
           <ul class="menu-inner py-1">
           	<!-- Charts -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
@@ -146,22 +146,10 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
             <!-- Forms -->
             <!-- Tables -->
-            <li class="menu-item" id="">
-              <a href="ViewEmp.jsp" class="menu-link">
+            <li class="menu-item " id="new">
+              <a href="ViewSupplier.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">View Employees</div>
-              </a>
-            </li>
-            <li class="menu-item" id="">
-              <a href="AbsentEmployeesAttendance.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Absent Employees</div>
-              </a>
-            </li>
-            <li class="menu-item" id="">
-              <a href="PresentEmployeesAttendance.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Present Employees</div>
+                <div data-i18n="Tables">View Suppliers</div>
               </a>
             </li>
           
@@ -399,7 +387,7 @@
     
     <script>
    
-    var allEmployees = []
+    //var allEmployees = []
     
     $(document).ready(function () {
     	$.get("http://localhost:8080/LankaHardware/GetSupplierTypeChartServlet", function(response) {

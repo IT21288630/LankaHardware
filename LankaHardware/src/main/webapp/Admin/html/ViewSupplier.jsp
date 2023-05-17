@@ -26,7 +26,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -122,7 +122,7 @@
          
             <!-- charts -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="supplierManagerCharts.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Charts </div>
               </a>
