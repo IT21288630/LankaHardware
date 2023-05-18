@@ -58,7 +58,7 @@ function buildNewQuestions(newQuestionsList, newQuestions) {
 	                            </button>
 	                            <div class="dropdown-menu">
 	                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalCenter" id="openAnswerModal"
-	                                onclick="createAnswerModal('${newQuestions[i].question}', '${newQuestions[i].questionID}', '${newQuestions[i].customer.email}', '${newQuestions[i].item.name}', '${newQuestions[i].item.mainImg}');"><i class="bx bx-edit-alt me-2"></i> Answer</a
+	                                onclick="createAnswerModal('${newQuestions[i].question}', '${newQuestions[i].questionID}', '${newQuestions[i].customer.email}', '${newQuestions[i].item.name}', '${newQuestions[i].item.mainImg}', '${newQuestions[i].item.itemID}');"><i class="bx bx-edit-alt me-2"></i> Answer</a
 	                              >
 	                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal"
 	                                onclick="createDeleteModal('${newQuestions[i].questionID}', 'new')"><i class="bx bx-trash me-2"></i> Delete</a
@@ -235,11 +235,13 @@ function createAnswerModal(question, questionID, customerEmail, itemName, mainIm
 function toAnswerServlet(question, questionID, customerEmail, itemName, mainImg, itemID) {
 	var answer = document.getElementById('answerTextArea').value
 	answer = answer.trim()
+	console.log("toAnswerServlet ",itemID)
 
 	if (answer.length > 0) callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg, itemID)
 }
 
 function callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg, itemID) {
+	console.log("item id : ",itemID)
 	answerModalHeader.style = "display: none;"
 	answerModalBody.style = "text-align: center;"
 	answerModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">

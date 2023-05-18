@@ -61,6 +61,8 @@ public class AnswerQuestionServlet extends HttpServlet {
 		item.setName(request.getParameter("itemName"));
 		item.setMainImg(request.getParameter("mainImg"));
 		
+		System.out.println(item.getItemID());
+		
 		question.setAdmin(admin);
 		question.setCustomer(customer);
 		question.setItem(item);
