@@ -33,7 +33,7 @@ function callLoginServlet() {
 			window.location.href = "Admin/html/ViewStock.jsp";
 		}
 		else if (response == "orderManager") {
-			window.location.href = "Admin/html/ViewOrder.jsp";
+			window.location.href = "Admin/html/vieworder.jsp";
 		}
 		else if (response == "productManager") {
 			window.location.href = "Admin/html/productManagerCharts.jsp";
@@ -368,6 +368,65 @@ function callNewPassword(){
 	
 }
 	
+
+//  function validateForm() {
+//    // Get form input values
+//    var email = document.getElementById('email').value;
+//    var password = document.getElementById('Password').value;
+//    var confirmPassword = document.getElementById('Co_Password').value;
+//    var phone = document.getElementById('phone').value;
+//    var name = document.getElementById('name').value;
+//    var address = document.getElementById('address').value;
+//    var termsChecked = document.getElementById('terms-conditions').checked;
+//
+//    // Validate email format
+//    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//    if (!emailRegex.test(email)) {
+//      alert('Please enter a valid email address.');
+//      return false;
+//    }
+//
+//    // Validate password length
+//    if (password.length < 8) {
+//      alert('Password must be at least 8 characters long.');
+//      return false;
+//    }
+//
+//    // Validate password and confirm password match
+//    if (password !== confirmPassword) {
+//      alert('Passwords do not match.');
+//      return false;
+//    }
+//
+//    // Validate phone number
+//    var phoneRegex = /^\d{10}$/;
+//    if (!phoneRegex.test(phone)) {
+//      alert('Please enter a valid 10-digit phone number.');
+//      return false;
+//    }
+//
+//    // Validate name
+//    if (name.trim() === '') {
+//      alert('Please enter your name.');
+//      return false;
+//    }
+//
+//    // Validate address
+//    if (address.trim() === '') {
+//      alert('Please enter your address.');
+//      return false;
+//    }
+//
+//    // Validate terms and conditions
+//    if (!termsChecked) {
+//      alert('Please agree to the privacy policy and terms.');
+//      return false;
+//    }
+//
+//    // Form is valid
+//    return true;
+//  }
+//
 
 
 
