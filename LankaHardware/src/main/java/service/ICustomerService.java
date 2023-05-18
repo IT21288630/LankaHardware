@@ -24,12 +24,14 @@ public interface ICustomerService {
 
 	public String updateCustomers(String email, String Password,  String phone,String name, String address,Collection<Part> parts);
 
-	public String SendCustomeremail(String email);
+	public String SendCustomeremail(String email, int otp);
 	
 	public Customer customerProfile(String email);
 	
 	public Customer UpdataCustomer(String email,String phone,String name,String address,Collection<Part> parts );
 	
 	public Customer DeleteCustomer(String email);
+	
+	public Customer UpdatePassword(String email,String Password);
 	
 }

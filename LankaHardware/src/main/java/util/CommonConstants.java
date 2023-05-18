@@ -120,6 +120,8 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_DELETE_CUSTOMER = "DELETE FROM customer WHERE email = ?";
 	
+	public static final String RESET_PASSWORD = "UPDATE customer SET Password = ? WHERE email =?;";
+	
 	
 	/** Constant for select cart id's */
 	public static final String QUERY_ID_SELECT_CART_IDS = "SELECT cid FROM cart;";

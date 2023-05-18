@@ -2,12 +2,14 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -44,15 +46,24 @@ public class SendCustomeremail extends HttpServlet {
 		// TODO Auto-generated method stub
 doGet(request, response);
 		
+
+
+        HttpSession session = request.getSession();
+        
 		String email = request.getParameter("email");
 		ICustomerService icustomerService = new CustomerServiceImpl();
+		Random rand = new Random();
+		int otp = rand.nextInt((9999 - 100) + 1) + 10;
+		
+	    session.setAttribute("otp",otp);
+	    session.setAttribute("otpEmail",email);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(icustomerService.SendCustomeremail(email));
-		System.out.println("aswjdbebf");
+		String resp = new Gson().toJson(icustomerService.SendCustomeremail(email, otp));
+		
 		
 		out.print(resp);
 	}

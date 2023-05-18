@@ -145,33 +145,36 @@
                	<div class="pt-3 pb-3">
 				<form class="form-horizontal" action="newPassword" method="POST">
 					<!-- User Name Input -->
-					<div class="form-group row justify-content-center px-3">
-						<div class="col-9 px-0">
-							<input type="text"
-							 name="password"
-							  id="Password"
-							  placeholder="&#xf084; &nbsp; New Password"
-								class="form-control border-info placeicon">
-						</div>
-					</div>
+					<div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="Password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
 					<br>
 					<!-- Password Input -->
-					<div class="form-group row justify-content-center px-3">
-						<div class="col-9 px-0">
-							<input type="password" 
-							name="con-Password"
-							 id="con_Password"
-								placeholder="&#xf084;
-								 &nbsp; Confirm New Password"
-								class="form-control border-info placeicon">
-						</div>
-					</div>
+					<div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="con_Password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
 					</div>
 				</form>
              </div>
-               <input type="email" id="newEmailInput" placeholder="Enter new email">
+             
                
-                <button class="btn btn-primary d-grid w-70" onclick="updateEmail()"> Reset </button>
+                <button class="btn btn-primary d-grid w-70" onclick="callNewPassword()"> Reset </button>
               </form>
               <div class="text-center">
                 <a href="exotp.jsp" class="d-flex align-items-center justify-content-center">
