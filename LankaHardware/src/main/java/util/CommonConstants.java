@@ -458,7 +458,10 @@ public class CommonConstants {
 	public static final String QUERY_ID_SELECT_REVIEW_IDS = "SELECT reviewID FROM review";
 	
 	/** Constant for add a review */
-	public static final String QUERY_ID_ADD_REVIEW = "INSERT INTO review(reviewID, email, ItID, description, stars, date) VALUES(?, ?, ?, ?, ?, CURDATE());";
+	public static final String QUERY_ID_ADD_REVIEW = "INSERT INTO review(reviewID, email, ItID, description, stars, date, oid) VALUES(?, ?, ?, ?, ?, CURDATE(), ?);";
+	
+	/** Constant for add review images */
+	public static final String QUERY_ID_CHECK_REVIEW_ALREADY_ADDED = "SELECT * FROM review WHERE ItID = ? and oid = ?;";
 	
 	/** Constant for add review images */
 	public static final String QUERY_ID_ADD_REVIEW_IMAGES = "INSERT INTO review_img(reviewID, img) VALUES(?, ?);";

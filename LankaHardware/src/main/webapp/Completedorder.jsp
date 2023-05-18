@@ -295,6 +295,7 @@ li a {
   <script src="js/rating.js"></script>
   <script src="js/main.js"></script>
   <script src="js/nilusha.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
   <script>
 		$(document).ready(function(){

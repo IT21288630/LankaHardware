@@ -28,7 +28,6 @@ function callGetCompletedOrdersServlet() {
 }
 
 function buildCompletedOrders(completedOrders) {
-	console.log(completedOrders)
 	var completedOrdersList = document.getElementById('completedOrdersList')
 
 	completedOrdersList.innerHTML = ''
@@ -49,31 +48,29 @@ function buildCompletedOrders(completedOrders) {
 					</table>`
 
 		completedOrdersList.innerHTML += order
-		buildCompletedOrdersItems(completedOrders[i].items, elID)
+		buildCompletedOrdersItems(completedOrders[i].items, elID, completedOrders[i].oID)
 	}
 }
 
-function buildCompletedOrdersItems(items, elID) {
+var isAdded = []
+
+function buildCompletedOrdersItems(items, elID, oid) {
 	var tr = document.getElementById(elID)
-
-	console.log()
-
 
 	for (var i = 0; i < items.length; i++) {
 		var item = `<tr>
-						<td style="text-align: start; position: relative;">
+						<td style="text-align: start; position: relative;" id="${items[i].itemID}${oid}TD">
 							<img src="${items[i].mainImg}" width="100px"></img>
 							${items[i].name}
-							<a href="#" onclick="buildReviewModal('${items[i].mainImg}', '${items[i].name}', '${items[i].itemID}');" style="position: absolute; right: 0; top: 40%;" class="btn btn-primary py-3 px-4" data-bs-toggle="modal" data-bs-target="#modalCenter">Add a review</a>
 						</td>
 					</tr>`
 
 		tr.innerHTML += item
-
+		callCheckReviewIsAlreadyAddedServlet(items[i].itemID, oid, items[i].mainImg, items[i].name)
 	}
 }
 
-function buildReviewModal(image, name, itemID) {
+function buildReviewModal(image, name, itemID, oid) {
 	var reviewModalHeader = document.getElementById("reviewModalHeader")
 	var reviewModalBody = document.getElementById("reviewModalBody")
 	var reviewModalFooter = document.getElementById("reviewModalFooter")
@@ -132,27 +129,77 @@ function buildReviewModal(image, name, itemID) {
                             placeholder="Review" style="height: 130px; margin: 20px 0px 20px 0px;"></textarea>`
 
 
-		reviewModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        				<button type="button" class="btn btn-primary" id="ratingSubmitBtn" onclick="callAddReviewServlet('${itemID}');">Submit</button>`
+	reviewModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        				<button type="button" class="btn btn-primary" id="ratingSubmitBtn" onclick="callAddReviewServlet('${itemID}', '${oid}');">Submit</button>`
 }
 
-function callAddReviewServlet(itemID){
+function callAddReviewServlet(itemID, oid) {
+	var reviewModalHeader = document.getElementById("reviewModalHeader")
+	var reviewModalBody = document.getElementById("reviewModalBody")
+	var reviewModalFooter = document.getElementById("reviewModalFooter")
+
 	var inputFile = document.getElementById('inputFile')
 	var reviewDescription = document.getElementById('reviewDescription').value
 	var stars = document.querySelector('input[name="rate"]:checked').value
 	var endpoint = "http://localhost:8080/LankaHardware/AddReviewServlet"
 	var formData = new FormData();
-	
-	for(const file of inputFile.files){
+
+	for (const file of inputFile.files) {
 		formData.append('inputFile', file)
 	}
-	
+
 	formData.append('itemID', itemID)
+	formData.append('oID', oid)
 	formData.append('reviewDescription', reviewDescription)
 	formData.append('stars', stars)
-	
+
+	reviewModalHeader.style = "display: none;"
+	reviewModalBody.style = "text-align: center;"
+	reviewModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
+		                         
+		                        </div>`
+	reviewModalFooter.style = "display: none;"
+
 	fetch(endpoint, {
 		method: "post",
 		body: formData
-	}).catch(console.error)
+	}).then(res => res.json()
+		.then(data =>
+			displayReviewAddedMsg(data, itemID, oid)
+		)
+	).catch(console.error)
+}
+
+function displayReviewAddedMsg(msg, itemID, oid) {
+	var reviewModalHeader = document.getElementById("reviewModalHeader")
+	var reviewModalBody = document.getElementById("reviewModalBody")
+	var reviewModalFooter = document.getElementById("reviewModalFooter")
+
+	reviewModalHeader.style = "display: none;"
+	reviewModalBody.style = "padding: 1rem;"
+	reviewModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
+									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
+									        <span style="font-size: x-large;">${msg}</span>
+									    </div>`
+	reviewModalFooter.style = "display: none;"
+
+	setTimeout(function() {
+		$('#modalCenter').modal('hide')
+	}, 2500);
+
+	var reviewBtn = document.getElementById(`${itemID}${oid}ReviewBtn`)
+	reviewBtn.style.display = "none"
+}
+
+function callCheckReviewIsAlreadyAddedServlet(itemID, oID, mainImg, name) {
+
+	$.get("http://localhost:8080/LankaHardware/CheckReviewIsAlreadyAddedServlet", { itemID: itemID, oID: oID }, function(response) {
+		var el = document.getElementById(`${itemID}${oID}TD`)
+		var isAdded = response
+
+		if (isAdded) return
+		else {
+			el.innerHTML += `<a href="#" onclick="buildReviewModal('${mainImg}', '${name}', '${itemID}', '${oID}');" style="position: absolute; right: 0; top: 40%;" class="btn btn-primary py-3 px-4" data-bs-toggle="modal" data-bs-target="#modalCenter" id="${itemID}${oID}ReviewBtn">Add a review</a>`
+		}
+	})
 }
