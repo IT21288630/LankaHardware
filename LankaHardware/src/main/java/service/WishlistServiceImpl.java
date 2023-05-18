@@ -397,49 +397,84 @@ public class WishlistServiceImpl implements IWishlistService {
 		Wishlist wishlist = new Wishlist();
 		con = DBConnectionUtil.getDBConnection();
 
-		wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
-
-		try {
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SIZES_AND_PRICES);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-				isInWishlist.put(rs.getString(CommonConstants.COLUMN_INDEX_ONE), false);
-			}
-
-			pst = con.prepareStatement(CommonConstants.QUERY_ID_CHECK_WISHLIST);
-			pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
-			pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-				isInWishlist.replace(rs.getString(CommonConstants.COLUMN_INDEX_ONE), true);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			/*
-			 * Close prepared statement and database connectivity at the end of transaction
-			 */
-
+		if(customer.getEmail() != null) {
+			wishlist.setWishlistID(getWishlistIdByEmail(customer.getEmail()));
+			
 			try {
-				if (pst != null) {
-					pst.close();
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SIZES_AND_PRICES);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+				rs = pst.executeQuery();
+
+				while (rs.next()) {
+					isInWishlist.put(rs.getString(CommonConstants.COLUMN_INDEX_ONE), false);
 				}
-				if (st != null) {
-					st.close();
+
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_CHECK_WISHLIST);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, wishlist.getWishlistID());
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, item.getItemID());
+				rs = pst.executeQuery();
+
+				while (rs.next()) {
+					isInWishlist.replace(rs.getString(CommonConstants.COLUMN_INDEX_ONE), true);
 				}
-				if (rs != null) {
-					rs.close();
-				}
+
 			} catch (SQLException e) {
-				log.log(Level.SEVERE, e.getMessage());
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				/*
+				 * Close prepared statement and database connectivity at the end of transaction
+				 */
+
+				try {
+					if (pst != null) {
+						pst.close();
+					}
+					if (st != null) {
+						st.close();
+					}
+					if (rs != null) {
+						rs.close();
+					}
+				} catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}
 			}
 		}
+		else {
+			try {
+				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_SIZES_AND_PRICES);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
+				rs = pst.executeQuery();
 
+				while (rs.next()) {
+					isInWishlist.put(rs.getString(CommonConstants.COLUMN_INDEX_ONE), false);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				/*
+				 * Close prepared statement and database connectivity at the end of transaction
+				 */
+
+				try {
+					if (pst != null) {
+						pst.close();
+					}
+					if (st != null) {
+						st.close();
+					}
+					if (rs != null) {
+						rs.close();
+					}
+				} catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}
+			}
+		}
+		
 		return isInWishlist;
 	}
 

@@ -46,8 +46,6 @@ public class RemoveItem extends HttpServlet {
 		String id = request.getParameter("id");
 		IStockService iStockService = new IStockServiceImpl();
 		
-		IVoucherService iVoucherService = new IVoucherServiceImpl();
-
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();

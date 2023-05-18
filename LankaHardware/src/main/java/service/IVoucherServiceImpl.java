@@ -30,7 +30,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 	@Override
 	public ArrayList<Voucher> getAllVouchers() {
 		ArrayList<Voucher> vouchers = new ArrayList<>();
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_SELECT_ALL_Voucher);
@@ -51,6 +51,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		return vouchers;
 	}
@@ -58,7 +59,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 	@Override
 	public ArrayList<Voucher> GetAllgetAllVouchersSortBy(int sort) {
 		ArrayList<Voucher> vouchers = new ArrayList<>();
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
 			
@@ -113,7 +114,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 		System.out.println("This is impl");
 		String sql = "SELECT id, code, amount, exp where id LIKE '%"+ searchDetails +"%' or code LIKE '%"+ searchDetails +"%' or amount LIKE '%"+ searchDetails +"%';";
 
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
 		
@@ -147,7 +148,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 	
 		ArrayList<String> Vid = new ArrayList<String>();
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
 			st = con.createStatement();
@@ -207,7 +208,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 		Voucher voucher = new Voucher();
 		voucher.setId(id);
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_Voucher);
@@ -247,7 +248,7 @@ public class IVoucherServiceImpl implements IVoucherService {
 	public String updateVoucher(String id, String code, int amount, String exp) {
 String status = "There was a problem";
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
 			if(!code.equals("null")) {
