@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -42,17 +43,20 @@ public class DeleteCusProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-		String email = request.getParameter("email");
-		ICustomerService iCustomerService = new CustomerServiceImpl();
+		 String email = request.getParameter("email");
+	        ICustomerService iCustomerService = new CustomerServiceImpl();
 
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
+	        // Delete the customer profile using the email
+	        iCustomerService.DeleteCustomer(email);
 
-		String resp = new Gson().toJson(iCustomerService.DeleteCustomer(email));
+	        // Invalidate the session
+	        HttpSession session = request.getSession(false);
+	        if (session != null) {
+	            session.invalidate();
+	        }
 
-		out.print(resp);
+	        // Redirect to login.jsp
+	        response.sendRedirect("login.jsp");
 	
 	}
 

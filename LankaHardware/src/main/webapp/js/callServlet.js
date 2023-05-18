@@ -237,16 +237,16 @@ function callUpdateCusProfile() {
 	var phone = document.getElementById('phone').value || "null";
 	var name = document.getElementById('name').value || "null";
 	var address = document.getElementById('address').value || "null";
-	var inputFile = document.getElementById('upload');
+	var  Profilepics = document.getElementById('upload')||"null";
 
-	console.log(phone, name, address, inputFile);
+	console.log(phone, name, address, Profilepics);
 
 	var formData = new FormData(); // Create a FormData object to send the data
 
 	formData.append("phone", phone);
 	formData.append("name", name);
 	formData.append("address", address);
-	formData.append("Propic", inputFile.files[0]); // Append the selected file to the FormData
+	formData.append("upload",  Profilepics.files[0]); // Append the selected file to the FormData
 
 	fetch("http://localhost:8080/LankaHardware/UpdateCusProfile", {
 		method: "post",
@@ -270,30 +270,22 @@ function buildupdateCustomerProfile(customer) {
 	var phoneElement = document.getElementById('phone');
 	var nameElement = document.getElementById('name');
 	var addressElement = document.getElementById('address');
+    var Propic = document.getElementById('uploadedAvatar')
 
 	phoneElement.value = customer.phone || '';
 	nameElement.value = customer.name || '';
 	addressElement.value = customer.address || '';
+	Propic.src = customer.Profilepics ||'';
 }
 
 
 //delete Customer
 function callDeleteCusProfile() {
-	$.get("http://localhost:8080/LankaHardware/DeleteCusProfile", { email: email }, function(response) {
-		var customer = response;
-
-		buildDeleteCustomerProfile(customer);
-	});
-}
-
-function buildDeleteCustomerProfile(customer) {
-	var phone = document.getElementById('phone');
-	var name = document.getElementById('name');
-	var address = document.getElementById('address');
-
-	phone.placeholder = customer.phone || '';
-	name.placeholder = customer.name || '';
-	address.placeholder = customer.address || '';
+  var email = "<email>"; // Replace with the actual email value
+  $.post("http://localhost:8080/LankaHardware/DeleteCusProfile", { email: email }, function(response) {
+    // On successful deletion, redirect to login.jsp
+    window.location.href = "Login.jsp";
+  });
 }
 
 

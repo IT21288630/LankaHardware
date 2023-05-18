@@ -304,8 +304,8 @@
                           
                     
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id="save" onclick ="callUpdateAdminProfile()">Save changes</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+                          <button type="submit" class="btn btn-primary me-2" id="save" onclick ="callUpdataAdminProfile()">Save changes</button>
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearadmin()">Cancel</button>
                         </div>
                       </form>
                     </div>
