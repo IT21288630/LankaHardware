@@ -498,6 +498,15 @@ function callAddSupplierServlet(){
 	var description = document.getElementById('description').value
 	var debit = document.getElementById('supplier_type').value
 	
+	if(!email.includes("@gmail")){
+		console.log("Invalid email")
+		return
+	}
+	
+	if(phoneNum.length != 9){
+		return
+	}
+	
 	var endpoint = "http://localhost:8080/LankaHardware/AddSupplierServlet"
 //	var formData = new FormData();
 //

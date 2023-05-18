@@ -96,6 +96,12 @@ function callAddFeedbackServlet(){
 		
 		console.log(response)
 		
+		added_msg.innerHTML = response
+		    added_msg.classList.add('active')
+		    setTimeout(function() {
+		    	added_msg.classList.remove('active')
+		  	}, 2000);
+		
 	})
 }
 
