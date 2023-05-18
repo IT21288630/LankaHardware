@@ -77,7 +77,7 @@
             </a>
             
             <div style="display: flex; align-items: end;">
-            	<span class="demo menu-text fw-bolder ms-2">Admin Panel</span>
+            	<span class="demo menu-text fw-bolder ms-2">Admin Profile</span>
             </div>
             
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -85,43 +85,7 @@
             </a>
           </div>
 
-          <div class="menu-inner-shadow"></div>
-          
-          <ul class="menu-inner py-1">
-          	<!-- Charts -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
-         
-            <!-- charts -->
-            <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables"></div>
-              </a>
-            </li>
-          
-          
-            <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
-            <!-- Forms -->
-            <!-- Tables -->
-            <li class="menu-item active" id="">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables"></div>
-              </a>
-            </li>
-            <li class="menu-item" id="">
-              <a href="viewcustomer.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables"></div>
-              </a>
-            </li>
-            <li class="menu-item" id="">
-              <a href="AttendanceView.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables"></div>
-              </a>
-            </li>
+        
              
           
           </ul>

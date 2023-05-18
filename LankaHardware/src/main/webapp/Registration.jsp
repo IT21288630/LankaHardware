@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="Admin/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
+    
     <link rel="stylesheet" href="Admin/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="Admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="Admin/assets/css/demo.css" />
@@ -78,15 +79,7 @@
                  <a href="index.html" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     
-                      <img 
-                     width="70"
-                      viewBox="0 0 25 42"
-                      version="1.1"data-visualcompletion="media-vc-image" 
-                    alt="No photo description available."
-                     class="x1bwycvy x193iq5w x4fas0m x19kjcj4" 
-                     referrerpolicy="origin-when-cross-origin"
-                     src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/302289654_589545346206228_51508556579275241_n.jpg?_nc_cat=106&amp;ccb=1-7&amp;_nc_sid=09cbfe&amp;_nc_ohc=CsvyHWDwdK4AX8YjfbC&amp;_nc_ht=scontent.fcmb1-2.fna&amp;oh=00_AfDtaJOuDZKmc_OXzM2SUHnrqARZaQ8yH3I0DgiKuH29hQ&amp;oe=646B733A" width="60" height="60">
-                    
+                 
                    
                       <defs>
                         <path
@@ -143,7 +136,7 @@
               <h4 class="mb-2">Sign up For</h4>
               <p class="mb-4">Hardware that's built to last</p>
 
-              <form id="formAuthentication" class="mb-3">
+              <form id="formAuthentication" class="mb-3"  >
            
                
                 <div class="mb-3">
@@ -166,12 +159,12 @@
                   </div>
                  <div class="mb-3 form-password-toggle">
                   <label class="form-label" for="con-Password">Confirm Password</label>
-                  <div class="input-group input-group-merge">
+                     <div class="input-group input-group-merge">
                     <input
-                      type="con-Password"
-                      id="con_Password"
+                      type="Password"
+                      id="Co_Password"
                       class="form-control"
-                      name="Password"
+                      name="co_Password"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="Password"
                     />
@@ -189,7 +182,7 @@
                  <div class="form-group">
   					<input type="text" 
  			        class="form-control" 
-			         id="Name" 
+			         id="name" 
 			         placeholder="Name">
   
  		

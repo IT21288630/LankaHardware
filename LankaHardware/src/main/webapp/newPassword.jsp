@@ -78,14 +78,6 @@
                   <a href="index.html" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     
-                      <img 
-                     width="70"
-                      viewBox="0 0 25 42"
-                      version="1.1"data-visualcompletion="media-vc-image" 
-                    alt="No photo description available."
-                     class="x1bwycvy x193iq5w x4fas0m x19kjcj4" 
-                     referrerpolicy="origin-when-cross-origin"
-                     src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/302289654_589545346206228_51508556579275241_n.jpg?_nc_cat=106&amp;ccb=1-7&amp;_nc_sid=09cbfe&amp;_nc_ohc=CsvyHWDwdK4AX8YjfbC&amp;_nc_ht=scontent.fcmb1-2.fna&amp;oh=00_AfDtaJOuDZKmc_OXzM2SUHnrqARZaQ8yH3I0DgiKuH29hQ&amp;oe=646B733A" width="60" height="60">
                     
                    
                       <defs>
