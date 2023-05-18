@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import com.google.gson.Gson;
 
 import service.IReviewService;
 import service.ReviewServiceImpl;
@@ -40,7 +43,6 @@ public class AddReviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -53,14 +55,21 @@ public class AddReviewServlet extends HttpServlet {
 		doGet(request, response);
 
 		String email = "a@g.m";
-		//String itemID = request.getParameter("itemID");
-		String itemID = "i100";
+		String itemID = request.getParameter("itemID");
+		String oID = request.getParameter("oID");
+		//String itemID = "i100";
 		String reviewDescription = request.getParameter("reviewDescription");
 		int stars = Integer.parseInt(request.getParameter("stars"));
 		Collection<Part> reviewImages = request.getParts();
 		IReviewService iReviewService = new ReviewServiceImpl();
 
-		iReviewService.addReview(email, itemID, reviewDescription, stars, reviewImages);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		String resp;
+		
+		resp = new Gson().toJson(iReviewService.addReview(email, itemID, reviewDescription, stars, reviewImages, oID));
+		out.print(resp);
 	}
 
 }

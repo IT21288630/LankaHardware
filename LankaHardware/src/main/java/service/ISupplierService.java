@@ -21,6 +21,8 @@ public interface ISupplierService {
 
 	public String sendSupplierDetails(String supNo);
 
+	ArrayList<Integer> getSupplierTypeDetails();
+
 	
 
 }

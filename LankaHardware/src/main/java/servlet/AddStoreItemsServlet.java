@@ -51,13 +51,14 @@ public class AddStoreItemsServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		String mf_date = request.getParameter("mf_date");
 		String exp_date = request.getParameter("exp_date");
-		double price = Double.parseDouble(request.getParameter("price"));
+		//String sub = request.getParameter("subType");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String warrentyType = request.getParameter("warrentyType");
 		int warNum = Integer.parseInt(request.getParameter("warNum"));
 		String warPeriod = request.getParameter("warPeriod");
-
-
+		//String size = request.getParameter("size");
+		//String img = request.getParameter("img");
+		double price = Double.parseDouble(request.getParameter("price"));
 		
 		
 		if(mf_date == null || mf_date == "") {
@@ -71,22 +72,18 @@ public class AddStoreItemsServlet extends HttpServlet {
 		item.setName(name);
 		item.setType(category);
 		item.setBrand(brand);
-
-		item.setPrice(price);
-		item.setQuantity(quantity);
 		item.setDescription(description);
-		
 		item.setMfDate(mf_date);
 		item.setExpDate(exp_date);
-
+		//item.setSubType(sub);
+		
+		item.setPrice(price);
+		item.setQuantity(quantity);
 		item.setWarrentyType(warrentyType);
 		item.setWarrentyNumber(warNum);
 		item.setWarrantyPeriod(warPeriod);
-
-	
 		//item.setSize(size);
 		//item.setMainImg(img);
-
 		
 		System.out.println("add servlet date: " + mf_date);
 		

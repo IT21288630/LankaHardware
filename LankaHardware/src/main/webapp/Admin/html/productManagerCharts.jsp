@@ -219,7 +219,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="AdminProfile.jsp">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -421,11 +421,11 @@
                                 Five star
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                                <a class="dropdown-item" href="javascript:void(0);">Five star</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Four star</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Three star</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Two star</a>
-                                <a class="dropdown-item" href="javascript:void(0);">One star</a>
+                                <a class="dropdown-item" href="javascript:createReviewGrowthChart('five'); void(0);" id="fiveStarRevGrowthChart">Five star</a>
+                                <a class="dropdown-item" href="javascript:createReviewGrowthChart('four'); void(0);">Four star</a>
+                                <a class="dropdown-item" href="javascript:createReviewGrowthChart('three'); void(0);">Three star</a>
+                                <a class="dropdown-item" href="javascript:createReviewGrowthChart('two'); void(0);">Two star</a>
+                                <a class="dropdown-item" href="javascript:createReviewGrowthChart('one'); void(0);">One star</a>
                               </div>
                             </div>
                           </div>
@@ -439,7 +439,7 @@
                             </div>
                             <div class="d-flex flex-column">
                               <small>Count</small>
-                              <h6 class="mb-0">521</h6>
+                              <h6 class="mb-0" id="revCount">521</h6>
                             </div>
                           </div>
                         </div>
@@ -540,8 +540,9 @@
     		}
     		
     		callGetAllItemsServlet()
-    		createReviewGrowthChart()
     	})
+    	
+    	
     });
     </script>
   </body>

@@ -607,6 +607,7 @@ function callIndexServlet(){
 }
 
 function buildNewArrivalslist(newArrivals){
+	newArrival_itemList.innerHTML = ''
 	quickViewsizesAndPrizes = []
 	isInWishlist = []
 	quickViewsizesAndStock = []
@@ -1023,14 +1024,12 @@ function getCartQuantity(){
 }
 
 function emptyMainCart(){
-	console.log('main here')
 	mainCart_itemList.innerHTML = `<p style="position: absolute; right: 0; left: 0; font-size: large; color: gray; margin-top: 20px;">Your cart is empty. Add some items to the cart.</p>`
 	var cartSummery = document.getElementById('cartSummery')
 	cartSummery.style = "transform: scale(0);"
 }
 
 function emptyMiniCart(){
-	console.log('mini here')
 	miniCart_itemList.innerHTML = '<p style="text-align: center; font-size: large; color: gray;">Your cart is empty. Add some items to the cart.</p>'
 }
 
@@ -1899,6 +1898,7 @@ function buildShopItems(shopItems){
 	shopItemList.innerHTML = ''
 	quickViewsizesAndPrizes = []
 	quickViewsizesAndStock = []
+	isInWishlist = []
 	
 	if(shopItems.length == 0) shopEmpty()
 	else shopItemList.style = "justify-content: inherit;"
@@ -1948,6 +1948,7 @@ function buildShopItems(shopItems){
     	shopItemList.innerHTML += item
     	buildAverageRating(shopItems[i], starID)
 	}
+	
 }
 
 //Buils main categories in the shop page
@@ -2224,7 +2225,7 @@ function test(){
 	console.log(ratingSubmitBtn)
 }
 
-function callAddReviewServlet(){
+function callAddReviewServlet(itemID){
 	var inputFile = document.getElementById('inputFile')
 	var reviewDescription = document.getElementById('reviewDescription').value
 	var stars = document.querySelector('input[name="rate"]:checked').value
@@ -2235,6 +2236,7 @@ function callAddReviewServlet(){
 		formData.append('inputFile', file)
 	}
 	
+	formData.append('itemID', itemID)
 	formData.append('reviewDescription', reviewDescription)
 	formData.append('stars', stars)
 	

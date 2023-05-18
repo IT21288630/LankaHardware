@@ -111,12 +111,10 @@ public class SupplierServiceImpl implements ISupplierService {
 			pst.setString(CommonConstants.COLUMN_INDEX_SIX, supplier.getDebit());
 
 			pst.executeUpdate();
-			
+
 			sendSupplierDetails(supplier.getSupNo());
-			
+
 			status = "Supplier Added";
-			
-			
 
 		}
 
@@ -345,6 +343,43 @@ public class SupplierServiceImpl implements ISupplierService {
 		}
 
 		return status;
+	}
+
+	@Override
+	public ArrayList<Integer> getSupplierTypeDetails() {
+
+		ArrayList<Integer> count = new ArrayList<>();
+		int tot = 0;
+		con = DBConnectionUtil.getDBConnection();
+
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.QUERY_TO_GET_DEBIT_SUPPLIER_COUNT);
+			rs.next();
+
+			count.add(rs.getInt(1));
+
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.QUERY_TO_GET_CREDIT_SUPPLIER_COUNT);
+			rs.next();
+
+			count.add(rs.getInt(1));
+
+			for (Integer c : count) {
+				tot += c;
+			}
+			
+			count.add(tot);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+
+		System.out.println(count);
+		return count;
 	}
 
 }

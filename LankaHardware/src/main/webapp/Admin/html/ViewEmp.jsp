@@ -21,7 +21,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Container - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Employees</title>
 
     <meta name="description" content="" />
 
@@ -123,8 +123,8 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
          
             <!-- charts -->
-            <li class="menu-item">
-              <a href="#" class="menu-link">
+            <li class="menu-item ">
+              <a href="employeeManagerCharts.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Charts </div>
               </a>
@@ -141,11 +141,16 @@
                 <div data-i18n="Tables">View Employees</div>
               </a>
             </li>
-            
             <li class="menu-item" id="">
-              <a href="AttendanceView.jsp" class="menu-link">
+              <a href="AbsentEmployeesAttendance.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Attendance</div>
+                <div data-i18n="Tables">Absent Employees</div>
+              </a>
+            </li>
+            <li class="menu-item" id="">
+              <a href="PresentEmployeesAttendance.jsp" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">Present Employees</div>
               </a>
             </li>
           
@@ -186,17 +191,7 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-                <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
-                </li>
+                
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -225,7 +220,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="AdminProfile.jsp">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -256,6 +251,7 @@
                     </li>
                   </ul>
                 </li>
+                
                 <!--/ User -->
               </ul>
             </div>
@@ -316,24 +312,24 @@
                     document.write(new Date().getFullYear());
                   </script>
                   ,  Lanka Hardware 
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder"></a>
                 </div>
                 <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank"></a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4"></a>
 
                   <a
                     href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
                     target="_blank"
                     class="footer-link me-4"
-                    >Documentation</a
+                    ></a
                   >
 
                   <a
                     href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
                     target="_blank"
                     class="footer-link me-4"
-                    >Support</a
+                    ></a
                   >
                 </div>
               </div>
@@ -479,7 +475,10 @@
                               id="salary"
                               name="salary"
                               placeholder = "Rs 50000"
+                              
+                              
                             />
+                           
                           </div>
                         </div>
                         <div class="mt-2">

@@ -141,13 +141,19 @@
                 <div data-i18n="Tables">View Admin</div>
               </a>
             </li>
-            
+            <li class="menu-item" id="">
+              <a href="viewcustomer.jsp" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">View Custommer</div>
+              </a>
+            </li>
             <li class="menu-item" id="">
               <a href="AttendanceView.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Attendance</div>
               </a>
             </li>
+             
           
           </ul>
         </aside>
@@ -174,7 +180,7 @@
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
                   	oninput = "buildSearchLists()"
-                  	id="searchemp"
+                  	id="searchadm"
                     type="text"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
@@ -225,7 +231,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="AdminProfile.jsp">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -249,7 +255,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="Login.jsp">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -358,16 +364,16 @@
         href="#"
         onclick="return false;"
         class="btn btn-danger btn-buy-now"
-        data-bs-toggle="modal" data-bs-target="#AddEmoloyeeModal" 
+        data-bs-toggle="modal" data-bs-target="#AddAdminModal" 
         >Add Admin</a
       >
     </div>
     
     
-    <div class="modal fade" id="AddEmoloyeeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="AddAdminModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="AddEmoloyeeModalHeader">
+            <div class="modal-header" id="AddAdminModalHeader">
               <h5 class="modal-title" id="modalCenterTitle">Add Admin</h5>
               <button
                 type="button"
@@ -376,7 +382,7 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" id="AddEmoloyeeModalBody">
+            <div class="modal-body" id="AddAdminModalBody">
               <div>
               	 <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -408,7 +414,7 @@
                               class="form-control"
                               type="text"
                               id="email"
-                              name="email"
+                              name="Email"
                              
                               placeholder="123@gmail.com"
                             />
@@ -433,8 +439,8 @@
 	                              <span class="input-group-text">LK (+94)</span>
 	                              <input
 	                                type="text"
-	                                id="phoneNum"
-	                                name="phoneNum"
+	                                id="phone"
+	                                name="phone"
 	                                class="form-control"
 	                                placeholder="07********"
 	                              />
@@ -445,8 +451,8 @@
                  <div class="form-group">
   					<input type="text" 
  			        class="form-control" 
-			         id="Name" 
-			         placeholder="Name">
+			         id="name" 
+			         placeholder="name">
   
  		
                 
@@ -462,7 +468,7 @@
                      
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="country">Role</label>
-                            <select id="Role" name = "Role"class="select2 form-select">
+                            <select id="role" name = "role"class="select2 form-select">
                               <option value="select">Select</option>
                               <option value="SysAdmin">SysAdmin</option>
                               <option value="ProductManager">Product manager</option>
@@ -475,32 +481,29 @@
                             </select>
                           </div>
                        
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddAdminServlet()">Add Admin</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearadmin()">Cancel</button>
-                        </div>
+                       
                       </form>
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="AddEmoloyeeModalFooter">
+            <div class="modal-footer" id="AddAdminModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-primary" onclick ="callAddAdminServlet()">Add Admin</button>
             </div>
           </div>
         </div>
       </div>
       
       <!-- edit modal -->
-      <div class="modal fade" id="EditEmoloyeeModal" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="EditAdminModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header" id="EditEmoloyeeModalHeader">
+            <div class="modal-header" id="EditAdminModalHeader">
               
             </div>
-            <div class="modal-body" id="EditEmoloyeeModalBody">
+            <div class="modal-body" id="EditAdminModalBody">
               
                     </div>
                     <hr class="my-0" />
@@ -510,7 +513,7 @@
                     </div>
               </div>
             </div>
-            <div class="modal-footer" id="EditEmoloyeeModalFooter">
+            <div class="modal-footer" id="EditAdminModalFooter">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
               </button>
@@ -537,7 +540,7 @@
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../js/CallServlet.js"></script>
+    <script src="../js/callServllet.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="../assets/vendor/js/menu.js"></script>

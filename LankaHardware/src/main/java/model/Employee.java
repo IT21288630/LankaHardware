@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Employee {
 
 	private String empNo;
@@ -14,7 +12,7 @@ public class Employee {
 	private String date;
 	private String wage;
 	private double salary;
-	private ArrayList<String> profile;
+	private String profile;
 
 	public String getEmpNo() {
 		return empNo;
@@ -96,12 +94,14 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public ArrayList<String> getProfile() {
+	public String getProfile() {
 		return profile;
 	}
 
-	public void setProfile(ArrayList<String> profile) {
+	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+
+	
 
 }

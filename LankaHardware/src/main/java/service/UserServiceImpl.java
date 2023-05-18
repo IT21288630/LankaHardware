@@ -72,16 +72,5 @@ public class UserServiceImpl implements IUserService {
 	}
 
 
-	@Override
-	public User getUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-
-	@Override
-	public void saveUser(User user) {
-		// TODO Auto-generated method stub
-		
-	}
 }

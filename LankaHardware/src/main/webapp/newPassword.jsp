@@ -169,8 +169,9 @@
 					</div>
 				</form>
              </div>
+               <input type="email" id="newEmailInput" placeholder="Enter new email">
                
-                <button class="btn btn-primary d-grid w-70"> Reset </button>
+                <button class="btn btn-primary d-grid w-70" onclick="updateEmail()"> Reset </button>
               </form>
               <div class="text-center">
                 <a href="exotp.jsp" class="d-flex align-items-center justify-content-center">
@@ -202,6 +203,7 @@
     <script src="Admin/assets/vendor/libs/popper/popper.js"></script>
     <script src="Admin/assets/vendor/js/bootstrap.js"></script>
     <script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="js/callServlet.js"></script>
 
     <script src="Admin/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->

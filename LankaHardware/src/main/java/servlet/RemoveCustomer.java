@@ -38,9 +38,7 @@ public class RemoveCustomer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -48,14 +46,14 @@ public class RemoveCustomer extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String empNo = request.getParameter("empNo");
+		String email = request.getParameter("email");
 		ICustomerService iCustomerService = new CustomerServiceImpl();
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iCustomerService.removeCustomers(empNo));
+		String resp = new Gson().toJson(iCustomerService.removeCustomers(email));
 
 		out.print(resp);
 	}

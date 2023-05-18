@@ -1,35 +1,26 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-import model.Admin;
-import model.Employee;
-import service.AdminServiceImpl;
-import service.EmployeeServiceImpl;
-import service.IAdminService;
-import service.IEmployeeService;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class GetAllAdmin
+ * Servlet implementation class LogOutServlet
  */
-@WebServlet("/GetAllAdmin")
-public class GetAllAdminServlet extends HttpServlet {
+@WebServlet("/LogOutServlet")
+public class LogOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetAllAdminServlet() {
+    public LogOutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,18 +30,15 @@ public class GetAllAdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		ArrayList<Admin>  admin = new ArrayList();
-		IAdminService iAdminService = new AdminServiceImpl();
+		HttpSession session = request.getSession(false);//fetch session object
 		
-		admin = iAdminService.getAllAdmin();
-
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		String resp = new Gson().toJson(admin);
-		
-		out.print(resp);
+		if(session!=null) {
+			session.invalidate();
+			request.setAttribute("errmessage", "You have logged outsuccessfully");
+			RequestDispatcher requestDispatcher= request.getRequestDispatcher("Login.jsp");
+			requestDispatcher.forward(request, response);
+			System.out.print("Logged Out");
+		}
 	}
 
 	/**

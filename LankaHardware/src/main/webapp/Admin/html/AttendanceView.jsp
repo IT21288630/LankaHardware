@@ -264,7 +264,7 @@
 									<li>
 										<div class="dropdown-divider"></div>
 									</li>
-									<li><a class="dropdown-item" href="#"> <i
+									<li><a class="dropdown-item" href="AdminProfile.jsp"> <i
 											class="bx bx-user me-2"></i> <span class="align-middle">My
 												Profile</span>
 									</a></li>

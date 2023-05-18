@@ -14,6 +14,9 @@ function callLoginServlet() {
 		console.log(response)
 
 		if (response == "customer") {
+
+			// Store the customer details in local storage
+			//	localStorage.setItem('customer', JSON.stringify(customer));
 			window.location.href = "index.jsp";
 
 		}
@@ -44,15 +47,34 @@ function callLoginServlet() {
 	})
 
 }
+// Retrieve the customer details from local storage
+//var customer = JSON.parse(localStorage.getItem('cust'));
+//
+//// Use the customer details to update the UI
+//if (customer != null){
+//	document.getElementById('email').innerHTML = customer.email;
+//	document.getElementById('Password').innerHTML = customer.Password;
+//	document.getElementById('phone').innerHTML = customer.phone;
+//	document.getElementById('name').innerHTML = customer.name;
+//	document.getElementById('address').innerHTML = customer.address;
+//
+//}
+/*
+
+
+
+
+
+
 /**registration process */
 /**
  * 
  */
 var customer = []
-var customertable = document.getElementById('customer')
+var customerstable = document.getElementById('customer')
 
-function callGetAllCustomerServlet() {
-	$.get("http://localhost:8080/LankaHardware/GetAllCustomerServlet", function(response) {
+function callGetAllCustomersServlet() {
+	$.get("http://loca8080/LankaHardware/GetAllCustomersServlet", function(response) {
 
 		customers = response
 
@@ -62,33 +84,66 @@ function callGetAllCustomerServlet() {
 	})
 }
 
-function buildAllCustomer() {
-	customertable.innerHTML = ''
-	for (var i = 0; i < customer.length; i++) {
+function buildAllCustomers(cus) {
+	customerstable.innerHTML = 'cus'
+	for (var i = 0; i < cus.length; i++) {
 		var customer = `<tr>
 						<td>
-							${customer[i].email}
+							${cus[i].email}
 						</td>
 						<td>
-							${ecustomer[i].Password}
+							${cus[i].Password}
 						</td>
 						<td>
-						    ${customer[i].Name}
+						    ${cus[i].name}
 						</td>	
 						<td>
-							${customer[i].phone}
+							${cus[i].phone}
 						</td>
 						<td>
-							${customer[i].address}
+							${cus[i].address}
 						</td>
-						
+							
 						
 						</tr>`
 
 
-		customertable.innerHTML += customer
+		customerstable.innerHTML += customer
 	}
 }
+//var customers = []
+//var customerstable = document.getElementById('customer')
+//
+//function callGetAllCustomersServlet() {
+//	$.get("http://localhost:8080/LankaHardware/GetAllCustomersServlet", function(response) {
+//
+//		customers = response
+//
+//		console.log(customers)
+//
+//		buildAllCustomers();
+//	})
+//}
+//
+//function buildAllCustomers(cus) {
+//	customerstable.innerHTML = ''
+//	for (var i = 0; i < cus.length; i++) {
+//		var customer = `<div class="card">
+//					<div class="card-header">
+//						${cus[i].name}
+//					</div>
+//					<div class="card-body">
+//						<p>Email: ${cus[i].email}</p>
+//						<p>Password: ${cus[i].Password}</p>
+//						<p>Phone: ${cus[i].phone}</p>
+//						<p>Address: ${cus[i].address}</p>
+//					</div>
+//				</div>`
+//
+//		customerstable.innerHTML += customer
+//	}
+//}
+
 
 
 //Insert Customer
@@ -103,35 +158,35 @@ function callAddCustomerServlet() {
 	var Password = document.getElementById('Password').value
 	var con_Password = document.getElementById('con_Password').value
 	var phone = document.getElementById('phone').value
-	var name = document.getElementById('Name').value
+	var name = document.getElementById('name').value
 	var address = document.getElementById('address').value
 
 
 	if (con_Password != Password) {
 		loginError.innerHTML = "Password and Confirm password should match"
 		loginError.style = "display: block;"
-		
+
 	}
-//	if (!validateEmail(email)) {
-//    document.getElementById("loginError").innerHTML = "Invalid email address";
-//    document.getElementById("loginError").style.display = "block";
-//    valid = false;
-//    }
-//  
-//    if (!validatePassword(Password)) {
-//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
-//    document.getElementById("loginError").style.display = "block";
-//    valid = false;
-//    }
-//    if (!validatePhone(phone)) {
-//    document.getElementById("loginError").innerHTML = "Invalid phone number";
-//    document.getElementById("loginError").style.display = "block";
-//    valid = false;
-//    }
-//  
-//    if (!valid) {
-//      return;
-//    }
+	//	if (!validateEmail(email)) {
+	//    document.getElementById("loginError").innerHTML = "Invalid email address";
+	//    document.getElementById("loginError").style.display = "block";
+	//    valid = false;
+	//    }
+	//  
+	//    if (!validatePassword(Password)) {
+	//    document.getElementById("loginError").innerHTML = "Password must be at least 8 characters long";
+	//    document.getElementById("loginError").style.display = "block";
+	//    valid = false;
+	//    }
+	//    if (!validatePhone(phone)) {
+	//    document.getElementById("loginError").innerHTML = "Invalid phone number";
+	//    document.getElementById("loginError").style.display = "block";
+	//    valid = false;
+	//    }
+	//  
+	//    if (!valid) {
+	//      return;
+	//    }
 
 	console.log(address)
 	console.log(name)
@@ -163,244 +218,84 @@ function callAddCustomerServlet() {
 	})
 }
 function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
 }
 
 function validatePassword(Password) {
-  return Password.length >= 8;
+	return Password.length >= 8;
 }
 
 function validatePhone(phone) {
-  const phoneRegex = /^\d{10}$/;
-  return phoneRegex.test(phone);
+	const phoneRegex = /^\d{10}$/;
+	return phoneRegex.test(phone);
 }
 
 //update Customer
-var isNew = true;
 
-var editCustomerModalHeader = document.getElementById('EditCustomerModalHeader')
-var editCustomerModalBody = document.getElementById('EditCustomerModalBody')
-var editCustomerModalFooter = document.getElementById('EditCustomerModalFooter')
-var editCard = document.getElementById('card-body-edit')
+function callUpdateCusProfile() {
+	var phone = document.getElementById('phone').value || "null";
+	var name = document.getElementById('name').value || "null";
+	var address = document.getElementById('address').value || "null";
+	var inputFile = document.getElementById('upload');
 
-function BuildEditCustomerModal(email,Password,phone,name,address){
-	editCustomerModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">Edit Customer</h5>
-							              <button
-							                type="button"
-							                class="btn-close"
-							                data-bs-dismiss="modal"
-							                aria-label="Close"
-							              ></button>`
+	console.log(phone, name, address, inputFile);
 
-	
-	editCustomerModalBody.innerHTML = `<div>
-						              	 <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+	var formData = new FormData(); // Create a FormData object to send the data
 
-                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                        </div>
-                      </div>
-                    </div>
-						                      </div>`
+	formData.append("phone", phone);
+	formData.append("name", name);
+	formData.append("address", address);
+	formData.append("Propic", inputFile.files[0]); // Append the selected file to the FormData
 
-	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Email.</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="emailModal"
-                              name="email"
-                   				value="${email}"
-                   				 placeholder="123@gmail.com"
-                           
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">password</label>
-                            <input class="form-control" type="text"  id="PasswordModal" name="password" value="${Password}" id="Password"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">Phone</label>
-                            <div class="input-group input-group-merge">
-                            <span class="input-group-text">LK (+94)</span>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="phoneModal"
-                              name="Phone"
-								value="${phone}"
-						      placeholder="07********"
-                             
-                              
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Name</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="nameModal"
-                              name="name"
-								value="${name}"
-                              placeholder = "Assistant Manager"
-                            />
-                          </div>
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="addressModal" name="address" value="${address}"placeholder="Address" />
-                          </div>
-               
-                       
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callupdateCustomer()">Edit Customer</button>
-                          <button type="reset" class="btn btn-outline-secondary" id ="clear" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                      </form>`
-
-	editCustomerModalFooter.innerHTML = ``
-	
-}
-
-function callupdateCustomer(){
-	var inputFile = document.getElementById('inputFileModal')
-	
-	var email = document.getElementById('emailModal').value
-	var Password = document.getElementById('PasswordModal').value
-	var phone = document.getElementById('phoneModal').value
-	var name = document.getElementById('designationModal').value
-	var email = document.getElementById('emailModal').value
-	var address = document.getElementById('addressModal').value
-
-	
-	
-	if(email == null)
-	{
-		email = "null";
-	}
-	if(Password == null)
-	{
-		Password = "null";
-	}
-	if(phone == null)
-	{
-		phone = "null";
-	}
-	
-	if(name == null)
-	{
-		name = "null";
-	}
-	if(address == null)
-	{
-		address = "null";
-	}
-
-	
-	
-	//console.log(empNo+name+email+designation+phoneNum+address+date+salary )
-	
-	var endpoint = "http://localhost:8080/LankaHardware/UpdateCustomer"
-	var formData = new FormData();
-	
-//	for(const file of inputFile.files){
-//		formData.append('inputFileModal', file)
-//	}
-
-//	formData.append('empNoModal',empNo)
-//	formData.append('nameModal',name)
-//	formData.append('emailModal',email)
-//	formData.append('designationModal',designation)
-//	formData.append('addressModal',address)
-//	formData.append('dateModal',date)
-//	formData.append('salaryModal',salary)
-
-	
-//	fetch(endpoint, {
-//		method: "post",
-//		body: formData
-//	}).then(res => {
-//		callGetAllEmployeesServlet()
-//		setTimeout(function() {
-//				$('#AddEmoloyeeModal').modal('hide')
-//		}, 2500);	
-//	}
-//	)
-	
-	$.post(endpoint, {emailModal : email,PasswordModal : Password,phoneModal : phone,nameModal : name,addressModal : address }, function(response) {
-		
-		callGetAllCustomersServlet()
-		setTimeout(function() {
-				$('#EditCustomerModal').modal('hide')
-		}, 1500);	
+	fetch("http://localhost:8080/LankaHardware/UpdateCusProfile", {
+		method: "post",
+		body: formData
 	})
+
+	//	$.ajax({
+	//		url: "http://localhost:8080/LankaHardware/UpdateCusProfile",
+	//		type: "POST",
+	//		data: formData,
+	//		processData: false, // Important to prevent jQuery from processing the data
+	//		contentType: false, // Important to prevent jQuery from setting content type
+	//		success: function(response) {
+	//			var customer = response;
+	//			buildupdateCustomerProfile(customer);
+	//		}
+	//	});
 }
+
+function buildupdateCustomerProfile(customer) {
+	var phoneElement = document.getElementById('phone');
+	var nameElement = document.getElementById('name');
+	var addressElement = document.getElementById('address');
+
+	phoneElement.value = customer.phone || '';
+	nameElement.value = customer.name || '';
+	addressElement.value = customer.address || '';
+}
+
+
 //delete Customer
-var deleteModalHeader = document.getElementById('deleteModalHeader')
-var deleteModalBody = document.getElementById('deleteModalBody')
-var deleteModalFooter = document.getElementById('deleteModalFooter')
+function callDeleteCusProfile() {
+	$.get("http://localhost:8080/LankaHardware/DeleteCusProfile", { email: email }, function(response) {
+		var customer = response;
 
-function createDeleteModal(email) {
-	deleteModalHeader.innerHTML = `<button
-					                type="button"
-					                class="btn-close"
-					                data-bs-dismiss="modal"
-					                aria-label="Close"
-					              ></button>`
-	deleteModalHeader.style.display = ""
-
-	deleteModalBody.innerHTML = `<div style="display: flex; flex-direction: column; text-align: center;">
-					                <div class="icon-box">
-					                  <i class="material-icons">&times;</i>
-					                </div>						
-					                <h4 class="modal-title w-100">Are you sure?</h4>
-					                <p style="margin-top: 10px;">Do you really want to delete these records? This process cannot be undone.</p>
-					              </div>`
-	deleteModalBody.style.padding = ""
-
-	deleteModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-					                Close
-					              </button>
-					              <button type="button" class="btn btn-danger" onclick="callDeleteEmployeeServlet('${email}')">Delete</button>`
-	deleteModalFooter.style.display = ""
+		buildDeleteCustomerProfile(customer);
+	});
 }
 
-function callDeleteCustomerServlet(email) {
-	deleteModalHeader.style = "display: none;"
-	deleteModalBody.style = "text-align: center;"
-	deleteModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
-			                          <span class="visually-hidden">Loading...</span>
-			                        </div>`
-	deleteModalFooter.style = "display: none;"
-	$.post("http://localhost:8080/LankaHardware/RemoveCustomer", { email: email }, function(response) {
+function buildDeleteCustomerProfile(customer) {
+	var phone = document.getElementById('phone');
+	var name = document.getElementById('name');
+	var address = document.getElementById('address');
 
-		deleteModalBody.style = "padding: 1rem;"
-		deleteModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">
-									        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_q7hiluze.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;" autoplay></lottie-player>
-									        <span style="font-size: x-large;">${response}</span>
-									    </div>`
-
-		callGetAllCustomersServlet()
-
-		setTimeout(function() {
-			$('#deleteModal').modal('hide')
-		}, 2500);
-	})
+	phone.placeholder = customer.phone || '';
+	name.placeholder = customer.name || '';
+	address.placeholder = customer.address || '';
 }
+
 
 var otpmessage
 
@@ -414,3 +309,107 @@ function callSendCustomeremailServlet() {
 		console.log(otpmessage)
 	})
 }
+
+
+
+function callGetCustomerDetails() {
+	$.get("http://localhost:8080/LankaHardware/GetCustomerDetails", function(response) {
+
+		var customer = response
+
+		buildCustomerProfile(customer);
+	})
+}
+
+function buildCustomerProfile(customer) {
+
+	console.log(customer)
+
+	var phone = document.getElementById('phone')
+	var name = document.getElementById('name')
+	var address = document.getElementById('address')
+	var Propic = document.getElementById('uploadedAvatar')
+
+	phone.placeholder = customer.phone
+	name.placeholder = customer.name
+	address.placeholder = customer.address
+	Propic.src = customer.Profilepics
+
+
+}
+//logg out
+
+function callLogOutServlet() {
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "LogOutServlet", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			// Redirect the user to the login page after successful logout
+			window.location.href = "/Login.jsp";
+		}
+	};
+
+	xhr.send();
+}
+
+function callSendCustomeremail() {
+	// Make an AJAX request to the send customer email servlet endpoint
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "SendCustomeremail", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			// Read the OTP value from the response
+			var otp = xhr.responseText;
+
+			// Redirect to the enter OTP page and pass the OTP value as a query parameter
+			window.location.href = "exotp.jsp?otp=" + otp;
+		}
+	};
+
+	xhr.send();
+}
+
+function validateOTP() {
+	// Get the OTP entered by the user
+	var enteredOTP = document.getElementById("otpInput").value;
+
+	// Perform OTP validation (replace this with your own validation logic)
+	var isValidOTP = enteredOTP === "1234"; // Replace "1234" with the valid OTP
+
+	if (isValidOTP) {
+		// Redirect to newpassword.jsp
+		window.location.href = "newPassword.jsp";
+	} else {
+		// Display an error message (replace this with your own error handling logic)
+		alert("Invalid OTP. Please try again.");
+	}
+}
+
+function updateEmail() {
+	// Get the entered new email from the input field
+	var Email = document.getElementById("newEmailInput").value;
+
+	// Make an AJAX request to update the email in the database
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "UpdateCusProfile", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			// Redirect to index.jsp
+			window.location.href = "index.jsp";
+		}
+	};
+
+	// Send the new email as JSON data in the request body
+	var data = JSON.stringify({ email: Email });
+	xhr.send(data);
+}
+
+
+

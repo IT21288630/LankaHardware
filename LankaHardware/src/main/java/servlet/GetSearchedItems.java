@@ -63,7 +63,6 @@ public class GetSearchedItems extends HttpServlet {
 		String resp = new Gson().toJson(item);
 		
 		out.print(resp);
-		
 	}
 
 }

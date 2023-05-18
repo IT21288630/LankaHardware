@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-<title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+<title>Product Single</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -67,28 +67,21 @@
 <body class="goto-here">
 	<div class="py-1 bg-black">
 		<div class="container">
-			<div
-				class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+			<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
 				<div class="col-lg-12 d-block">
 					<div class="row d-flex">
 						<div class="col-md pr-4 d-flex topper align-items-center">
-							<div
-								class="icon mr-2 d-flex justify-content-center align-items-center">
-								<span class="icon-phone2"></span>
-							</div>
-							<span class="text">+ 1235 2355 98</span>
+							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+									class="icon-phone2"></span></div>
+							<span class="text">081 1234567</span>
 						</div>
 						<div class="col-md pr-4 d-flex topper align-items-center">
-							<div
-								class="icon mr-2 d-flex justify-content-center align-items-center">
-								<span class="icon-paper-plane"></span>
-							</div>
-							<span class="text">youremail@email.com</span>
+							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+									class="icon-paper-plane"></span></div>
+							<span class="text">lankahardware@gmail.com</span>
 						</div>
-						<div
-							class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-							<span class="text">3-5 Business days delivery &amp; Free
-								Returns</span>
+						<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+							<span class="text">3-5 Business days delivery &amp; Free Returns</span>
 						</div>
 					</div>
 				</div>
@@ -99,7 +92,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.jsp">Minishop</a>
+			<a class="navbar-brand" href="index.jsp">LankaHardware</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -108,27 +101,18 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-					<li class="nav-item dropdown active"><a
-						class="nav-link dropdown-toggle" href="#" id="dropdown04"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a class="dropdown-item" href="shop.html">Shop</a> <a
-								class="dropdown-item" href="product-single.html">Single
-								Product</a> <a class="dropdown-item" href="cart.html">Cart</a> <a
-								class="dropdown-item" href="checkout.html">Checkout</a>
-						</div></li>
-					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
-							class="icon_search search-switch"></i></a></li>
-					<li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a
-						href="javascript: stopScrollingToTop();" class="nav-link"><span class="icon-shopping_cart"></span><span
-							id="cartQuantity"></span></a></li>
-					<li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i
-							class="fa-solid fa-user"></i></a></li>
-				</ul>
+		          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+	              <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
+		          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
+		          <li class="nav-item"><a href="CompletedOrder.jsp" class="nav-link">Orders</a></li>
+		          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
+		          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+		          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>
+		          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
+				  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
+								class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
+				  <li class="nav-item"><a href="profile.jsp" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
+		        </ul>
 			</div>
 		</div>
 	</nav>

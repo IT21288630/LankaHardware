@@ -2,12 +2,14 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
@@ -55,11 +57,12 @@ public class UpdateCustomer extends HttpServlet {
 		
 		ICustomerService ICustomerService = new CustomerServiceImpl();
 		
+		Collection<Part> parts = request.getParts();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(ICustomerService.updateCustomers(email,Password,phone,name,address));
+		String resp = new Gson().toJson(ICustomerService.updateCustomers(email,Password,phone,name,address,parts));
 
 		out.print(resp);
 	}

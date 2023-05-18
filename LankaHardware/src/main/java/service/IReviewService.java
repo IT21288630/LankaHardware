@@ -22,9 +22,10 @@ public interface IReviewService {
 	 *  @param reviewDescription
 	 *  @param stars
 	 *  @param reviewImages
+	 *  @param oID
 	 *  
 	 */
-	public void addReview(String email, String itemID, String reviewDescription, int stars, Collection<Part> reviewImages);
+	public String addReview(String email, String itemID, String reviewDescription, int stars, Collection<Part> reviewImages, String oID);
 	
 	/**
 	 * get average rating for an item
@@ -59,4 +60,12 @@ public interface IReviewService {
 	 * @param itemID
 	 */
 	public ReviewChart getChartDetails(String itemID);
+	
+	/**
+	 * check if a review is already added
+	 * @param itemID
+	 * @param oID
+	 * 
+	 */
+	public Boolean checkReviewAdded(String itemID, String oID);
 }

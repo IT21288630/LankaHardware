@@ -9,6 +9,7 @@ public class Customer {
 	private String phone;
 	private String name;
 	private String address;
+	private String Profilepics;
 	
 	private ArrayList<String> profile;
 
@@ -58,6 +59,14 @@ public class Customer {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getProfilepics() {
+		return Profilepics;
+	}
+
+	public void setProfilepics(String profilepics) {
+		Profilepics = profilepics;
 	}
 
 	

@@ -20,16 +20,23 @@ import java.util.logging.Logger;
 import model.Item;
 import util.CommonConstants;
 import util.CommonUtil;
-import util.DBConnectionIsuru;
+
 import util.DBConnectionUtil;
 
 public class IStockServiceImpl implements IStockService {
 	private static Connection con;
 
 	private static Statement st;
+
+	private static PreparedStatement pstI;
+	
 	private static PreparedStatement pst;
 	
+	private static PreparedStatement pstS;
 	
+	private static PreparedStatement pstW;
+	
+	private static PreparedStatement pstImg;
 
 	private static ResultSet rs;
 
@@ -45,7 +52,7 @@ public class IStockServiceImpl implements IStockService {
 		ArrayList<Item> items = new ArrayList<>();
 		//ArrayList<String> images = new ArrayList<>();
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_Stock_ITEMS);
@@ -58,6 +65,7 @@ public class IStockServiceImpl implements IStockService {
 				 item.setItemID(rs.getString(1));
 				 item.setName(rs.getString(2));
 				 item.setType(rs.getString(3));
+				// item.setSubType(rs.getString(4));
 				 item.setBrand(rs.getString(4));
 				 item.setQuantity(rs.getInt(5));
 				 item.setPrice(rs.getDouble(6));
@@ -128,7 +136,7 @@ public class IStockServiceImpl implements IStockService {
 			}
 		} */
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			st = con.createStatement();
@@ -175,7 +183,7 @@ public class IStockServiceImpl implements IStockService {
 			}*/
 
 			pst.executeUpdate();
-			
+
 			status = "Stock Item Added";
 			newItemID = item.getItemID();
 			System.out.println("IstockImpl generated id if success: " + newItemID );
@@ -194,8 +202,8 @@ public class IStockServiceImpl implements IStockService {
 			 */
 
 			try {
-				if (pst != null) {
-					pst.close();
+				if (pstI != null) {
+					pstI.close();
 				}
 				if (rs != null) {
 					rs.close();
@@ -207,7 +215,7 @@ public class IStockServiceImpl implements IStockService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-		System.out.println("This is the status: "+ status);
+		System.out.println("This should not print");
 		return status;
 
 	}
@@ -222,7 +230,8 @@ public class IStockServiceImpl implements IStockService {
 		Item item = new Item();
 		item.setItemID(stockId);
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
+
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_StockItem);
 			pst.setString(CommonConstants.COLUMN_INDEX_ONE, item.getItemID());
@@ -241,7 +250,7 @@ public class IStockServiceImpl implements IStockService {
 
 			try {
 				if (pst != null) {
-					pst.close();
+					pstI.close();
 				}
 				if (st != null) {
 					st.close();
@@ -358,7 +367,7 @@ public class IStockServiceImpl implements IStockService {
 
 			try {
 				if (pst != null) {
-					pst.close();
+					pstI.close();
 				}
 				if (st != null) {
 					st.close();
@@ -379,9 +388,9 @@ public class IStockServiceImpl implements IStockService {
 		ArrayList<Item> items = new ArrayList<>();
 		
 		System.out.println("This is impl");
-		String sql = "SELECT id, name, category, description, brand, price, quantity, mf_date, exp_date, warrentyType, warrentyNum, warrentyPeriod FROM item_m where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%' group by id;";
+		String sql = "SELECT id, name, type, subtype, description, brand, mf_date, exp_date, price, quantity, warrentyType, warrentyNum, warrentyPeriod FROM item_m where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%' group by id;";
 
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 		
@@ -392,15 +401,18 @@ public class IStockServiceImpl implements IStockService {
 				 item.setItemID(rs.getString(1));
 				 item.setName(rs.getString(2));
 				 item.setType(rs.getString(3));
-				 item.setDescription(rs.getString(4));
-				 item.setBrand(rs.getString(5));
-				 item.setPrice(rs.getDouble(6));
-				 item.setQuantity(rs.getInt(7));
-				 item.setMfDate(rs.getString(8));
-				 item.setExpDate(rs.getString(9));
-				 item.setWarrentyType(rs.getString(10));
-				 item.setWarrentyNumber(rs.getInt(11));
-				 item.setWarrantyPeriod(rs.getString(12));
+				 item.setSubType(rs.getString(4));
+				 item.setDescription(rs.getString(5));
+				 item.setBrand(rs.getString(6));
+				 item.setMfDate(rs.getString(7));
+				 item.setExpDate(rs.getString(8));
+				 item.setSize(rs.getString(9));
+				 item.setStock(rs.getInt(10));
+				 item.setPrice(rs.getDouble(11));
+				 //item.setMainImg(rs.getString(12));			
+				 item.setWarrentyType(rs.getString(12));
+				 item.setWarrentyNumber(rs.getInt(13));
+				 item.setWarrantyPeriod(rs.getString(14));
 
 
 				items.add(item);
@@ -419,13 +431,15 @@ public class IStockServiceImpl implements IStockService {
 		// TODO Auto-generated method stub
 		System.out.println("IstockImpl before connection is done");
 		ArrayList<Item> items = new ArrayList<>();
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 			
+			
+			
 			if(sort == 1) {
 				System.out.println("IstockImpl if sortby == 1 is done");
-				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_ID);
+				rs = st.executeQuery(CommonConstants.QUERY_ID_GET_Stock_ITEMS);
 			}
 			else if(sort == 2) {
 				System.out.println("IstockImpl if sortby == 2 is done");
@@ -443,11 +457,6 @@ public class IStockServiceImpl implements IStockService {
 				System.out.println("IstockImpl if sortby == 5 is done");
 				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_EXP);
 			}
-			else if(sort == 6) {
-				System.out.println("IstockImpl if sortby == 6 is done");
-				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_PRICE);
-			}
-			
 			else {
 				rs = st.executeQuery(CommonConstants.QUERY_ID_GET_Stock_ITEMS);
 			}
@@ -461,18 +470,17 @@ public class IStockServiceImpl implements IStockService {
 				 item.setName(rs.getString(2));
 				 item.setType(rs.getString(3));
 				// item.setSubType(rs.getString(4));
-				 item.setDescription(rs.getString(4));
-				 item.setBrand(rs.getString(5));
-				 item.setQuantity(rs.getInt(6));
-				 item.setPrice(rs.getDouble(7));
-				 item.setMfDate(rs.getString(8));
-				 item.setExpDate(rs.getString(9));
+				 item.setDescription(rs.getString(5));
+				 item.setBrand(rs.getString(6));
+				 item.setMfDate(rs.getString(7));
+				 item.setExpDate(rs.getString(8));
 			    // item.setSize(rs.getString(9));
-				
+				 item.setQuantity(rs.getInt(10));
+				 item.setPrice(rs.getDouble(11));
 				 //item.setMainImg(rs.getString(12));			
-				 item.setWarrentyType(rs.getString(10));
-				 item.setWarrentyNumber(rs.getInt(11));
-				 item.setWarrantyPeriod(rs.getString(12));
+				 item.setWarrentyType(rs.getString(13));
+				 item.setWarrentyNumber(rs.getInt(14));
+				 item.setWarrantyPeriod(rs.getString(15));
 
 				items.add(item);
 			}

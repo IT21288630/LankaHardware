@@ -41,11 +41,11 @@
 		    		<div class="row d-flex">
 		    			<div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
+						    <span class="text">081 1234567</span>
 					    </div>
 					    <div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
+						    <span class="text">lankaharware@gmail.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
@@ -57,30 +57,24 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Minishop</a>
+	      <a class="navbar-brand" href="index.jsp">LankaHardware</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.html">Shop</a>
-                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item active"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+	          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
+	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
+	          <li class="nav-item"><a href="Completedorder.jsp" class="nav-link">Orders</a></li>
+	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
+	          
+	          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>
 	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
 							class="nav-link"><span class="icon-shopping_cart"></span><span id="cartQuantity"></span></a></li>
-	    	  <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
+			  <li class="nav-item"><a href="profile.jsp" class="nav-link"><i class="fa-solid fa-user"></i></a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -101,29 +95,7 @@
 
     <section class="ftco-section contact-section bg-light">
       <div class="container">
-      	<div class="row d-flex mb-5 contact-info">
-          <div class="w-100"></div>
-          <div class="col-md-3 d-flex">
-          	<div class="info bg-white p-4">
-	            <p><span>Address:</span> Katugastota Kandy</p>
-	          </div>
-          </div>
-          <div class="col-md-3 d-flex">
-          	<div class="info bg-white p-4">
-	            <p><span>Phone:</span> <a href="tel://1234567920">+076 3456789</a></p>
-	          </div>
-          </div>
-          <div class="col-md-3 d-flex">
-          	<div class="info bg-white p-4">
-	            <p><span>Email:</span> <a href="mailto:info@yoursite.com">lankahaedare@gmail.com</a></p>
-	          </div>
-          </div>
-          <div class="col-md-3 d-flex">
-          	<div class="info bg-white p-4">
-	            <p><span>Facebook</span> <a href="#">lankaHardware</a></p>
-	          </div>
-          </div>
-        </div>
+      
         <div class="row block-9">
           <div class="col-md-6 order-md-last d-flex">
             <form action="" class="bg-white p-5 contact-form">
@@ -143,7 +115,7 @@
           </div>
 
           <div class="col-md-6 d-flex">
-          <img alt="" src="images/hardware.jpg" style="width: 100%;">
+          <img alt="" src="images/feedback1.jpg" style="width: 100%;">
           	
           </div>
         </div>
@@ -154,52 +126,52 @@
     	
     		<div class="row justify-content-center" href ="images/hardware.jpg">
     			<div class="col-md-8 heading-section text-center mb-4 ftco-animate">
-            <h2 class="mb-4">Follow Us On Instagram</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+            <h2 class="mb-4">Shop your Products</h2>
+            <p></p>
           </div>
     		</div>
     	</div>
     	<div class="container-fluid px-0">
     		<div class="row no-gutters">
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-1.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-1.jpg);">
+						<a href="images/construction.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/construction.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-2.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-2.jpg);">
+						<a href="images/paintBrush.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/paintBrush.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-3.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-3.jpg);">
+						<a href="images/toolkit1.png" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/toolkit1.png);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-4.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-4.jpg);">
+						<a href="images/tools.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/tools.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-5.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-5.jpg);">
+						<a href="images/Bolt.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/Bolt.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-lg-2 ftco-animate">
-						<a href="images/gallery-6.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/gallery-6.jpg);">
+						<a href="images/cement.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/cement.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
+    						<span class=""></span>
     					</div>
 						</a>
 					</div>
@@ -218,9 +190,9 @@
       	</div>
         <div class="row mb-5">
           <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Minishop</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">LANKA HARDWARE</h2>
+              <p>Lanka Hardware is a company that aims to facilitate and meet the entire scope of the construction and home improvement market</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -256,14 +228,14 @@
 	            </div>
             </div>
           </div>
-          <div class="col-md">
+           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Katugastota Road, Kandy, Sri Lanka</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">081 1234567</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">lankaharware@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -273,7 +245,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						 <script>document.write(new Date().getFullYear());</script> <i class="icon-heart color-danger" aria-hidden="true"></i> </a>
 						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</p>
           </div>
@@ -368,6 +340,11 @@
   <script src="js/feedback.js"></script>
   <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
   
-
+	<script>
+	//Call cart servlet
+		$(document).ready(function () {
+			callCartServlet(false)
+		});
+	</script>
   </body>
 </html>
