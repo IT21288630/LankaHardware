@@ -12,6 +12,8 @@ public interface IIndexService {
 	
 	/**
 	 * get new arrivals
+	 * @param email
+	 * 
 	 */
-	public ArrayList<Item> getNewArrivals();
+	public ArrayList<Item> getNewArrivals(String email);
 }

@@ -30,7 +30,7 @@ public class IndexServiceImpl implements IIndexService {
 	public static final Logger log = Logger.getLogger(IndexServiceImpl.class.getName());
 
 	@Override
-	public ArrayList<Item> getNewArrivals() {
+	public ArrayList<Item> getNewArrivals(String email) {
 		// TODO Auto-generated method stub
 
 		IReviewService iReviewService = new ReviewServiceImpl();
@@ -66,7 +66,7 @@ public class IndexServiceImpl implements IIndexService {
 				items.add(item);
 			}
 
-			customer.setEmail("a@g.m");
+			customer.setEmail(email);
 			
 			for (Item item : items) {
 				item.setAvgRating(iReviewService.getAverageRating(item.getItemID()));
