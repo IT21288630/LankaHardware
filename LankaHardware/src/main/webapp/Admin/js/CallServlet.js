@@ -77,6 +77,15 @@ function callAddEmployeeServlet(){
 	var wage = document.getElementById('wage').value
 	var salary = document.getElementById('salary').value
 	
+	if(!email.includes("@gmail")){
+		console.log("Invalid email")
+		return
+	}
+	
+	if(phoneNum.length != 9){
+		return
+	}
+	
 	console.log(phoneNum)
 	
 	var endpoint = "http://localhost:8080/LankaHardware/AddEmployeeServlet"

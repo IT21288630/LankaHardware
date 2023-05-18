@@ -77,7 +77,7 @@
 		          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
 	              <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
 		          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
-		          <li class="nav-item"><a href="Completedorder.jsp.jsp" class="nav-link">Orders</a></li>
+		          <li class="nav-item"><a href="Completedorder.jsp" class="nav-link">Orders</a></li>
 		          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
 		          
 		          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>

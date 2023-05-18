@@ -182,8 +182,8 @@ function validation() {
 					}, 1000);
 					
 				
-			GenerateBarCode();
 			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod);
+			GenerateBarCode();
 			
 		}
 		
@@ -203,7 +203,7 @@ function GenerateBarCode(){
 	//var viewStockModalFooter = document.getElementById('BarCodeModalFooter')
 	var viewCard = document.getElementById('BarCodeModalFooter')
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 	stock = response
 	var stockLen = stock.length;
@@ -322,7 +322,7 @@ var stocktable = document.getElementById('stock')
 // view stock items
 function callGetAllStockServlet(){
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 		stock = response
 		var stockLen = stock.length;
@@ -407,7 +407,7 @@ function callSortbyServlet(sort){
 		showType.innerHTML = 'Exp-Date';
 	}
 	
-	var endpoint = "http://localhost:8081/LankaHardware/GetAllStoreItemSortByServlet";
+	var endpoint = "http://localhost:8080/LankaHardware/GetAllStoreItemSortByServlet";
 	
 	$.post(endpoint,{sort:sort}, function(response){
 			stock = response
@@ -428,7 +428,7 @@ function callSortbyServlet(sort){
 
 function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod){
 		
-		var endpoint = "http://localhost:8081/LankaHardware/AddStoreItemsServlet";
+		var endpoint = "http://localhost:8080/LankaHardware/AddStoreItemsServlet";
 		
 		console.log("This is before addstoreitems")
 		//console.log("Inputs: " + name + category+brand+price+quantity+ description+mf_date+exp_date+ warrentyType+ warNum+ warPeriod+size+ img+subType);
@@ -890,7 +890,7 @@ function callupdateItem(itemID,name,type,brand,price,quantity,description,mf,exp
 	console.log(itemID + name + type + brand + price + quantity + description + mf + exp + warrentyType + warNum + WarrantyPeriod)
 	
 	
-	var endpoint = "http://localhost:8081/LankaHardware/UpdateStock"
+	var endpoint = "http://localhost:8080/LankaHardware/UpdateStock"
 	//var formData = new FormData();
 	//for(const file of inputFile.files){
 	//	formData.append('updateModal', file)
@@ -955,7 +955,7 @@ function callDeleteStockServlet(id) {
 	deleteModalFooter.style = "display: none;"
 	
 		
-	$.post("http://localhost:8081/LankaHardware/RemoveItem", { id: id }, function(response) {
+	$.post("http://localhost:8080/LankaHardware/RemoveItem", { id: id }, function(response) {
 			
 		console.log("Hey This is the calldeleteServlet function after the response");
 		console.log("response is: ", response);
@@ -991,7 +991,7 @@ function searchItem(){
 			}
 			else{
 					
-					$.post("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
+					$.post("http://localhost:8080/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
 					stock = response;	
 					var stockLen = stock.length;
 					console.log("Stock response: " + response)
@@ -1065,7 +1065,7 @@ function buildNotfound(keyword){
 }*/
 
 function getTable(){
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 	stock = response
 	var stockLen = stock.length;

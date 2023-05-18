@@ -1,10 +1,13 @@
 var stock = []
 var stocktable = document.getElementById('stock')
 var totalQ = 0
+var totalQArr = []
+var FinalDividedArr = []
+
 // view stock items
 function callGetAllStockServlet(){
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 		stock = response
 		var stockLen = stock.length;
@@ -15,7 +18,7 @@ function callGetAllStockServlet(){
 
 function callGetAllStockTotal(){
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllStockTotal", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllStockTotal", function(response) {
 				
 		totalQ = response
 		console.log(totalQ)
@@ -33,7 +36,8 @@ function buildAllStock(stock, stockLen){
 
 	//console.log(stock[1].itemID)
 	for(var i = 0; i < stockLen; i++){
-		 
+		totalQArr[i] = stock[i].quantity
+		
 		 			var stockInFo = `<tr>
 								<td>
 									${stock[i].itemID}
@@ -67,11 +71,138 @@ function buildAllStock(stock, stockLen){
 							
 							
 	}
-
+	
+	var totalQNumArray = totalQArr.map(Number);
+	createAnaliticsforQuantity(totalQNumArray)
+	
+	console.log(totalQNumArray);
 	callGetAllStockTotal();
 	
 	
 
+}
+
+function createAnaliticsforQuantity(Qarray){
+	var len = Qarray.length
+	var resultArr = []
+	var divide = 7
+	console.log("This is the len in analitics: ", len)
+	
+	var fragment = len/divide;
+	console.log("after /7: ", fragment)
+	
+	var round = Math.trunc(fragment)
+	console.log("round: ", round)
+	
+	
+	for(var i=0; i < len; ){
+		var k = 0;	
+		var sum = 0;
+		for(var j=0; j<round; j++){
+			 
+			if(Qarray[i] == 0 || Qarray[i] == null || Qarray[i] == ""){
+				break;
+			}
+			sum += Qarray[i];
+			i++	
+		}
+		
+	
+		
+		resultArr.push(sum)
+		k++;
+		
+		
+		console.log("THis is the sum of round: ", sum)
+	}
+	
+	FinalDividedArr = resultArr.map(Number);
+	console.log("Result array: ", FinalDividedArr[0])
+	
+	
+	
+//stock
+
+const QuantityChart = document.getElementById('customers').getContext('2d')
+
+console.log("Cus tempArr: ", FinalDividedArr)
+var st0 = FinalDividedArr[0]
+var st1 = FinalDividedArr[1]
+var st2 = FinalDividedArr[2]
+var st3 = FinalDividedArr[3]
+var st4 = FinalDividedArr[4]
+var st5 = FinalDividedArr[5]
+var st6 = FinalDividedArr[6]
+
+const quantity = new Chart(QuantityChart,{
+    type:'line',
+    data:{
+        labels:['mon','tue','wed','thu','fri','sat','sun'],
+        datasets:[{
+            data:[st0, st1, st2,st3,st4,st5,st6],
+            borderColor:['rgb(59,197,154,1)'],
+            borderWidth:2
+        }]
+    },
+    options:{
+        elements:{
+            point:{
+                radius:0
+            }
+        },
+        scales:{
+            x:{
+                display:false
+            },
+            y:{
+                display:false
+            }
+        },
+        plugins:{
+            legend:{
+                display:false 
+            }
+        }
+    }
+})
+	
+const stockQbar = document.getElementById('tarsale').getContext('2d');
+const myChart = new Chart(stockQbar,{
+	type:'bar',
+	data:{
+		labels: ['1','2','3','4','5','6','7'],
+		datasets: [{
+			label: '# Stock Quantity',
+			data: [st0, st1, st2,st3,st4,st5,st6],
+			backgroundColor: [
+				'rgba(255,99,132,0.2)',
+				'rgba(54,162,235,0.2)',
+				'rgba(255,206,86,0.2)',
+				'rgba(75,192,192,0.2)',
+				'rgba(153,102,255,0.2)',
+				'rgba(255,159,64,0.2)'
+			],
+			borderColor:[
+				'rgba(255,99,132, 1)',
+				'rgba(54,162,235, 1)',
+				'rgba(255,206,86, 1)',
+				'rgba(75,192,192, 1)',
+				'rgba(153,102,255,1)',
+				'rgba(255,159,64, 1)'
+			],
+			borderWidth: 1
+		}]
+	},
+	options:{
+		scales:{
+			y:{
+				beginAtZero: true
+			}
+		}
+	}
+})
+		
+		
 }
 
 
@@ -87,14 +218,11 @@ function GenerateBarCode(id){
 	var BarStockModalFooter = document.getElementById('BarCodeModalFooter')
 	var BarCodeModalTitle = document.getElementById('BarCodeModalTitle')
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
-				
-	stock = response
-	
-							JsBarcode('#barcode', id,{
-									format: 'code128',
-									displayValue: true,
-								});			
+
+	JsBarcode('#barcode', id,{
+			format: 'code128',
+			displayValue: true,
+		});			
 								              					
 	BarModalHeader.style = '';
 	BarModalHeader.innerHTML = `
@@ -115,8 +243,7 @@ function GenerateBarCode(id){
 	BarStockModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">Close</button>  <button type="button" class="btn btn-primary me-2" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">View Store</button>`;		
 	
 	
-	})	
-}
+	}
 
 //Main
 
@@ -197,42 +324,6 @@ const sales = new Chart(salesChart,{
 })
 
 
-//customer
-
-const customersChart = document.getElementById('customers').getContext('2d')
-const customers = new Chart(customersChart,{
-    type:'line',
-    data:{
-        labels:['mon','tue','wed','thu','fri','sat','sun'],
-        datasets:[{
-            data:[12,43,86,157,279,33,750],
-            borderColor:['rgb(59,197,154,1)'],
-            borderWidth:2
-        }]
-    },
-    options:{
-        elements:{
-            point:{
-                radius:0
-            }
-        },
-        scales:{
-            x:{
-                display:false
-            },
-            y:{
-                display:false
-            }
-        },
-        plugins:{
-            legend:{
-                display:false 
-            }
-        }
-    }
-})
-
-
 
 
 function searchItem(){
@@ -248,7 +339,7 @@ function searchItem(){
 			}
 			else{
 					
-					$.post("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
+					$.post("http://localhost:8080/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
 					stock = response;	
 					var stockLen = stock.length;
 					console.log("Stock response: " + response)

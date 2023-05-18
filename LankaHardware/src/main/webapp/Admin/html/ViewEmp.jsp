@@ -406,10 +406,10 @@
                             <label for="email" class="form-label">E-mail</label>
                             <input
                               class="form-control"
-                              type="text"
+                              type="email"
                               id="email"
                               name="email"
-                             
+                             required 
                               placeholder="123@gmail.com"
                             />
                           </div>
@@ -420,6 +420,7 @@
                               class="form-control"
                               id="designation"
                               name="designation"
+                              required
                               placeholder = "Assistant Manager"
                             />
                           </div>
@@ -428,11 +429,12 @@
                             <div class="input-group input-group-merge">
                               <span class="input-group-text">LK (+94)</span>
                               <input
-                                type="text"
+                                type="tel"
                                 id="phoneNum"
                                 name="phoneNum"
                                 class="form-control"
                                 placeholder="07********"
+                                required
                               />
                             </div>
                           </div>
@@ -455,7 +457,7 @@
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="language" class="form-label">Appointment Date</label><br>
-                           <input name = date type="date" id="date" name = "date">
+                           <input name = date type="date" id="date" name = "date" required>
 
                           </div>
                           <div class="mb-3 col-md-6">
@@ -475,7 +477,7 @@
                               id="salary"
                               name="salary"
                               placeholder = "Rs 50000"
-                              
+                              required
                               
                             />
                            

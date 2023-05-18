@@ -171,8 +171,8 @@
             <div class="cards">
                 <div class="card card-1">
                     <div class="card--title">
-                        <span class="card--icon icon"><i class="ri-shopping-bag-2-line"></i></span>
-                        <span>Sales</span>
+                        <span class="card--icon icon"><i class="ri-user-line"></i></i></span>
+                        <span>Customers</span>
                     </div>
                     <h3 class="card--value">$32,576.34 <i class="ri-arrow-up-circle-fill up"></i></h3>
                     <h5 class="more">4,234 more than usual</h5>
@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 
-                <!-- 
+                
                 <div class="card card-2">
                     <div class="card--title">
                         <span class="card--icon icon"><i class="ri-gift-line"></i></span>
@@ -194,7 +194,7 @@
                     </div>
 
                 </div>
-                -->
+               
                 <div class="card card-3">
                     <div class="card--title">
                         <span class="card--icon icon"><i class="ri-handbag-line"></i></span>
@@ -208,7 +208,7 @@
                 </div>
                 <div class="card card-4">
                     <div class="card--title">
-                        <span class="card--icon icon"><i class="ri-user-line"></i></span>
+                        <span class="card--icon icon"><i class="ri-shopping-bag-2-line"></i></span>
                         <span>Stock</span>
                     </div>
                     <h3 class="card--value" id="stockQtotal"><i class="ri-arrow-down-circle-fill down"></i></h3>
@@ -441,6 +441,8 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+		
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js"></script>
 
 	<!-- build:js assets/vendor/js/core.js -->
 	<script src="https://smtpjs.com/v3/smtp.js"></script>
