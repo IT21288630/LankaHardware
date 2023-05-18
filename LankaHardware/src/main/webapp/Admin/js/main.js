@@ -206,7 +206,7 @@ var answerModalHeader = document.getElementById('answerModalHeader')
 var answerModalBody = document.getElementById('answerModalBody')
 var answerModalFooter = document.getElementById('answerModalFooter')
 
-function createAnswerModal(question, questionID, customerEmail, itemName, mainImg) {
+function createAnswerModal(question, questionID, customerEmail, itemName, mainImg, itemID) {
 	answerModalHeader.innerHTML = `<h5 class="modal-title" id="modalCenterTitle">Type the Answer</h5>
 					              <button
 					                type="button"
@@ -228,18 +228,18 @@ function createAnswerModal(question, questionID, customerEmail, itemName, mainIm
 	answerModalFooter.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
 					                Close
 					              </button>
-					              <button type="button" class="btn btn-primary" onclick="toAnswerServlet('${question}', '${questionID}', '${customerEmail}', '${itemName}', '${mainImg}');">Submit</button>`
+					              <button type="button" class="btn btn-primary" onclick="toAnswerServlet('${question}', '${questionID}', '${customerEmail}', '${itemName}', '${mainImg}', '${itemID}');">Submit</button>`
 	answerModalFooter.style.display = ""
 }
 
-function toAnswerServlet(question, questionID, customerEmail, itemName, mainImg) {
+function toAnswerServlet(question, questionID, customerEmail, itemName, mainImg, itemID) {
 	var answer = document.getElementById('answerTextArea').value
 	answer = answer.trim()
 
-	if (answer.length > 0) callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg)
+	if (answer.length > 0) callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg, itemID)
 }
 
-function callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg) {
+function callAnswerQuestionServlet(question, answer, questionID, customerEmail, itemName, mainImg, itemID) {
 	answerModalHeader.style = "display: none;"
 	answerModalBody.style = "text-align: center;"
 	answerModalBody.innerHTML = `<div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
@@ -247,7 +247,7 @@ function callAnswerQuestionServlet(question, answer, questionID, customerEmail, 
 		                        </div>`
 	answerModalFooter.style = "display: none;"
 	
-	$.post("http://localhost:8080/LankaHardware/AnswerQuestionServlet", { question: question, answer: answer, questionID: questionID, customerEmail: customerEmail, itemName: itemName, mainImg: mainImg }, function(response) {
+	$.post("http://localhost:8080/LankaHardware/AnswerQuestionServlet", { question: question, answer: answer, questionID: questionID, customerEmail: customerEmail, itemName: itemName, mainImg: mainImg, itemID: itemID }, function(response) {
 
 		answerModalBody.style = "padding: 1rem; text-align: initial;"
 		answerModalBody.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; column-gap: 10px;">

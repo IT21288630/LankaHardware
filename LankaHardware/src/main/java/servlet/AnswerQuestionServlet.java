@@ -57,6 +57,7 @@ public class AnswerQuestionServlet extends HttpServlet {
 		//String email = "b@g.m";
 		admin.setEmail(email);
 		customer.setEmail(request.getParameter("customerEmail"));
+		item.setItemID(request.getParameter("itemID"));
 		item.setName(request.getParameter("itemName"));
 		item.setMainImg(request.getParameter("mainImg"));
 		
