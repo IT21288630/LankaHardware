@@ -182,8 +182,8 @@ function validation() {
 					}, 1000);
 					
 				
-			GenerateBarCode();
 			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod);
+			GenerateBarCode();
 			
 		}
 		
