@@ -7,7 +7,7 @@ var FinalDividedArr = []
 // view stock items
 function callGetAllStockServlet(){
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
 				
 		stock = response
 		var stockLen = stock.length;
@@ -18,7 +18,7 @@ function callGetAllStockServlet(){
 
 function callGetAllStockTotal(){
 	
-	$.get("http://localhost:8081/LankaHardware/GetAllStockTotal", function(response) {
+	$.get("http://localhost:8080/LankaHardware/GetAllStockTotal", function(response) {
 				
 		totalQ = response
 		console.log(totalQ)
@@ -339,7 +339,7 @@ function searchItem(){
 			}
 			else{
 					
-					$.post("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
+					$.post("http://localhost:8080/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
 					stock = response;	
 					var stockLen = stock.length;
 					console.log("Stock response: " + response)

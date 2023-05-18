@@ -16,6 +16,7 @@ import util.CommonConstants;
 import util.CommonUtil;
 
 import util.DBConnectionIsuru;
+import util.DBConnectionUtil;
 
 public class IStockServiceImpl implements IStockService {
 	private static Connection con;
@@ -41,7 +42,7 @@ public class IStockServiceImpl implements IStockService {
 		ArrayList<Item> items = new ArrayList<>();
 		//ArrayList<String> images = new ArrayList<>();
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_Stock_ITEMS);
@@ -125,7 +126,7 @@ public class IStockServiceImpl implements IStockService {
 			}
 		} */
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			st = con.createStatement();
@@ -219,7 +220,7 @@ public class IStockServiceImpl implements IStockService {
 		Item item = new Item();
 		item.setItemID(stockId);
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_StockItem);
@@ -262,7 +263,7 @@ public class IStockServiceImpl implements IStockService {
 
 		String status = "There was a problem";
 		
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 
 		try {
 			if(!name.equals("null")) {
@@ -380,7 +381,7 @@ public class IStockServiceImpl implements IStockService {
 		String sql = "SELECT id, name, category, brand, quantity, price,description,mf_date, exp_date,warrentyType,warrentyNum, warrentyPeriod FROM item_m where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%' group by id;";
 
 				
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 		
@@ -418,7 +419,7 @@ public class IStockServiceImpl implements IStockService {
 		// TODO Auto-generated method stub
 		System.out.println("IstockImpl before connection is done");
 		ArrayList<Item> items = new ArrayList<>();
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		try {
 			st = con.createStatement();
 				
@@ -486,7 +487,7 @@ public class IStockServiceImpl implements IStockService {
 	@Override
 	public int TotalQuantityCount() {
 		int SumValue = 0;
-		con = DBConnectionIsuru.getConnection();
+		con = DBConnectionUtil.getDBConnection();
 		
 		try {
 			st = con.createStatement();
