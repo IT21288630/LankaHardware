@@ -296,6 +296,7 @@ li a {
   <script src="js/main.js"></script>
   <script src="js/nilusha.js"></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://kit.fontawesome.com/339febfaad.js" crossorigin="anonymous"></script>
 
   <script>
 		$(document).ready(function(){
