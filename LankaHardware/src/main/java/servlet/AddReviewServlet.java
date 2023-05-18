@@ -54,7 +54,7 @@ public class AddReviewServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 
-		String email = "a@g.m";
+		String email = "regularpizza17@gmail.com";
 		String itemID = request.getParameter("itemID");
 		String oID = request.getParameter("oID");
 		//String itemID = "i100";
