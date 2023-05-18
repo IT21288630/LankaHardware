@@ -259,7 +259,7 @@ public class IStockServiceImpl implements IStockService {
 
 	
 	@Override
-	public String updateStockItems(String id, String name, String cat, String Bra, double pr, int quan, String Des, String mf,String exp, String wt, String wn, String wp) {
+	public String updateStockItems(String id, String name, String cat, String Bra, double pr, int quan, String Des, String mf,String exp, String wt, int wn, String wp) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
@@ -323,23 +323,23 @@ public class IStockServiceImpl implements IStockService {
 				pst.executeUpdate();
 			}
 			
-			if(!WarrantyType.equals("null")) {
+			if(!wt.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_WARTYPE);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, WarrantyType);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, wt);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 			
-			if(warrentyNum != 0) {
+			if(wn != 0) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_WARNUM);
-				pst.setInt(CommonConstants.COLUMN_INDEX_ONE, warrentyNum);
+				pst.setInt(CommonConstants.COLUMN_INDEX_ONE, wn);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
 			
-			if(!warPeriod.equals("null")) {
+			if(!wp.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_WARPERIOD);
-				pst.setString(CommonConstants.COLUMN_INDEX_ONE, warPeriod);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, wp);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}

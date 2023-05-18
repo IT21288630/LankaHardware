@@ -182,7 +182,7 @@ public class CommonConstants {
 	
 	public static final String QUERY_ID_UPDATE_ITEM_PRICE = "UPDATE item_m SET price = ? WHERE id = ?;";
 	
-	//public static final String QUERY_ID_UPDATE_ITEM_QUANTITY = "UPDATE item_m SET stock = ? WHERE id = ?;";
+	public static final String QUERY_ID_UPDATE_ITEM_QUANTITY = "UPDATE item_m SET quantity = ? WHERE id = ?;";
 	
 	public static final String QUERY_ID_UPDATE_ITEM_DESCRIPTION = "UPDATE item_m SET description = ? WHERE id = ?;";
 	
