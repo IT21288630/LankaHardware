@@ -21,7 +21,10 @@ public interface IStockService {
 
 	public String removeStockItems(String itemID);
 
-	public String updateStockItems(String id, String name, String cat, String Brand, double price, int quantity, String Des, String mf,String exp);
+	public String updateStockItems(String id, String name, String cat, String Bra, double pr, int quan, String Des, String mf,String exp);
+	
+	public int TotalQuantityCount();
+	
 
 	
 	

@@ -7,6 +7,8 @@ public class Admin extends User {
 //	private String Address;	
 	private String role;
 
+	
+	
 	public String getRole() {
 		return role;
 	}

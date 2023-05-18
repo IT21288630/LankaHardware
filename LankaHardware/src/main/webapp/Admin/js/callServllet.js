@@ -555,35 +555,58 @@ function buildAdminProfile(admin) {
 	var phone = document.getElementById('phone')
 	var name = document.getElementById('name')
 	var address = document.getElementById('Address')
+	var Propic = document.getElementById('uploadedAvatar')
 
 	phone.placeholder = admin.phone
 	name.placeholder = admin.name
 	address.placeholder = admin.address
+	Propic.src = admin.ProfilePic
 
 }
-//update admin profile
-function callUpdateAdminProfile() {
-  var phone = document.getElementById('phone').value;
-  var name = document.getElementById('name').value;
-  var address = document.getElementById('Address').value;
+//update admin
 
-  console.log(phone, name, address);
+function callUpdataAdminProfile() {
+	var phone = document.getElementById('phone').value || "null";
+	var name = document.getElementById('name').value || "null";
+	var address = document.getElementById('Address').value || "null";
+	var ProfilePic = document.getElementById('upload')|| "null";;
 
-  // Check if any field is empty and set default values
-  if (phone === "") {
-    phone = "null";
-  }
-  if (name === "") {
-    name = "null";
-  }
-  if (address === "") {
-    address = "null";
-  }
+	console.log(phone, name, address, ProfilePic);
 
-  // Update the admin profile using the values
-  // ...
-  // Your code to update the admin profile goes here
+	var formData = new FormData(); // Create a FormData object to send the data
+
+	formData.append("phone", phone);
+	formData.append("name", name);
+	formData.append("Address", address);
+	formData.append("upload", ProfilePic.files[0]); // Append the selected file to the FormData
+
+	fetch("http://localhost:8080/LankaHardware/UpdataAdminProfile", {
+		method: "post",
+		body: formData
+	})
+
+	//	$.ajax({
+	//		url: "http://localhost:8080/LankaHardware/UpdateCusProfile",
+	//		type: "POST",
+	//		data: formData,
+	//		processData: false, // Important to prevent jQuery from processing the data
+	//		contentType: false, // Important to prevent jQuery from setting content type
+	//		success: function(response) {
+	//			var customer = response;
+	//			buildupdateCustomerProfile(customer);
+	//		}
+	//	});
 }
 
-
+function buildupdateAdminProfile(admin) {
+	var phoneElement = document.getElementById('phone');
+	var nameElement = document.getElementById('name');
+	var addressElement = document.getElementById('Address');
+    var Propic = document.getElementById('uploadedAvatar')
+    
+	phoneElement.value = admin.phone || '';
+	nameElement.value =admin.name || '';
+	addressElement.value = admin.address || '';
+	Propic.src = admin.ProfilePic || '';
+}
 

@@ -72,19 +72,17 @@
 					</a>
 				</div>
 
-				           
+				
 				<div class="menu-inner-shadow"></div>
 
-				           
+		
 				<ul class="menu-inner py-1 overflow-auto">
 					<!-- Charts -->
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">Charts</span></li>
 					<!-- charts -->
-					<li class="menu-item"><a href="#"
-						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
-							<div data-i18n="Tables">Charts</div>
-					</a></li>
+					<li class="menu-item"><a href="StockCharts.jsp" class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
+					Charts</a></li>
 					<!-- Forms & Tables -->
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">Tables</span></li>
@@ -175,19 +173,16 @@
 								<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
 									data-bs-toggle="dropdown">
 									<i class="fas fa-sort"></i>
-								</button> <small class="dropdown-menu"> <a class="dropdown-item"
-									href="javascript:void(0);" data-bs-toggle="modal"
-									onclick="callSortbyServlet(1)"> - Id</a> <a
-									class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(2)"> -
-										Name</a> <a class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(3)"> -
-										Category</a> <a class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(4)"> -
-										MF-Date</a> <a class="dropdown-item" href="javascript:void(0);"
-									data-bs-toggle="modal" onclick="callSortbyServlet(5)"> -
-										Exp-Date</a>
-							</small>
+								</button> 
+								<small class="dropdown-menu">
+								 
+								<a class="dropdown-item" onclick="callSortbyServlet(1)"> - Id</a> 
+								<a class="dropdown-item" onclick="callSortbyServlet(2)"> - Name</a> 
+								<a class="dropdown-item" onclick="callSortbyServlet(3)"> - Category</a>
+								<a class="dropdown-item" onclick="callSortbyServlet(6)"> - Price</a> 
+								<a class="dropdown-item" onclick="callSortbyServlet(4)"> - MF-Date</a> 
+								<a class="dropdown-item" onclick="callSortbyServlet(5)"> - Exp-Date</a>
+								</small>
 
 							</small>
 
@@ -317,39 +312,26 @@
 							<div class="mb-3 col-md-6">
 								<label for="stockCat" class="form-label">Category</label> <select
 									id="stockCat" name="stockCat" class="select2 form-select">
-									<option></option>
-									<option value="mechanical">Mechanical</option>
-									<option value="building">Building</option>
-									<option value="electrical">Electronics & Electrical</option>
-									<option value="tools">Tools</option>
-									<option value="general">General</option>
+									 <option value="General">General</option>
+			                        <option value="Tools">Tools</option>
+	                               <option value="Mechanical">Mechanical</option>
+			                        <option value="Building">Building</option>
+			                        <option value="Electrical">Electronics & Electrical</option>
+			                        <option value="Tools">Tools</option>
+			                        <option value="General">General</option>
+			                        <option value="Steel">Steel</option>
+			                        <option value="Roofing">Roofing</option>
+			                        <option value="Paint">Paint</option>
+			                        <option value="Plumbing">Plumbing</option>
+			                        <option value="Tiles & Fitting">Tiles & Fitting</option>
+			                        <option value="Industrial">Industrial</option>
+			                        <option value="Home & Kitchen">Home & Kitchen</option>
 
 								</select> <span id="cat-error" style="color: red; font-size: 13px"></span>
 
 							</div>
 
-							<div class="mb-3 col-md-6">
-								<label for="firstName" class="form-label">Sub-Type</label> <input
-									class="form-control" type="text" id="subType" name="subType"
-									autofocus /> <span id="sub-error"
-									style="color: red; font-size: 13px"></span>
-							</div>
-
-
-							<div class="mb-3 col-md-6">
-								<label for="stockCat" class="form-label">Size</label> <select
-									id="StockSize" name="StockSize" class="select2 form-select">
-									<option value="None">None</option>
-									<option value="Small">Small</option>
-									<option value="Medium">Medium</option>
-									<option value="Large">Large</option>
-									<option value="XXL">XXL</option>
-									<option value="XXXL">XXXL</option>
-
-								</select> <span id="size-error" style="color: red; font-size: 13px"></span>
-
-							</div>
-
+				
 							<div class="mb-3 col-md-6">
 								<label class="form-label" for="basic-default-company">Brand</label>
 								<input type="text" class="form-control" placeholder="ACME Inc."
@@ -407,13 +389,14 @@
 									<img src="../assets/img/elements/lankaHardwareLogo.png"
 										alt="lanka_hardware" class="d-block rounded" height="100"
 										width="100" id="uploadedAvatar">
+										
 									<div class="button-wrapper">
 										<label for="upload" class="btn btn-primary me-2 mb-4"
 											tabindex="0"> <span class="d-none d-sm-block">Product
 												Image</span> <i class="bx bx-upload d-block d-sm-none"></i> <input
-											type="file" id="img" class="account-file-input" hidden=""
+											type="file" id="upload" class="account-file-input" hidden=""
 											accept="image/png, image/jpeg image/jpg"
-											onchange="buildStockImage();">
+											onchange="buildProfileImage();">
 										</label>
 										<button type="button"
 											class="btn btn-outline-secondary account-image-reset mb-4">
@@ -426,6 +409,8 @@
 									</div>
 								</div>
 							</div>
+							
+									
 
 
 
@@ -461,7 +446,7 @@
 									data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
 									Close</button>
 								<button type="submit" class="btn btn-primary"
-									onclick="validation() ; callGetAllStockServlet()">Submit</button>
+									onclick="validation()">Submit</button>
 							</div>
 						</div>
 					</form>
@@ -471,58 +456,128 @@
 		</div>
 
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+                 <!-- Barcode modal -->
+          
+      <div class="modal fade" id="BarCodeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="BarCodeModalHeader">
+              
+            </div>
+            
+            <div id="BarCodeModalTitle">
+             
+            </div>
+            
+            <div class="modal-body" id="BarCodeModalBody">
+               <svg id="barcode"></svg>
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div id="BarCodeModalFooter">
+             
+            	</div>
+              </div>
+            </div>
+            
+          </div>
 
 
+       <!-- view modal -->
+          
+      <div class="modal fade" id="ViewStockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="ViewStockModalHeader">
+              
+            </div>
+            <div class="modal-body" id="ViewStockModalBody"> 
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="ViewStockModalFooter">
+             
+            </div>
+          </div>
+         
+          
+          <!-- edit modal -->
+      <div class="modal fade" id="EditStockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="EditStockModalHeader">
+            
+              
+            </div>
+            <div id="EditStockModalBody">
+              
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="Footer">
+               
+            </div>
+          </div>
 
-
-	<!-- view modal -->
-
-	<div class="modal fade" id="ViewStockModal" tabindex="-1"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header" id="ViewStockModalHeader"></div>
-				<div class="modal-body" id="ViewStockModalBody">
-					<svg id="barcode"></svg>
-				</div>
-				<hr class="my-0" />
-
-				<div class="card-body" id="card-body-edit"></div>
-			</div>
-		</div>
-		<div class="modal-footer" id="ViewStockModalFooter"></div>
-	</div>
-
-
-	<!-- edit modal -->
-	<div class="modal fade" id="EditStockModal" tabindex="-1"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header" id="EditStockModalHeader"></div>
-				<div class="modal-body" id="EditStockModalBody"></div>
-				<hr class="my-0" />
-
-				<div class="card-body" id="card-body-edit"></div>
-			</div>
-		</div>
-		<div class="modal-footer" id="Footer"></div>
-	</div>
-
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header" id="deleteModalHeader"></div>
-				<div class="modal-body" id="deleteModalBody"></div>
-				<div class="modal-footer" style="justify-content: center;"
-					id="deleteModalFooter"></div>
-			</div>
-		</div>
-	</div>
-
-
+<!-- Delete Modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteModalFooter">
+            </div>
+          </div>
+        </div>
+      </div>
+          
+    
 
 
 	<script

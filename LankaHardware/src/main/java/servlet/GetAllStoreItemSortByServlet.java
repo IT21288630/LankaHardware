@@ -30,6 +30,7 @@ public class GetAllStoreItemSortByServlet extends HttpServlet {
     public GetAllStoreItemSortByServlet() {
         super();
         // TODO Auto-generated constructor stub
+        System.out.println("THis is sort by servlet");
     }
 
 	/**

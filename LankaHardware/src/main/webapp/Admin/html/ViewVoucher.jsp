@@ -84,7 +84,7 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">Charts</span></li>
 					<!-- charts -->
-					<li class="menu-item"><a href="#"
+					<li class="menu-item"><a href="StockCharts.jsp"
 						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
 							<div data-i18n="Tables">Charts</div>
 					</a></li>

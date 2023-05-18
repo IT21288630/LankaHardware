@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public abstract class User {
 
 	private String email;
@@ -7,8 +9,9 @@ public abstract class User {
 	private String name;
 	private String phone;
 	private String address;
-	private String profilePic;
-
+	private String ProfilePic;
+	private ArrayList<String> profile;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -50,10 +53,18 @@ public abstract class User {
 	}
 
 	public String getProfilePic() {
-		return profilePic;
+		return ProfilePic;
 	}
 
 	public void setProfilePic(String profilePic) {
-		this.profilePic = profilePic;
+		this.ProfilePic = profilePic;
+	}
+
+	public ArrayList<String> getProfile() {
+		return profile;
+	}
+
+	public void setProfile(ArrayList<String> profile) {
+		this.profile = profile;
 	}
 }
