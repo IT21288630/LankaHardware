@@ -69,9 +69,9 @@
 	          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
               <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
 	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
-	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Orders</a></li>
+	          <li class="nav-item"><a href="Completedorder.jsp" class="nav-link">Orders</a></li>
 	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+	          
 	          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>
 	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"

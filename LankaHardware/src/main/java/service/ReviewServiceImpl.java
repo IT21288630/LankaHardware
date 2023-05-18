@@ -160,23 +160,28 @@ public class ReviewServiceImpl implements IReviewService {
 			itemRatingCount = getItemRatingCount(itemID);
 
 			percentage = (oneStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
+			if (Double.isNaN(percentage))
+				percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (twoStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
+			if (Double.isNaN(percentage))
+				percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (threeStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
+			if (Double.isNaN(percentage))
+				percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (fourStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
+			if (Double.isNaN(percentage))
+				percentage = 0;
 			percentages.add(percentage);
 
 			percentage = (fiveStar / (double) itemRatingCount) * 100;
-			if(Double.isNaN(percentage)) percentage = 0;
+			if (Double.isNaN(percentage))
+				percentage = 0;
 			percentages.add(percentage);
 
 			starNumbers.add((double) oneStar);
@@ -189,7 +194,7 @@ public class ReviewServiceImpl implements IReviewService {
 				ratingPercentageList[i][0] = percentages.get(i);
 				ratingPercentageList[i][1] = starNumbers.get(i);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -283,13 +288,14 @@ public class ReviewServiceImpl implements IReviewService {
 	}
 
 	@Override
-	public void addReview(String email, String itemID, String reviewDescription, int stars,
-			Collection<Part> reviewImages) {
+	public String addReview(String email, String itemID, String reviewDescription, int stars,
+			Collection<Part> reviewImages, String oID) {
 		// TODO Auto-generated method stub
 
 		ArrayList<String> ids = new ArrayList<>();
 		Review review = new Review();
 		ArrayList<String> imagePathArrayList = new ArrayList<>();
+		String status = "There is a problem";
 
 		con = DBConnectionUtil.getDBConnection();
 
@@ -309,6 +315,7 @@ public class ReviewServiceImpl implements IReviewService {
 			pst.setString(CommonConstants.COLUMN_INDEX_THREE, itemID);
 			pst.setString(CommonConstants.COLUMN_INDEX_FOUR, reviewDescription);
 			pst.setInt(CommonConstants.COLUMN_INDEX_FIVE, stars);
+			pst.setString(CommonConstants.COLUMN_INDEX_SIX, oID);
 			pst.executeUpdate();
 
 			// Configure to upload to cloudinary
@@ -327,9 +334,6 @@ public class ReviewServiceImpl implements IReviewService {
 						File tempFile = File.createTempFile("javaMyfile", ".xls");
 						FileUtils.copyToFile(is, tempFile);
 
-						System.out.println(tempFile.getName());
-						System.out.println(tempFile.exists());
-
 						// Upload to cloudinary
 						try {
 							Map<String, String> map = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap());
@@ -338,16 +342,12 @@ public class ReviewServiceImpl implements IReviewService {
 							System.out.println(exception.getMessage());
 						}
 
-						System.out.println("deleting " + tempFile.getAbsolutePath() + " " + tempFile.delete());
-						System.out.println(tempFile.exists());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			}
-
-			System.out.println(imagePathArrayList);
 			review.setReviewImages(imagePathArrayList);
 
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_ADD_REVIEW_IMAGES);
@@ -358,7 +358,7 @@ public class ReviewServiceImpl implements IReviewService {
 				pst.executeUpdate();
 			}
 
-			System.out.println("success");
+			status = "Review Added";
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -382,13 +382,14 @@ public class ReviewServiceImpl implements IReviewService {
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
+		
+		return status;
 	}
 
 	@Override
 	public ReviewChart getChartDetails(String itemID) {
 		// TODO Auto-generated method stub
-		
+
 		double[][] ratingPercentageList = calculateItemRatingPercentage(itemID);
 		ReviewChart reviewChart = new ReviewChart();
 //		ArrayList<Integer> counts = new ArrayList<>();
@@ -427,7 +428,7 @@ public class ReviewServiceImpl implements IReviewService {
 //		}
 
 		reviewChart.setRatingPercentageList(ratingPercentageList);
-		
+
 		return reviewChart;
 	}
 
@@ -435,5 +436,34 @@ public class ReviewServiceImpl implements IReviewService {
 		IReviewService iReviewService = new ReviewServiceImpl();
 		iReviewService.calculateItemRatingPercentage("i600");
 
+	}
+
+	@Override
+	public Boolean checkReviewAdded(String itemID, String oID) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		
+		con = DBConnectionUtil.getDBConnection();
+		
+		try {
+			pst = con.prepareStatement(CommonConstants.QUERY_ID_CHECK_REVIEW_ALREADY_ADDED);
+			pst.setString(CommonConstants.COLUMN_INDEX_ONE, itemID);
+			pst.setString(CommonConstants.COLUMN_INDEX_TWO, oID);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				count++;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(count > 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

@@ -2225,7 +2225,7 @@ function test(){
 	console.log(ratingSubmitBtn)
 }
 
-function callAddReviewServlet(){
+function callAddReviewServlet(itemID){
 	var inputFile = document.getElementById('inputFile')
 	var reviewDescription = document.getElementById('reviewDescription').value
 	var stars = document.querySelector('input[name="rate"]:checked').value
@@ -2236,6 +2236,7 @@ function callAddReviewServlet(){
 		formData.append('inputFile', file)
 	}
 	
+	formData.append('itemID', itemID)
 	formData.append('reviewDescription', reviewDescription)
 	formData.append('stars', stars)
 	

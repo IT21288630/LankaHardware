@@ -72,7 +72,7 @@
 
 	          <li class="nav-item"><a href="returnform.jsp" class="nav-link">Orders</a></li>
 
-	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Orders</a></li>
+	          
 
 	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>

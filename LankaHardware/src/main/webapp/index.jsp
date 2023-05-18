@@ -72,12 +72,12 @@
               <li class="nav-item"><a href="shop.jsp" class="nav-link">Shop</a></li>
 	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Wishlist</a></li>
 
-	          <li class="nav-item"><a href="returnform.jsp" class="nav-link">Orders</a></li>
+	          <li class="nav-item"><a href="Completedorder.jsp" class="nav-link">Orders</a></li>
 
-	          <li class="nav-item"><a href="wishlist.jsp" class="nav-link">Orders</a></li>
+	          
 
 	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+	          
 	          <li class="nav-item"><a href="Feedback.jsp" class="nav-link">Feedback</a></li>
 	          <li class="nav-item"><a href="javascript: stopScrollingToTop();" class="nav-link"><i class="icon_search search-switch"></i></a></li>
 			  <li class="nav-item cta cta-colored" data-modal-target="#mini-cart"><a href="javascript: stopScrollingToTop();"
@@ -94,12 +94,15 @@
 	      <div class="slider-item js-fullheight">
 	      	<div class="overlay"></div>
 	        <div class="container-fluid p-0">
+	        	
 	          <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-	          	<img class="one-third order-md-last img-fluid" src="#" alt="">
+	          	<img class="one-third order-md-last img-fluid" src="#" alt="" >
 		          <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
+		          	
 		          		<span class="subheading">Visit our store</span>
 		          		<div class="horizontal">
+		          		
 				            <h1 class="mb-4 mt-3">LANKA HARDWARE </h1>
 				            <p class="mb-4">Shop Now to buy your products.</p>
 				            
