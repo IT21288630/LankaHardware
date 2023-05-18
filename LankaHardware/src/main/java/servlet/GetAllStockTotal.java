@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,20 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import model.Item;
 import service.IStockService;
 import service.IStockServiceImpl;
-import service.IVoucherService;
-import service.IVoucherServiceImpl;
 
-
-@WebServlet("/RemoveItem")
-public class RemoveItem extends HttpServlet {
+/**
+ * Servlet implementation class GetAllStockAnalitics
+ */
+@WebServlet("/GetAllStockTotal")
+public class GetAllStockTotal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RemoveItem() {
+    public GetAllStockTotal() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +36,20 @@ public class RemoveItem extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		int count = 0;
+		IStockService iStockService = new IStockServiceImpl();
+
+		count = iStockService.TotalQuantityCount();
+		
+		System.out.println("Sum in servlet: " + count);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+
+		String resp = new Gson().toJson(count);
+		
+		out.print(resp);
+		System.out.println("This is the res " + resp);
 	}
 
 	/**
@@ -42,17 +58,6 @@ public class RemoveItem extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-		String id = request.getParameter("id");
-		IStockService iStockService = new IStockServiceImpl();
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-
-		String resp = new Gson().toJson(iStockService.removeStockItems(id));
-
-		out.print(resp);
 	}
 
 }

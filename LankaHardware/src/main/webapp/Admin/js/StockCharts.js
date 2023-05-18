@@ -1,6 +1,6 @@
 var stock = []
 var stocktable = document.getElementById('stock')
-
+var totalQ = 0
 // view stock items
 function callGetAllStockServlet(){
 	
@@ -13,18 +13,27 @@ function callGetAllStockServlet(){
 	})
 }
 
+function callGetAllStockTotal(){
+	
+	$.get("http://localhost:8081/LankaHardware/GetAllStockTotal", function(response) {
+				
+		totalQ = response
+		console.log(totalQ)
+		
+		var showQtotal = document.getElementById('stockQtotal');
+		showQtotal.innerHTML = totalQ;
+	})
+}
+
 function buildAllStock(stock, stockLen){
 	stocktable.innerHTML = '';
 	var showItemCount = document.getElementById('ItemCount');
-	var showQtotal = document.getElementById('stockQtotal');
-	var totalQ = [];
-	showItemCount.innerHTML = stockLen;
 	
+	showItemCount.innerHTML = stockLen;
+
 	//console.log(stock[1].itemID)
 	for(var i = 0; i < stockLen; i++){
-		 var Q =  parseInt(stock[i].quantity);
-		
-			
+		 
 		 			var stockInFo = `<tr>
 								<td>
 									${stock[i].itemID}
@@ -58,9 +67,11 @@ function buildAllStock(stock, stockLen){
 							
 							
 	}
+
+	callGetAllStockTotal();
 	
-	showQtotal.innerHTML += Q;
-	totalQ+=Q;
+	
+
 }
 
 
@@ -158,7 +169,7 @@ const sales = new Chart(salesChart,{
     data:{
         labels:['mon','tue','wed','thu','fri','sat','sun'],
         datasets:[{
-            data:[totalQ],
+            data:[4,87,99,6,345,86,443],
             borderColor:['rgb(59,197,154,1)'],
             borderWidth:2
         }]
@@ -186,14 +197,15 @@ const sales = new Chart(salesChart,{
 })
 
 
-/* customer
+//customer
+
 const customersChart = document.getElementById('customers').getContext('2d')
 const customers = new Chart(customersChart,{
     type:'line',
     data:{
         labels:['mon','tue','wed','thu','fri','sat','sun'],
         datasets:[{
-            data:[12,4,8,15,2,3,7],
+            data:[12,43,86,157,279,33,750],
             borderColor:['rgb(59,197,154,1)'],
             borderWidth:2
         }]
@@ -222,11 +234,39 @@ const customers = new Chart(customersChart,{
 
 
 
-*/
 
+function searchItem(){
+	
+		    var SearchDetails = document.getElementById('SearchDetails').value;
+		  
+			//console.log("THis is from search: " + SearchDetails);
+			
+			if(SearchDetails == "" || SearchDetails == null || SearchDetails == "undefined"){
+				//alert("Please add some keywords to search")
+				console.log("failed")
+				callGetAllStockServlet();
+			}
+			else{
+					
+					$.post("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
+					stock = response;	
+					var stockLen = stock.length;
+					console.log("Stock response: " + response)
+					
+					if(response == ""){
+						buildNotfound(SearchDetails);
+					}
+					
+					buildAllStock(stock, stockLen);
 
-
-
+					
+					
+				})
+				
+			}
+							
+				
+	}
 
 
 

@@ -113,7 +113,7 @@ var voucherTable = document.getElementById('voucher');
 function callGetAllVoucherServlet(){
 	
 	
-	$.get("http://localhost:/LankaHardware:8080/GetAllVoucherServlet", function(response) {
+	$.get("http://localhost:/LankaHardware:8081/GetAllVoucherServlet", function(response) {
 				
 		voucher = response
 		var varlen = voucher.length;
@@ -190,7 +190,7 @@ function callSortbyServlet(sort){
 	}
 	
 	
-	var endpoint = "http://localhost:8080/LankaHardware/GetAllVoucherServlet";
+	var endpoint = "http://localhost:8081/LankaHardware/GetAllVoucherServlet";
 	$.post(endpoint,{sort:sort}, function(response){
 			voucher = response
 		var varLen = voucher.length;
@@ -221,7 +221,7 @@ function callSortbyServlet(sort){
 	}
 
 	
-	var endpoint = "http://localhost:8080/LankaHardware/GetAllVouchersByServlet";
+	var endpoint = "http://localhost:8081/LankaHardware/GetAllVouchersByServlet";
 	$.post(endpoint,{sort:sort}, function(response){
 			voucher = response
 		var varLen = stock.length;
@@ -239,7 +239,7 @@ function callSortbyServlet(sort){
 
 function callAddVoucherServlet(code, amount, exp){
 		
-		var endpoint = "http://localhost:8080/LankaHardware/AddVoucherServlet";
+		var endpoint = "http://localhost:8081/LankaHardware/AddVoucherServlet";
 		
 		
 		$.post(endpoint,{code: code, amount:amount, exp:exp}, function(response){
@@ -475,7 +475,7 @@ function callupdateVoucher(){
 				expM = null;
 			}
 	
-				var endpoint = "http://localhost:8080/LankaHardware/UpdateStock";
+				var endpoint = "http://localhost:8081/LankaHardware/UpdateStock";
 				
 				setTimeout(function() {
 				$('#EditStockModal').modal('hide')
@@ -534,7 +534,7 @@ function callDeleteStockServlet(id) {
 			                          <span class="visually-hidden">Loading...</span>
 			                        </div>`
 	deleteModalFooter.style = "display: none;"
-	$.post("http://localhost:8080/LankaHardware/RemoveItem", { id: id }, function(response) {
+	$.post("http://localhost:8081/LankaHardware/RemoveItem", { id: id }, function(response) {
 		console.log("Hey This is the calldeleteServlet function after the response");
 		console.log("response is: ", response);
 
@@ -571,7 +571,7 @@ function searchItem(){
 			}
 			else{
 					
-					$.post("http://localhost:8080/LankaHardware/GetSearchedVoucher", {SearchDetails: SearchDetails}, function(response) {
+					$.post("http://localhost:8081/LankaHardware/GetSearchedVoucher", {SearchDetails: SearchDetails}, function(response) {
 					voucher = response;	
 					var varLen = voucher.length;
 					console.log("Stock response: " + response)
@@ -645,7 +645,7 @@ function buildNotfound(keyword){
 }*/
 
 function getTable(){
-	$.get("http://localhost:8080/LankaHardware/GetAllVoucherServlet", function(response) {
+	$.get("http://localhost:8081/LankaHardware/GetAllVoucherServlet", function(response) {
 				
 	voucher = response
 	var varLen = voucher.length;

@@ -97,7 +97,7 @@
 						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
 					Voucher Management
 					</a></li>
-					<li class="menu-item active"><a href="ViewVoucher.jsp"
+					<li class="menu-item active"><a href="ViewStock.jsp"
 						class="menu-link"> <i class="menu-icon tf-icons bx bx-table"></i>
 					Store Managements
 					</a></li>
@@ -174,12 +174,14 @@
                         <span class="card--icon icon"><i class="ri-shopping-bag-2-line"></i></span>
                         <span>Sales</span>
                     </div>
-                    <h3 class="card--value">$432,576.34 <i class="ri-arrow-up-circle-fill up"></i></h3>
+                    <h3 class="card--value">$32,576.34 <i class="ri-arrow-up-circle-fill up"></i></h3>
                     <h5 class="more">4,234 more than usual</h5>
                     <div class="chart">
                         <canvas id="sales"></canvas>
                     </div>
                 </div>
+                
+                <!-- 
                 <div class="card card-2">
                     <div class="card--title">
                         <span class="card--icon icon"><i class="ri-gift-line"></i></span>
@@ -190,7 +192,9 @@
                     <div class="chart">
                         <canvas id="orders"></canvas>
                     </div>
+
                 </div>
+                -->
                 <div class="card card-3">
                     <div class="card--title">
                         <span class="card--icon icon"><i class="ri-handbag-line"></i></span>

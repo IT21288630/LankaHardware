@@ -44,34 +44,26 @@ public class UpdateStock extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String id = request.getParameter("StockIDModal");
-		String name = request.getParameter("nameModal");
-		String category = request.getParameter("categoryModal");
-		String brand = request.getParameter("brandModal");
-		double price = Double.valueOf(request.getParameter("unit_priceModal"));
-		int quantity = Integer.parseInt(request.getParameter("quantityModal"));
-		String description = request.getParameter("DescriptionModal");
-		String mf = request.getParameter("mfModal");
-		String exp = request.getParameter("expModal");
+		String id = request.getParameter("itemID");
+		String name = request.getParameter("name");
+		String cat = request.getParameter("type");
+		String Bra = request.getParameter("brand");
+		double pr = Double.valueOf(request.getParameter("price"));
+		int quan = Integer.parseInt(request.getParameter("quantity"));
+		String Des = request.getParameter("description");
+		String mf = request.getParameter("mf");
+		String exp = request.getParameter("exp");
 		
-		String warrentyNone = request.getParameter("WorNoneModal");
-		String warrentyAva = request.getParameter("WorAvailModal");
-		
-		int warNum = Integer.parseInt(request.getParameter("warrentyNumModal"));
-		String warPeriod = request.getParameter("warrentyPeriodModal");
+
+		String wt = "Available";
 	
-		String warrentyType = "Available";
-		String size = request.getParameter("size");
-		String img = request.getParameter("img");
-		String sub = request.getParameter("subType");
 		
-		
-		if(warrentyNone == "" || warrentyNone == "None" || warrentyNone == null || warrentyNone == "undefined") {
-			warrentyType = "None";
-			warNum = 0;
-			warPeriod = "None";
-		}
-		System.out.println("warrenty Type in update servlet: " + warrentyType);
+		/*if(warrentyNone == "" || warrentyNone == "None" || warrentyNone == null || warrentyNone == "undefined") {
+			wt = "None";
+			wn = 0;
+			wp = "None";
+		}*/
+		//System.out.println("warrenty Type in update servlet: " + wt);
 		
 		//System.out.println(id+name+email+designation+phoneNum+address);
 		
@@ -81,7 +73,7 @@ public class UpdateStock extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iStockService.updateStockItems(id, name, category, brand, price, quantity, description, mf, exp, warrentyType,warNum, warPeriod, size, img, sub));
+		String resp = new Gson().toJson(iStockService.updateStockItems(id, name, cat, Bra, pr, quan, Des, mf, exp));
 
 		out.print(resp);
 	}

@@ -1,17 +1,11 @@
 package service;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +15,7 @@ import model.Item;
 import util.CommonConstants;
 import util.CommonUtil;
 
-import util.DBConnectionUtil;
+import util.DBConnectionIsuru;
 
 public class IStockServiceImpl implements IStockService {
 	private static Connection con;
@@ -31,12 +25,7 @@ public class IStockServiceImpl implements IStockService {
 	private static PreparedStatement pstI;
 	
 	private static PreparedStatement pst;
-	
-	private static PreparedStatement pstS;
-	
-	private static PreparedStatement pstW;
-	
-	private static PreparedStatement pstImg;
+
 
 	private static ResultSet rs;
 
@@ -52,7 +41,7 @@ public class IStockServiceImpl implements IStockService {
 		ArrayList<Item> items = new ArrayList<>();
 		//ArrayList<String> images = new ArrayList<>();
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(CommonConstants.QUERY_ID_GET_Stock_ITEMS);
@@ -136,7 +125,7 @@ public class IStockServiceImpl implements IStockService {
 			}
 		} */
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
 			st = con.createStatement();
@@ -230,7 +219,7 @@ public class IStockServiceImpl implements IStockService {
 		Item item = new Item();
 		item.setItemID(stockId);
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
 			pst = con.prepareStatement(CommonConstants.QUERY_ID_CLEAR_StockItem);
@@ -268,12 +257,12 @@ public class IStockServiceImpl implements IStockService {
 
 	
 	@Override
-	public String updateStockItems(String id, String name, String cat, String Bra, double pr, int quan, String Des, String mf,String exp, String wt, int wn, String wp) {
+	public String updateStockItems(String id, String name, String cat, String Bra, double pr, int quan, String Des, String mf,String exp) {
 		// TODO Auto-generated method stub
 
 		String status = "There was a problem";
 		
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 
 		try {
 			if(!name.equals("null")) {
@@ -331,7 +320,7 @@ public class IStockServiceImpl implements IStockService {
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
-			
+			/*
 			if(!wt.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_UPDATE_ITEM_WARTYPE);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, wt);
@@ -352,7 +341,7 @@ public class IStockServiceImpl implements IStockService {
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, id);
 				pst.executeUpdate();
 			}
-			
+			*/
 	
 
 			status = "Stock Item Updated";
@@ -388,9 +377,10 @@ public class IStockServiceImpl implements IStockService {
 		ArrayList<Item> items = new ArrayList<>();
 		
 		System.out.println("This is impl");
-		String sql = "SELECT id, name, type, subtype, description, brand, mf_date, exp_date, price, quantity, warrentyType, warrentyNum, warrentyPeriod FROM item_m where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%' group by id;";
+		String sql = "SELECT id, name, category, brand, quantity, price,description,mf_date, exp_date,warrentyType,warrentyNum, warrentyPeriod FROM item_m where id LIKE '%"+ searchDetails +"%' or name LIKE '%"+ searchDetails +"%' or category LIKE '%"+ searchDetails +"%' or brand LIKE '%"+ searchDetails +"%' or description LIKE '%"+ searchDetails +"%' group by id;";
 
-		con = DBConnectionUtil.getDBConnection();
+				
+		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
 		
@@ -401,18 +391,15 @@ public class IStockServiceImpl implements IStockService {
 				 item.setItemID(rs.getString(1));
 				 item.setName(rs.getString(2));
 				 item.setType(rs.getString(3));
-				 item.setSubType(rs.getString(4));
-				 item.setDescription(rs.getString(5));
-				 item.setBrand(rs.getString(6));
-				 item.setMfDate(rs.getString(7));
-				 item.setExpDate(rs.getString(8));
-				 item.setSize(rs.getString(9));
-				 item.setStock(rs.getInt(10));
-				 item.setPrice(rs.getDouble(11));
-				 //item.setMainImg(rs.getString(12));			
-				 item.setWarrentyType(rs.getString(12));
-				 item.setWarrentyNumber(rs.getInt(13));
-				 item.setWarrantyPeriod(rs.getString(14));
+				 item.setBrand(rs.getString(4));
+				 item.setQuantity(rs.getInt(5));
+				 item.setPrice(rs.getDouble(6));		
+				 item.setDescription(rs.getString(7));
+				 item.setMfDate(rs.getString(8));
+				 item.setExpDate(rs.getString(9));
+				 item.setWarrentyType(rs.getString(10));
+				 item.setWarrentyNumber(rs.getInt(11));
+				 item.setWarrantyPeriod(rs.getString(12));
 
 
 				items.add(item);
@@ -431,11 +418,10 @@ public class IStockServiceImpl implements IStockService {
 		// TODO Auto-generated method stub
 		System.out.println("IstockImpl before connection is done");
 		ArrayList<Item> items = new ArrayList<>();
-		con = DBConnectionUtil.getDBConnection();
+		con = DBConnectionIsuru.getConnection();
 		try {
 			st = con.createStatement();
-			
-			
+				
 			
 			if(sort == 1) {
 				System.out.println("IstockImpl if sortby == 1 is done");
@@ -457,6 +443,11 @@ public class IStockServiceImpl implements IStockService {
 				System.out.println("IstockImpl if sortby == 5 is done");
 				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_EXP);
 			}
+			
+			else if(sort == 6) {
+				System.out.println("IstockImpl if sortby == 5 is done");
+				rs = st.executeQuery(CommonConstants.QUERY_ID_SORTBY_PRICE);
+			} 
 			else {
 				rs = st.executeQuery(CommonConstants.QUERY_ID_GET_Stock_ITEMS);
 			}
@@ -469,18 +460,15 @@ public class IStockServiceImpl implements IStockService {
 				 item.setItemID(rs.getString(1));
 				 item.setName(rs.getString(2));
 				 item.setType(rs.getString(3));
-				// item.setSubType(rs.getString(4));
-				 item.setDescription(rs.getString(5));
-				 item.setBrand(rs.getString(6));
-				 item.setMfDate(rs.getString(7));
-				 item.setExpDate(rs.getString(8));
-			    // item.setSize(rs.getString(9));
-				 item.setQuantity(rs.getInt(10));
-				 item.setPrice(rs.getDouble(11));
-				 //item.setMainImg(rs.getString(12));			
-				 item.setWarrentyType(rs.getString(13));
-				 item.setWarrentyNumber(rs.getInt(14));
-				 item.setWarrantyPeriod(rs.getString(15));
+				 item.setBrand(rs.getString(4));
+				 item.setQuantity(rs.getInt(5));
+				 item.setPrice(rs.getDouble(6));		
+				 item.setDescription(rs.getString(7));
+				 item.setMfDate(rs.getString(8));
+				 item.setExpDate(rs.getString(9));
+				 item.setWarrentyType(rs.getString(10));
+				 item.setWarrentyNumber(rs.getInt(11));
+				 item.setWarrantyPeriod(rs.getString(12));
 
 				items.add(item);
 			}
@@ -493,6 +481,29 @@ public class IStockServiceImpl implements IStockService {
 		return items;
 		
 		
+	}
+
+	@Override
+	public int TotalQuantityCount() {
+		int SumValue = 0;
+		con = DBConnectionIsuru.getConnection();
+		
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(CommonConstants.GET_TOTAL_QUANTITY);
+			
+			if(rs.next()) {
+				SumValue = rs.getInt("sum_value");
+				System.out.println("Sum value in impl: " + SumValue);
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return SumValue;
 	}
 
 

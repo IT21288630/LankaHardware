@@ -13,12 +13,9 @@ function validation() {
 	var descript = document.getElementById('stockDes').value
 	var mf = document.getElementById('stockMf').value
 	var exp = document.getElementById('stockExp').value
-	var size = document.getElementById('StockSize').value
+	
 	var warNone = document.getElementById('WorNone').value
 	var warAva = document.getElementById('WorAvail').value
-	var img = document.getElementById('img').value;
-	var sub = document.getElementById('subType').value;
-	
 	
 	var errorName = document.getElementById('name-error');
 	var errorCat = document.getElementById('cat-error');
@@ -26,11 +23,9 @@ function validation() {
 	var errorPrice = document.getElementById('price-error');
 	var errorQ = document.getElementById('quantity-error');
 	var errorDes = document.getElementById('disc-error');
-	var errorMF = document.getElementById('mf-error');
-	var errorExp = document.getElementById('exp-error');
+	
 	var errorwartype = document.getElementById('wartype-error');
-	var errorsize = document.getElementById('size-error');
-	var errorSub = document.getElementById('sub-error');
+	
   
 
   	//const nameRegex = /^[A-Za-z\s]+$/;
@@ -68,15 +63,6 @@ function validation() {
 			valiCat = true;
 		}
 		
-		 if (sub == "") {	
-		     errorSub.innerHTML = 'Please enter a valid sub category';
-		     valiSub = false;
-		   }
-		  
-		   if (!sub == "") {
-		     errorSub.innerHTML = '';
-		     valiSub = true;
-		   }
 		
 		
 		if(brand == "" || brand == null){
@@ -160,7 +146,7 @@ function validation() {
 		//}
 				 
 		//callAddStockServlet(Sname, category, brand, price, quantity, description, mf, exp, warrentyType, warNum, warPeriod );
-		if(valiName == true && valiCat == true&& valiPrice == true && valiQ == true && valiDes == true && valiBrand == true && valiSub == true){
+		if(valiName == true && valiCat == true&& valiPrice == true && valiQ == true && valiDes == true && valiBrand == true){
 			
 			var warrentyType;
 			
@@ -170,9 +156,7 @@ function validation() {
 			if(exp == ""){
 				exp = null;
 			}
-			if(img == ""){
-				img == "None";
-			}
+			
 			
 			if(document.getElementById('WorNone').checked == true){
 				warrentyType = 'None';
@@ -192,14 +176,14 @@ function validation() {
 			console.log(warNum);
 			console.log(warPeriod);
 			
-			callGetAllStockServlet()
+			
 			setTimeout(function() {
 						$('#AddStockModal').modal('hide')
 					}, 1000);
 					
 				
-			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod);
 			GenerateBarCode();
+			callAddStockServlet(Sname, category, brand, price, quantity, descript, mf, exp, warrentyType, warNum, warPeriod);
 			
 		}
 		
@@ -209,16 +193,17 @@ function validation() {
 
 function GenerateBarCode(){
 	
+	callGetAllStockServlet()
 	setTimeout(function() {
-		$('#ViewStockModal').modal('show')
+		$('#BarCodeModal').modal('show')
 	}, 1000);
 					
-	var viewModalHeader = document.getElementById('ViewStockModalHeader')
-	var viewStockModalBody = document.getElementById('ViewStockModalBody')
-	var viewStockModalFooter = document.getElementById('ViewStockModalFooter')
-	var viewCard = document.getElementById('card-body-edit')
+	var viewModalHeader = document.getElementById('BarCodeModalHeader')
+	var viewStockModalBody = document.getElementById('BarCodeModalBody')
+	//var viewStockModalFooter = document.getElementById('BarCodeModalFooter')
+	var viewCard = document.getElementById('BarCodeModalFooter')
 	
-	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
 				
 	stock = response
 	var stockLen = stock.length;
@@ -237,8 +222,8 @@ function GenerateBarCode(){
 
 	viewStockModalBody.style = "display:block;  margin-left: auto; margin-right: auto; width: 50%;";
 	//viewStockModalBody.innerHTML += 'This is the Barcode for This store Item' ;	
-	viewStockModalFooter.innerHTML = '';
-	viewCard.style = "display:block; justify-content: center; margin-left: auto; margin-right: auto; width: 50%;";	
+	//viewStockModalFooter.innerHTML = '';
+	viewCard.style = "display:block; justify-content: center; margin-left: auto; margin-right: auto; width: 50%; padding: 10px";	
 	viewCard.innerHTML = `<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()">
 			                Close
 				              </button>
@@ -337,7 +322,7 @@ var stocktable = document.getElementById('stock')
 // view stock items
 function callGetAllStockServlet(){
 	
-	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
 				
 		stock = response
 		var stockLen = stock.length;
@@ -382,10 +367,10 @@ function buildAllStock(stock, stockLen){
                             
 
 		                            	<div class="dropdown-menu">
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}','${stock[i].size}', '${stock[i].mainImg}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildViewStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}')">
 				                              <i class="fa-regular fa-eye"></i> View</a> 
 				                               
-				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}', '${stock[i].size}', '${stock[i].mainImg}')">
+				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ViewStockModal" onclick="BuildEditStockModal('${stock[i].itemID}', '${stock[i].name}','${stock[i].type}','${stock[i].brand}','${stock[i].price}','${stock[i].quantity}','${stock[i].description}','${stock[i].mfDate}','${stock[i].expDate}','${stock[i].warrentyType}' ,'${stock[i].warNum}','${stock[i].WarrantyPeriod}')">
 				                              <i class="bx bx-edit-alt me-1"></i>Edit</a> 
 		
 				                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="createDeleteModal('${stock[i].itemID}')">
@@ -422,7 +407,8 @@ function callSortbyServlet(sort){
 		showType.innerHTML = 'Exp-Date';
 	}
 	
-	var endpoint = "http://localhost:8080/LankaHardware/GetAllStoreItemSortByServlet";
+	var endpoint = "http://localhost:8081/LankaHardware/GetAllStoreItemSortByServlet";
+	
 	$.post(endpoint,{sort:sort}, function(response){
 			stock = response
 		var stockLen = stock.length;
@@ -442,7 +428,7 @@ function callSortbyServlet(sort){
 
 function callAddStockServlet(name, category, brand, price, quantity, description, mf_date, exp_date, warrentyType, warNum, warPeriod){
 		
-		var endpoint = "http://localhost:8080/LankaHardware/AddStoreItemsServlet";
+		var endpoint = "http://localhost:8081/LankaHardware/AddStoreItemsServlet";
 		
 		console.log("This is before addstoreitems")
 		//console.log("Inputs: " + name + category+brand+price+quantity+ description+mf_date+exp_date+ warrentyType+ warNum+ warPeriod+size+ img+subType);
@@ -515,7 +501,7 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
 	
 	
 
-	editCard.innerHTML = `<form id="formAccountSettings" method="POST" onsubmit="return false">
+	editCard.innerHTML = `<form id="editForm" method="POST" onsubmit="return false">
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="stockID" class="form-label">Item ID.</label>
@@ -540,47 +526,27 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
                             <label for="stockCat" class="form-label">Category</label>
                             <select id="TypeModal" name = "stockCat" class="select2 form-select">
                             	 <option>${type}</option>
-                               <option value="mechanical">mechanical</option>
-		                        <option value="building">building</option>
-		                        <option value="electrical">electronics & electrical</option>
-		                        <option value="tools">tools</option>
-		                        <option value="general">general</option>
+                               		<option value="General">General</option>
+			                        <option value="Tools">Tools</option>
+	                               <option value="Mechanical">Mechanical</option>
+			                        <option value="Building">Building</option>
+			                        <option value="Electrical">Electronics & Electrical</option>
+			                        <option value="Tools">Tools</option>
+			                        <option value="General">General</option>
+			                        <option value="Steel">Steel</option>
+			                        <option value="Roofing">Roofing</option>
+			                        <option value="Paint">Paint</option>
+			                        <option value="Plumbing">Plumbing</option>
+			                        <option value="Tiles & Fitting">Tiles & Fitting</option>
+			                        <option value="Industrial">Industrial</option>
+			                        <option value="Home & Kitchen">Home & Kitchen</option>
 		                            
                             </select>
                             
                             
                           </div>
                           
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">Sub-Type</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="subType"
-                              name="subType" 
-                   
-                              autofocus
-                            />
-                            <span id="sub-error" style="color:red; font-size:13px"></span>
-                            </div>
-                          
-                          
-                             <div class="mb-3 col-md-6">
-                            <label for="stockCat" class="form-label">Size</label>
-                            <select id="StockSize" name = "StockSize" class="select2 form-select">
-                            	 <option value="None">None</option>
-                                <option value="Small">Small</option>
-		                        <option value="Medium">Medium</option>
-		                        <option value="Large">Large</option>
-		                        <option value="XXL">XXL</option>
-		                        <option value="XXXL">XXXL</option>
-		                            
-                            </select>
-                             <span id="size-error" style="color:red; font-size:13px"></span>
-
-                          </div>
-                          
-                          
+              
                           
                           <div class="mb-3 col-md-6">
                             <label for="brand" class="form-label">Brand</label>
@@ -643,7 +609,7 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
 	                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
 	                            <span class="d-none d-sm-block">Product Image</span>
 	                            <i class="bx bx-upload d-block d-sm-none"></i>
-	                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildStockImage();">
+	                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" onchange="buildProfileImage();">
 	                          </label>
 	                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
 	                            <i class="bx bx-reset d-block d-sm-none"></i>
@@ -684,12 +650,13 @@ function BuildEditStockModal(itemID,name,type,brand,price,quantity,description,m
                             
                             
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callupdateItem(); callGetAllStockServlet();')">Save</button>
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callupdateItem('${itemID}','${name}','${type}','${brand}','${price}','${quantity}','${description}','${mfDate}','${expDate}','${warrentyType}','${warNum}','${WarrantyPeriod}')')">Save</button>
                           <button type="reset" onclick ="BuildViewStockModal('${itemID}','${name}','${type}','${brand}','${price}','${quantity}','${description}','${mfDate}','${expDate}','${warrentyType}','${warNum}','${WarrantyPeriod}')" class="btn btn-outline-secondary" id ="clear" >Cancel</button>
                         </div>
                         </div>
                         
-                      </form> `
+                      </form> `;
+                     
 
 	
 }
@@ -718,7 +685,7 @@ function BuildViewStockModal(itemID,name,type,brand,price,quantity,description,m
 	viewStockModalBody.innerHTML = `<div>
 						              	 <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="../assets/img/elements/lankaLogo.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                        <img src="../assets/img/elements/lankaLogo.png" alt="user-avatar" class="d-block rounded" height="100%" width="100%" id="uploadedAvatar">
                         
                       </div>
                     </div>
@@ -759,34 +726,7 @@ function BuildViewStockModal(itemID,name,type,brand,price,quantity,description,m
                             
                           </div>
                           
-                                
-                          <div class="mb-3 col-md-6">
-                            <label for="stockCat" class="form-label">Sub-Type</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="TypeModal"
-                              name="stockType"
-								value="${type}"
-                              placeholder = "None" readonly
-                            />
-                            
-                          </div>
-                          
-                                
-                          <div class="mb-3 col-md-6">
-                            <label for="stockCat" class="form-label">Size</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="TypeModal"
-                              name="stockType"
-								value="${type}"
-                              placeholder = "None" readonly
-                            />
-                            
-                          </div>
-                          
+                         
                           
                           
                           <div class="mb-3 col-md-6">
@@ -895,7 +835,7 @@ function BuildViewStockModal(itemID,name,type,brand,price,quantity,description,m
 	
 }
 
-function callupdateItem(){
+function callupdateItem(itemID,name,type,brand,price,quantity,description,mf,exp,warrentyType,warNum,WarrantyPeriod){
 	//var inputFile = document.getElementById('updateModal')
 	callGetAllStockServlet()
 		setTimeout(function() {
@@ -907,7 +847,7 @@ function callupdateItem(){
 				$('#ViewStockModal').modal('hide')
 		}, 1000);	
 			
-	
+	/*
 	var id = document.getElementById('StockIDModal').value
 	var name = document.getElementById('nameModal').value
 	var Type = document.getElementById('TypeModal').value
@@ -920,8 +860,7 @@ function callupdateItem(){
 	
 	var warNum = document.getElementById('warrentyNumModal').value
 	var warPeriod = document.getElementById('warrentyPeriodModal').value
-	
-	var warrentyType;
+	*/
 	
 	if(document.getElementById('WorNoneModal').checked == true){
 		warrentyType = "None";
@@ -948,16 +887,16 @@ function callupdateItem(){
 	
 	
 	
-	console.log(id + name + Type + brand + price + quantity + description + mf + exp + warrentyType + warNum + warPeriod)
+	console.log(itemID + name + type + brand + price + quantity + description + mf + exp + warrentyType + warNum + WarrantyPeriod)
 	
 	
-	var endpoint = "http://localhost:8080/LankaHardware/UpdateStock"
+	var endpoint = "http://localhost:8081/LankaHardware/UpdateStock"
 	//var formData = new FormData();
 	//for(const file of inputFile.files){
 	//	formData.append('updateModal', file)
 	//}
 
-	$.post(endpoint, { name: name, Type: Type, brand: brand, price: price, quantity: quantity, description: description, mf: mf, exp: exp}, $.post(endpoint, {warrentyType: warrentyType , warNum : warNum, warPeriod: warPeriod}), function(response) {
+	$.post(endpoint, {itemID:itemID, name: name, type: type, brand: brand, price: price, quantity: quantity, description: description, mf: mf, exp: exp}, function(response) {
 		console.log("this is after updateStock response");
 		//stock = response;
 		//callGetAllStockServlet(stock);
@@ -1001,14 +940,23 @@ function createDeleteModal(id) {
 
 
 function callDeleteStockServlet(id) {
-	deleteModalHeader.style = "display:block;  margin-left: auto; margin-right: auto; width: 50%;";
-	deleteModalHeader.innerHTML = '<img src="../assets/img/elements/lankaLogo.png" alt="user-avatar" class="d-block rounded" height="100" width="100" style="margin-left: 75px;">'
+	deleteModalHeader.style = '';
+	deleteModalHeader.innerHTML = `<button 
+					                type="button"
+					                class="btn-close"
+					                data-bs-dismiss="modal"
+					                aria-label="Close"
+					              ></button>`
+			                          
 	deleteModalBody.style = "text-align: center; "
-	deleteModalBody.innerHTML = ` <div class="spinner-border text-warning" role="status" style="width: 2.5rem; height: 2.5rem;">
-			                          <span class="visually-hidden">Loading...</span>
-			                        </div>`
+	deleteModalBody.innerHTML = '<h3 style="font-color:"#00bf00"; padding: "30px">Succesfully Removed!<h3> <img src="../assets/img/elements/lankaLogo.png" alt="user-avatar" height="100%" width="100%"><br><br><button type="button" padding="30px"class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="callGetAllStockServlet()"> Close </button>'
+			
+
 	deleteModalFooter.style = "display: none;"
-	$.post("http://localhost:8080/LankaHardware/RemoveItem", { id: id }, function(response) {
+	
+		
+	$.post("http://localhost:8081/LankaHardware/RemoveItem", { id: id }, function(response) {
+			
 		console.log("Hey This is the calldeleteServlet function after the response");
 		console.log("response is: ", response);
 
@@ -1018,12 +966,10 @@ function callDeleteStockServlet(id) {
 									        <span style="font-size: x-large;">${response}</span>
 									    </div><hr>`
 
-		callGetAllStockServlet();
-		setTimeout(function() {
-			$('#deleteModal').modal('hide')
-		}, 2500);
+	
 	}
 	)
+	callGetAllStockServlet();
 }
 
 
@@ -1045,7 +991,7 @@ function searchItem(){
 			}
 			else{
 					
-					$.post("http://localhost:8080/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
+					$.post("http://localhost:8081/LankaHardware/GetSearchedItems", {SearchDetails: SearchDetails}, function(response) {
 					stock = response;	
 					var stockLen = stock.length;
 					console.log("Stock response: " + response)
@@ -1119,7 +1065,7 @@ function buildNotfound(keyword){
 }*/
 
 function getTable(){
-	$.get("http://localhost:8080/LankaHardware/GetAllItemsServlet", function(response) {
+	$.get("http://localhost:8081/LankaHardware/GetAllItemsServlet", function(response) {
 				
 	stock = response
 	var stockLen = stock.length;
