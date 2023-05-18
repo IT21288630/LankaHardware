@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -51,7 +52,9 @@ public class AnswerQuestionServlet extends HttpServlet {
 		Admin admin = new Admin();
 		Customer customer = new Customer();
 		Item item = new Item();
-		String email = "b@g.m";
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+		//String email = "b@g.m";
 		admin.setEmail(email);
 		customer.setEmail(request.getParameter("customerEmail"));
 		item.setName(request.getParameter("itemName"));

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -43,7 +44,9 @@ public class AskQuestionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String email = "a@g.m";
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+		//String email = "a@g.m";
 		String question = request.getParameter("question");
 		String itemID = request.getParameter("itemID");
 		IQuestionService iQuestionService = new QuestionServiceImpl();

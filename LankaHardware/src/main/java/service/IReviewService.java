@@ -68,4 +68,11 @@ public interface IReviewService {
 	 * 
 	 */
 	public Boolean checkReviewAdded(String itemID, String oID);
+	
+	/**
+	 * send review email
+	 * @param email
+	 * 
+	 */
+	public void sendReviewEmail(String email);
 }

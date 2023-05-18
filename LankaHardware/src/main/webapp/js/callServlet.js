@@ -284,7 +284,7 @@ function callDeleteCusProfile() {
   var email = "<email>"; // Replace with the actual email value
   $.post("http://localhost:8080/LankaHardware/DeleteCusProfile", { email: email }, function(response) {
     // On successful deletion, redirect to login.jsp
-    window.location.href = "Login.jsp";
+    window.location.href = "pullin Login.jsp";
   });
 }
 
@@ -299,6 +299,7 @@ function callSendCustomeremailServlet() {
 
 		otpmessage = response
 		console.log(otpmessage)
+		window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
 	})
 }
 
@@ -340,68 +341,34 @@ function callLogOutServlet() {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 			// Redirect the user to the login page after successful logout
-			window.location.href = "/Login.jsp";
+			window.location.href = "Login.jsp";
 		}
 	};
 
 	xhr.send();
 }
+//otp 
+function callOtpServlet(){
+	
+    var otp = document.getElementById('otp').value;
+	
+	$.post("http://localhost:8080/LankaHardware/OtpServlet",{otp : otp}, function(response) {
 
-function callSendCustomeremail() {
-	// Make an AJAX request to the send customer email servlet endpoint
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "SendCustomeremail", true);
-	xhr.setRequestHeader("Content-Type", "application/json");
-
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4 && xhr.status === 200) {
-			// Read the OTP value from the response
-			var otp = xhr.responseText;
-
-			// Redirect to the enter OTP page and pass the OTP value as a query parameter
-			window.location.href = "exotp.jsp?otp=" + otp;
-		}
-	};
-
-	xhr.send();
+		window.location.href = "http://localhost:8080/LankaHardware/newPassword.jsp";
+	})
 }
 
-function validateOTP() {
-	// Get the OTP entered by the user
-	var enteredOTP = document.getElementById("otpInput").value;
+function callNewPassword(){
+	var password = document.getElementById('Password').value;
+	
+	$.post("http://localhost:8080/LankaHardware/NewPassword",{password : password}, function(response) {
 
-	// Perform OTP validation (replace this with your own validation logic)
-	var isValidOTP = enteredOTP === "1234"; // Replace "1234" with the valid OTP
-
-	if (isValidOTP) {
-		// Redirect to newpassword.jsp
-		window.location.href = "newPassword.jsp";
-	} else {
-		// Display an error message (replace this with your own error handling logic)
-		alert("Invalid OTP. Please try again.");
-	}
+		window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
+	})
+	
 }
+	
 
-function updateEmail() {
-	// Get the entered new email from the input field
-	var Email = document.getElementById("newEmailInput").value;
-
-	// Make an AJAX request to update the email in the database
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "UpdateCusProfile", true);
-	xhr.setRequestHeader("Content-Type", "application/json");
-
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4 && xhr.status === 200) {
-			// Redirect to index.jsp
-			window.location.href = "index.jsp";
-		}
-	};
-
-	// Send the new email as JSON data in the request body
-	var data = JSON.stringify({ email: Email });
-	xhr.send(data);
-}
 
 
 

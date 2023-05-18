@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -36,11 +37,13 @@ public class GetCompletedOrdersServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		ICheckoutService iCheckoutService = new CheckoutServiceImpl();
 		
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String resp = new Gson().toJson(iCheckoutService.getCompletedOrders("a@g.m"));
+		String resp = new Gson().toJson(iCheckoutService.getCompletedOrders(email));
 		
 		out.print(resp);
 	}

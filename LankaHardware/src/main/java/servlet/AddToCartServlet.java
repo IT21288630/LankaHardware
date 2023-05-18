@@ -48,9 +48,8 @@ public class AddToCartServlet extends HttpServlet {
 		doGet(request, response);
 		
 		HttpSession session = request.getSession();
-		
-		//String email = (String) session.getAttribute("email");
-		String email = "a@g.m";
+		String email = (String) session.getAttribute("email");
+		//String email = "a@g.m";
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

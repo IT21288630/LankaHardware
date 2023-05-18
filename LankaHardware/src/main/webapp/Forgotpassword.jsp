@@ -152,7 +152,7 @@
                     autofocus
                   />
                 </div>
-                <button type="button" class="btn btn-primary d-grid w-100"  onclick="callSendCustomeremail()">Send</button>
+                <button type="button" class="btn btn-primary d-grid w-100"  onclick="callSendCustomeremailServlet()">Send</button>
               </form>
               <div class="text-center">
                 <a href="Login.jsp" class="d-flex align-items-center justify-content-center">

@@ -12,20 +12,21 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import service.CartServiceImpl;
-import service.ICartService;
+import model.Customer;
+import service.CustomerServiceImpl;
+import service.ICustomerService;
 
 /**
- * Servlet implementation class RemoveFromCartServlet
+ * Servlet implementation class OtpServlet
  */
-@WebServlet("/RemoveFromCartServlet")
-public class RemoveFromCartServlet extends HttpServlet {
+@WebServlet("/OtpServlet")
+public class OtpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RemoveFromCartServlet() {
+	public OtpServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,6 +38,7 @@ public class RemoveFromCartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 	}
 
 	/**
@@ -49,27 +51,18 @@ public class RemoveFromCartServlet extends HttpServlet {
 		doGet(request, response);
 
 		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
-		//String email = "a@g.m";
-		String operation = request.getParameter("operation");
+		int otp = (int) session.getAttribute("otp");
+		String email = (String) session.getAttribute("otpEmail");
+		ICustomerService customerService = new CustomerServiceImpl();
 
-		ICartService iCartService = new CartServiceImpl();
+		int cusOTP = Integer.parseInt(request.getParameter("otp"));
 
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
+		System.out.println("cus otp " + cusOTP);
 
-		if (operation.equals("one")) {
-			String itemID = request.getParameter("itemID");
-			String size = request.getParameter("size");
-
-			String resp = new Gson().toJson(iCartService.clearOneItemFromCart(email, itemID, size));
-
-			out.print(resp);
-		} else if (operation.equals("all")) {
-			String resp = new Gson().toJson(iCartService.clearCart(email));
-
-			out.print(resp);
+		if (cusOTP == otp)
+		{
+			response.sendRedirect("newPassword.jsp");
 		}
 	}
+
 }

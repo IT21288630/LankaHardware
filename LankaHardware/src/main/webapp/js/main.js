@@ -1360,12 +1360,15 @@ function buildProductSingle(product){
 							<a href="#"><span class="ion-ios-star-outline" id="${starID}5"></span></a>
 						</p>
 						<p class="text-left mr-4">
-							<a href="#" class="mr-2" style="color: #000;">${product.ratingCount} <span style="color: #bbb;"
-									id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
-									aria-controls="v-pills-3" aria-selected="false">Rating</span></a>
+							<a href="#" onclick="stopScrollingToTop();" class="mr-2" style="color: #000;">${product.ratingCount} <span style="color: #bbb;">Ratings</span></a>
 						</p>
 						<p class="text-left">
 							<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
+						</p>
+						<p class="text-left mr-4">
+							<a href="#" class="btn btn-secondary" style="color: #000; background: #dbcc8f; border: 1px solid #dbcc8f;"><span style="color: #fff; padding: 5px;"
+									id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
+									aria-controls="v-pills-3" aria-selected="false">Show Ratings</span></a>
 						</p>
 					</div>
 					<p class="price"><span id="productPrice">Rs${product.price}</span></p>

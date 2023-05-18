@@ -78,14 +78,7 @@
                 <a href="index.html" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     
-                      <img 
-                     width="70"
-                      viewBox="0 0 25 42"
-                      version="1.1"data-visualcompletion="media-vc-image" 
-                    alt="No photo description available."
-                     class="x1bwycvy x193iq5w x4fas0m x19kjcj4" 
-                     referrerpolicy="origin-when-cross-origin"
-                     src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/302289654_589545346206228_51508556579275241_n.jpg?_nc_cat=106&amp;ccb=1-7&amp;_nc_sid=09cbfe&amp;_nc_ohc=CsvyHWDwdK4AX8YjfbC&amp;_nc_ht=scontent.fcmb1-2.fna&amp;oh=00_AfDtaJOuDZKmc_OXzM2SUHnrqARZaQ8yH3I0DgiKuH29hQ&amp;oe=646B733A" width="60" height="60">
+                      
                     
                    
                       <defs>
@@ -139,9 +132,9 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Enter the given OTP </h4>
+              <h4 class="mb-2"> </h4>
              
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3">
               <div class="panel panel-default">
 					<div class="panel-body">
 						<div class="text-center">
@@ -149,13 +142,7 @@
 								<i class="fa fa-lock fa-4x"></i>
 							</h3>
 							<h2 class="text-center">Enter OTP</h2>
-									<%
-		  			if(request.getAttribute("message")!=null)
-		  			{
-		  				out.print("<p class='text-danger ml-1'>"+request.getAttribute("message")+"</p>");
-		  			}
-		  
-		  %>
+				
 	
 							<div class="panel-body">
 
@@ -165,7 +152,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="glyphicon glyphicon-envelope color-blue"></i></span> <input
-												id="opt" name="otp" placeholder="Enter OTP"
+												id="otp" name="otp" placeholder="Enter OTP"
 												class="form-control" type="text" required="required">
 										</div>
 									</div>
@@ -177,7 +164,7 @@
 							</div>
 						</div>
 					</div>
-                <button class="btn btn-primary d-grid w-100" onclick="validateOTP()">Enter otp </button>
+                <button class="btn btn-primary d-grid w-100" onclick="callOtpServlet()">Enter otp </button>
               </form>
               <div class="text-center">
                 <a href="Forgotpassword.jsp" class="d-flex align-items-center justify-content-center">

@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,24 +14,20 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
-import service.IReviewService;
-import service.ReviewServiceImpl;
+import service.CustomerServiceImpl;
+import service.ICustomerService;
 
 /**
- * Servlet implementation class AddReviewServlet
+ * Servlet implementation class NewPassword
  */
-@WebServlet("/AddReviewServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-		maxFileSize = 1024 * 1024 * 10, // 10 MB
-		maxRequestSize = 1024 * 1024 * 100 // 100 MB
-)
-public class AddReviewServlet extends HttpServlet {
+@WebServlet("/NewPassword")
+public class NewPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddReviewServlet() {
+	public NewPassword() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -54,25 +49,21 @@ public class AddReviewServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-
 		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
-		//String email = "regularpizza17@gmail.com";
-		String itemID = request.getParameter("itemID");
-		String oID = request.getParameter("oID");
-		//String itemID = "i100";
-		String reviewDescription = request.getParameter("reviewDescription");
-		int stars = Integer.parseInt(request.getParameter("stars"));
-		Collection<Part> reviewImages = request.getParts();
-		IReviewService iReviewService = new ReviewServiceImpl();
+		String email = (String) session.getAttribute("otpEmail");
+
+		String Password = request.getParameter("password");
+
+		ICustomerService ICustomerService = new CustomerServiceImpl();
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		String resp;
-		
-		resp = new Gson().toJson(iReviewService.addReview(email, itemID, reviewDescription, stars, reviewImages, oID));
+
+		String resp = new Gson().toJson(ICustomerService.UpdatePassword(email, Password));
+
 		out.print(resp);
+
 	}
 
 }

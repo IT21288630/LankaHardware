@@ -245,25 +245,21 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		String email = "umarismail261@gmail.com";
 		System.out.println();
-		customerService.SendCustomeremail(email);
+		//customerService.SendCustomeremail(email);
 		
 	}
 	
 	//customer email
 	@Override
-	public String SendCustomeremail(String email) {
+	public String SendCustomeremail(String email, int otp) {
 		// TODO Auto-generated method stub
 
-		Random rand = new Random();
+		
 		String status = "There was an error";
 		String to = email;
 		String from = "regularpizza17@gmail.com";
 		String subject = "Your supplier details";
-		int otp = rand.nextInt((9999 - 100) + 1) + 10;
 		String content = Integer.toString(otp);
-		
-		
-		System.out.println("ABCD");
 
 		// smtp properties
 		Properties properties = new Properties();
@@ -476,10 +472,63 @@ public class CustomerServiceImpl implements ICustomerService {
 
 		return customer;
 	}
-	
 
-	
+	@Override
+	public Customer UpdatePassword(String email, String Password) {
+		// TODO Auto-generated method stub
+		Customer customer = new Customer();
+		
+		
+		String status = "There was a problem";
+		con = DBConnectionUtil.getDBConnection();
+	try {
+			
+			if (!Password.equals("null")) {
+				pst = con.prepareStatement(CommonConstants.RESET_PASSWORD);
+				pst.setString(CommonConstants.COLUMN_INDEX_ONE, Password);
+				pst.setString(CommonConstants.COLUMN_INDEX_TWO, email);
+				pst.executeUpdate();
+			}
+			
+			
+			
 
+
+			status = "Customer Updated";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of transaction
+			 */
+
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return customer;
 	
+	}
 	
 }
+
+		
+
+	
+
+	
+	
+
