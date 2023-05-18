@@ -359,6 +359,7 @@ public class AdminServiceImpl implements IAdminService {
 			admin.setPhone(rs.getString(3));
 			admin.setAddress(rs.getString(5));
 			admin.setRole(rs.getString(6));
+			admin.setProfilePic(rs.getString(7));
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -373,7 +374,7 @@ public class AdminServiceImpl implements IAdminService {
 		// TODO Auto-generated method stub
 		Admin admin = new Admin();
 		   ArrayList<String> imagePathArrayList = new ArrayList<String>();
-
+		   
 			
 			// Configure to upload to cloudinary
 			Map config = new HashMap();
@@ -413,7 +414,7 @@ public class AdminServiceImpl implements IAdminService {
 		con = DBConnectionUtil.getDBConnection();
 
 		try {
-			
+		
 			if (!phone.equals("null")) {
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_PHONE);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, phone);
@@ -421,6 +422,7 @@ public class AdminServiceImpl implements IAdminService {
 				pst.executeUpdate();
 			}
 			if (!name.equals("null")) {
+			
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROFILE_NAME);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, name);
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
@@ -432,7 +434,8 @@ public class AdminServiceImpl implements IAdminService {
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
 				pst.executeUpdate();
 			}
-			if(!imagePathArrayList.get(0).equals("null")) {
+			if(imagePathArrayList.size() > 0) {
+				System.out.println(parts);
 				pst = con.prepareStatement(CommonConstants.QUERY_ID_GET_ADMIN_UPDATE_PROPIC);
 				pst.setString(CommonConstants.COLUMN_INDEX_ONE, imagePathArrayList.get(0));
 				pst.setString(CommonConstants.COLUMN_INDEX_TWO, Email);
