@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
@@ -54,7 +55,9 @@ public class AddReviewServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 
-		String email = "regularpizza17@gmail.com";
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+		//String email = "regularpizza17@gmail.com";
 		String itemID = request.getParameter("itemID");
 		String oID = request.getParameter("oID");
 		//String itemID = "i100";
