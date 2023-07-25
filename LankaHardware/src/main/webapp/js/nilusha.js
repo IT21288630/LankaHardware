@@ -9,10 +9,12 @@ function callCheckoutServlet() {
 	var phone = document.getElementById('phone').value
 	var email = document.getElementById('email').value
 	var pcode = document.getElementById('pcode').value
+	
+	
 
 	$.post("http://localhost:8080/LankaHardware/CheckoutServlet", { fname: fname, lname: lname, address: address, phone: phone, email: email, pcode: pcode }, function(response) {
 
-		//window.location.href = "CompletedOrder.jsp";
+		window.location.href = "http://localhost:8080/LankaHardware/Completedorder.jsp";
 	})
 }
 

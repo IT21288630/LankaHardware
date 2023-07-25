@@ -316,7 +316,7 @@
 	    </div>
 	</div>
 	<!-- Search End -->
-
+<div class="alert alert-success added_msg" role="alert" id="added_msg"></div>
 	<!--Search Js Plugins -->
 	<script src="ashion-master/js/jquery-3.3.1.min.js"></script>
 	<script src="ashion-master/js/main.js"></script>

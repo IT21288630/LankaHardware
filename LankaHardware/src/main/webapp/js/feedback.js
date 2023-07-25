@@ -95,7 +95,7 @@ function callAddFeedbackServlet(){
 	$.post(endpoint, {subject : subject,feedback : feedback }, function(response) {
 		
 		console.log(response)
-		
+		var added_msg = document.getElementById('added_msg')
 		added_msg.innerHTML = response
 		    added_msg.classList.add('active')
 		    setTimeout(function() {

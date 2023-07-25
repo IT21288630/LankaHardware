@@ -59,7 +59,7 @@ public class CheckoutServiceImpl implements ICheckoutService {
 			pst.setString(4, orderreal.getAddress());
 			pst.setDouble(5, orderreal.getTotal());
 			pst.setString(6, orderreal.getEmail());
-			pst.setString(7, "Processing");
+			pst.setString(7, "Completed");
 			pst.setString(8, "COD");
 			pst.executeUpdate();
 			

@@ -1,9 +1,8 @@
 <%@page import="model.*"%>
 <%@page import="service.*"%>
 <%@page import="java.util.ArrayList"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 
@@ -22,12 +21,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Lanka Hardware</title>
+    <title>Order Management</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,25 +37,60 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="Admin/assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="css/tick.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="Admin/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="Admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="Admin/assets/css/demo.css" />
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
+    <style>
+        .cutoff-text{
+            display: block;
+            width: 150px;
+            overflow: hidden;
+            margin: 0px;
+            position: relative;
+        }
 
+        .cutoff-text::before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            content: '';
+            background: linear-gradient(to right, transparent, #ffffff);
+        }
+
+		.icon-box {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  width: 80px;
+		  height: 80px;
+		  margin: 0 auto;
+		  border-radius: 50%;
+		  border: 3px solid #f15e5e;
+		}
+		
+		.icon-box i {
+		  font-style: initial;
+		  color: #f15e5e;
+		  font-size: 46px;
+		  display: inline-block;
+		}
+    </style>
     <!-- Helpers -->
-    <script src="Admin/assets/vendor/js/helpers.js"></script>
+    <script src="../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="Admin/assets/js/config.js"></script>
+    <script src="../assets/js/config.js"></script>
   </head>
 
   <body>
@@ -67,28 +101,28 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-			<a href="index.html" class="app-brand-link">
+          <a href="index.html" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">LH</span>
             </a>
             
             <div style="display: flex; align-items: end;">
             	<span class="demo menu-text fw-bolder ms-2">Admin Panel</span>
             </div>
-            
+
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
           </div>
 
           <div class="menu-inner-shadow"></div>
-          
+
           <ul class="menu-inner py-1">
           	<!-- Charts -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
          
             <!-- charts -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="supplierManagerCharts.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Charts </div>
               </a>
@@ -99,17 +133,10 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
             <!-- Forms -->
             <!-- Tables -->
-            <li class="menu-item active" id="">
-              <a href="<%=request.getContextPath()%>/OManagerServlet" class="menu-link">
+            <li class="menu-item active" id="new">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">View Orders</div>
-              </a>
-            </li>
-            
-            <li class="menu-item " id="">
-              <a href="<%=request.getContextPath()%>/ReturnServlet" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Return & Refund</div>
+                <div data-i18n="Tables">View Suppliers</div>
               </a>
             </li>
           
@@ -137,9 +164,9 @@
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
-                  	oninput = "buildSearchLists()"
-                  	id="searchemp"
                     type="text"
+                    id = "searchsup"
+                    oninput = "buildSuplierSearchLists()"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
                     aria-label="Search..."
@@ -152,13 +179,13 @@
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
                   <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
+                   
+                
+                    
                     data-size="large"
                     data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
+                    
+                    ></a
                   >
                 </li>
 
@@ -213,7 +240,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="http://localhost:8080/LankaHardware/Login.jsp">
+                      <a class="dropdown-item" href="auth-login-basic.html">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -229,9 +256,8 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          <h5 class="card-header">
-					Order details</h5>
-        
+          <h5 class="card-header">Suppliers</h5>
+            <!-- Content -->
             <!-- Content -->
             
             <div class="layout-demo-wrapper">
@@ -247,16 +273,55 @@
                         <th>Item ID</th>
                         <th>name</th>
                       	<th>Order Date</th>
-                      	<th>total</th>
-                      	<th>email</th>
+                      	
+                      	<th>phone</th>
                       	<th>Delivery Status</th>
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;Action</th>
                       
                       </tr>
+                      <tr>
+                      
+                      <td>O300102</td>
+                      <td>Kasun</td>
+                      <td>2023-05-19</td>
+                      <td>+94768515777</td>
+                      <td>Completed</td>
+                      <td><button> Edit </button><button> Delete </button></td>
+                      </tr>
+                      
+                      <tr>
+                      
+                      <td>O300103</td>
+                      <td>Kasun</td>
+                      <td>2023-05-19</td>
+                      <td>+94768515777</td>
+                     <td>Completed</td>
+                       <td><button> Edit </button><button> Delete </button></td>
+                      </tr>
+                      
+                      <tr>
+                      
+                      <td>O300104</td>
+                      <td>Kasun</td>
+                      <td>2023-05-19</td>
+                      <td>+94768515777</td>
+                      <td>Completed</td>
+                       <td><button> Edit </button><button> Delete </button></td>
+                      </tr>
+                      
+                      <tr>
+                      
+                      <td>O300105</td>
+                      <td>Kasun</td>
+                      <td>2023-05-19</td>
+                      <td>+94768515777</td>
+                      <td>Completed</td>
+                       <td><button> Edit </button><button> Delete </button></td>
+                      </tr>
                     </thead>
                     <tbody >
                     
-                    <c:forEach var="user" items="${listUser}">
+                    <!-- <c:forEach var="user" items="${listUser}">
 
 						<tr>
 							<td><c:out value="${user.itemID}" /></td>
@@ -274,7 +339,7 @@
 						</tr>
 						<tr>
 		                          
-					</c:forEach>
+					</c:forEach> -->
 					
                     	
                     	
@@ -287,11 +352,7 @@
               <!--/ Responsive Table -->
               
             </div>
-            
-            
-            
-           
-           
+
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- Layout Demo -->
               
@@ -303,7 +364,6 @@
               <!--/ Layout Demo -->
             </div>
             <!-- / Content -->
-            
 
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
@@ -314,24 +374,24 @@
                     document.write(new Date().getFullYear());
                   </script>
                   ,  Lanka Hardware 
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder"></a>
                 </div>
                 <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank"></a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4"></a>
 
                   <a
                     href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
                     target="_blank"
                     class="footer-link me-4"
-                    >Documentation</a
+                    ></a
                   >
 
                   <a
                     href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
                     target="_blank"
                     class="footer-link me-4"
-                    >Support</a
+                    ></a
                   >
                 </div>
               </div>
@@ -350,58 +410,177 @@
     </div>
     <!-- / Layout wrapper -->
 
+    <div class="buy-now">
+      <a
+        href="#"
+        onclick="return false;"
+        class="btn btn-danger btn-buy-now"
+        data-bs-toggle="modal" data-bs-target="#AddSupplierModal" 
+        >Add Supplier</a
+      >
+    </div>
     
     
+    <div class="modal fade" id="AddSupplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="AddSupplierModalHeader">
+              <h5 class="modal-title" id="modalCenterTitle">Add Supplier</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="AddSupplierModalBody">
+              <div>
+              	 <div class="button-wrapper">
+                
+
+                          <p class="text-muted mb-0"></p>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body">
+                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                         
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Name</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="email"
+                              name="email"
+                             
+                              placeholder="123@gmail.com"
+                            />
+                          </div>
+                 
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">LK (+94)</span>
+                              <input
+                                type="text"
+                                id="phoneNum"
+                                name="phoneNum"
+                                class="form-control"
+                                
+                              />
+                            </div>
+                          </div>
+              
+                          <div class="mb-3 col-md-6">
+                            <label for="debit" class="form-label">Debit Or Credit</label>
+                            <select id="supplier_type" name = "debit" class="select2 form-select">
+                              <option value="">Select Type</option>
+                              <option value="Debit">Debit</option>
+                              <option value="Credit">Credit</option>
+                            
+                            </select>
+                          </div>
+                          
+                           <div class="mb-3 col-md-6">
+                   			<label class="form-label" for="description">Supplier Description</label>
+                			<textarea name="description" id="description" cols="30" rows="7" class="form-control" placeholder="Description"></textarea>
+              			  </div>
+                        </div>
+                        <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2" id = "save" onclick ="callAddSupplierServlet()">Add Supplier</button>
+
+                          <button type="reset" class="btn btn-outline-secondary" id ="clear" onclick = "clearemployee()">Cancel</button>
+
+
+                        </div>
+                      </form>
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="AddSupplierFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" onclick ="callAddSupplierServlet()">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+       <!-- edit modal -->
+      <div class="modal fade" id="EditSupplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="editSupplierModalHeader">
+              
+            </div>
+            <div class="modal-body" id="editSupplierModalBody">
+              
+                    </div>
+                    <hr class="my-0" />
+                    
+                    <div class="card-body" id="card-body-edit">
+                      
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="editSupplierModalFooter">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+       
    
+<!-- Modal -->
+      <div class="modal fade" id="deleteSupplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteSupplierModalHeader">
+            </div>
+            <div class="modal-body" id="deleteSupplierModalBody">
+            </div>
+            <div class="modal-footer" style="justify-content: center;" id="deleteSupplierModalFooter">
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="Admin/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="Admin/assets/vendor/libs/popper/popper.js"></script>
-    <script src="Admin/assets/vendor/js/bootstrap.js"></script>
-    <script src="Admin/js/CallServlet.js"></script>
-    <script src="Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../js/CallServlet.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="Admin/assets/vendor/js/menu.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="Admin/assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
-    <div class="popup" id="popup">
-                   <img src="images/tick.png">
-                   <br>
-                   <h88>Deleted</h88>
-                   <p>your Order has been successfully Deleted</p>
-                   <button type="button" onclick="closePopup()">OK</button>
-                   
-                                    </div>   </div>
-                                    
-                                    <script>
-                                    
-                                    let popup = document.getElementById("popup");
-                                    
-                                    function openPopup(){
-                                    	popup.classList.add("open-popup");
-                                    }
-                                    function closePopup(){
-                                    	popup.classList.remove("open-popup");
-                                    	
-                                    }
-                                    </script>
-    
+     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </body>
   <script>
 	
   $(document).ready(function () {
-	  callGetAllCustomersServlet()
+	  callGetAllSuppliersServlet()
 	});
 
 </script>

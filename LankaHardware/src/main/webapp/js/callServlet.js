@@ -156,12 +156,20 @@ function callAddCustomerServlet() {
 
 	var email = document.getElementById('email').value
 	var Password = document.getElementById('Password').value
-	var con_Password = document.getElementById('con_Password').value
+	var con_Password = document.getElementById('Co_Password').value
 	var phone = document.getElementById('phone').value
 	var name = document.getElementById('name').value
 	var address = document.getElementById('address').value
 
-
+    if(!email.includes("@gmail")){
+		console.log("Invalid email")
+		return
+	}
+	
+	if(phone.length != 9){
+		return
+	}
+	
 	if (con_Password != Password) {
 		loginError.innerHTML = "Password and Confirm password should match"
 		loginError.style = "display: block;"
@@ -341,7 +349,7 @@ function callLogOutServlet() {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 			// Redirect the user to the login page after successful logout
-			window.location.href = "Login.jsp";
+			window.location.href = "http://localhost:8080/LankaHardware/Login.jsp";
 		}
 	};
 

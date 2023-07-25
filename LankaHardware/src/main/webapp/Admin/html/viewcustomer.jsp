@@ -123,13 +123,7 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Charts</span></li>
          
             <!-- charts -->
-            <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Charts </div>
-              </a>
-            </li>
-          
+            
           
             <!-- Forms & Tables -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Tables</span></li>
@@ -141,18 +135,13 @@
                 <div data-i18n="Tables">View Customer</div>
               </a>
             </li>
-             <li class="menu-item" id="">
+             <li class="menu-item" id="ViewAdmin.jsp">
               <a href="ViewAdmin.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">View Admin</div>
               </a>
             </li>
-            <li class="menu-item" id="">
-              <a href="AttendanceView.jsp" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Attendance</div>
-              </a>
-            </li>
+          
           
           </ul>
         </aside>
@@ -254,7 +243,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="index.jsp">
+                      <a class="dropdown-item" href="http://localhost:8080/LankaHardware/Login.jsp">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>

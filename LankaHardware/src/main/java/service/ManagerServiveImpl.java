@@ -15,7 +15,7 @@ public class ManagerServiveImpl {
 
 	private String jdbcURL = "jdbc:mysql://localhost:3306/lankahardware?useSSL=false";
 	private String jdbcUsername = "root";
-	private String jdbcPassword = "leomord123";
+	private String jdbcPassword = "root";
 
 	private static final String INSERT_USERS_SQL = "INSERT INTO order_item" + "  (orderID, itemID, pname, oDate, dDate, sPrice, tPrice, email, orderstatus) VALUES "
 			+ " (?, ?, ?, ?, ?, ?, ?, ?, ?);";

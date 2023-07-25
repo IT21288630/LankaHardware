@@ -174,8 +174,8 @@
                         <span class="card--icon icon"><i class="ri-user-line"></i></i></span>
                         <span>Customers</span>
                     </div>
-                    <h3 class="card--value">$32,576.34 <i class="ri-arrow-up-circle-fill up"></i></h3>
-                    <h5 class="more">4,234 more than usual</h5>
+                    <h3 class="card--value">5 <i class="ri-arrow-up-circle-fill up"></i></h3>
+                    <h5 class="more">2 more than usual</h5>
                     <div class="chart">
                         <canvas id="sales"></canvas>
                     </div>
@@ -220,7 +220,7 @@
             </div>
             <div class="target-vs-sales--container">
                 <div class="section--title">
-                    <h3 class="title">Sales difference</h3>
+                    <h3 class="title">Stock difference</h3>
                     <div class="sales--value">
                         <div class="target">
                             <i class="ri-checkbox-blank-circle-fill circle"></i>

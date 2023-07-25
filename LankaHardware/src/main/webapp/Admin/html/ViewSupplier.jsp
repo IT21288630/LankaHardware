@@ -389,7 +389,7 @@
                             <label for="email" class="form-label">E-mail</label>
                             <input
                               class="form-control"
-                              type="text"
+                              type="email"
                               id="email"
                               name="email"
                              

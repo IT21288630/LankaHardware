@@ -281,7 +281,7 @@
 									<li>
 										<div class="dropdown-divider"></div>
 									</li>
-									<li><a class="dropdown-item" href="auth-login-basic.html">
+									<li><a class="dropdown-item" href="http://localhost:8080/LankaHardware/Login.jsp">
 											<i class="bx bx-power-off me-2"></i> <span
 											class="align-middle">Log Out</span>
 									</a></li>

@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
+    
+    <link rel="stylesheet" href="css/tick.css">
 
     <link rel="stylesheet" href="css/aos.css">
 
@@ -138,7 +140,7 @@
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="emailaddress">Email Address</label>
-	                  <input type="text" class="form-control" placeholder="" id="email">
+	                  <input type="email" class="form-control" placeholder="" id="email">
 	                </div>
                 </div>
                 <div class="w-100"></div>
@@ -313,7 +315,7 @@
 					</div>
 				</div>
 			</section>
-			<p class="text-center"><a href="cart.html" class="btn btn-primary py-3 px-4"
+			<p class="text-center"><a href="cart.html" onclick="openPopup()" class="btn btn-primary py-3 px-4"
 					style="width: 100%; font-size: 1.25rem;">Proceed to Cart</a></p>
 		</div>
 	</div>
@@ -377,6 +379,19 @@
 		    callCartServlet(false)
 		});
 	</script>
+	
+	<script>
+                                    
+                                    let popup = document.getElementById("popup");
+                                    
+                                    function openPopup(){
+                                    	popup.classList.add("open-popup");
+                                    }
+                                    function closePopup(){
+                                    	popup.classList.remove("open-popup");
+                                    	
+                                    }
+                                    </script>
     
   </body>
 </html>

@@ -91,7 +91,7 @@ function createAnaliticsforQuantity(Qarray){
 	var fragment = len/divide;
 	console.log("after /7: ", fragment)
 	
-	var round = Math.trunc(fragment)
+	var round = Math.round(fragment)
 	console.log("round: ", round)
 	
 	
@@ -170,7 +170,7 @@ const stockQbar = document.getElementById('tarsale').getContext('2d');
 const myChart = new Chart(stockQbar,{
 	type:'bar',
 	data:{
-		labels: ['1','2','3','4','5','6','7'],
+		labels: ['mon','tue','wed','thu','fri','sat','sun'],
 		datasets: [{
 			label: '# Stock Quantity',
 			data: [st0, st1, st2,st3,st4,st5,st6],
